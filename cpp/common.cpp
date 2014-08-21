@@ -15,7 +15,7 @@
 
 using namespace std;
 
-/* PRIVATE ********************************************************************/
+/* STATIC *********************************************************************/
 
 /* Currently computed terms of the Fibonacci sequence (in sorted order). */
 static vector<unsigned long long> fibonacci_sequence (2, 1U);
@@ -106,14 +106,13 @@ static void computePrimesUpTo(unsigned long long p) {
         if (sieve[i]) {
             rho = i + prime_max + 1;
             prime_sequence.push_back(rho);
-            for (unsigned long long j = rho * rho - prime_max - 1; j < sieve_size; j += rho) {
+            for (unsigned long long j = rho * rho - prime_max - 1; j < sieve_size; j += rho)
                 sieve[j] = false;
-            }
         }
     }
 }
 
-/* PUBLIC *********************************************************************/
+/* COMMON *********************************************************************/
 
 namespace common {
     /*
@@ -130,6 +129,23 @@ namespace common {
         return fibonacci_sequence[n];
     }
 
+    /* Returns the first n Fibonacci numbers. */
+    vector<unsigned long long> fibonacciNums(unsigned int n) {
+        computeFibonacci(n);
+        vector<unsigned long long> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
+        return f_list;
+    }
+
+    /* Returns the Fibonacci numbers up to f. */
+    vector<unsigned long long> fibonacciNumsUpTo(unsigned long long f) {
+        computeFibonacciUpTo(f);
+        unsigned int i = 0U;
+        while (fibonacci_sequence[i] <= f)
+            i++;
+        vector<unsigned long long> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
+        return f_list;
+    }
+
     /* Returns the greatest common divisor of m and n. */
     int gcd(int m, int n) {
         // find gcd using Euler's method
@@ -139,7 +155,6 @@ namespace common {
             n = m % n;
             m = temp;
         }
-
         return m;
     }
 
@@ -173,5 +188,22 @@ namespace common {
     unsigned long long prime(unsigned int n) {
         computePrimes(n);
         return prime_sequence[n];
+    }
+
+    /* Returns the first n prime numbers. */
+    vector<unsigned long long> primes(unsigned int n) {
+        computePrimes(n);
+        vector<unsigned long long> p_list (prime_sequence.begin(), prime_sequence.begin() + n);
+        return p_list;
+    }
+
+    /* Returns the prime numbers up to p. */
+    vector<unsigned long long> primesUpTo(unsigned long long p) {
+        computePrimesUpTo(p);
+        unsigned int i = 0U;
+        while (prime_sequence[i] <= p)
+            i++;
+        vector<unsigned long long> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
+        return p_list;
     }
 }
