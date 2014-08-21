@@ -33,11 +33,17 @@ namespace common {
     /* Returns the greatest common divisor of m and n. */
     int gcd(int m, int n);
 
+    /* Determines if the natural number n is a palindrome. */
+    bool isPalindrome(unsigned long long n);
+
     /* Determines if the natural number n is prime. */
     bool isPrime(unsigned int n);
 
     /* Returns the least common multiple of m and n. */
     int lcm(int m, int n);
+
+    /* Returns the value of m raised to the n power. */
+    long long power(long m, unsigned int n);
 
     /* Returns the nth prime number. */
     unsigned long long prime(unsigned int n);

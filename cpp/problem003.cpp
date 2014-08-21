@@ -25,17 +25,21 @@ static const long N = 600851475143L; // default: 600851475143L
 
 /* FUNCTIONS ******************************************************************/
 
-
+// None
 
 /* SOLUTION *******************************************************************/
 
 int main () {
+    // generate potential prime factors of N
     vector<unsigned long long> primes = common::primesUpTo(sqrt(N));
+
+    // search for largest prime factor <= sqrt(N)
     unsigned int i;
     for (i = primes.size() - 1; i > 0; i--) {
         if (N % primes[i] == 0)
             break;
     }
+
     cout << primes[i] << endl;
     return 0;
 }

@@ -8,6 +8,7 @@
  */
 
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 #include <math.h>
@@ -159,6 +160,25 @@ namespace common {
         return m;
     }
 
+    /* Determines if the natural number n is a palindrome. */
+    bool isPalindrome(unsigned long long n) {
+        // convert n to a string
+        ostringstream n_stringstream;
+        n_stringstream << n;
+        string n_string = n_stringstream.str();
+
+        // compare chars iteratively from beginning and end of string
+        int i = 0;
+        int j = n_string.length() - 1;
+        while (i < j) {
+            if (n_string[i] != n_string[j])
+                return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
     /* Determines if the natural number n is prime. */
     bool isPrime(unsigned int n) {
         // base cases for small n
@@ -183,6 +203,22 @@ namespace common {
     /* Returns the least common multiple of m and n. */
     int lcm(int m, int n) {
         return m * n / gcd(m, n);
+    }
+
+    /* Returns the value of m raised to the n power. */
+    long long power(long m, unsigned int n) {
+        // base case: m^0 = 1
+        if (n == 0)
+            return 1;
+
+        // recursively compute half power
+        long long half_pow = power(m, n / 2);
+
+        // compute original power
+        if (n % 2 == 0)
+            return half_pow * half_pow;
+        else
+            return m * half_pow * half_pow;
     }
 
     /* Returns the nth prime number. */

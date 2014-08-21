@@ -32,6 +32,7 @@ static int LIMIT = 4000000; // default: 4000000
 /* SOLUTION *******************************************************************/
 
 int main() {
+    // sum every third (even) Fibonacci number
     int i = -1;
     int f = 0;
     int sum = 0;
@@ -40,6 +41,7 @@ int main() {
         i += 3;
         f = common::fibonacci(i);
     }
+
     cout << sum << endl;
     return 0;
 }
