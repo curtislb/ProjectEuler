@@ -13,6 +13,8 @@
 
 #include <iostream>
 
+#include <math.h>
+
 #include "common.h"
 
 using namespace std;
@@ -28,6 +30,12 @@ static const long N = 600851475143L; // default: 600851475143L
 /* SOLUTION *******************************************************************/
 
 int main () {
-    // TODO ...
+    vector<unsigned long long> primes = common::primesUpTo(sqrt(N));
+    unsigned int i;
+    for (i = primes.size() - 1; i > 0; i--) {
+        if (N % primes[i] == 0)
+            break;
+    }
+    cout << primes[i] << endl;
     return 0;
 }

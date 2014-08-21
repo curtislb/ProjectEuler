@@ -7,6 +7,7 @@
  * Created: Aug 18, 2014
  */
 
+#include <iostream>
 #include <vector>
 
 #include <math.h>
@@ -201,7 +202,7 @@ namespace common {
     vector<unsigned long long> primesUpTo(unsigned long long p) {
         computePrimesUpTo(p);
         unsigned int i = 0U;
-        while (prime_sequence[i] <= p)
+        while (i < prime_sequence.size() && prime_sequence[i] <= p)
             i++;
         vector<unsigned long long> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
         return p_list;
