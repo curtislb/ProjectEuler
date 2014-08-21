@@ -17,15 +17,6 @@ namespace common {
      */
     long arithSeries(long a, long n, long d);
 
-    /* Precomputes and stores the first n Fibonacci numbers. */
-    void computeFibonacci(unsigned int n);
-
-    /* Precomputes and stores the Fibonacci numbers up to at least f. */
-    void computeFibonacciUpTo(unsigned long long f);
-
-    /* Precomputes and stores the prime numbers up to p. */
-    void computePrimesUpTo(unsigned long long p);
-
     /* Returns the n'th Fibonacci number, with F(0) = F(1) = 1. */
     unsigned long long fibonacci(unsigned int n);
 

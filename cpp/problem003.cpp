@@ -28,10 +28,6 @@ static const long N = 600851475143L; // default: 600851475143L
 /* SOLUTION *******************************************************************/
 
 int main () {
-    common::computePrimesUpTo(60);
-    common::computePrimesUpTo(120);
-    for (int i = 0; i < 30; i++) {
-        cout << common::prime(i) << endl;
-    }
+    // TODO ...
     return 0;
 }
