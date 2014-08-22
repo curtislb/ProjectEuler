@@ -30,8 +30,8 @@ static const int LIMIT = 4000000; // default: 4000000
 int main() {
     // sum every third (even) Fibonacci number
     int i = -1;
-    int f = 0;
-    int sum = 0;
+    common::fib_t f = 0;
+    common::fib_t sum = 0;
     while (f <= LIMIT) {
         sum += f;
         i += 3;

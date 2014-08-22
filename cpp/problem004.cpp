@@ -26,14 +26,14 @@ static const unsigned int D = 3; // default: 3
 
 int main() {
     // calculate max and min D-digit numbers
-    const long long MIN_FACTOR = common::power(10, D - 1);
-    const long long MAX_FACTOR = common::power(10, D) - 1;
+    const long long kMinFactor = common::power(10, D - 1);
+    const long long kMaxFactor = common::power(10, D) - 1;
 
     // multiply D-digit products to find largest palindrome
-    long long best_answer = -1;
     long long product;
-    for (long long i = MAX_FACTOR; i >= MIN_FACTOR; i--) {
-        for (long long j = i; j >= MIN_FACTOR; j--) {
+    long long best_answer = -1;
+    for (long long i = kMaxFactor; i >= kMinFactor; i--) {
+        for (long long j = i; j >= kMinFactor; j--) {
             // any products larger than current best for this i?
             product = i * j;
             if (product <= best_answer)

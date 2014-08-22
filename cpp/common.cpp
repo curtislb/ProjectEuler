@@ -17,111 +17,107 @@
 
 using namespace std;
 
-/* TYPEDEFS ******************************************************************/
-
-typedef unsigned long long fibonacci_t;
-typedef unsigned long long prime_t;
+namespace common {
 
 /* STATIC ********************************************************************/
 
-/* Currently computed terms of the Fibonacci sequence (in sorted order). */
-static vector<fibonacci_t> fibonacci_sequence (2, 1);
+    /* Currently computed terms of the Fibonacci sequence (in sorted order). */
+    static vector<fib_t> fibonacci_sequence (2, 1);
 
-/* Currently computed prime number terms (in sorted order). */
-static vector<prime_t> prime_sequence (1, 2);
+    /* Currently computed prime number terms (in sorted order). */
+    static vector<prime_t> prime_sequence (1, 2);
 
-/* Precomputes and stores the first n Fibonacci numbers. */
-static void computeFibonacci(unsigned int n) {
-    const unsigned int kFibCount = fibonacci_sequence.size();
+    /* Precomputes and stores the first n Fibonacci numbers. */
+    static void computeFibonacci(unsigned int n) {
+        const unsigned int kFibCount = fibonacci_sequence.size();
 
-    // have the first n numbers already been computed?
-    if (n < kFibCount)
-        return;
+        // have the first n numbers already been computed?
+        if (n < kFibCount)
+            return;
 
-    // make room for numbers to be added to sequence
-    fibonacci_sequence.reserve(n - kFibCount + 1);
+        // make room for numbers to be added to sequence
+        fibonacci_sequence.reserve(n - kFibCount + 1);
 
-    // compute numbers iteratively from existing sequence
-    fibonacci_t f0 = fibonacci_sequence[kFibCount - 2];
-    fibonacci_t f1 = fibonacci_sequence[kFibCount - 1];
-    fibonacci_t temp;
-    for (unsigned int count = kFibCount; count <= n; count++) {
-        temp = f1;
-        f1 += f0;
-        f0 = temp;
-        fibonacci_sequence.push_back(f1);
-    }
-}
-
-/* Precomputes and stores the Fibonacci numbers up to at least f. */
-static void computeFibonacciUpTo(fibonacci_t f) {
-    const unsigned int kFibCount = fibonacci_sequence.size();
-
-    // have the numbers up to f already been computed?
-    if (fibonacci_sequence[kFibCount - 1] >= f)
-        return;
-
-    // compute numbers iteratively from existing sequence
-    fibonacci_t f0 = fibonacci_sequence[kFibCount - 2];
-    fibonacci_t f1 = fibonacci_sequence[kFibCount - 1];
-    fibonacci_t temp;
-    while (f1 < f) {
-        temp = f1;
-        f1 += f0;
-        f0 = temp;
-        fibonacci_sequence.push_back(f1);
-    }
-}
-
-/* Precomputes and stores the first n prime numbers. */
-static void computePrimes(unsigned int n) {
-    unsigned int kPrimeCount = prime_sequence.size();
-
-    // have the first n primes already been computed?
-    if (n < kPrimeCount)
-        return;
-
-    // TODO ...
-}
-
-/* Precomputes and stores the prime numbers up to p. */
-static void computePrimesUpTo(prime_t p) {
-    const unsigned int kPrimeCount = prime_sequence.size();
-
-    // have the numbers up to p already been computed?
-    prime_t prime_max = prime_sequence[kPrimeCount - 1];
-    if (prime_max >= p)
-        return;
-
-    // prepare sieve of Eratosthenes for numbers prime_max+1 to p
-    const unsigned int kSieveSize = p - prime_max;
-    vector<bool> sieve (kSieveSize, true);
-
-    // sift out composite numbers using previously computed primes
-    prime_t rho;
-    for (unsigned int i = 0; i < kPrimeCount; i++) {
-        rho = prime_sequence[i];
-        for (prime_t j = rho * rho; j < kSieveSize + prime_max + 1; j += rho) {
-            if (j < prime_max + 1)
-                continue;
-            sieve[j - prime_max - 1] = false;
+        // compute numbers iteratively from existing sequence
+        fib_t f0 = fibonacci_sequence[kFibCount - 2];
+        fib_t f1 = fibonacci_sequence[kFibCount - 1];
+        fib_t temp;
+        for (unsigned int count = kFibCount; count <= n; count++) {
+            temp = f1;
+            f1 += f0;
+            f0 = temp;
+            fibonacci_sequence.push_back(f1);
         }
     }
 
-    // sift out remaining composite numbers with newly found primes
-    for (unsigned int i = 0; i < kSieveSize; i++) {
-        if (sieve[i]) {
-            rho = i + prime_max + 1;
-            prime_sequence.push_back(rho);
-            for (prime_t j = rho * rho - prime_max - 1; j < kSieveSize; j += rho)
-                sieve[j] = false;
+    /* Precomputes and stores the Fibonacci numbers up to at least f. */
+    static void computeFibonacciUpTo(fib_t f) {
+        const unsigned int kFibCount = fibonacci_sequence.size();
+
+        // have the numbers up to f already been computed?
+        if (fibonacci_sequence[kFibCount - 1] >= f)
+            return;
+
+        // compute numbers iteratively from existing sequence
+        fib_t f0 = fibonacci_sequence[kFibCount - 2];
+        fib_t f1 = fibonacci_sequence[kFibCount - 1];
+        fib_t temp;
+        while (f1 < f) {
+            temp = f1;
+            f1 += f0;
+            f0 = temp;
+            fibonacci_sequence.push_back(f1);
         }
     }
-}
 
-/* COMMON ********************************************************************/
+    /* Precomputes and stores the first n prime numbers. */
+    static void computePrimes(unsigned int n) {
+        unsigned int kPrimeCount = prime_sequence.size();
 
-namespace common {
+        // have the first n primes already been computed?
+        if (n < kPrimeCount)
+            return;
+
+        // TODO ...
+    }
+
+    /* Precomputes and stores the prime numbers up to p. */
+    static void computePrimesUpTo(prime_t p) {
+        const unsigned int kPrimeCount = prime_sequence.size();
+
+        // have the numbers up to p already been computed?
+        prime_t prime_max = prime_sequence[kPrimeCount - 1];
+        if (prime_max >= p)
+            return;
+
+        // prepare sieve of Eratosthenes for numbers prime_max+1 to p
+        const unsigned int kSieveSize = p - prime_max;
+        vector<bool> sieve (kSieveSize, true);
+
+        // sift out composite numbers using previously computed primes
+        prime_t rho;
+        for (unsigned int i = 0; i < kPrimeCount; i++) {
+            rho = prime_sequence[i];
+            for (prime_t j = rho * rho; j < kSieveSize + prime_max + 1; j += rho) {
+                if (j < prime_max + 1)
+                    continue;
+                sieve[j - prime_max - 1] = false;
+            }
+        }
+
+        // sift out remaining composite numbers with newly found primes
+        for (unsigned int i = 0; i < kSieveSize; i++) {
+            if (sieve[i]) {
+                rho = i + prime_max + 1;
+                prime_sequence.push_back(rho);
+                for (prime_t j = rho * rho - prime_max - 1; j < kSieveSize; j += rho)
+                    sieve[j] = false;
+            }
+        }
+    }
+
+/* NON-STATIC ****************************************************************/
+
     /*
      * Returns the sum of the arithmetic sequence with first term a, number of
      * terms n, and difference between terms d.
@@ -131,21 +127,21 @@ namespace common {
     }
 
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
-    fibonacci_t fibonacci(unsigned int n) {
+    fib_t fibonacci(unsigned int n) {
         computeFibonacci(n);
         return fibonacci_sequence[n];
     }
 
     /* Returns the first n Fibonacci numbers. */
-    vector<fibonacci_t> fibonacciNums(unsigned int n) {
+    vector<fib_t> fibonacciNums(unsigned int n) {
         computeFibonacci(n);
 
-        vector<fibonacci_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
+        vector<fib_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
         return f_list;
     }
 
     /* Returns the Fibonacci numbers up to f. */
-    vector<unsigned long long> fibonacciNumsUpTo(fibonacci_t f) {
+    vector<fib_t> fibonacciNumsUpTo(fib_t f) {
         computeFibonacciUpTo(f);
 
         unsigned int i = 0;
@@ -153,7 +149,7 @@ namespace common {
         while (i < kFibCount && fibonacci_sequence[i] <= f)
             i++;
 
-        vector<fibonacci_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
+        vector<fib_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
         return f_list;
     }
 
@@ -232,13 +228,13 @@ namespace common {
     }
 
     /* Returns the nth prime number. */
-    unsigned long long prime(unsigned int n) {
+    prime_t prime(unsigned int n) {
         computePrimes(n);
         return prime_sequence[n];
     }
 
     /* Returns the first n prime numbers. */
-    vector<unsigned long long> primes(unsigned int n) {
+    vector<prime_t> primes(unsigned int n) {
         computePrimes(n);
 
         vector<prime_t> p_list (prime_sequence.begin(), prime_sequence.begin() + n);
@@ -246,7 +242,7 @@ namespace common {
     }
 
     /* Returns the prime numbers up to p. */
-    vector<unsigned long long> primesUpTo(prime_t p) {
+    vector<prime_t> primesUpTo(prime_t p) {
         computePrimesUpTo(p);
 
         unsigned int i = 0;

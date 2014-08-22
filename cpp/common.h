@@ -15,6 +15,14 @@
 using namespace std;
 
 namespace common {
+
+/* TYPEDEFS ******************************************************************/
+
+    typedef unsigned long long fib_t;
+    typedef unsigned long long prime_t;
+
+/* FUNCTIONS *****************************************************************/
+
     /*
      * Returns the sum of the arithmetic sequence with first term a, number of
      * terms n, and difference between terms d.
@@ -22,13 +30,13 @@ namespace common {
     long arithSeries(long a, long n, long d);
 
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
-    unsigned long long fibonacci(unsigned int n);
+    fib_t fibonacci(unsigned int n);
 
     /* Returns the first n Fibonacci numbers. */
-    vector<unsigned long long> fibonacciNums(unsigned int n);
+    vector<fib_t> fibonacciNums(unsigned int n);
 
     /* Returns the Fibonacci numbers up to f. */
-    vector<unsigned long long> fibonacciNumsUpTo(unsigned long long f);
+    vector<fib_t> fibonacciNumsUpTo(fib_t f);
 
     /* Returns the greatest common divisor of m and n. */
     int gcd(int m, int n);
@@ -46,13 +54,13 @@ namespace common {
     long long power(long m, unsigned int n);
 
     /* Returns the nth prime number. */
-    unsigned long long prime(unsigned int n);
+    prime_t prime(unsigned int n);
 
     /* Returns the first n prime numbers. */
-    vector<unsigned long long> primes(unsigned int n);
+    vector<prime_t> primes(unsigned int n);
 
     /* Returns the prime numbers up to p. */
-    vector<unsigned long long> primesUpTo(unsigned long long p);
+    vector<prime_t> primesUpTo(prime_t p);
 }
 
 #endif /* COMMON_H_ */
