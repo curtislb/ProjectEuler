@@ -18,13 +18,13 @@
 
 using namespace std;
 
-/* PARAMETERS *****************************************************************/
+/* PARAMETERS ****************************************************************/
 
 static const int M = 3; // default: 3
 static const int N = 5; // default: 5
 static const int LIMIT = 1000; // default: 1000
 
-/* SOLUTION *******************************************************************/
+/* SOLUTION ******************************************************************/
 
 /* Returns the sum of natural numbers below LIMIT that are divisible by n. */
 static int sumDivisibleBy(int n) {
@@ -32,7 +32,7 @@ static int sumDivisibleBy(int n) {
 }
 
 int main() {
-    int lcm = common::lcm(M, N);
-    cout << sumDivisibleBy(M) + sumDivisibleBy(N) - sumDivisibleBy(lcm) << endl;
+    const int kLCM = common::lcm(M, N);
+    cout << sumDivisibleBy(M) + sumDivisibleBy(N) - sumDivisibleBy(kLCM) << endl;
     return 0;
 }

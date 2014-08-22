@@ -17,30 +17,35 @@
 
 using namespace std;
 
-/* STATIC *********************************************************************/
+/* TYPEDEFS ******************************************************************/
+
+typedef unsigned long long fibonacci_t;
+typedef unsigned long long prime_t;
+
+/* STATIC ********************************************************************/
 
 /* Currently computed terms of the Fibonacci sequence (in sorted order). */
-static vector<unsigned long long> fibonacci_sequence (2, 1U);
+static vector<fibonacci_t> fibonacci_sequence (2, 1);
 
 /* Currently computed prime number terms (in sorted order). */
-static vector<unsigned long long> prime_sequence (1, 2U);
+static vector<prime_t> prime_sequence (1, 2);
 
 /* Precomputes and stores the first n Fibonacci numbers. */
 static void computeFibonacci(unsigned int n) {
-    unsigned int fib_count = fibonacci_sequence.size();
+    const unsigned int kFibCount = fibonacci_sequence.size();
 
     // have the first n numbers already been computed?
-    if (n < fib_count)
+    if (n < kFibCount)
         return;
 
     // make room for numbers to be added to sequence
-    fibonacci_sequence.reserve(n - fib_count + 1);
+    fibonacci_sequence.reserve(n - kFibCount + 1);
 
     // compute numbers iteratively from existing sequence
-    unsigned long long f0 = fibonacci_sequence[fib_count - 2];
-    unsigned long long f1 = fibonacci_sequence[fib_count - 1];
-    unsigned long long temp;
-    for (unsigned int count = fib_count; count <= n; count++) {
+    fibonacci_t f0 = fibonacci_sequence[kFibCount - 2];
+    fibonacci_t f1 = fibonacci_sequence[kFibCount - 1];
+    fibonacci_t temp;
+    for (unsigned int count = kFibCount; count <= n; count++) {
         temp = f1;
         f1 += f0;
         f0 = temp;
@@ -49,17 +54,17 @@ static void computeFibonacci(unsigned int n) {
 }
 
 /* Precomputes and stores the Fibonacci numbers up to at least f. */
-static void computeFibonacciUpTo(unsigned long long f) {
-    unsigned int fib_count = fibonacci_sequence.size();
+static void computeFibonacciUpTo(fibonacci_t f) {
+    const unsigned int kFibCount = fibonacci_sequence.size();
 
     // have the numbers up to f already been computed?
-    if (fibonacci_sequence[fib_count - 1] >= f)
+    if (fibonacci_sequence[kFibCount - 1] >= f)
         return;
 
     // compute numbers iteratively from existing sequence
-    unsigned long long f0 = fibonacci_sequence[fib_count - 2];
-    unsigned long long f1 = fibonacci_sequence[fib_count - 1];
-    unsigned long long temp;
+    fibonacci_t f0 = fibonacci_sequence[kFibCount - 2];
+    fibonacci_t f1 = fibonacci_sequence[kFibCount - 1];
+    fibonacci_t temp;
     while (f1 < f) {
         temp = f1;
         f1 += f0;
@@ -70,33 +75,33 @@ static void computeFibonacciUpTo(unsigned long long f) {
 
 /* Precomputes and stores the first n prime numbers. */
 static void computePrimes(unsigned int n) {
-    unsigned int prime_count = prime_sequence.size();
+    unsigned int kPrimeCount = prime_sequence.size();
 
     // have the first n primes already been computed?
-    if (n < prime_count)
+    if (n < kPrimeCount)
         return;
 
     // TODO ...
 }
 
 /* Precomputes and stores the prime numbers up to p. */
-static void computePrimesUpTo(unsigned long long p) {
-    unsigned int prime_count = prime_sequence.size();
+static void computePrimesUpTo(prime_t p) {
+    const unsigned int kPrimeCount = prime_sequence.size();
 
     // have the numbers up to p already been computed?
-    unsigned long long prime_max = prime_sequence[prime_count - 1];
+    prime_t prime_max = prime_sequence[kPrimeCount - 1];
     if (prime_max >= p)
         return;
 
-    // prepare sieve of Eratosthenes for numbers (prime_max + 1) to p
-    unsigned int sieve_size = p - prime_max;
-    vector<bool> sieve (sieve_size, true);
+    // prepare sieve of Eratosthenes for numbers prime_max+1 to p
+    const unsigned int kSieveSize = p - prime_max;
+    vector<bool> sieve (kSieveSize, true);
 
     // sift out composite numbers using previously computed primes
-    unsigned long long rho;
-    for (unsigned int i = 0U; i < prime_count; i++) {
+    prime_t rho;
+    for (unsigned int i = 0; i < kPrimeCount; i++) {
         rho = prime_sequence[i];
-        for (unsigned long long j = rho * rho; j < sieve_size + prime_max + 1; j += rho) {
+        for (prime_t j = rho * rho; j < kSieveSize + prime_max + 1; j += rho) {
             if (j < prime_max + 1)
                 continue;
             sieve[j - prime_max - 1] = false;
@@ -104,17 +109,17 @@ static void computePrimesUpTo(unsigned long long p) {
     }
 
     // sift out remaining composite numbers with newly found primes
-    for (unsigned int i = 0U; i < sieve_size; i++) {
+    for (unsigned int i = 0; i < kSieveSize; i++) {
         if (sieve[i]) {
             rho = i + prime_max + 1;
             prime_sequence.push_back(rho);
-            for (unsigned long long j = rho * rho - prime_max - 1; j < sieve_size; j += rho)
+            for (prime_t j = rho * rho - prime_max - 1; j < kSieveSize; j += rho)
                 sieve[j] = false;
         }
     }
 }
 
-/* COMMON *********************************************************************/
+/* COMMON ********************************************************************/
 
 namespace common {
     /*
@@ -126,25 +131,29 @@ namespace common {
     }
 
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
-    unsigned long long fibonacci(unsigned int n) {
+    fibonacci_t fibonacci(unsigned int n) {
         computeFibonacci(n);
         return fibonacci_sequence[n];
     }
 
     /* Returns the first n Fibonacci numbers. */
-    vector<unsigned long long> fibonacciNums(unsigned int n) {
+    vector<fibonacci_t> fibonacciNums(unsigned int n) {
         computeFibonacci(n);
-        vector<unsigned long long> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
+
+        vector<fibonacci_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
         return f_list;
     }
 
     /* Returns the Fibonacci numbers up to f. */
-    vector<unsigned long long> fibonacciNumsUpTo(unsigned long long f) {
+    vector<unsigned long long> fibonacciNumsUpTo(fibonacci_t f) {
         computeFibonacciUpTo(f);
-        unsigned int i = 0U;
-        while (fibonacci_sequence[i] <= f)
+
+        unsigned int i = 0;
+        const unsigned int kFibCount = fibonacci_sequence.size();
+        while (i < kFibCount && fibonacci_sequence[i] <= f)
             i++;
-        vector<unsigned long long> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
+
+        vector<fibonacci_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
         return f_list;
     }
 
@@ -193,7 +202,8 @@ namespace common {
             return false;
 
         // search for subsequent factors in increments of 6
-        for (unsigned int i = 5U; i < (unsigned int)ceil(sqrt((long double)n)); i += 6) {
+        const unsigned int kMaxFactor = ceil(sqrt(n));
+        for (unsigned int i = 5; i < kMaxFactor; i += 6) {
             if (n % i == 0 || n % (i + 2) == 0)
                 return false;
         }
@@ -212,13 +222,13 @@ namespace common {
             return 1;
 
         // recursively compute half power
-        long long half_pow = power(m, n / 2);
+        const long long kHalfPow = power(m, n / 2);
 
         // compute original power
         if (n % 2 == 0)
-            return half_pow * half_pow;
+            return kHalfPow * kHalfPow;
         else
-            return m * half_pow * half_pow;
+            return m * kHalfPow * kHalfPow;
     }
 
     /* Returns the nth prime number. */
@@ -230,17 +240,21 @@ namespace common {
     /* Returns the first n prime numbers. */
     vector<unsigned long long> primes(unsigned int n) {
         computePrimes(n);
-        vector<unsigned long long> p_list (prime_sequence.begin(), prime_sequence.begin() + n);
+
+        vector<prime_t> p_list (prime_sequence.begin(), prime_sequence.begin() + n);
         return p_list;
     }
 
     /* Returns the prime numbers up to p. */
-    vector<unsigned long long> primesUpTo(unsigned long long p) {
+    vector<unsigned long long> primesUpTo(prime_t p) {
         computePrimesUpTo(p);
-        unsigned int i = 0U;
-        while (i < prime_sequence.size() && prime_sequence[i] <= p)
+
+        unsigned int i = 0;
+        const unsigned int kPrimeCount = prime_sequence.size();
+        while (i < kPrimeCount && prime_sequence[i] <= p)
             i++;
-        vector<unsigned long long> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
+
+        vector<prime_t> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
         return p_list;
     }
 }

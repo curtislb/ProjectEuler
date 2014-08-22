@@ -18,16 +18,16 @@
 
 using namespace std;
 
-/* PARAMETERS *****************************************************************/
+/* PARAMETERS ****************************************************************/
 
-unsigned int D = 3; // default: 3
+static const unsigned int D = 3; // default: 3
 
-/* SOLUTION *******************************************************************/
+/* SOLUTION ******************************************************************/
 
 int main() {
     // calculate max and min D-digit numbers
-    long long MIN_FACTOR = common::power(10, D - 1);
-    long long MAX_FACTOR = common::power(10, D) - 1;
+    const long long MIN_FACTOR = common::power(10, D - 1);
+    const long long MAX_FACTOR = common::power(10, D) - 1;
 
     // multiply D-digit products to find largest palindrome
     long long best_answer = -1;
