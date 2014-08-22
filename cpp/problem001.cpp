@@ -24,14 +24,12 @@ static const int M = 3; // default: 3
 static const int N = 5; // default: 5
 static const int LIMIT = 1000; // default: 1000
 
-/* FUNCTIONS ******************************************************************/
+/* SOLUTION *******************************************************************/
 
 /* Returns the sum of natural numbers below LIMIT that are divisible by n. */
 static int sumDivisibleBy(int n) {
     return common::arithSeries(n, (LIMIT - 1) / n, n);
 }
-
-/* SOLUTION *******************************************************************/
 
 int main() {
     int lcm = common::lcm(M, N);

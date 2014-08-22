@@ -23,13 +23,9 @@ using namespace std;
 
 static const long N = 600851475143L; // default: 600851475143L
 
-/* FUNCTIONS ******************************************************************/
-
-// None
-
 /* SOLUTION *******************************************************************/
 
-int main () {
+int main() {
     // generate potential prime factors of N
     vector<unsigned long long> primes = common::primesUpTo(sqrt(N));
 
