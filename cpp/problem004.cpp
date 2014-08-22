@@ -26,8 +26,8 @@ static const unsigned int D = 3; // default: 3
 
 int main() {
     // calculate max and min D-digit numbers
-    const long long kMinFactor = common::power(10, D - 1);
     const long long kMaxFactor = common::power(10, D) - 1;
+    const long long kMinFactor = common::power(10, D - 1);
 
     // multiply D-digit products to find largest palindrome
     long long product;

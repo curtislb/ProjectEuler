@@ -22,10 +22,10 @@ namespace common {
 /* STATIC ********************************************************************/
 
     /* Currently computed terms of the Fibonacci sequence (in sorted order). */
-    static vector<fib_t> fibonacci_sequence (2, 1);
+    static vector<Natural> fibonacci_sequence (2, 1);
 
     /* Currently computed prime number terms (in sorted order). */
-    static vector<prime_t> prime_sequence (1, 2);
+    static vector<Natural> prime_sequence (1, 2);
 
     /* Precomputes and stores the first n Fibonacci numbers. */
     static void computeFibonacci(unsigned int n) {
@@ -39,9 +39,9 @@ namespace common {
         fibonacci_sequence.reserve(n - kFibCount + 1);
 
         // compute numbers iteratively from existing sequence
-        fib_t f0 = fibonacci_sequence[kFibCount - 2];
-        fib_t f1 = fibonacci_sequence[kFibCount - 1];
-        fib_t temp;
+        Natural f0 = fibonacci_sequence[kFibCount - 2];
+        Natural f1 = fibonacci_sequence[kFibCount - 1];
+        Natural temp;
         for (unsigned int count = kFibCount; count <= n; count++) {
             temp = f1;
             f1 += f0;
@@ -50,19 +50,19 @@ namespace common {
         }
     }
 
-    /* Precomputes and stores the Fibonacci numbers up to at least f. */
-    static void computeFibonacciUpTo(fib_t f) {
+    /* Precomputes and stores the Fibonacci numbers up to at least n. */
+    static void computeFibonacciUpTo(Natural n) {
         const unsigned int kFibCount = fibonacci_sequence.size();
 
         // have the numbers up to f already been computed?
-        if (fibonacci_sequence[kFibCount - 1] >= f)
+        if (fibonacci_sequence[kFibCount - 1] >= n)
             return;
 
         // compute numbers iteratively from existing sequence
-        fib_t f0 = fibonacci_sequence[kFibCount - 2];
-        fib_t f1 = fibonacci_sequence[kFibCount - 1];
-        fib_t temp;
-        while (f1 < f) {
+        Natural f0 = fibonacci_sequence[kFibCount - 2];
+        Natural f1 = fibonacci_sequence[kFibCount - 1];
+        Natural temp;
+        while (f1 < n) {
             temp = f1;
             f1 += f0;
             f0 = temp;
@@ -81,24 +81,24 @@ namespace common {
         // TODO ...
     }
 
-    /* Precomputes and stores the prime numbers up to p. */
-    static void computePrimesUpTo(prime_t p) {
+    /* Precomputes and stores the prime numbers up to n. */
+    static void computePrimesUpTo(Natural n) {
         const unsigned int kPrimeCount = prime_sequence.size();
 
         // have the numbers up to p already been computed?
-        prime_t prime_max = prime_sequence[kPrimeCount - 1];
-        if (prime_max >= p)
+        Natural prime_max = prime_sequence[kPrimeCount - 1];
+        if (prime_max >= n)
             return;
 
         // prepare sieve of Eratosthenes for numbers prime_max+1 to p
-        const unsigned int kSieveSize = p - prime_max;
+        const unsigned int kSieveSize = n - prime_max;
         vector<bool> sieve (kSieveSize, true);
 
         // sift out composite numbers using previously computed primes
-        prime_t rho;
+        Natural rho;
         for (unsigned int i = 0; i < kPrimeCount; i++) {
             rho = prime_sequence[i];
-            for (prime_t j = rho * rho; j < kSieveSize + prime_max + 1; j += rho) {
+            for (Natural j = rho * rho; j < kSieveSize + prime_max + 1; j += rho) {
                 if (j < prime_max + 1)
                     continue;
                 sieve[j - prime_max - 1] = false;
@@ -110,7 +110,7 @@ namespace common {
             if (sieve[i]) {
                 rho = i + prime_max + 1;
                 prime_sequence.push_back(rho);
-                for (prime_t j = rho * rho - prime_max - 1; j < kSieveSize; j += rho)
+                for (Natural j = rho * rho - prime_max - 1; j < kSieveSize; j += rho)
                     sieve[j] = false;
             }
         }
@@ -122,39 +122,39 @@ namespace common {
      * Returns the sum of the arithmetic sequence with first term a, number of
      * terms n, and difference between terms d.
      */
-    long arithSeries(long a, long n, long d) {
+    long long arithSeries(long long a, long long n, long long d) {
         return n * (2 * a + (n - 1) * d) / 2;
     }
 
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
-    fib_t fibonacci(unsigned int n) {
+    Natural fibonacci(unsigned int n) {
         computeFibonacci(n);
         return fibonacci_sequence[n];
     }
 
     /* Returns the first n Fibonacci numbers. */
-    vector<fib_t> fibonacciNums(unsigned int n) {
+    vector<Natural> fibonacciNums(unsigned int n) {
         computeFibonacci(n);
 
-        vector<fib_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
+        vector<Natural> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
         return f_list;
     }
 
-    /* Returns the Fibonacci numbers up to f. */
-    vector<fib_t> fibonacciNumsUpTo(fib_t f) {
-        computeFibonacciUpTo(f);
+    /* Returns the Fibonacci numbers up to n. */
+    vector<Natural> fibonacciNumsUpTo(Natural n) {
+        computeFibonacciUpTo(n);
 
         unsigned int i = 0;
         const unsigned int kFibCount = fibonacci_sequence.size();
-        while (i < kFibCount && fibonacci_sequence[i] <= f)
+        while (i < kFibCount && fibonacci_sequence[i] <= n)
             i++;
 
-        vector<fib_t> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
+        vector<Natural> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
         return f_list;
     }
 
     /* Returns the greatest common divisor of m and n. */
-    int gcd(int m, int n) {
+    Natural gcd(Natural m, Natural n) {
         // find gcd using Euler's method
         int temp;
         while (n != 0) {
@@ -166,7 +166,7 @@ namespace common {
     }
 
     /* Determines if the natural number n is a palindrome. */
-    bool isPalindrome(unsigned long long n) {
+    bool isPalindrome(Natural n) {
         // convert n to a string
         ostringstream n_stringstream;
         n_stringstream << n;
@@ -185,7 +185,7 @@ namespace common {
     }
 
     /* Determines if the natural number n is prime. */
-    bool isPrime(unsigned int n) {
+    bool isPrime(Natural n) {
         // base cases for small n
         if (n <= 3) {
             if (n <= 1)
@@ -207,12 +207,12 @@ namespace common {
     }
 
     /* Returns the least common multiple of m and n. */
-    int lcm(int m, int n) {
+    Natural lcm(Natural m, Natural n) {
         return m * n / gcd(m, n);
     }
 
     /* Returns the value of m raised to the n power. */
-    long long power(long m, unsigned int n) {
+    long long power(long long m, unsigned int n) {
         // base case: m^0 = 1
         if (n == 0)
             return 1;
@@ -228,21 +228,21 @@ namespace common {
     }
 
     /* Returns the nth prime number. */
-    prime_t prime(unsigned int n) {
+    Natural prime(unsigned int n) {
         computePrimes(n);
         return prime_sequence[n];
     }
 
     /* Returns the first n prime numbers. */
-    vector<prime_t> primes(unsigned int n) {
+    vector<Natural> primes(unsigned int n) {
         computePrimes(n);
 
-        vector<prime_t> p_list (prime_sequence.begin(), prime_sequence.begin() + n);
+        vector<Natural> p_list (prime_sequence.begin(), prime_sequence.begin() + n);
         return p_list;
     }
 
     /* Returns the prime numbers up to p. */
-    vector<prime_t> primesUpTo(prime_t p) {
+    vector<Natural> primesUpTo(Natural p) {
         computePrimesUpTo(p);
 
         unsigned int i = 0;
@@ -250,7 +250,7 @@ namespace common {
         while (i < kPrimeCount && prime_sequence[i] <= p)
             i++;
 
-        vector<prime_t> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
+        vector<Natural> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
         return p_list;
     }
 }
