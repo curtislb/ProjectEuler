@@ -21,13 +21,13 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const long N = 600851475143; // default: 600851475143
+static const long long N = 600851475143; // default: 600851475143
 
 /* SOLUTION ******************************************************************/
 
 int main() {
     // generate potential prime factors of N
-    const vector<common::prime_t> kPrimes = common::primesUpTo(sqrt(N));
+    const vector<common::Natural> kPrimes = common::primesUpTo(sqrt(N));
 
     // search for largest prime factor <= sqrt(N)
     unsigned int i;
