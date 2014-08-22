@@ -8,6 +8,7 @@
  */
 
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <utility>
 #include <vector>
@@ -20,13 +21,15 @@ using namespace std;
 
 namespace common {
 
-/* STATIC ********************************************************************/
+/* STATIC VARIABLES **********************************************************/
 
     /* Currently computed terms of the Fibonacci sequence (in sorted order). */
     static vector<Natural> fibonacci_sequence (2, 1);
 
     /* Currently computed prime number terms (in sorted order). */
     static vector<Natural> prime_sequence (1, 2);
+
+/* STATIC FUNCTIONS **********************************************************/
 
     /* Precomputes and stores the first n Fibonacci numbers. */
     static void computeFibonacci(unsigned int n) {
@@ -117,7 +120,7 @@ namespace common {
         }
     }
 
-/* NON-STATIC ****************************************************************/
+/* FUNCTIONS *****************************************************************/
 
     /*
      * Returns the sum of the arithmetic sequence with first term a, number of

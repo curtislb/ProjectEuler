@@ -14,8 +14,6 @@
  */
 
 #include <iostream>
-#include <utility>
-#include <vector>
 
 #include "common.h"
 

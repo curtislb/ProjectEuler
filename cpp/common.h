@@ -10,6 +10,7 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
+#include <map>
 #include <vector>
 
 using namespace std;
@@ -19,6 +20,111 @@ namespace common {
 /* TYPEDEFS ******************************************************************/
 
     typedef unsigned long long Natural;
+
+/* CLASSES *******************************************************************/
+
+    /*** Counter ***/
+
+    template <class T> class Counter {
+        private:
+            /* The current running counts for each item. */
+            map<T, Natural> counts;
+
+        public:
+            /* Rules for handling conflicts when merging Counter objects. */
+            enum MergeRule {
+                MERGE_FAVOR_THIS,  // favor the current count
+                MERGE_FAVOR_OTHER, // favor the other count
+                MERGE_FAVOR_HIGH,  // favor the higher count
+                MERGE_FAVOR_LOW,   // favor the lower count
+                MERGE_SUM_COUNTS   // sum the counts
+            };
+
+            /* Adds a single instance of item to the running count. */
+            void add(T item);
+
+            /* Adds a single instance to the count for each item in items. */
+            void add(vector<T> items);
+
+            /* Returns the current count for item. */
+            Natural count(T item);
+
+            /*
+             * Merges the counts of this Counter with other. Items not counted
+             * will be added to the counter. If an item has been counted, the
+             * merge behavior is determined by rule.
+             */
+            void merge(Counter<T> *other, MergeRule rule);
+    };
+
+    /* Adds a single instance of item to the running count. */
+    template <class T> void Counter<T>::add(T item) {
+        if (counts.count(item))
+            counts[item]++;
+        else
+            counts[item] = 1;
+    }
+
+    /* Adds a single instance to the count for each item in items. */
+    template <class T> void Counter<T>::add(vector<T> items) {
+        typedef typename vector<T>::iterator iterator;
+        for (iterator i = items.begin(); i != items.end(); ++i)
+            this->add(*i);
+    }
+
+    /* Returns the current count for item. */
+    template <class T> Natural Counter<T>::count(T item) {
+        if (counts.count(item))
+            return counts[item];
+        return 0;
+    }
+
+    /*
+     * Merges the counts of this Counter with other. Items not counted
+     * will be added to the counter. If an item has been counted, the
+     * merge behavior is determined by rule.
+     */
+    template <class T> void Counter<T>::merge(Counter *other, MergeRule rule) {
+        // merge each item count from other Counter
+        T item;
+        Natural item_count;
+        typedef typename map<T, Natural>::iterator iterator;
+        for (iterator i = other->counts.begin(); i != other->counts.end(); ++i) {
+            item = i->first;
+            item_count = i->second;
+
+            if (!counts.count(item)) {
+                // add the new item count to this Counter
+                counts[item] = item_count;
+            } else {
+                switch (rule) {
+                    // favor the current count
+                    case MERGE_FAVOR_THIS:
+                        break;
+
+                    // favor the other count
+                    case MERGE_FAVOR_OTHER:
+                        counts[item] = item_count;
+                        break;
+
+                    // favor the higher count
+                    case MERGE_FAVOR_HIGH:
+                        counts[item] = max(counts[item], item_count);
+                        break;
+
+                    // favor the lower count
+                    case MERGE_FAVOR_LOW:
+                        counts[item] = min(counts[item], item_count);
+                        break;
+
+                    // sum the counts
+                    case MERGE_SUM_COUNTS:
+                        counts[item] += item_count;
+                        break;
+                }
+            }
+        }
+    }
 
 /* FUNCTIONS *****************************************************************/
 
