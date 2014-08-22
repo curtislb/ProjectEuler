@@ -14,6 +14,8 @@
  */
 
 #include <iostream>
+#include <utility>
+#include <vector>
 
 #include "common.h"
 
@@ -26,8 +28,6 @@ unsigned int N = 20; // default: 20
 /* SOLUTION ******************************************************************/
 
 int main() {
-
-
 
     return 0;
 }

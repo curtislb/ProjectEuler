@@ -49,11 +49,21 @@ namespace common {
     /* Returns the least common multiple of m and n. */
     Natural lcm(Natural m, Natural n);
 
+    /* Returns the least common multiple of all numbers in nums. */
+    Natural lcm(vector<Natural> nums);
+
     /* Returns the value of m raised to the n power. */
     long long power(long long m, unsigned int n);
 
     /* Returns the nth prime number. */
     Natural prime(unsigned int n);
+
+    /*
+     * Computes the prime factorization of the natural number n. Returns a
+     * vector of base-exponent pairs containing each prime factor and its power
+     * in the prime factorization.
+     */
+    vector<pair<Natural, unsigned int> > primeFactorization(Natural n);
 
     /* Returns the first n prime numbers. */
     vector<Natural> primes(unsigned int n);

@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <utility>
 #include <vector>
 
 #include <math.h>
@@ -211,6 +212,12 @@ namespace common {
         return m * n / gcd(m, n);
     }
 
+    /* Returns the least common multiple of all numbers in nums. */
+    Natural lcm(vector<Natural> nums) {
+        // TODO ...
+        return 0;
+    }
+
     /* Returns the value of m raised to the n power. */
     long long power(long long m, unsigned int n) {
         // base case: m^0 = 1
@@ -231,6 +238,38 @@ namespace common {
     Natural prime(unsigned int n) {
         computePrimes(n);
         return prime_sequence[n];
+    }
+
+    /*
+     * Computes the prime factorization of the natural number n. Returns a
+     * vector of base-exponent pairs containing each prime factor and its power
+     * in the prime factorization.
+     */
+    vector<pair<Natural, unsigned int> > primeFactorization(Natural n) {
+        // compute potential prime factors of n
+        const vector<Natural> kPrimes = primesUpTo(n);
+        const unsigned int kPrimeCount = kPrimes.size();
+
+        pair<Natural, unsigned int> factor;
+        vector<pair<Natural, unsigned int> > factorization;
+        for (unsigned int i = 0; i < kPrimeCount; i++) {
+            // has n already been completely factored?
+            if (n == 1)
+                break;
+
+            // compute power of ith prime in factorization
+            factor = make_pair(kPrimes[i], 0);
+            while (n % kPrimes[i] == 0) {
+                n /= kPrimes[i];
+                factor.second++;
+            }
+
+            // add factor to factorization if necessary
+            if (factor.second > 0)
+                factorization.push_back(factor);
+        }
+
+        return factorization;
     }
 
     /* Returns the first n prime numbers. */
