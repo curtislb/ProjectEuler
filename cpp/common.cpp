@@ -31,6 +31,22 @@ namespace common {
 
 /* STATIC FUNCTIONS **********************************************************/
 
+    /*** Declarations ***/
+
+    /* Precomputes and stores the first n Fibonacci numbers. */
+    static void computeFibonacci(unsigned int n);
+
+    /* Precomputes and stores the Fibonacci numbers up to at least n. */
+    static void computeFibonacciUpTo(Natural n);
+
+    /* Precomputes and stores the first n prime numbers. */
+    static void computePrimes(unsigned int n);
+
+    /* Precomputes and stores the prime numbers up to n. */
+    static void computePrimesUpTo(Natural n);
+
+    /*** Implementations ***/
+
     /* Precomputes and stores the first n Fibonacci numbers. */
     static void computeFibonacci(unsigned int n) {
         const unsigned int kFibCount = fibonacci_sequence.size();
@@ -82,7 +98,20 @@ namespace common {
         if (n < kPrimeCount)
             return;
 
-        // TODO ...
+        // TODO: implement incremental sieve?
+
+        // based on analysis of OEIS data set A006880 and empirical time tests
+        const Natural kFirstGuess = n < 25 ? 100 : n*log(n) * 1.05 + n * 0.87;
+        const Natural kSearchStep = n / log(n);
+
+        // compute primes up to estimate, then step forward until n are found
+        Natural i = kFirstGuess;
+        unsigned int j = 0;
+        do {
+            computePrimesUpTo(i);
+            i += kSearchStep;
+            j++;
+        } while (prime_sequence.size() < n);
     }
 
     /* Precomputes and stores the prime numbers up to n. */
@@ -201,9 +230,9 @@ namespace common {
         if (n % 2 == 0 || n % 3 == 0)
             return false;
 
-        // search for subsequent factors in increments of 6
-        const unsigned int kMaxFactor = ceil(sqrt(n));
-        for (unsigned int i = 5; i < kMaxFactor; i += 6) {
+        // search for subsequent prime factors around multiples of 6
+        const unsigned int kMaxFactor = sqrt(n);
+        for (unsigned int i = 5; i <= kMaxFactor; i += 6) {
             if (n % i == 0 || n % (i + 2) == 0)
                 return false;
         }
@@ -259,7 +288,7 @@ namespace common {
     /* Returns the nth prime number. */
     Natural prime(unsigned int n) {
         computePrimes(n);
-        return prime_sequence[n];
+        return prime_sequence[n - 1];
     }
 
     /*

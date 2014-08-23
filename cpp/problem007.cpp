@@ -25,5 +25,6 @@ static const unsigned int N = 10001; // default: 10001
 /* SOLUTION ******************************************************************/
 
 int main() {
+    cout << common::prime(N) << endl;
     return 0;
 }
