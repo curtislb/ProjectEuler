@@ -21,10 +21,10 @@ clean:
 # FILE TARGETS ################################################################
 
 problem%: problem%.o common.o
-	$(CC) $(CCFLAGS) $< common.o -o $@
+	$(CC) $(CFLAGS) $< common.o -o $@
 
 problem%.o: problem%.cpp common.h
-	$(CC) $(CCFLAGS) -c $< 
+	$(CC) $(CFLAGS) -c $< 
 
 common.o: common.cpp common.h
-	$(CC) $(CCFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
