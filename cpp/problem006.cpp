@@ -29,12 +29,12 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-unsigned int N = 100; // default: 100
+static const unsigned int N = 100; // default: 100
 
 /* SOLUTION ******************************************************************/
 
 int main() {
-    common::Natural kSum = common::triangle(N);
-    cout << kSum*kSum - common::sumOfSquaresUpTo(N) << endl;
+    const common::Natural kSum = common::triangle(N);
+    cout << kSum*kSum - common::sumOfSquares(N) << endl;
     return 0;
 }

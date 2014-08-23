@@ -22,7 +22,7 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-unsigned int N = 20; // default: 20
+static const unsigned int N = 20; // default: 20
 
 /* SOLUTION ******************************************************************/
 

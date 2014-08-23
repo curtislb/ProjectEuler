@@ -316,7 +316,7 @@ namespace common {
     }
 
     /* Returns the sum of the squares of the first n natural numbers. */
-    Natural sumOfSquaresUpTo(unsigned int n) {
+    Natural sumOfSquares(unsigned int n) {
         const Natural m = n;
         return (2 * m*m*m + 3 * m*m + m) / 6;
     }

@@ -206,7 +206,7 @@ namespace common {
     vector<Natural> primesUpTo(Natural n);
 
     /* Returns the sum of the squares of the first n natural numbers. */
-    Natural sumOfSquaresUpTo(unsigned int n);
+    Natural sumOfSquares(unsigned int n);
 
     /*
      * Returns the nth triangle number, or the sum of the natural numbers up to
