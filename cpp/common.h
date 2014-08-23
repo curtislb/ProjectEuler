@@ -1,7 +1,7 @@
 /*
  * common.h
  *
- * Common utility functions for various Project Euler problems.
+ * Common utility functions and classes for various Project Euler problems.
  *
  * Author: Curtis Belmonte
  * Created: Aug 18, 2014
@@ -204,6 +204,15 @@ namespace common {
 
     /* Returns the prime numbers up to n. */
     vector<Natural> primesUpTo(Natural n);
+
+    /* Returns the sum of the squares of the first n natural numbers. */
+    Natural sumOfSquaresUpTo(unsigned int n);
+
+    /*
+     * Returns the nth triangle number, or the sum of the natural numbers up to
+     * and including n.
+     */
+    Natural triangle(unsigned int n);
 }
 
 #endif /* COMMON_H_ */

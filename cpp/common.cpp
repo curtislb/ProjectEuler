@@ -1,7 +1,7 @@
 /*
  * common.cpp
  *
- * Common utility functions for various Project Euler problems.
+ * Common utility functions and classes for various Project Euler problems.
  *
  * Author: Curtis Belmonte
  * Created: Aug 18, 2014
@@ -102,7 +102,7 @@ namespace common {
         Natural rho;
         for (unsigned int i = 0; i < kPrimeCount; i++) {
             rho = prime_sequence[i];
-            for (Natural j = rho * rho; j < kSieveSize + prime_max + 1; j += rho) {
+            for (Natural j = rho*rho; j < kSieveSize + prime_max + 1; j += rho) {
                 if (j < prime_max + 1)
                     continue;
                 sieve[j - prime_max - 1] = false;
@@ -114,7 +114,7 @@ namespace common {
             if (sieve[i]) {
                 rho = i + prime_max + 1;
                 prime_sequence.push_back(rho);
-                for (Natural j = rho * rho - prime_max - 1; j < kSieveSize; j += rho)
+                for (Natural j = rho*rho - prime_max - 1; j < kSieveSize; j += rho)
                     sieve[j] = false;
             }
         }
@@ -313,5 +313,20 @@ namespace common {
 
         vector<Natural> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
         return p_list;
+    }
+
+    /* Returns the sum of the squares of the first n natural numbers. */
+    Natural sumOfSquaresUpTo(unsigned int n) {
+        const Natural m = n;
+        return (2 * m*m*m + 3 * m*m + m) / 6;
+    }
+
+    /*
+     * Returns the nth triangle number, or the sum of the natural numbers up to
+     * and including n.
+     */
+    Natural triangle(unsigned int n) {
+        Natural m = n;
+        return m * (m + 1) / 2;
     }
 }
