@@ -101,17 +101,12 @@ namespace common {
         // TODO: implement incremental sieve?
 
         // based on analysis of OEIS data set A006880 and empirical time tests
-        const Natural kFirstGuess = n < 25 ? 100 : n*log(n) * 1.05 + n * 0.87;
-        const Natural kSearchStep = n / log(n);
+        const Natural kEstimate = n <= 25 ? 100 : n * log(n) * 1.05 + n * 0.87;
+        const Natural kIncrement = n / log(n);
 
         // compute primes up to estimate, then step forward until n are found
-        Natural i = kFirstGuess;
-        unsigned int j = 0;
-        do {
+        for (Natural i = kEstimate; prime_sequence.size() < n; i += kIncrement)
             computePrimesUpTo(i);
-            i += kSearchStep;
-            j++;
-        } while (prime_sequence.size() < n);
     }
 
     /* Precomputes and stores the prime numbers up to n. */
