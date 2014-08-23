@@ -25,12 +25,16 @@ namespace common {
 
     /*** Counter ***/
 
+    /* Counts the number of occurrences of individual items. */
     template <class T> class Counter {
         private:
             /* The current running counts for each item. */
             map<T, Natural> counts;
 
         public:
+            /* Iterator type for the Counter class. */
+            typedef typename map<T, Natural>::iterator iterator;
+
             /* Rules for handling conflicts when merging Counter objects. */
             enum MergeRule {
                 MERGE_FAVOR_THIS,  // favor the current count
@@ -43,11 +47,20 @@ namespace common {
             /* Adds a single instance of item to the running count. */
             void add(T item);
 
+            /* Adds n instances of item to the running count. */
+            void add(T item, Natural n);
+
             /* Adds a single instance to the count for each item in items. */
             void add(vector<T> items);
 
+            /* Returns an iterator pointing to the beginning of the Counter. */
+            iterator begin();
+
             /* Returns the current count for item. */
             Natural count(T item);
+
+            /* Returns an iterator pointing to the end of the Counter. */
+            iterator end();
 
             /*
              * Merges the counts of this Counter with other. Items not counted
@@ -65,11 +78,21 @@ namespace common {
             counts[item] = 1;
     }
 
+    /* Adds a single instance of item to the running count. */
+    template <class T> void Counter<T>::add(T item, Natural n) {
+        counts[item] += n;
+    }
+
     /* Adds a single instance to the count for each item in items. */
     template <class T> void Counter<T>::add(vector<T> items) {
         typedef typename vector<T>::iterator iterator;
         for (iterator i = items.begin(); i != items.end(); ++i)
             this->add(*i);
+    }
+
+    /* Returns an iterator pointing to the beginning of the Counter. */
+    template <class T> typename Counter<T>::iterator Counter<T>::begin() {
+        return counts.begin();
     }
 
     /* Returns the current count for item. */
@@ -79,10 +102,15 @@ namespace common {
         return 0;
     }
 
+    /* Returns an iterator pointing to the end of the Counter. */
+    template <class T> typename Counter<T>::iterator Counter<T>::end() {
+        return counts.end();
+    }
+
     /*
-     * Merges the counts of this Counter with other. Items not counted
-     * will be added to the counter. If an item has been counted, the
-     * merge behavior is determined by rule.
+     * Merges the counts of this Counter with other. Items not counted will be
+     * added to the counter. If an item has been counted, the merge behavior is
+     * determined by rule.
      */
     template <class T> void Counter<T>::merge(Counter *other, MergeRule rule) {
         // merge each item count from other Counter
@@ -159,7 +187,7 @@ namespace common {
     Natural lcm(vector<Natural> nums);
 
     /* Returns the value of m raised to the n power. */
-    long long power(long long m, unsigned int n);
+    Natural power(Natural m, unsigned int n);
 
     /* Returns the nth prime number. */
     Natural prime(unsigned int n);

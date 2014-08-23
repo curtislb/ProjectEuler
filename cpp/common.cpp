@@ -217,12 +217,31 @@ namespace common {
 
     /* Returns the least common multiple of all numbers in nums. */
     Natural lcm(vector<Natural> nums) {
-        // TODO ...
-        return 0;
+        Counter<Natural> *powers;
+        Counter<Natural> *max_powers = new Counter<Natural>;
+        vector<pair<Natural, unsigned int> > factors;
+        for (vector<Natural>::iterator i = nums.begin(); i != nums.end(); ++i) {
+            // compute powers of unique prime factors of the current num
+            powers = new Counter<Natural>;
+            factors = primeFactorization(*i);
+            for (vector<pair<Natural, unsigned int> >::iterator j = factors.begin(); j != factors.end(); ++j)
+                powers->add(j->first, j->second);
+
+            // merge with current highest powers of unique prime factors
+            max_powers->merge(powers, Counter<Natural>::MERGE_FAVOR_HIGH);
+            delete powers;
+        }
+
+        // return the product of prime factors raised to their highest powers
+        Natural product = 1;
+        for (Counter<Natural>::iterator i = max_powers->begin(); i != max_powers->end(); ++i)
+            product *= power(i->first, i->second);
+        delete max_powers;
+        return product;
     }
 
     /* Returns the value of m raised to the n power. */
-    long long power(long long m, unsigned int n) {
+    Natural power(Natural m, unsigned int n) {
         // base case: m^0 = 1
         if (n == 0)
             return 1;

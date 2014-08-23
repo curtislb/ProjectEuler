@@ -14,6 +14,7 @@
  */
 
 #include <iostream>
+#include <vector>
 
 #include "common.h"
 
@@ -26,6 +27,9 @@ unsigned int N = 20; // default: 20
 /* SOLUTION ******************************************************************/
 
 int main() {
-
+    vector<common::Natural> nums (N - 1);
+    for (unsigned int i = 2; i <= N; i++)
+        nums[i - 2] = i;
+    cout << common::lcm(nums) << endl;
     return 0;
 }
