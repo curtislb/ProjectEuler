@@ -162,6 +162,9 @@ namespace common {
      */
     long long arithSeries(long long a, long long n, long long d);
 
+    /* Returns the numeric value of character c, representing a digit 0-9.  */
+    int charToDigit(char c);
+
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
     Natural fibonacci(unsigned int n);
 

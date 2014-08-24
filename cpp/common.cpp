@@ -24,10 +24,10 @@ namespace common {
 /* STATIC VARIABLES **********************************************************/
 
     /* Currently computed terms of the Fibonacci sequence (in sorted order). */
-    static vector<Natural> fibonacci_sequence (2, 1);
+    static vector<Natural> fibonacci_sequence(2, 1);
 
     /* Currently computed prime number terms (in sorted order). */
-    static vector<Natural> prime_sequence (1, 2);
+    static vector<Natural> prime_sequence(1, 2);
 
 /* STATIC FUNCTIONS **********************************************************/
 
@@ -120,7 +120,7 @@ namespace common {
 
         // prepare sieve of Eratosthenes for numbers prime_max+1 to p
         const unsigned int kSieveSize = n - prime_max;
-        vector<bool> sieve (kSieveSize, true);
+        vector<bool> sieve(kSieveSize, true);
 
         // sift out composite numbers using previously computed primes
         Natural rho;
@@ -154,6 +154,11 @@ namespace common {
         return n * (2 * a + (n - 1) * d) / 2;
     }
 
+    /* Returns the numeric value of character c, representing a digit 0-9.  */
+    int charToDigit(char c) {
+        return c - '0';
+    }
+
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
     Natural fibonacci(unsigned int n) {
         computeFibonacci(n);
@@ -164,7 +169,7 @@ namespace common {
     vector<Natural> fibonacciNums(unsigned int n) {
         computeFibonacci(n);
 
-        vector<Natural> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
+        vector<Natural> f_list(fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
         return f_list;
     }
 
@@ -177,7 +182,7 @@ namespace common {
         while (i < kFibCount && fibonacci_sequence[i] <= n)
             i++;
 
-        vector<Natural> f_list (fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
+        vector<Natural> f_list(fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
         return f_list;
     }
 
@@ -322,7 +327,7 @@ namespace common {
     vector<Natural> primes(unsigned int n) {
         computePrimes(n);
 
-        vector<Natural> p_list (prime_sequence.begin(), prime_sequence.begin() + n);
+        vector<Natural> p_list(prime_sequence.begin(), prime_sequence.begin() + n);
         return p_list;
     }
 
@@ -335,7 +340,7 @@ namespace common {
         while (i < kPrimeCount && prime_sequence[i] <= p)
             i++;
 
-        vector<Natural> p_list (prime_sequence.begin(), prime_sequence.begin() + i);
+        vector<Natural> p_list(prime_sequence.begin(), prime_sequence.begin() + i);
         return p_list;
     }
 
