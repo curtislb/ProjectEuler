@@ -45,8 +45,8 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const unsigned int N = 13;
-static const char *INPUT_FILE = "input/008.txt";
+static const unsigned int N = 13; // default: 13
+static const char *INPUT_FILE = "input/008.txt"; // default: "input/008.txt"
 
 /* SOLUTION ******************************************************************/
 
