@@ -66,7 +66,7 @@ int main() {
     input.close();
 
     // store digits of number in vector
-    vector<int> digits;
+    vector<short> digits;
     const unsigned int kDigitCount = number_string.size();
     digits.reserve(kDigitCount);
     for (unsigned int i = 0; i < kDigitCount; i++)

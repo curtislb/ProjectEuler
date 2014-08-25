@@ -21,13 +21,14 @@
  *
  * We can see that 28 is the first triangle number to have over five divisors.
  * 
- * What is the value of the first triangle number to have over N divisors?
+ * What is the value of the first triangle number to have over D divisors?
  * 
  * Author: Curtis Belmonte
  * Created: Aug 25, 2014
  */
 
 #include <iostream>
+#include <map>
 
 #include "common.h"
 
@@ -35,24 +36,37 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const unsigned int N = 500; // default: 500
+static const unsigned int D = 500; // default: 500
 
 /* SOLUTION ******************************************************************/
+
+/* Memoized vector of previously computed divisor counts. */
+static map<common::Natural, common::Natural> divisor_counts;
+
+/* Returns the number of divisors of n. Previous results are memoized. */
+inline static common::Natural countDivisors(common::Natural n) {
+    if (divisor_counts.count(n))
+        // return the memoized result
+        return divisor_counts[n];
+    else
+        // compute and memoize the number of divisors
+        return divisor_counts[n] = common::countDivisors(n);
+}
 
 /* Returns the number of divisors of the triangle number n*(n + 1)/2. */
 inline static common::Natural countTriangleDivisors(common::Natural n) {
     // because n and n + 1 are necessarily coprime, sum their divisor counts
     if (n % 2 == 0)
         // n component of triangle number is evenly divisible by 2
-        return common::countDivisors(n / 2) * common::countDivisors(n + 1);
+        return countDivisors(n / 2) * countDivisors(n + 1);
     else
         // n + 1 component of triangle number is evenly divisible by 2
-        return common::countDivisors(n) * common::countDivisors((n + 1) / 2);
+        return countDivisors(n) * countDivisors((n + 1) / 2);
 }
 
 int main() {
     common::Natural n = 1;
-    while (countTriangleDivisors(n) < N)
+    while (countTriangleDivisors(n) < D)
         n++;
 
     cout << n * (n + 1) / 2 << endl;

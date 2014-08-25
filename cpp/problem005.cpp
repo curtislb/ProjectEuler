@@ -7,7 +7,7 @@
  * 1 to 10 without any remainder.
  *
  * What is the smallest positive number that is evenly divisible by all of the
- * numbers from 1 to N?
+ * numbers from 1 to MAX?
  * 
  * Author: Curtis Belmonte
  * Created: Aug 21, 2014
@@ -22,13 +22,13 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const unsigned int N = 20; // default: 20
+static const unsigned int MAX = 20; // default: 20
 
 /* SOLUTION ******************************************************************/
 
 int main() {
-    vector<common::Natural> nums(N - 1);
-    for (unsigned int i = 2; i <= N; i++)
+    vector<common::Natural> nums(MAX - 1);
+    for (unsigned int i = 2; i <= MAX; i++)
         nums[i - 2] = i;
     cout << common::lcm(nums) << endl;
     return 0;

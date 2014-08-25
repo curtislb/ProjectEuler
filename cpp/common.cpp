@@ -157,7 +157,7 @@ namespace common {
     }
 
     /* Returns the numeric value of character c, representing a digit 0-9.  */
-    int charToDigit(char c) {
+    short charToDigit(char c) {
         return c - '0';
     }
 

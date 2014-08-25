@@ -23,6 +23,21 @@ namespace common {
 
 /* CLASSES *******************************************************************/
 
+    /*** BigInteger ***/
+
+    /* Represents an integer number of arbitrary length. */
+    class BigInteger {
+        private:
+            /* The digits in the decimal representation of the integer. */
+            vector<unsigned short> digits;
+
+            /* Indicates whether the integer has a negative value. */
+            bool is_negative;
+
+        public:
+            // TODO: ...
+    };
+
     /*** Counter ***/
 
     /* Counts the number of occurrences of individual items. */
@@ -163,7 +178,7 @@ namespace common {
     long long arithSeries(long long a, long long n, long long d);
 
     /* Returns the numeric value of character c, representing a digit 0-9.  */
-    int charToDigit(char c);
+    short charToDigit(char c);
 
     /* Returns the number of divisors of the natural number n. */
     unsigned int countDivisors(Natural n);
