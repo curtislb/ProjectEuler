@@ -39,6 +39,8 @@
 #include <sstream>
 #include <string>
 
+#include <stdlib.h>
+
 #include "common.h"
 
 using namespace std;
@@ -52,59 +54,62 @@ static const char *INPUT_FILE = "input/008.txt"; // default: "input/008.txt"
 
 int main() {
     ifstream input(INPUT_FILE);
-    if (input.is_open()) {
-        // read number from input file
-        string number_string;
-        getline(input, number_string);
-        input.close();
-
-        // store digits of number in vector
-        vector<int> digits;
-        const unsigned int kDigitCount = number_string.size();
-        digits.reserve(kDigitCount);
-        for (unsigned int i = 0; i < kDigitCount; i++)
-            digits[i] = common::charToDigit(number_string[i]);
-
-        unsigned int num_zeros = 0; // number of zeros in the current product
-        common::Natural product = 1; // current product of N digits (ignore 0)
-        common::Natural max_product = 0; // largest product of N digits
-
-        // compute product of initial N digits
-        unsigned int i;
-        for (i = 0; i < N; i++) {
-            if (digits[i] == 0)
-                num_zeros++;
-            else
-                product *= digits[i];
-        }
-
-        // compute products of remaining sets of N digits
-        while (i < kDigitCount) {
-            // remove leftmost digits from product
-            if (digits[i - N] == 0)
-                num_zeros--;
-            else
-                product /= digits[i - N];
-
-            // add new rightmost digit to product
-            if (digits[i] == 0)
-                num_zeros++;
-            else
-                product *= digits[i];
-
-            // if any zeros in product, treat it as 0
-            if (num_zeros == 0 && product > max_product)
-                max_product = product;
-
-            i++;
-        }
-
-        cout << max_product << endl;
-
-    } else {
+    if (!input.is_open()) {
         // failed to open the input file
         cout << "Unable to open file: " << INPUT_FILE << endl;
+        return EXIT_FAILURE;
     }
 
+    // read number from input file
+    string number_string;
+    getline(input, number_string);
+    input.close();
+
+    // store digits of number in vector
+    vector<int> digits;
+    const unsigned int kDigitCount = number_string.size();
+    digits.reserve(kDigitCount);
+    for (unsigned int i = 0; i < kDigitCount; i++)
+        digits[i] = common::charToDigit(number_string[i]);
+
+    unsigned int num_zeros = 0; // number of zeros in the current product
+    common::Natural product = 1; // current product of N digits (ignoring 0's)
+    common::Natural max_product = 0; // largest product of N digits
+
+    // compute product of initial N digits
+    unsigned int i;
+    for (i = 0; i < N; i++) {
+        if (digits[i] == 0)
+            num_zeros++;
+        else
+            product *= digits[i];
+    }
+
+    // set as initial max product if it contains no 0 factors
+    if (num_zeros == 0)
+        max_product = product;
+
+    // compute products of remaining sets of N digits
+    while (i < kDigitCount) {
+        // remove leftmost digit from product
+        if (digits[i - N] == 0)
+            num_zeros--;
+        else
+            product /= digits[i - N];
+
+        // add new rightmost digit to product
+        if (digits[i] == 0)
+            num_zeros++;
+        else
+            product *= digits[i];
+
+        // set as new max product if necessary
+        if (num_zeros == 0 && product > max_product)
+            max_product = product;
+
+        i++;
+    }
+
+    cout << max_product << endl;
     return 0;
 }

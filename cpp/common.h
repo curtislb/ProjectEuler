@@ -189,7 +189,10 @@ namespace common {
     /* Returns the least common multiple of all numbers in nums. */
     Natural lcm(vector<Natural> nums);
 
-    /* Returns the value of m raised to the n power. */
+    /* Returns a matrix of integer numbers read from input_file. */
+    vector<vector<long> > matrixFromFile(const char *input_file);
+
+    /* Returns the value of m raised to the nth power. */
     Natural power(Natural m, unsigned int n);
 
     /* Returns the nth prime number. */

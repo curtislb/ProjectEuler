@@ -38,6 +38,8 @@
 
 #include <iostream>
 
+#include <stdio.h>
+
 #include "common.h"
 
 using namespace std;
@@ -50,5 +52,255 @@ static const char *INPUT_FILE = "input/011.txt"; // default: "input/011.txt"
 /* SOLUTION ******************************************************************/
 
 int main() {
+    // read the matrix from the input file
+    const vector<vector<long> > kMatrix = common::matrixFromFile(INPUT_FILE);
+    const unsigned int kNumRows = kMatrix.size();
+    const unsigned int kNumCols = kMatrix[0].size();
+
+    unsigned int num_zeros;
+    common::Natural product;
+    common::Natural max_product = 0;
+
+    // compute all row products
+    for (unsigned int i = 0; i < kNumRows; i++) {
+        num_zeros = 0;
+        product = 1;
+
+        // compute product of initial N digits in row
+        unsigned int j;
+        for (j = 0; j < N; j++) {
+            if (kMatrix[i][j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[i][j];
+        }
+
+        // set as initial max product if it contains no 0 factors
+        if (num_zeros == 0)
+            max_product = product;
+
+        // compute products of remaining sets of N digits in row
+        while (j < kNumCols) {
+            // remove leftmost digit from product
+            if (kMatrix[i][j - N] == 0)
+                num_zeros--;
+            else
+                product /= kMatrix[i][j - N];
+
+            // add new rightmost digit to product
+            if (kMatrix[i][j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[i][j];
+
+            // set as new max product if necessary
+            if (num_zeros == 0 && product > max_product)
+                max_product = product;
+
+            j++;
+        }
+    }
+
+    // compute all column products
+    for (unsigned int i = 0; i < kNumCols; i++) {
+        num_zeros = 0;
+        product = 1;
+
+        // compute product of initial N digits in column
+        unsigned int j;
+        for (j = 0; j < N; j++) {
+            if (kMatrix[j][i] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[j][i];
+        }
+
+        // set as new max product if necessary
+        if (num_zeros == 0 && product > max_product)
+            max_product = product;
+
+        // compute products of remaining sets of N digits in column
+        while (j < kNumRows) {
+            // remove top digit from product
+            if (kMatrix[j - N][i] == 0)
+                num_zeros--;
+            else
+                product /= kMatrix[j - N][i];
+
+            // add new bottom digit to product
+            if (kMatrix[j][i] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[j][i];
+
+            // set as new max product if necessary
+            if (num_zeros == 0 && product > max_product)
+                max_product = product;
+
+            j++;
+        }
+    }
+
+    // compute / diagonal products starting along top row
+    for (unsigned int i = N - 1; i < kNumCols; i++) {
+        num_zeros = 0;
+        product = 1;
+
+        // compute product of initial N digits along diagonal
+        unsigned int j;
+        for (j = 0; j < N; j++) {
+            if (kMatrix[j][i - j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[j][i - j];
+        }
+
+        // set as new max product if necessary
+        if (num_zeros == 0 && product > max_product)
+            max_product = product;
+
+        // compute products of remaining sets of N digits along diagonal
+        while (j <= i) {
+            // remove top-rightmost digit from product
+            if (kMatrix[j - N][i - j + N] == 0)
+                num_zeros--;
+            else
+                product /= kMatrix[j - N][i - j + N];
+
+            // add new bottom-leftmost digit to product
+            if (kMatrix[j][i - j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[j][i - j];
+
+            // set as new max product if necessary
+            if (num_zeros == 0 && product > max_product)
+                max_product = product;
+
+            j++;
+        }
+    }
+
+    // compute / diagonal products starting along bottom row
+    for (unsigned int i = 1; i <= kNumCols - N; i++) {
+        num_zeros = 0;
+        product = 1;
+
+        // compute product of initial N digits along diagonal
+        unsigned int j;
+        for (j = 0; j < N; j++) {
+            if (kMatrix[kNumRows - 1 - j][i + j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[kNumRows - 1 - j][i + j];
+        }
+
+        // set as new max product if necessary
+        if (num_zeros == 0 && product > max_product)
+            max_product = product;
+
+        // compute products of remaining sets of N digits along diagonal
+        while (j < kNumCols - i) {
+            // remove bottom-leftmost digit from product
+            if (kMatrix[kNumRows - 1 - j + N][i + j - N] == 0)
+                num_zeros--;
+            else
+                product /= kMatrix[kNumRows - 1 - j + N][i + j - N];
+
+            // add new top-rightmost digit to product
+            if (kMatrix[kNumRows - 1 - j][i + j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[kNumRows - 1 - j][i + j];
+
+            // set as new max product if necessary
+            if (num_zeros == 0 && product > max_product)
+                max_product = product;
+
+            j++;
+        }
+    }
+
+    // compute \ diagonal products starting along bottom row
+    for (unsigned int i = N - 1; i < kNumCols; i++) {
+        num_zeros = 0;
+        product = 1;
+
+        // compute product of initial N digits along diagonal
+        unsigned int j;
+        for (j = 0; j < N; j++) {
+            if (kMatrix[kNumRows - 1 - j][i - j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[kNumRows - 1 - j][i - j];
+        }
+
+        // set as new max product if necessary
+        if (num_zeros == 0 && product > max_product)
+            max_product = product;
+
+        // compute products of remaining sets of N digits along diagonal
+        while (j <= i) {
+            // remove bottom-rightmost digit from product
+            if (kMatrix[kNumRows - 1 - j + N][i - j + N] == 0)
+                num_zeros--;
+            else
+                product /= kMatrix[kNumRows - 1 - j + N][i - j + N];
+
+            // add new top-leftmost digit to product
+            if (kMatrix[kNumRows - 1 - j][i - j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[kNumRows - 1 - j][i - j];
+
+            // set as new max product if necessary
+            if (num_zeros == 0 && product > max_product)
+                max_product = product;
+
+            j++;
+        }
+    }
+
+    // compute \ diagonal products starting along top row
+    for (unsigned int i = 1; i <= kNumCols - N; i++) {
+        num_zeros = 0;
+        product = 1;
+
+        // compute product of initial N digits along diagonal
+        unsigned int j;
+        for (j = 0; j < N; j++) {
+            if (kMatrix[j][i + j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[j][i + j];
+        }
+
+        // set as new max product if necessary
+        if (num_zeros == 0 && product > max_product)
+            max_product = product;
+
+        // compute products of remaining sets of N digits along diagonal
+        while (j < kNumCols - i) {
+            // remove top-leftmost digit from product
+            if (kMatrix[j - N][i + j - N] == 0)
+                num_zeros--;
+            else
+                product /= kMatrix[j - N][i + j - N];
+
+            // add new bottom-rightmost digit to product
+            if (kMatrix[j][i + j] == 0)
+                num_zeros++;
+            else
+                product *= kMatrix[j][i + j];
+
+            // set as new max product if necessary
+            if (num_zeros == 0 && product > max_product)
+                max_product = product;
+
+            j++;
+        }
+    }
+
+    cout << max_product << endl;
     return 0;
 }

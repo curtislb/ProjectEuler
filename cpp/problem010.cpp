@@ -27,6 +27,6 @@ static const common::Natural N = 2000000; // default: 2000000
 
 int main() {
     const vector<common::Natural> kPrimes = common::primesUpTo(N);
-    cout << accumulate(kPrimes.begin(), kPrimes.end(), 0ULL) << endl;
+    cout << accumulate(kPrimes.begin(), kPrimes.end(), 0) << endl;
     return 0;
 }

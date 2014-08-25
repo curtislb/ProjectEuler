@@ -7,6 +7,7 @@
  * Created: Aug 18, 2014
  */
 
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <sstream>
@@ -14,6 +15,7 @@
 #include <vector>
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "common.h"
 
@@ -169,7 +171,8 @@ namespace common {
     vector<Natural> fibonacciNums(unsigned int n) {
         computeFibonacci(n);
 
-        vector<Natural> f_list(fibonacci_sequence.begin(), fibonacci_sequence.begin() + n);
+        vector<Natural> f_list(fibonacci_sequence.begin(),
+                fibonacci_sequence.begin() + n);
         return f_list;
     }
 
@@ -177,12 +180,14 @@ namespace common {
     vector<Natural> fibonacciNumsUpTo(Natural n) {
         computeFibonacciUpTo(n);
 
+        // find the index of the last Fibonacci number <= n
         unsigned int i = 0;
         const unsigned int kFibCount = fibonacci_sequence.size();
         while (i < kFibCount && fibonacci_sequence[i] <= n)
             i++;
 
-        vector<Natural> f_list(fibonacci_sequence.begin(), fibonacci_sequence.begin() + i);
+        vector<Natural> f_list(fibonacci_sequence.begin(),
+                fibonacci_sequence.begin() + i);
         return f_list;
     }
 
@@ -269,7 +274,35 @@ namespace common {
         return product;
     }
 
-    /* Returns the value of m raised to the n power. */
+    /* Returns a matrix of integer numbers read from input_file. */
+    vector<vector<long> > matrixFromFile(const char *input_file) {
+        ifstream input(input_file);
+        if (!input.is_open()) {
+            // failed to open the input file
+            cout << "Unable to open file: " << input_file << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        // add each line from the input file as a row to the matrix
+        string row_string;
+        long entry_val;
+        vector<vector<long> > matrix;
+        while (getline(input, row_string)) {
+            // add each token from the current line to the row vector
+            vector<long> row;
+            istringstream row_iss(row_string);
+            while (row_iss.good()) {
+                row_iss >> entry_val;
+                row.push_back(entry_val);
+            }
+
+            matrix.push_back(row);
+        }
+
+        return matrix;
+    }
+
+    /* Returns the value of m raised to the nth power. */
     Natural power(Natural m, unsigned int n) {
         // base case: m^0 = 1
         if (n == 0)
@@ -327,20 +360,23 @@ namespace common {
     vector<Natural> primes(unsigned int n) {
         computePrimes(n);
 
-        vector<Natural> p_list(prime_sequence.begin(), prime_sequence.begin() + n);
+        vector<Natural> p_list(prime_sequence.begin(),
+                prime_sequence.begin() + n);
         return p_list;
     }
 
     /* Returns the prime numbers up to p. */
-    vector<Natural> primesUpTo(Natural p) {
-        computePrimesUpTo(p);
+    vector<Natural> primesUpTo(Natural n) {
+        computePrimesUpTo(n);
 
+        // find the index of the last prime <= n
         unsigned int i = 0;
         const unsigned int kPrimeCount = prime_sequence.size();
-        while (i < kPrimeCount && prime_sequence[i] <= p)
+        while (i < kPrimeCount && prime_sequence[i] <= n)
             i++;
 
-        vector<Natural> p_list(prime_sequence.begin(), prime_sequence.begin() + i);
+        vector<Natural> p_list(prime_sequence.begin(),
+                prime_sequence.begin() + i);
         return p_list;
     }
 
