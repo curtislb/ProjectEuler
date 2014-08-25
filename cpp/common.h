@@ -165,6 +165,9 @@ namespace common {
     /* Returns the numeric value of character c, representing a digit 0-9.  */
     int charToDigit(char c);
 
+    /* Returns the number of divisors of the natural number n. */
+    unsigned int countDivisors(Natural n);
+
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
     Natural fibonacci(unsigned int n);
 

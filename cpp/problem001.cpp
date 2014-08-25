@@ -27,7 +27,7 @@ static const int LIMIT = 1000; // default: 1000
 /* SOLUTION ******************************************************************/
 
 /* Returns the sum of natural numbers below LIMIT that are divisible by n. */
-static int sumDivisibleBy(int n) {
+inline static int sumDivisibleBy(int n) {
     return common::arithSeries(n, (LIMIT - 1) / n, n);
 }
 

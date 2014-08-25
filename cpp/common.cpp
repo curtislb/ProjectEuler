@@ -161,6 +161,17 @@ namespace common {
         return c - '0';
     }
 
+    /* Returns the number of divisors of the natural number n. */
+    unsigned int countDivisors(Natural n) {
+        // compute the product of one more than the powers of its prime factors
+        unsigned int divisor_count = 1;
+        vector<pair<Natural, unsigned int> > factors = primeFactorization(n);
+        for (vector<pair<Natural, unsigned int> >::iterator i = factors.begin(); i != factors.end(); ++i)
+            divisor_count *= (i->second + 1);
+
+        return divisor_count;
+    }
+
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
     Natural fibonacci(unsigned int n) {
         computeFibonacci(n);
