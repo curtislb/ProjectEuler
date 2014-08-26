@@ -104,7 +104,7 @@ namespace common {
         // TODO: implement incremental sieve?
 
         // based on analysis of OEIS data set A006880 and empirical time tests
-        const Natural kEstimate = n <= 25 ? 100 : n * log(n) * 1.05 + n * 0.87;
+        const Natural kEstimate = (n <= 25) ? 100 : (n*log(n)*1.05 + n*0.87);
         const Natural kIncrement = n / log(n);
 
         // compute primes up to estimate, then step forward until n are found
@@ -260,6 +260,11 @@ namespace common {
     /* Returns the numeric value of character c, representing a digit 0-9.  */
     short charToDigit(char c) {
         return c - '0';
+    }
+
+    /* Returns the next number in the Collatz sequence following n. */
+    Natural collatzStep(Natural n) {
+        return (n % 2 == 0) ? (n / 2) : (3 * n + 1);
     }
 
     /* Returns the number of divisors of the natural number n. */

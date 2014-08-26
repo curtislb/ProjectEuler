@@ -199,6 +199,9 @@ namespace common {
     /* Returns the numeric value of character c, representing a digit 0-9.  */
     short charToDigit(char c);
 
+    /* Returns the next number in the Collatz sequence following n. */
+    Natural collatzStep(Natural n);
+
     /* Returns the number of divisors of the natural number n. */
     unsigned int countDivisors(Natural n);
 
