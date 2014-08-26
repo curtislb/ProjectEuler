@@ -25,17 +25,36 @@ namespace common {
 
     /*** BigInteger ***/
 
-    /* Represents an integer number of arbitrary length. */
+    /* Represents an nonnegative integer number of arbitrary length. */
     class BigInteger {
         private:
             /* The digits in the decimal representation of the integer. */
-            vector<unsigned short> digits;
-
-            /* Indicates whether the integer has a negative value. */
-            bool is_negative;
+            vector<short> digits;
 
         public:
-            // TODO: ...
+            /* Constructs a new BigInteger. */
+            BigInteger();
+
+            /*
+             * Constructs a BigInteger from its numerical representation as a
+             * decimal integer in the C-style string int_string.
+             */
+            BigInteger(const char *int_string);
+
+            /*
+             * Constructs a BigInteger from its numerical representation as a
+             * decimal integer in the string int_string.
+             */
+            BigInteger(const string int_string);
+
+            /* Returns the sum of this BigInteger and other. */
+            BigInteger operator+(const BigInteger &other);
+
+            /* Adds the value of other to this BigInteger. */
+            BigInteger &operator+=(const BigInteger &other);
+
+            /* Returns the decimal string representation of this BigInteger. */
+            string asString();
     };
 
     /*** Counter ***/

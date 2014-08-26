@@ -7,6 +7,7 @@
  * Created: Aug 18, 2014
  */
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -144,6 +145,106 @@ namespace common {
                     sieve[j] = false;
             }
         }
+    }
+
+/* CLASS METHODS *************************************************************/
+
+    /*** BigInteger ***/
+
+    /* Constructs a new BigInteger. */
+    BigInteger::BigInteger() {
+        // do nothing
+    }
+
+    /*
+     * Constructs a BigInteger from its numerical representation as a decimal
+     * integer in the C-style string int_string.
+     */
+    BigInteger::BigInteger(const char *int_string) {
+        for (Natural i = 0; int_string[i] != '\0'; i++)
+            digits.push_back(charToDigit(int_string[i]));
+    }
+
+    /*
+     * Constructs a BigInteger from its numerical representation as a decimal
+     * integer in the string int_string.
+     */
+    BigInteger::BigInteger(string int_string) {
+        const Natural kStringSize = int_string.size();
+        for (Natural i = 0; i < kStringSize; i++)
+            digits.push_back(charToDigit(int_string[i]));
+    }
+
+    /* Returns the decimal string representation of this BigInteger. */
+    string BigInteger::asString() {
+        ostringstream digits_oss;
+        for (vector<short>::iterator i = digits.begin(); i != digits.end(); ++i)
+            digits_oss << *i;
+        return digits_oss.str();
+    }
+
+    /* Returns the sum of this BigInteger and other. */
+    BigInteger BigInteger::operator+(const BigInteger &other) {
+        // count the number of digits of this and other
+        const unsigned int kThisDigitCount = digits.size();
+        const unsigned int kOtherDigitCount = other.digits.size();
+        const unsigned int kMinDigitCount = min(kThisDigitCount,
+                kOtherDigitCount);
+
+        BigInteger sum; // the sum of this and other
+        bool carry_digit = 0; // digit carried over from the previous addition
+
+        // add the digits of this and other
+        Natural i;
+        short this_digit, other_digit, digit_sum;
+        for (i = 0; i < kMinDigitCount; i++) {
+            // add both digits and the carry digit from the last addition
+            this_digit = digits[kThisDigitCount - 1 - i];
+            other_digit = other.digits[kOtherDigitCount - 1 - i];
+            digit_sum = this_digit + other_digit + carry_digit;
+
+            // split the result into a digit of sum and a carry digit
+            sum.digits.push_back(digit_sum % 10);
+            carry_digit = static_cast<bool>(digit_sum / 10);
+        }
+
+        // finish the addition after one or both sets of digits are exhausted
+        if (kThisDigitCount > kOtherDigitCount) {
+            // add carry digit to next digit of this
+            this_digit = digits[kThisDigitCount - 1 - i];
+            sum.digits.push_back(this_digit + carry_digit);
+            i++;
+
+            // copy over remaining digits of this
+            while (i < kThisDigitCount) {
+                sum.digits.push_back(digits[kThisDigitCount - 1 - i]);
+                i++;
+            }
+        } else if (kThisDigitCount < kOtherDigitCount) {
+            // add carry digit to next digit of other
+            other_digit = other.digits[kOtherDigitCount - 1 - i];
+            sum.digits.push_back(other_digit + carry_digit);
+            i++;
+
+            // copy over remaining digits of other
+            while (i < kOtherDigitCount) {
+                sum.digits.push_back(other.digits[kOtherDigitCount - 1 - i]);
+                i++;
+            }
+        } else if (carry_digit) {
+            // carry over final digit into new column
+            sum.digits.push_back(carry_digit);
+        }
+
+        // reverse the digits of sum, so that they are in the correct order
+        reverse(sum.digits.begin(), sum.digits.end());
+
+        return sum;
+    }
+
+    /* Adds the value of other to this BigInteger. */
+    BigInteger &BigInteger::operator+=(const BigInteger &other) {
+        return *this = *this + other;
     }
 
 /* FUNCTIONS *****************************************************************/
