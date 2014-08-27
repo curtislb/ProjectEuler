@@ -41,6 +41,9 @@ namespace common {
              */
             BigInteger(const char *int_string);
 
+            /* Constructs a BigInteger from the natural number n. */
+            BigInteger(Natural n);
+
             /*
              * Constructs a BigInteger from its numerical representation as a
              * decimal integer in the string int_string.
@@ -52,6 +55,18 @@ namespace common {
 
             /* Adds the value of other to this BigInteger. */
             BigInteger &operator+=(const BigInteger &other);
+
+            /* Returns the difference of this BigInteger and other. */
+            BigInteger operator-(const BigInteger &other);
+
+            /* Subtracts the value of other from this BigInteger. */
+            BigInteger &operator-=(const BigInteger &other);
+
+            /* Returns the product of this BigInteger and other. */
+            BigInteger operator*(const BigInteger &other);
+
+            /* Multiplies this BigInteger by the value of other. */
+            BigInteger &operator*=(const BigInteger &other);
 
             /* Returns the decimal string representation of this BigInteger. */
             string asString();
@@ -202,8 +217,17 @@ namespace common {
     /* Returns the next number in the Collatz sequence following n. */
     Natural collatzStep(Natural n);
 
+    /* Returns the number of digits of the natural number n. */
+    unsigned int countDigits(Natural n);
+
     /* Returns the number of divisors of the natural number n. */
     unsigned int countDivisors(Natural n);
+
+    /* Returns the natural number represented by the digit vector digits. */
+    Natural digitsToNumber(const vector<short> digits);
+
+    /* Returns the factorial of n, defined as n! = n * (n - 1) * ... * 1. */
+    Natural factorial(unsigned int n);
 
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
     Natural fibonacci(unsigned int n);
@@ -231,6 +255,12 @@ namespace common {
 
     /* Returns a matrix of integer numbers read from input_file. */
     vector<vector<long> > matrixFromFile(const char *input_file);
+
+    /* Returns a vector of the digits of the natural number n. */
+    vector<short> numberToDigits(Natural n);
+
+    /* Returns the number of permutations of k objects from a group of n. */
+    Natural permutations(Natural n, Natural k);
 
     /* Returns the value of m raised to the nth power. */
     Natural power(Natural m, unsigned int n);

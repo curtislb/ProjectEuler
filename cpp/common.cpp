@@ -8,6 +8,7 @@
  */
 
 #include <algorithm>
+#include <climits>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -24,7 +25,15 @@ using namespace std;
 
 namespace common {
 
+/* STATIC CONSTANTS **********************************************************/
+
+    /* Number of digits at which Karatsuba multiplication is carried out. */
+    static const unsigned int KARATSUBA_CUTOFF = 2;//countDigits(sqrt(ULLONG_MAX));
+
 /* STATIC VARIABLES **********************************************************/
+
+    /* Currently computed factorial terms (in sorted order). */
+    static vector<Natural> factorial_sequence(2, 1);
 
     /* Currently computed terms of the Fibonacci sequence (in sorted order). */
     static vector<Natural> fibonacci_sequence(2, 1);
@@ -35,6 +44,9 @@ namespace common {
 /* STATIC FUNCTIONS **********************************************************/
 
     /*** Declarations ***/
+
+    /* Precomputes and stores the first n factorial terms. */
+    static void computeFactorial(unsigned int n);
 
     /* Precomputes and stores the first n Fibonacci numbers. */
     static void computeFibonacci(unsigned int n);
@@ -48,18 +60,62 @@ namespace common {
     /* Precomputes and stores the prime numbers up to n. */
     static void computePrimesUpTo(Natural n);
 
+    /*
+     * Returns the sum of two natural numbers m and n, represented as
+     * vectors of their digits m_digits and n_digits, respectively.
+     */
+    static vector<short> digitAdd(const vector<short> m_digits,
+                                  const vector<short> n_digits);
+
+    /*
+     * Returns the product of two natural numbers m and n, represented as
+     * vectors of their digits m_digits and n_digits, respectively.
+     */
+    static vector<short> digitMultiply(const vector<short> m_digits,
+                                       const vector<short> n_digits);
+
+    /*
+     * Returns the difference of two natural numbers m and n, represented as
+     * vectors of their digits m_digits and n_digits, respectively. Assumes
+     * that m is greater than or equal to n.
+     */
+    static vector<short> digitSubtract(const vector<short> m_digits,
+                                       const vector<short> n_digits);
+
+    /* Returns a copy of the digit vector digits with leading zeros removed. */
+    static vector<short> digitTrim(const vector<short> digits);
+
     /*** Implementations ***/
 
-    /* Precomputes and stores the first n Fibonacci numbers. */
+    /* Precomputes and stores the first n factorial terms. */
+    static void computeFactorial(unsigned int n) {
+        const unsigned int kFactCount = factorial_sequence.size();
+
+        // have the first n terms already been computed?
+        if (n < kFactCount)
+            return;
+
+        // make room for numbers to be added to sequence
+        factorial_sequence.reserve(n + 1);
+
+        // compute numbers iteratively from existing sequence
+        Natural product = factorial_sequence[kFactCount - 1];
+        for (unsigned int i = kFactCount; i <= n; i++) {
+            product *= i;
+            factorial_sequence[i] = product;
+        }
+    }
+
+    /* Precomputes and stores the Fibonacci numbers up to F(n). */
     static void computeFibonacci(unsigned int n) {
         const unsigned int kFibCount = fibonacci_sequence.size();
 
-        // have the first n numbers already been computed?
+        // have the numbers up to F(n) already been computed?
         if (n < kFibCount)
             return;
 
         // make room for numbers to be added to sequence
-        fibonacci_sequence.reserve(n - kFibCount + 1);
+        fibonacci_sequence.reserve(n + 1);
 
         // compute numbers iteratively from existing sequence
         Natural f0 = fibonacci_sequence[kFibCount - 2];
@@ -147,6 +203,188 @@ namespace common {
         }
     }
 
+    /*
+     * Returns the sum of two natural numbers m and n, represented as
+     * vectors of their digits m_digits and n_digits, respectively.
+     */
+    static vector<short> digitAdd(vector<short> m_digits,
+                                  vector<short> n_digits) {
+        // count the number of digits of m and n
+        const unsigned int kMDigitCount = m_digits.size();
+        const unsigned int kNDigitCount = n_digits.size();
+        const unsigned int kMaxDigitCount = max(kMDigitCount, kNDigitCount);
+
+        if (kMDigitCount > kNDigitCount) {
+            // pad m with zeros until it is the same length as n
+            vector<short> n_digits_padded(kMDigitCount, 0);
+            copy(n_digits.begin(), n_digits.end(),
+                 n_digits_padded.begin() + (kMDigitCount - kNDigitCount));
+            n_digits = n_digits_padded;
+        }
+
+        if (kMDigitCount < kNDigitCount) {
+            // pad m with zeros until it is the same length as n
+            vector<short> m_digits_padded(kNDigitCount, 0);
+            copy(m_digits.begin(), m_digits.end(),
+                 m_digits_padded.begin() + (kNDigitCount - kMDigitCount));
+            m_digits = m_digits_padded;
+        }
+
+        vector<short> sum; // the sum of m and n
+        bool carry_digit = 0; // digit carried over from the previous addition
+
+        // add the digits of m and n
+        unsigned int i;
+        short m_digit, n_digit, digit_sum;
+        for (i = 0; i < kMaxDigitCount; i++) {
+            // add both digits and the carry digit from the last addition
+            m_digit = m_digits[kMaxDigitCount - 1 - i];
+            n_digit = n_digits[kMaxDigitCount - 1 - i];
+            digit_sum = m_digit + n_digit + carry_digit;
+
+            // split the result into a digit of sum and a carry digit
+            sum.push_back(digit_sum % 10);
+            carry_digit = static_cast<bool>(digit_sum / 10);
+        }
+
+        if (carry_digit) {
+            // carry over final digit into new column
+            sum.push_back(carry_digit);
+        }
+
+        // reverse the digits of sum, so that they are in the correct order
+        reverse(sum.begin(), sum.end());
+
+        return sum;
+    }
+
+    /*
+     * Returns the product of two natural numbers m and n, represented as
+     * vectors of their digits m_digits and n_digits, respectively.
+     */
+    static vector<short> digitMultiply(vector<short> m_digits,
+                                       vector<short> n_digits) {
+        // count the digits of m and n
+        const unsigned int kMDigitCount = m_digits.size();
+        const unsigned int kNDigitCount = n_digits.size();
+        const unsigned int kMaxDigitCount = max(kMDigitCount, kNDigitCount);
+
+        if (kMDigitCount > kNDigitCount) {
+            // pad m with zeros until it is the same length as n
+            vector<short> n_digits_padded(kMDigitCount, 0);
+            copy(n_digits.begin(), n_digits.end(),
+                 n_digits_padded.begin() + (kMDigitCount - kNDigitCount));
+            n_digits = n_digits_padded;
+        }
+
+        if (kMDigitCount < kNDigitCount) {
+            // pad m with zeros until it is the same length as n
+            vector<short> m_digits_padded(kNDigitCount, 0);
+            copy(m_digits.begin(), m_digits.end(),
+                 m_digits_padded.begin() + (kNDigitCount - kMDigitCount));
+            m_digits = m_digits_padded;
+        }
+
+        // base case: if m and n are sufficiently small, multiply them normally
+        if (kMaxDigitCount < KARATSUBA_CUTOFF) {
+            Natural m = digitsToNumber(m_digits);
+            Natural n = digitsToNumber(n_digits);
+            return numberToDigits(m * n);
+        }
+
+        // compute the offset that will be used to split the digits
+        const unsigned int kSplitOffset = kMaxDigitCount / 2;
+        const unsigned int kCeilSplitOffset = (kMaxDigitCount + 1) / 2;
+
+        // split m into high- and low-order digits
+        vector<short>::iterator m_begin = m_digits.begin();
+        vector<short>::iterator m_mid = m_begin + kCeilSplitOffset;
+        vector<short>::iterator m_end = m_digits.end();
+        vector<short> m_high(m_begin, m_mid);
+        vector<short> m_low(m_mid, m_end);
+
+        // split n into high- and low-order digits
+        vector<short>::iterator n_begin = n_digits.begin();
+        vector<short>::iterator n_mid = n_begin + kCeilSplitOffset;
+        vector<short>::iterator n_end = n_digits.end();
+        vector<short> n_high(n_begin, n_mid);
+        vector<short> n_low(n_mid, n_end);
+
+        // compute three sub-products recursively
+        const vector<short> k0 = digitMultiply(m_high, n_high);
+        const vector<short> k1 = digitMultiply(digitAdd(m_high, m_low),
+                                               digitAdd(n_high, n_low));
+        const vector<short> k2 = digitMultiply(m_low, n_low);
+
+        // compute the "z" terms of the Karatsuba algorithm
+        const vector<short> z0 = k0;
+        const vector<short> z1 = digitSubtract(k1, digitAdd(k0, k2));
+        const vector<short> z2 = k2;
+
+        // pad z0 with zeros to simulate multiplication by 10^(2*kSplitOffset)
+        vector<short> z0_product(z0.size() + (kSplitOffset * 2), 0);
+        copy(z0.begin(), z0.end(), z0_product.begin());
+
+        // pad z1 with zeros to simulate multiplication by 10^(kSplitOffset)
+        vector<short> z1_product(z1.size() + kSplitOffset, 0);
+        copy(z1.begin(), z1.end(), z1_product.begin());
+
+        return digitAdd(digitAdd(z0_product, z1_product), z2);
+    }
+
+    /*
+     * Returns the difference of two natural numbers m and n, represented as
+     * vectors of their digits m_digits and n_digits, respectively. Assumes
+     * that m is greater than or equal to n.
+     */
+    static vector<short> digitSubtract(vector<short> m_digits,
+                                       vector<short> n_digits) {
+        // count the number of digits of m and n
+        const unsigned int kMDigitCount = m_digits.size();
+        const unsigned int kNDigitCount = n_digits.size();
+
+        if (kMDigitCount > kNDigitCount) {
+            // pad m with zeros until it is the same length as n
+            vector<short> n_digits_padded(kMDigitCount, 0);
+            copy(n_digits.begin(), n_digits.end(),
+                 n_digits_padded.begin() + (kMDigitCount - kNDigitCount));
+            n_digits = n_digits_padded;
+        }
+
+        vector<short> diff; // the difference of m and n
+        bool borrow_digit = 0; // digit borrowed for previous subtraction
+
+        // subtract the digits of n from m
+        unsigned int i;
+        short m_digit, n_digit, digit_diff;
+        for (i = 0; i < kMDigitCount; i++) {
+            // subtract this digit of n from that of m, borrowing if necessary
+            m_digit = m_digits[kMDigitCount - 1 - i] - borrow_digit;
+            n_digit = n_digits[kMDigitCount - 1 - i];
+            borrow_digit = m_digit < n_digit;
+            digit_diff = m_digit + (borrow_digit * 10) - n_digit;
+
+            diff.push_back(digit_diff);
+        }
+
+        reverse(diff.begin(), diff.end());
+
+        return diff;
+    }
+
+    /* Returns a copy of the digit vector digits with leading zeros removed. */
+    static vector<short> digitTrim(const vector<short> digits) {
+        vector<short>::const_iterator digits_begin = digits.begin();
+        while (*digits_begin == 0 && digits_begin != digits.end())
+            ++digits_begin;
+
+        if (digits_begin == digits.end())
+            --digits_begin;
+
+        vector<short> digits_trimmed(digits_begin, digits.end());
+        return digits_trimmed;
+    }
+
 /* CLASS METHODS *************************************************************/
 
     /*** BigInteger ***/
@@ -175,6 +413,19 @@ namespace common {
             digits.push_back(charToDigit(int_string[i]));
     }
 
+    /* Constructs a BigInteger from the natural number n. */
+    BigInteger::BigInteger(Natural n) {
+        // convert n to a string
+        ostringstream n_oss;
+        n_oss << n;
+        const string kIntString = n_oss.str();
+        const unsigned int kStringSize = kIntString.size();
+
+        // construct the BigInteger normally from the string
+        for (unsigned int i = 0; i < kStringSize; i++)
+            digits.push_back(charToDigit(kIntString[i]));
+    }
+
     /* Returns the decimal string representation of this BigInteger. */
     string BigInteger::asString() {
         ostringstream digits_oss;
@@ -185,66 +436,38 @@ namespace common {
 
     /* Returns the sum of this BigInteger and other. */
     BigInteger BigInteger::operator+(const BigInteger &other) {
-        // count the number of digits of this and other
-        const unsigned int kThisDigitCount = digits.size();
-        const unsigned int kOtherDigitCount = other.digits.size();
-        const unsigned int kMinDigitCount = min(kThisDigitCount,
-                kOtherDigitCount);
-
-        BigInteger sum; // the sum of this and other
-        bool carry_digit = 0; // digit carried over from the previous addition
-
-        // add the digits of this and other
-        Natural i;
-        short this_digit, other_digit, digit_sum;
-        for (i = 0; i < kMinDigitCount; i++) {
-            // add both digits and the carry digit from the last addition
-            this_digit = digits[kThisDigitCount - 1 - i];
-            other_digit = other.digits[kOtherDigitCount - 1 - i];
-            digit_sum = this_digit + other_digit + carry_digit;
-
-            // split the result into a digit of sum and a carry digit
-            sum.digits.push_back(digit_sum % 10);
-            carry_digit = static_cast<bool>(digit_sum / 10);
-        }
-
-        // finish the addition after one or both sets of digits are exhausted
-        if (kThisDigitCount > kOtherDigitCount) {
-            // add carry digit to next digit of this
-            this_digit = digits[kThisDigitCount - 1 - i];
-            sum.digits.push_back(this_digit + carry_digit);
-            i++;
-
-            // copy over remaining digits of this
-            while (i < kThisDigitCount) {
-                sum.digits.push_back(digits[kThisDigitCount - 1 - i]);
-                i++;
-            }
-        } else if (kThisDigitCount < kOtherDigitCount) {
-            // add carry digit to next digit of other
-            other_digit = other.digits[kOtherDigitCount - 1 - i];
-            sum.digits.push_back(other_digit + carry_digit);
-            i++;
-
-            // copy over remaining digits of other
-            while (i < kOtherDigitCount) {
-                sum.digits.push_back(other.digits[kOtherDigitCount - 1 - i]);
-                i++;
-            }
-        } else if (carry_digit) {
-            // carry over final digit into new column
-            sum.digits.push_back(carry_digit);
-        }
-
-        // reverse the digits of sum, so that they are in the correct order
-        reverse(sum.digits.begin(), sum.digits.end());
-
+        BigInteger sum;
+        sum.digits = digitTrim(digitAdd(digits, other.digits));
         return sum;
     }
 
     /* Adds the value of other to this BigInteger. */
     BigInteger &BigInteger::operator+=(const BigInteger &other) {
         return *this = *this + other;
+    }
+
+    /* Returns the difference of this BigInteger and other. */
+    BigInteger BigInteger::operator-(const BigInteger &other) {
+        BigInteger diff;
+        diff.digits = digitTrim(digitSubtract(digits, other.digits));
+        return diff;
+    }
+
+    /* Subtracts the value of other from this BigInteger. */
+    BigInteger &BigInteger::operator-=(const BigInteger &other) {
+        return *this = *this - other;
+    }
+
+    /* Returns the product of this BigInteger and other. */
+    BigInteger BigInteger::operator*(const BigInteger &other) {
+        BigInteger product;
+        product.digits = digitTrim(digitMultiply(digits, other.digits));
+        return product;
+    }
+
+    /* Multiplies this BigInteger by the value of other. */
+    BigInteger &BigInteger::operator*=(const BigInteger &other) {
+        return *this = *this * other;
     }
 
 /* FUNCTIONS *****************************************************************/
@@ -267,6 +490,18 @@ namespace common {
         return (n % 2 == 0) ? (n / 2) : (3 * n + 1);
     }
 
+    /* Returns the number of digits of the natural number n. */
+    unsigned int countDigits(Natural n) {
+        unsigned int count = 0;
+        while (n != 0) {
+            n /= 10;
+            count++;
+        }
+
+        // if count is 0, then n must be 0, which has one digit
+        return count ? count : 1;
+    }
+
     /* Returns the number of divisors of the natural number n. */
     unsigned int countDivisors(Natural n) {
         // compute the product of one more than the powers of its prime factors
@@ -276,6 +511,28 @@ namespace common {
             divisor_count *= (i->second + 1);
 
         return divisor_count;
+    }
+
+    /* Returns the natural number represented by the digit vector digits. */
+    Natural digitsToNumber(const vector<short> digits) {
+        // count the number of digits
+        const unsigned int kDigitCount = digits.size();
+
+        // add each digit (scaled by appropriate power of 10) to total
+        Natural num = 0;
+        Natural factor = 1;
+        for (unsigned int i = 0; i < kDigitCount; i++) {
+            num += digits[kDigitCount - 1 - i] * factor;
+            factor *= 10;
+        }
+
+        return num;
+    }
+
+    /* Returns the factorial of n, defined as n! = n * (n - 1) * ... * 1. */
+    Natural factorial(unsigned int n) {
+        computeFactorial(n);
+        return factorial_sequence[n];
     }
 
     /* Returns the nth Fibonacci number, with F(0) = F(1) = 1. */
@@ -417,6 +674,31 @@ namespace common {
         }
 
         return matrix;
+    }
+
+    /* Returns a vector of the digits of the natural number n. */
+    vector<short> numberToDigits(Natural n) {
+        vector<short> digits;
+
+        // append each digit of n to digits
+        while (n > 0) {
+            digits.push_back(n % 10);
+            n /= 10;
+        }
+
+        if (digits.size() == 0)
+            // if no digits have been appended, n must be 0
+            digits.push_back(0);
+        else
+            // reverse the digits, so that they are in the correct order
+            reverse(digits.begin(), digits.end());
+
+        return digits;
+    }
+
+    /* Returns the number of permutations of k objects from a group of n. */
+    Natural permutations(Natural n, Natural k) {
+        return factorial(n) / factorial(n - k);
     }
 
     /* Returns the value of m raised to the nth power. */
