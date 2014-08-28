@@ -22,7 +22,7 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const long long N = 600851475143; // default: 600851475143
+static const long long N = 600851475143LL; // default: 600851475143LL
 
 /* SOLUTION ******************************************************************/
 
