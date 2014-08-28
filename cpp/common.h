@@ -35,6 +35,9 @@ namespace common {
             /* Constructs a new BigInteger. */
             BigInteger();
 
+            /* Constructs a new BigInteger that is a copy of big_int. */
+            BigInteger(const BigInteger &big_int);
+
             /*
              * Constructs a BigInteger from its numerical representation as a
              * decimal integer in the C-style string int_string.
@@ -50,8 +53,8 @@ namespace common {
              */
             BigInteger(const string int_string);
 
-            /* Returns the decimal string representation of this BigInteger. */
-            string asString() const;
+            /* Returns the value of this BigInteger modulo 10. */
+            short mod10() const;
 
             /* Returns the sum of this BigInteger and other. */
             BigInteger operator+(const BigInteger &other) const;
@@ -97,6 +100,15 @@ namespace common {
 
             /* Determines if this BigInteger is equal to other. */
             bool operator==(const BigInteger &other) const;
+
+            /* Determines if this BigInteger is not equal to other. */
+            bool operator!=(const BigInteger &other) const;
+
+            /* Returns the value of this BigInteger raised to the n power. */
+            BigInteger power(const BigInteger &n) const;
+
+            /* Returns the decimal string representation of this BigInteger. */
+            string toString() const;
     };
 
     /*** Counter ***/
@@ -313,6 +325,12 @@ namespace common {
 
     /* Returns the prime numbers up to n. */
     vector<Natural> primesUpTo(Natural n);
+
+    /* Returns the sum of the decimal digits of the BigInteger n. */
+    BigInteger sumDigits(const BigInteger &n);
+
+    /* Returns the sum of the decimal digits of the natural number n. */
+    Natural sumDigits(Natural n);
 
     /* Returns the sum of the squares of the first n natural numbers. */
     Natural sumOfSquares(unsigned int n);

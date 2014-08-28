@@ -45,7 +45,7 @@ int main() {
     }
 
     // print only the first D digits of the sum
-    cout << sum.asString().substr(0, D) << endl;
+    cout << sum.toString().substr(0, D) << endl;
 
     return 0;
 }

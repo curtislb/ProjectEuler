@@ -38,6 +38,6 @@ int main() {
     common::BigInteger divisor = common::factorial(kBigN);
     common::BigInteger quotient = product / divisor;
 
-    cout << quotient.asString() << endl;
+    cout << quotient.toString() << endl;
     return 0;
 }

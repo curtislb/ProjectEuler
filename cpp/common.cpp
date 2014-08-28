@@ -30,6 +30,9 @@ namespace common {
     /* BigInteger constant representing the number 1. */
     static const BigInteger BIG_ONE("1");
 
+    /* BigInteger constant representing the number 0. */
+    static const BigInteger BIG_ZERO("0");
+
     /* Number of digits at which Karatsuba multiplication is carried out. */
     static const unsigned int KARATSUBA_CUTOFF = 2;
 
@@ -500,6 +503,12 @@ namespace common {
         // do nothing
     }
 
+    /* Constructs a new BigInteger that is a copy of big_int. */
+    BigInteger::BigInteger(const BigInteger &big_int) {
+        vector<short> big_int_digits_copy(big_int.digits.begin(), big_int.digits.end());
+        digits = big_int_digits_copy;
+    }
+
     /*
      * Constructs a BigInteger from its numerical representation as a decimal
      * integer in the C-style string int_string.
@@ -532,12 +541,9 @@ namespace common {
             digits.push_back(charToDigit(kIntString[i]));
     }
 
-    /* Returns the decimal string representation of this BigInteger. */
-    string BigInteger::asString() const {
-        ostringstream digits_oss;
-        for (vector<short>::const_iterator i = digits.begin(); i != digits.end(); ++i)
-            digits_oss << *i;
-        return digits_oss.str();
+    /* Returns the value of this BigInteger modulo 10. */
+    short BigInteger::mod10() const {
+        return digits[digits.size() - 1];
     }
 
     /* Returns the sum of this BigInteger and other. */
@@ -621,6 +627,52 @@ namespace common {
     /* Determines if this BigInteger is equal to other. */
     bool BigInteger::operator==(const BigInteger &other) const {
         return digitCompare(digits, other.digits) == 0;
+    }
+
+    /* Determines if this BigInteger is not equal to other. */
+    bool BigInteger::operator!=(const BigInteger &other) const {
+        return digitCompare(digits, other.digits) != 0;
+    }
+
+    /* Returns the value of this BigInteger raised to the n power. */
+    BigInteger BigInteger::power(const BigInteger &n) const {
+//        cout << "problem: " << digitsToNumber(digits) << "^" << digitsToNumber(n.digits) << endl;
+
+        // base case: this to the 0th power equals 1
+        if (n == BIG_ZERO) {
+            BigInteger result("1");
+            return result;
+        }
+
+        // recursively compute half power
+        const BigInteger kHalfPow = this->power(n / 2);
+
+        // compute original power
+        if (n.digits[n.digits.size() - 1] % 2 == 0) {
+            BigInteger product = kHalfPow * kHalfPow;
+            return product;
+        } else {
+            BigInteger product = *this * kHalfPow * kHalfPow;
+            return product;
+        }
+    }
+
+    /* Returns the decimal string representation of this BigInteger. */
+    string BigInteger::toString() const {
+//        ostringstream digits_oss;
+//        for (vector<short>::const_iterator i = digits.begin(); i != digits.end(); ++i)
+//            digits_oss << *i;
+//        return digits_oss.str();
+        BigInteger this_copy(*this);
+        ostringstream digits_oss;
+        while (this_copy != BIG_ZERO) {
+            digits_oss << this_copy.digits[this_copy.digits.size() - 1];
+            this_copy.digits.pop_back();
+        }
+
+        string digits_str = digits_oss.str();
+        reverse(digits_str.begin(), digits_str.end());
+        return digits_str;
     }
 
 /* FUNCTIONS *****************************************************************/
@@ -953,6 +1005,29 @@ namespace common {
         vector<Natural> p_list(prime_sequence.begin(),
                 prime_sequence.begin() + i);
         return p_list;
+    }
+
+    /* Returns the sum of the decimal digits of the BigInteger n. */
+    BigInteger sumDigits(const BigInteger &n) {
+        // copy read-only object argument n to a writable one
+        BigInteger n_copy(n);
+
+        BigInteger sum("0");
+        while (n_copy != BIG_ZERO) {
+            sum += n_copy.mod10();
+            n_copy /= 10;
+        }
+        return sum;
+    }
+
+    /* Returns the sum of the decimal digits of the natural number n. */
+    Natural sumDigits(Natural n) {
+        Natural sum = 0;
+        while (n != 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        return sum;
     }
 
     /* Returns the sum of the squares of the first n natural numbers. */
