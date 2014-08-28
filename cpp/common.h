@@ -51,10 +51,10 @@ namespace common {
             BigInteger(const string int_string);
 
             /* Returns the decimal string representation of this BigInteger. */
-            string asString();
+            string asString() const;
 
             /* Returns the sum of this BigInteger and other. */
-            BigInteger operator+(const BigInteger &other);
+            BigInteger operator+(const BigInteger &other) const;
 
             /* Adds the value of other to this BigInteger. */
             BigInteger &operator+=(const BigInteger &other);
@@ -63,7 +63,7 @@ namespace common {
             BigInteger &operator++(int postfix);
 
             /* Returns the difference of this BigInteger and other. */
-            BigInteger operator-(const BigInteger &other);
+            BigInteger operator-(const BigInteger &other) const;
 
             /* Subtracts the value of other from this BigInteger. */
             BigInteger &operator-=(const BigInteger &other);
@@ -72,31 +72,31 @@ namespace common {
             BigInteger &operator--(int postfix);
 
             /* Returns the product of this BigInteger and other. */
-            BigInteger operator*(const BigInteger &other);
+            BigInteger operator*(const BigInteger &other) const;
 
             /* Multiplies this BigInteger by the value of other. */
             BigInteger &operator*=(const BigInteger &other);
 
             /* Returns the value of this BigInteger divided by other. */
-            BigInteger operator/(const BigInteger &other);
+            BigInteger operator/(const BigInteger &other) const;
 
             /* Divides the value of this BigInteger by other. */
             BigInteger &operator/=(const BigInteger &other);
 
             /* Determines if this BigInteger is less than other. */
-            bool operator<(const BigInteger &other);
+            bool operator<(const BigInteger &other) const;
 
             /* Determines if this BigInteger is less than or equal to other. */
-            bool operator<=(const BigInteger &other);
+            bool operator<=(const BigInteger &other) const;
 
             /* Determines if this BigInteger is greater than other. */
-            bool operator>(const BigInteger &other);
+            bool operator>(const BigInteger &other) const;
 
             /* Determines if this BigInteger is greater than or equal to other. */
-            bool operator>=(const BigInteger &other);
+            bool operator>=(const BigInteger &other) const;
 
             /* Determines if this BigInteger is equal to other. */
-            bool operator==(const BigInteger &other);
+            bool operator==(const BigInteger &other) const;
     };
 
     /*** Counter ***/
@@ -254,7 +254,7 @@ namespace common {
     Natural digitsToNumber(const vector<short> digits);
 
     /* Returns the factorial of n, defined as n! = n * (n - 1) * ... * 1. */
-    BigInteger factorial(unsigned int n);
+    BigInteger factorial(const BigInteger &n);
 
     /* Returns the factorial of n, defined as n! = n * (n - 1) * ... * 1. */
     Natural factorial(unsigned short n);
@@ -290,7 +290,7 @@ namespace common {
     vector<short> numberToDigits(Natural n);
 
     /* Returns the number of permutations of k objects from a group of n. */
-    BigInteger permutations(BigInteger n, BigInteger k);
+    BigInteger permutations(const BigInteger &n, const BigInteger &k);
 
     /* Returns the number of permutations of k objects from a group of n. */
     Natural permutations(Natural n, Natural k);

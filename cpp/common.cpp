@@ -533,15 +533,15 @@ namespace common {
     }
 
     /* Returns the decimal string representation of this BigInteger. */
-    string BigInteger::asString() {
+    string BigInteger::asString() const {
         ostringstream digits_oss;
-        for (vector<short>::iterator i = digits.begin(); i != digits.end(); ++i)
+        for (vector<short>::const_iterator i = digits.begin(); i != digits.end(); ++i)
             digits_oss << *i;
         return digits_oss.str();
     }
 
     /* Returns the sum of this BigInteger and other. */
-    BigInteger BigInteger::operator+(const BigInteger &other) {
+    BigInteger BigInteger::operator+(const BigInteger &other) const {
         BigInteger sum;
         sum.digits = digitTrim(digitAdd(digits, other.digits));
         return sum;
@@ -558,7 +558,7 @@ namespace common {
     }
 
     /* Returns the difference of this BigInteger and other. */
-    BigInteger BigInteger::operator-(const BigInteger &other) {
+    BigInteger BigInteger::operator-(const BigInteger &other) const {
         BigInteger diff;
         diff.digits = digitTrim(digitSubtract(digits, other.digits));
         return diff;
@@ -575,7 +575,7 @@ namespace common {
     }
 
     /* Returns the product of this BigInteger and other. */
-    BigInteger BigInteger::operator*(const BigInteger &other) {
+    BigInteger BigInteger::operator*(const BigInteger &other) const {
         BigInteger product;
         product.digits = digitTrim(digitMultiply(digits, other.digits));
         return product;
@@ -587,7 +587,7 @@ namespace common {
     }
 
     /* Returns the value of this BigInteger divided by other. */
-    BigInteger BigInteger::operator/(const BigInteger &other) {
+    BigInteger BigInteger::operator/(const BigInteger &other) const {
         BigInteger quotient;
         quotient.digits = digitTrim(digitDivide(digits, other.digits));
         return quotient;
@@ -599,27 +599,27 @@ namespace common {
     }
 
     /* Determines if this BigInteger is less than other. */
-    bool BigInteger::operator<(const BigInteger &other) {
+    bool BigInteger::operator<(const BigInteger &other) const {
         return digitCompare(digits, other.digits) < 0;
     }
 
     /* Determines if this BigInteger is less than or equal to other. */
-    bool BigInteger::operator<=(const BigInteger &other) {
+    bool BigInteger::operator<=(const BigInteger &other) const {
         return digitCompare(digits, other.digits) <= 0;
     }
 
     /* Determines if this BigInteger is greater than other. */
-    bool BigInteger::operator>(const BigInteger &other) {
+    bool BigInteger::operator>(const BigInteger &other) const {
         return digitCompare(digits, other.digits) > 0;
     }
 
     /* Determines if this BigInteger is greater than or equal to other. */
-    bool BigInteger::operator>=(const BigInteger &other) {
+    bool BigInteger::operator>=(const BigInteger &other) const {
         return digitCompare(digits, other.digits) >= 0;
     }
 
     /* Determines if this BigInteger is equal to other. */
-    bool BigInteger::operator==(const BigInteger &other) {
+    bool BigInteger::operator==(const BigInteger &other) const {
         return digitCompare(digits, other.digits) == 0;
     }
 
@@ -683,7 +683,7 @@ namespace common {
     }
 
     /* Returns the factorial of n, defined as n! = n * (n - 1) * ... * 1. */
-    BigInteger factorial(BigInteger n) {
+    BigInteger factorial(const BigInteger &n) {
         BigInteger product("1");
         for (BigInteger i("2"); i <= n; i++) {
             product *= i;
@@ -862,7 +862,7 @@ namespace common {
     }
 
     /* Returns the number of permutations of k objects from a group of n. */
-    BigInteger permutations(BigInteger n, BigInteger k) {
+    BigInteger permutations(const BigInteger &n, const BigInteger &k) {
         BigInteger product("1");
         for (BigInteger i = n - k + BIG_ONE; i <= n; i++)
             product *= i;

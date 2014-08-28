@@ -21,20 +21,21 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const unsigned short N = 20; // default: 20
+static const unsigned int N = 20; // default: 20
 
 /* SOLUTION ******************************************************************/
 
 int main() {
     // compute the value of (2*N)! / N! = (2*N) * (2*N - 1) * ... * 1
-    const unsigned short kMaxFactor = N * 2;
+    const unsigned int kMaxFactor = N * 2;
     common::BigInteger product("1");
     for (unsigned int i = N + 1; i <= kMaxFactor; i++) {
         product *= i;
     }
 
     // divide the numerator by N! to account for all duplicate moves
-    common::BigInteger divisor = common::BigInteger(common::factorial(N));
+    const common::BigInteger kBigN((common::Natural)N);
+    common::BigInteger divisor = common::factorial(kBigN);
     common::BigInteger quotient = product / divisor;
 
     cout << quotient.asString() << endl;
