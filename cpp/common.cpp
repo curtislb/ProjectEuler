@@ -659,20 +659,10 @@ namespace common {
 
     /* Returns the decimal string representation of this BigInteger. */
     string BigInteger::toString() const {
-//        ostringstream digits_oss;
-//        for (vector<short>::const_iterator i = digits.begin(); i != digits.end(); ++i)
-//            digits_oss << *i;
-//        return digits_oss.str();
-        BigInteger this_copy(*this);
         ostringstream digits_oss;
-        while (this_copy != BIG_ZERO) {
-            digits_oss << this_copy.digits[this_copy.digits.size() - 1];
-            this_copy.digits.pop_back();
-        }
-
-        string digits_str = digits_oss.str();
-        reverse(digits_str.begin(), digits_str.end());
-        return digits_str;
+        for (vector<short>::const_iterator i = digits.begin(); i != digits.end(); ++i)
+            digits_oss << *i;
+        return digits_oss.str();
     }
 
 /* FUNCTIONS *****************************************************************/
