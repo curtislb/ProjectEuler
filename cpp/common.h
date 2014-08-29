@@ -283,6 +283,9 @@ namespace common {
     /* Returns the greatest common divisor of m and n. */
     Natural gcd(Natural m, Natural n);
 
+    /* Determines if year (given in years A.D.) is a leap year. */
+    bool isLeapYear(Natural year);
+
     /* Determines if the natural number n is a palindrome. */
     bool isPalindrome(Natural n);
 

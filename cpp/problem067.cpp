@@ -35,7 +35,7 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-const char *INPUT_FILE = "input/067.txt"; // default: "input/067.txt"
+static const char *INPUT_FILE = "input/067.txt"; // default: "input/067.txt"
 
 /* SOLUTION ******************************************************************/
 

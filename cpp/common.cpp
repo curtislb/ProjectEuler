@@ -784,6 +784,16 @@ namespace common {
         return m;
     }
 
+    /* Determines if year (given in years A.D.) is a leap year. */
+    bool isLeapYear(Natural year) {
+        if (year % 100 != 0)
+            // year is not a century; it is a leap year if divisible by 4
+            return year % 4 == 0;
+        else
+            // year is a century; it is a leap year only if divisible by 400
+            return year % 400 == 0;
+    }
+
     /* Determines if the natural number n is a palindrome. */
     bool isPalindrome(Natural n) {
         // convert n to a string
