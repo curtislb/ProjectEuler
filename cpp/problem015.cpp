@@ -35,9 +35,9 @@ int main() {
 
     // divide the numerator by N! to account for all duplicate moves
     const common::BigInteger kBigN((common::Natural)N);
-    common::BigInteger divisor = common::factorial(kBigN);
-    common::BigInteger quotient = product / divisor;
+    const common::BigInteger kDivisor = common::factorial(kBigN);
+    const common::BigInteger kQuotient = product / kDivisor;
 
-    cout << quotient.toString() << endl;
+    cout << kQuotient.toString() << endl;
     return 0;
 }
