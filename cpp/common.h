@@ -295,8 +295,11 @@ namespace common {
     /* Returns the least common multiple of all numbers in nums. */
     Natural lcm(vector<Natural> nums);
 
-    /* Returns a matrix of integer numbers read from input_file. */
-    vector<vector<long> > matrixFromFile(const char *input_file);
+    /* Returns the maximal sum of numbers from top to bottom in triangle. */
+    long maxTrianglePath(vector<vector<long> > triangle);
+
+    /* Returns a list of rows of integer numbers read from input_file. */
+    vector<vector<long> > numbersFromFile(const char *input_file);
 
     /* Returns a vector of the digits of the natural number n. */
     vector<short> numberToDigits(Natural n);

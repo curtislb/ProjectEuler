@@ -855,8 +855,32 @@ namespace common {
         return product;
     }
 
+    /* Returns the maximal sum of numbers from top to bottom in triangle. */
+    long maxTrianglePath(vector<vector<long> > triangle) {
+        const unsigned int kNumRows = triangle.size();
+
+        // add maximum adjacent values from row above to each row
+        for (unsigned int i = 1; i < kNumRows; i++) {
+            for (unsigned int j = 0; j < i + 1; j++) {
+                if (j != 0 && j != i)
+                    // two adjacent elements above; add maximal
+                    triangle[i][j] += max(triangle[i-1][j-1], triangle[i-1][j]);
+                else if (j == 0)
+                    // no adjacent element to left above; add right
+                    triangle[i][j] += triangle[i - 1][j];
+                else
+                    // no adjacent element to right above; add left
+                    triangle[i][j] += triangle[i - 1][j - 1];
+            }
+        }
+
+        // return the maximum value in the last row
+        vector<long> kLastRow = triangle[kNumRows - 1];
+        return *max_element(kLastRow.begin(), kLastRow.end());
+    }
+
     /* Returns a matrix of integer numbers read from input_file. */
-    vector<vector<long> > matrixFromFile(const char *input_file) {
+    vector<vector<long> > numbersFromFile(const char *input_file) {
         ifstream input(input_file);
         if (!input.is_open()) {
             // failed to open the input file

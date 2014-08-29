@@ -53,7 +53,7 @@ static const char *INPUT_FILE = "input/011.txt"; // default: "input/011.txt"
 
 int main() {
     // read the matrix from the input file
-    const vector<vector<long> > kMatrix = common::matrixFromFile(INPUT_FILE);
+    const vector<vector<long> > kMatrix = common::numbersFromFile(INPUT_FILE);
     const unsigned int kNumRows = kMatrix.size();
     const unsigned int kNumCols = kMatrix[0].size();
 
