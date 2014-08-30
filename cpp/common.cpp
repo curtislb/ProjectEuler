@@ -48,7 +48,7 @@ namespace common {
 
     /*** Declarations ***/
 
-    /* Precomputes and stores the first n Fibonacci numbers. */
+    /* Precomputes and stores the Fibonacci numbers up to F(n). */
     static void computeFibonacci(unsigned int n);
 
     /* Precomputes and stores the Fibonacci numbers up to at least n. */
@@ -168,12 +168,12 @@ namespace common {
     static void computePrimesUpTo(Natural n) {
         const unsigned int kPrimeCount = prime_sequence.size();
 
-        // have the numbers up to p already been computed?
+        // have the numbers up to n already been computed?
         Natural prime_max = prime_sequence[kPrimeCount - 1];
         if (prime_max >= n)
             return;
 
-        // prepare sieve of Eratosthenes for numbers prime_max+1 to p
+        // prepare sieve of Eratosthenes for numbers prime_max+1 to n
         const unsigned int kSieveSize = n - prime_max;
         vector<bool> sieve(kSieveSize, true);
 
@@ -748,7 +748,7 @@ namespace common {
         return fibonacci_sequence[n];
     }
 
-    /* Returns the first n Fibonacci numbers. */
+    /* Returns the first Fibonacci numbers up to F(n) in sorted order. */
     vector<Natural> fibonacciNums(unsigned int n) {
         computeFibonacci(n);
 
@@ -757,7 +757,7 @@ namespace common {
         return f_list;
     }
 
-    /* Returns the Fibonacci numbers up to n. */
+    /* Returns the Fibonacci numbers up to n in sorted order. */
     vector<Natural> fibonacciNumsUpTo(Natural n) {
         computeFibonacciUpTo(n);
 
@@ -987,7 +987,7 @@ namespace common {
 
         pair<Natural, unsigned int> factor;
         vector<pair<Natural, unsigned int> > factorization;
-        for (unsigned int i = 0; i < kPrimeCount; i++) {
+        for (unsigned int i = 2; i < kPrimeCount; i++) {
             // has n already been completely factored?
             if (n == 1)
                 break;
@@ -1007,7 +1007,7 @@ namespace common {
         return factorization;
     }
 
-    /* Returns the first n prime numbers. */
+    /* Returns the first n prime numbers in sorted order. */
     vector<Natural> primes(unsigned int n) {
         computePrimes(n);
 
@@ -1016,7 +1016,7 @@ namespace common {
         return p_list;
     }
 
-    /* Returns the prime numbers up to p. */
+    /* Returns the prime numbers up to p in sorted order. */
     vector<Natural> primesUpTo(Natural n) {
         computePrimesUpTo(n);
 
