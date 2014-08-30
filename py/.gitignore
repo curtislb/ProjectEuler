@@ -31,3 +31,8 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+# Python specific
+__pycache__/
+*.pyo
+*.pyc
