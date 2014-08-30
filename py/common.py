@@ -100,11 +100,8 @@ def prime_factorization(n):
     
     factorization = []
 
-    for i in range(2, n):
-        # has n already been completely factored?
-        if n == 1:
-            break
-
+    i = 2
+    while i <= n:
         # compute power of i in factorization
         factor = [i, 0]
         while n % i == 0:
@@ -114,6 +111,8 @@ def prime_factorization(n):
         # add factor to factorization if necessary
         if factor[1] > 0:
             factorization.append(factor)
+            
+        i += 1
 
     return factorization
 
