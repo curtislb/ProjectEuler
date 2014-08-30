@@ -987,11 +987,8 @@ namespace common {
 
         pair<Natural, unsigned int> factor;
         vector<pair<Natural, unsigned int> > factorization;
-        for (unsigned int i = 2; i < kPrimeCount; i++) {
-            // has n already been completely factored?
-            if (n == 1)
-                break;
-
+        unsigned int i = 0;
+        while (kPrimes[i] <= n) {
             // compute power of ith prime in factorization
             factor = make_pair(kPrimes[i], 0);
             while (n % kPrimes[i] == 0) {
@@ -1002,6 +999,8 @@ namespace common {
             // add factor to factorization if necessary
             if (factor.second > 0)
                 factorization.push_back(factor);
+
+            i++;
         }
 
         return factorization;
