@@ -1,17 +1,21 @@
-'''
-Problem 3.
+"""problem_003.py
+
+Problem 3: Largest prime factor
 
 The prime factors of 13195 are 5, 7, 13 and 29.
 
-What is the largest prime factor of the natural number N?
+What is the largest prime factor of the number N?
 
 @author: Curtis Belmonte
-'''
+"""
+
+import common
+
+# PARAMETERS ##################################################################
 
 N = 600851475143 # default: 600851475143
 
-###############################################################################
+# SOLUTION ####################################################################
 
-from common import prime_factorization
-
-print(max(prime_factorization(N)))
+if __name__ == '__main__':
+    print(common.prime_factorization(N)[-1][0])

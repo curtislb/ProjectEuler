@@ -7,13 +7,17 @@ Common utility functions and classes for various Project Euler problems.
 
 # PRIVATE VARIABLES ###########################################################
 
-# Currently computed terms of the Fibonacci sequence (in sorted order).
+# Currently computed terms of the Fibonacci sequence (in sorted order)
 _fibonacci_sequence = [1, 1]
+
+# Currently computed prime number terms (in sorted order)
+_prime_sequence = [2]
 
 # PRIVATE FUNCTIONS ###########################################################
 
 def _compute_fibonacci(n):
     """Precomputes and stores the Fibonacci numbers up to F(n)."""
+    
     fib_count = len(_fibonacci_sequence)
 
     # have the numbers up to F(n) already been computed?
@@ -28,6 +32,37 @@ def _compute_fibonacci(n):
         f1 += f0
         f0 = temp
         _fibonacci_sequence.append(f1)
+
+
+def _compute_primes_up_to(n):
+    """Precomputes and stores the prime numbers up to n."""
+
+    # have the numbers up to n already been computed?
+    prime_max = _prime_sequence[-1]
+    if prime_max >= n:
+        return
+
+    # prepare sieve of Eratosthenes for numbers prime_max + 1 to n
+    sieve_size = n - prime_max
+    print(sieve_size)
+    sieve = [True] * sieve_size
+
+    # sift out composite numbers using previously computed primes
+    prime_count = len(_prime_sequence)
+    for i in range(prime_count):
+        rho = _prime_sequence[i]
+        for j in range(rho*rho, sieve_size + prime_max + 1, rho):
+            if j < prime_max + 1:
+                continue
+            sieve[j - prime_max - 1] = False
+
+    # sift out remaining composite numbers with newly found primes
+    for i in range(sieve_size):
+        if sieve[i]:
+            rho = i + prime_max + 1
+            _prime_sequence.append(rho)
+            for j in range(rho*rho - prime_max - 1, sieve_size, rho):
+                sieve[j] = False
 
 # PUBLIC FUNCTIONS ############################################################
 
@@ -55,3 +90,40 @@ def gcd(m, n):
 def lcm(m, n):
     """Returns the least common multiple of natural numbers m and n."""
     return m * n // gcd(m, n)
+
+
+def prime_factorization(n):
+    """Computes the prime factorization of the natural number n.
+    
+    Returns a list of base-exponent pairs containing each prime factor and
+    its power in the prime factorization of n."""
+    
+    factorization = []
+
+    for i in range(2, n):
+        # has n already been completely factored?
+        if n == 1:
+            break
+
+        # compute power of i in factorization
+        factor = [i, 0]
+        while n % i == 0:
+            n //= i
+            factor[1] += 1
+
+        # add factor to factorization if necessary
+        if factor[1] > 0:
+            factorization.append(factor)
+
+    return factorization
+
+
+def primes_up_to(n):
+    """Returns the prime numbers up to p in sorted order."""
+    # find the index of the last prime <= n
+    i = 0
+    prime_count = len(_prime_sequence)
+    while i < prime_count and _prime_sequence[i] <= n:
+        i += 1
+
+    return _prime_sequence[:i]
