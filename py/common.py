@@ -87,6 +87,22 @@ def gcd(m, n):
     return m
 
 
+def is_palindrome(n):
+    """Determines if the natural number n is a palindrome."""
+    
+    n_str = str(n)
+    
+    # compare chars iteratively from beginning and end of string
+    i = 0
+    j = len(n_str) - 1
+    while (i < j):
+        if n_str[i] != n_str[j]:
+            return False
+        i += 1
+        j -= 1
+    return True
+
+
 def lcm(m, n):
     """Returns the least common multiple of natural numbers m and n."""
     return m * n // gcd(m, n)
