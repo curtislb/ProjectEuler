@@ -145,7 +145,7 @@ namespace common {
         }
     }
 
-    /* Precomputes and stores the first n prime numbers. */
+    /* Precomputes and stores at least the first n prime numbers. */
     static void computePrimes(unsigned int n) {
         unsigned int kPrimeCount = prime_sequence.size();
 
@@ -889,7 +889,7 @@ namespace common {
         return *max_element(kLastRow.begin(), kLastRow.end());
     }
 
-    /* Returns a matrix of integer numbers read from input_file. */
+    /* Returns a list of rows of integer numbers read from input_file. */
     vector<vector<long> > numbersFromFile(const char *input_file) {
         ifstream input(input_file);
         if (!input.is_open()) {

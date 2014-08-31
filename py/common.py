@@ -150,6 +150,20 @@ def lcm_all(nums):
     return product
 
 
+def numbers_from_file(input_file):
+    """Returns a list of rows of integer numbers read from input_file."""
+    
+    with open(input_file) as file:
+        # add each line from the input file as a row to the matrix
+        matrix = []
+        for line in file:
+            # add each token from the current line to the row vector
+            row = [int(num) for num in line[:-1].split()]
+            matrix.append(row)
+    
+        return matrix
+
+
 def prime_factorization(n):
     """Computes the prime factorization of the natural number n.
     
