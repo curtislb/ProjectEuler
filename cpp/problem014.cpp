@@ -20,7 +20,7 @@
  *
  * Which starting number, under LIMIT, produces the longest chain?
  *
- * NOTE: Once the chain starts the terms are allowed to go above one million.
+ * NOTE: Once the chain starts the terms are allowed to go above LIMIT.
  * 
  * Author: Curtis Belmonte
  * Created: Aug 26, 2014
