@@ -43,6 +43,7 @@ INPUT_FILE = 'input/008.txt' # default: 'input/008.txt'
 
 if __name__ == '__main__':
     with open(INPUT_FILE) as file:
+        # read number from input file
         num_str = ''.join(line[:-1] for line in file)
         
         num_zeros = 0 # number of zeros in the current product
