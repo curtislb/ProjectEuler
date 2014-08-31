@@ -5,6 +5,8 @@ Common utility functions and classes for various Project Euler problems.
 @author: Curtis Belmonte
 """
 
+import collections
+
 # PRIVATE VARIABLES ###########################################################
 
 # Currently computed terms of the Fibonacci sequence (in sorted order)
@@ -106,6 +108,25 @@ def is_palindrome(n):
 def lcm(m, n):
     """Returns the least common multiple of natural numbers m and n."""
     return m * n // gcd(m, n)
+
+
+def lcm_all(nums):
+    """Returns the least common multiple of all natural numbers in nums."""
+    
+    max_powers = {}
+    for num in nums:
+        # compute powers of unique prime factors of the current number
+        factorization = prime_factorization(num)
+        for factor in factorization:
+            if (factor[0] in max_powers and factor[1] > max_powers[factor[0]]
+                or factor[0] not in max_powers):
+                max_powers[factor[0]] = factor[1]
+        
+    # return the product of prime factors raised to their highest powers
+    product = 1
+    for factor in max_powers:
+        product *= factor**max_powers[factor]
+    return product
 
 
 def prime_factorization(n):

@@ -1,5 +1,6 @@
-'''
-Problem 5.
+"""problem_005.py
+
+Problem 5: Smallest multiple
 
 2520 is the smallest number that can be divided by each of the numbers from 1
 to 10 without any remainder.
@@ -8,13 +9,15 @@ What is the smallest positive number that is evenly divisible by all of the
 numbers from 1 to MAX?
 
 @author: Curtis Belmonte
-'''
+"""
+
+import common
+
+# PARAMETERS ##################################################################
 
 MAX = 20 # default: 20
 
-###############################################################################
+# SOLUTION ####################################################################
 
-from common import lcm
-
-all_nums = range(2, MAX + 1)
-print(lcm(*all_nums))
+if __name__ == '__main__':
+    print(common.lcm_all([num for num in range(2, MAX + 1)]))
