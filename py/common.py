@@ -107,7 +107,7 @@ class memoized(object):
         if not isinstance(args, collections.Hashable):
             return self.function(*args)
         
-        # if result of running func on args has been cached, return it
+        # if result of running function on args has been cached, return it
         if args in self.results:
             return self.results[args]
         

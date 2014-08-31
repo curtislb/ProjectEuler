@@ -53,7 +53,7 @@ inline static common::Natural countDivisors(common::Natural n) {
         return divisor_counts[n] = common::countDivisors(n);
 }
 
-/* Returns the number of divisors of the triangle number n*(n + 1)/2. */
+/* Returns the number of divisors of the nth triangle number. */
 inline static common::Natural countTriangleDivisors(common::Natural n) {
     // because n and n + 1 are necessarily coprime, sum their divisor counts
     if (n % 2 == 0)

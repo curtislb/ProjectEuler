@@ -40,7 +40,7 @@ def count_divisors(n):
 
 
 def count_triangle_divisors(n):
-    """Returns the number of divisors of the triangle number n*(n + 1)/2."""
+    """Returns the number of divisors of the nth triangle number."""
     
     # because n and n + 1 are necessarily co-prime, sum their divisor counts
     if n % 2 == 0:
