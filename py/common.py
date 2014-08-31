@@ -6,8 +6,9 @@ Common utility functions and classes for various Project Euler problems.
 """
 
 import collections
-import functools
 import math
+import sys
+import threading
 
 # PRIVATE VARIABLES ###########################################################
 
@@ -115,14 +116,6 @@ class memoized(object):
         result = self.function(*args)
         self.results[args] = result
         return result
-    
-    def __get__(self, obj, objtype):
-        # support decorating instance methods
-        return functools.partial(self.__call__, obj)
-    
-    def __repr__(self):
-        # return the docstring of the memoized function
-        return self.function.__doc__
 
 # PUBLIC FUNCTIONS ############################################################
 
@@ -130,6 +123,11 @@ def arith_series(a, n, d):
     """Returns the sum of the arithmetic sequence with first term a, number of
     terms n, and difference between terms d."""
     return n * (2 * a + (n - 1) * d) // 2
+
+
+def collatz_step(n):
+    """Returns the next number in the Collatz sequence following n."""
+    return n // 2 if n % 2 == 0 else 3 * n + 1
 
 
 def count_divisors(n):
@@ -262,6 +260,19 @@ def primes_up_to(n):
         i += 1
 
     return _prime_sequence[:i]
+
+
+def run_thread(function, stack_size = 128 * 10**6, recursion_limit = 2**20):
+    """Runs function in a new thread with stack size stack_size and maximum
+    recursion depth recursion_limit."""
+    
+    # set stack size and maximum recursion depth of the thread
+    threading.stack_size(stack_size)
+    sys.setrecursionlimit(recursion_limit)
+    
+    # run the thread
+    thread = threading.Thread(target = function)
+    thread.start()
 
 
 def sum_of_squares(n):
