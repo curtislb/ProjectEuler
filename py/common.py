@@ -5,7 +5,7 @@ Common utility functions and classes for various Project Euler problems.
 @author: Curtis Belmonte
 """
 
-import collections
+import math
 
 # PRIVATE VARIABLES ###########################################################
 
@@ -36,6 +36,28 @@ def _compute_fibonacci(n):
         _fibonacci_sequence.append(f1)
 
 
+def _compute_primes(n):
+    """Precomputes and stores at least the first n prime numbers."""
+    
+    prime_count = len(_prime_sequence)
+
+    # have the first n primes already been computed?
+    if n < prime_count:
+        return
+
+    # TODO: implement incremental sieve?
+
+    # based on analysis of OEIS data set A006880 and empirical time tests
+    estimate = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
+    increment = n / math.log(n)
+
+    # compute primes up to estimate, then step forward until n are found
+    i = estimate
+    while len(_prime_sequence) < n:
+        _compute_primes_up_to(i)
+        i += increment
+
+
 def _compute_primes_up_to(n):
     """Precomputes and stores the prime numbers up to n."""
 
@@ -46,7 +68,6 @@ def _compute_primes_up_to(n):
 
     # prepare sieve of Eratosthenes for numbers prime_max + 1 to n
     sieve_size = n - prime_max
-    print(sieve_size)
     sieve = [True] * sieve_size
 
     # sift out composite numbers using previously computed primes
@@ -152,6 +173,18 @@ def prime_factorization(n):
         i += 1
 
     return factorization
+
+
+def prime(n):
+    """Returns the nth prime number."""
+    _compute_primes(n)
+    return _prime_sequence[n - 1]
+
+
+def primes(n):
+    """Returns the first n prime numbers in sorted order."""
+    _compute_primes(n)
+    return _prime_sequence[:n]
 
 
 def primes_up_to(n):
