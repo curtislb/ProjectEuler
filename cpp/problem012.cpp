@@ -69,6 +69,6 @@ int main() {
     while (countTriangleDivisors(n) < D)
         n++;
 
-    cout << n * (n + 1) / 2 << endl;
+    cout << common::triangle(n) << endl;
     return 0;
 }
