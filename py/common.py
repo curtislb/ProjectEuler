@@ -5,6 +5,8 @@ Common utility functions and classes for various Project Euler problems.
 @author: Curtis Belmonte
 """
 
+import collections
+import functools
 import math
 
 # PRIVATE VARIABLES ###########################################################
@@ -87,12 +89,59 @@ def _compute_primes_up_to(n):
             for j in range(rho*rho - prime_max - 1, sieve_size, rho):
                 sieve[j] = False
 
+# PUBLIC DECORATORS ###########################################################
+
+class memoized(object):
+    """Decorator that caches the result of calling function with a particular
+    set of arguments and returns this result for subsequent calls to function
+    with the same arguments.
+    
+    Adapted from: https://wiki.python.org/moin/PythonDecoratorLibrary"""
+    
+    def __init__(self, function):
+        self.function = function
+        self.results = {}
+    
+    def __call__(self, *args):
+        # if given arguments are not hashable, don't attempt any caching
+        if not isinstance(args, collections.Hashable):
+            return self.function(*args)
+        
+        # if result of running func on args has been cached, return it
+        if args in self.results:
+            return self.results[args]
+        
+        # evaluate function with args and store the result
+        result = self.function(*args)
+        self.results[args] = result
+        return result
+    
+    def __get__(self, obj, objtype):
+        # support decorating instance methods
+        return functools.partial(self.__call__, obj)
+    
+    def __repr__(self):
+        # return the docstring of the memoized function
+        return self.function.__doc__
+
 # PUBLIC FUNCTIONS ############################################################
 
 def arith_series(a, n, d):
     """Returns the sum of the arithmetic sequence with first term a, number of
     terms n, and difference between terms d."""
     return n * (2 * a + (n - 1) * d) // 2
+
+
+def count_divisors(n):
+    """Returns the number of divisors of the natural number n."""
+    
+    # compute product of one more than the powers of its prime factors
+    divisor_count = 1
+    factorization = prime_factorization(n)
+    for factor in factorization:
+        divisor_count *= factor[1] + 1
+
+    return divisor_count
 
 
 def fibonacci(n):
