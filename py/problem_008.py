@@ -37,7 +37,7 @@ have the greatest product. What is the value of this product?
 # PARAMETERS ##################################################################
 
 N = 13 # default: 13
-INPUT_FILE = 'input/008.txt' # default: 'input/008.txt'
+INPUT_FILE = '../input/008.txt' # default: '../input/008.txt'
 
 # SOLUTION ####################################################################
 

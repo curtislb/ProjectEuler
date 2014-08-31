@@ -30,7 +30,7 @@
  * The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
  *
  * What is the greatest product of N adjacent numbers in the same direction
- * (up, down, left, right, or diagonally) in the grid contained in INPUT_FILE?
+ * (up, down, left, right, or diagonally) in the grid contained in IN_FILE?
  * 
  * Author: Curtis Belmonte
  * Created: Aug 24, 2014
@@ -47,13 +47,13 @@ using namespace std;
 /* PARAMETERS ****************************************************************/
 
 static const unsigned int N = 4; // default: 4
-static const char *INPUT_FILE = "input/011.txt"; // default: "input/011.txt"
+static const char *IN_FILE = "../input/011.txt"; // default: "../input/011.txt"
 
 /* SOLUTION ******************************************************************/
 
 int main() {
     // read the matrix from the input file
-    const vector<vector<long> > kMatrix = common::numbersFromFile(INPUT_FILE);
+    const vector<vector<long> > kMatrix = common::numbersFromFile(IN_FILE);
     const unsigned int kNumRows = kMatrix.size();
     const unsigned int kNumCols = kMatrix[0].size();
 

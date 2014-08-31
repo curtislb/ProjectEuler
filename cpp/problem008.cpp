@@ -27,7 +27,7 @@
  *     05886116467109405077541002256983155200055935729725
  *     71636269561882670428252483600823257530420752963450
  *
- * Find the N adjacent digits in the number contained in the file INPUT_FILE
+ * Find the N adjacent digits in the number contained in the file IN_FILE
  * that have the greatest product. What is the value of this product?
  * 
  * Author: Curtis Belmonte
@@ -48,15 +48,15 @@ using namespace std;
 /* PARAMETERS ****************************************************************/
 
 static const unsigned int N = 13; // default: 13
-static const char *INPUT_FILE = "input/008.txt"; // default: "input/008.txt"
+static const char *IN_FILE = "../input/008.txt"; // default: "../input/008.txt"
 
 /* SOLUTION ******************************************************************/
 
 int main() {
-    ifstream input(INPUT_FILE);
+    ifstream input(IN_FILE);
     if (!input.is_open()) {
         // failed to open the input file
-        cout << "Unable to open file: " << INPUT_FILE << endl;
+        cout << "Unable to open file: " << IN_FILE << endl;
         return EXIT_FAILURE;
     }
 

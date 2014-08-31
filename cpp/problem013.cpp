@@ -4,7 +4,7 @@
  * Problem 13: Large sum
  *
  * Work out the first D digits of the sum of the numbers contained in the file
- * INPUT_FILE (all of which have the same number of digits).
+ * IN_FILE (all of which have the same number of digits).
  * 
  * Author: Curtis Belmonte
  * Created: Aug 25, 2014
@@ -22,15 +22,15 @@ using namespace std;
 /* PARAMETERS ****************************************************************/
 
 static const unsigned int D = 10; // default: 10
-static const char *INPUT_FILE = "input/013.txt"; // default: "input/013.txt"
+static const char *IN_FILE = "../input/013.txt"; // default: "../input/013.txt"
 
 /* SOLUTION ******************************************************************/
 
 int main() {
-    ifstream input(INPUT_FILE);
+    ifstream input(IN_FILE);
     if (!input.is_open()) {
         // failed to open the input file
-        cout << "Unable to open file: " << INPUT_FILE << endl;
+        cout << "Unable to open file: " << IN_FILE << endl;
         return EXIT_FAILURE;
     }
 

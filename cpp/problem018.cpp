@@ -14,7 +14,7 @@
  * That is, 3 + 7 + 4 + 9 = 23.
  *
  * Find the maximum total from top to bottom in the triangle contained in the
- * file INPUT_FILE.
+ * file IN_FILE.
  * 
  * NOTE: As there are only 16384 routes, it is possible to solve this problem
  * by trying every route. However, Problem 67, is the same challenge with a
@@ -36,12 +36,12 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const char *INPUT_FILE = "input/018.txt"; // default: "input/018.txt"
+static const char *IN_FILE = "../input/018.txt"; // default: "../input/018.txt"
 
 /* SOLUTION ******************************************************************/
 
 int main() {
-    vector<vector<long> > triangle = common::numbersFromFile(INPUT_FILE);
+    vector<vector<long> > triangle = common::numbersFromFile(IN_FILE);
     cout << common::maxTrianglePath(triangle) << endl;
     return 0;
 }

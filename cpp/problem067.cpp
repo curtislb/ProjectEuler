@@ -35,12 +35,12 @@ using namespace std;
 
 /* PARAMETERS ****************************************************************/
 
-static const char *INPUT_FILE = "input/067.txt"; // default: "input/067.txt"
+static const char *IN_FILE = "../input/067.txt"; // default: "../input/067.txt"
 
 /* SOLUTION ******************************************************************/
 
 int main() {
-    vector<vector<long> > triangle = common::numbersFromFile(INPUT_FILE);
+    vector<vector<long> > triangle = common::numbersFromFile(IN_FILE);
     cout << common::maxTrianglePath(triangle) << endl;
     return 0;
 }

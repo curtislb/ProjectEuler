@@ -39,7 +39,7 @@ import common
 # PARAMETERS ##################################################################
 
 N = 4 # default: 4
-INPUT_FILE = 'input/011.txt'
+INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 
 # SOLUTION ####################################################################
 

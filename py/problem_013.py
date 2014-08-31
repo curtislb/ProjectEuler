@@ -12,7 +12,7 @@ INPUT_FILE (all of which have the same number of digits).
 
 # PARAMETERS ##################################################################
 
-INPUT_FILE = 'input/013.txt' # default: 'input/013.txt'
+INPUT_FILE = '../input/013.txt' # default: '../input/013.txt'
 
 # SOLUTION ####################################################################
 
