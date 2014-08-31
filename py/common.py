@@ -156,6 +156,9 @@ def prime_factorization(n):
 
 def primes_up_to(n):
     """Returns the prime numbers up to p in sorted order."""
+    
+    _compute_primes_up_to(n)
+
     # find the index of the last prime <= n
     i = 0
     prime_count = len(_prime_sequence)
@@ -163,3 +166,14 @@ def primes_up_to(n):
         i += 1
 
     return _prime_sequence[:i]
+
+
+def sum_of_squares(n):
+    """Returns the sum of the squares of the first n natural numbers."""
+    return (2 * n**3 + 3 * n*n + n) // 6
+
+
+def triangle(n):
+    """Returns the nth triangle number, or the sum of the natural numbers up to
+    and including n."""
+    return n * (n + 1) // 2
