@@ -12,6 +12,9 @@ import threading
 
 # PRIVATE VARIABLES ###########################################################
 
+# Currently computed factorial terms
+_factorial_sequence = [1, 1]
+
 # Currently computed terms of the Fibonacci sequence (in sorted order)
 _fibonacci_sequence = [1, 1]
 
@@ -19,6 +22,22 @@ _fibonacci_sequence = [1, 1]
 _prime_sequence = [2]
 
 # PRIVATE FUNCTIONS ###########################################################
+
+def _compute_factorial(n):
+    """Precomputes and stores the factorial terms up to n!."""
+    
+    fact_count = len(_factorial_sequence)
+    
+    # have the terms up to n! already been computed?
+    if n < fact_count:
+        return
+    
+    # compute numbers iteratively from existing sequence
+    product = _factorial_sequence[-1]
+    for i in range(fact_count, n + 1):
+        product *= i
+        _factorial_sequence.append(product)
+    
 
 def _compute_fibonacci(n):
     """Precomputes and stores the Fibonacci numbers up to F(n)."""
@@ -140,6 +159,12 @@ def count_divisors(n):
         divisor_count *= factor[1] + 1
 
     return divisor_count
+
+
+def factorial(n):
+    """Returns the value of n! = n * (n - 1) * ... * 1."""
+    _compute_factorial(n)
+    return _factorial_sequence[n]
 
 
 def fibonacci(n):
