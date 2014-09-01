@@ -160,7 +160,6 @@ def count_divisors(n):
 
     return divisor_count
 
-
 def factorial(n):
     """Returns the value of n! = n * (n - 1) * ... * 1."""
     _compute_factorial(n)
@@ -180,6 +179,16 @@ def gcd(m, n):
         n = m % n
         m = temp
     return m
+
+
+def is_leap_year(year):
+    """Determines if year (given in years A.D.) is a leap year."""
+    if year % 100 != 0:
+        # year is not a century; it is a leap year if divisible by 4
+        return year % 4 == 0
+    else:
+        # year is a century; it is a leap year only if divisible by 400
+        return year % 400 == 0
 
 
 def is_palindrome(n):
