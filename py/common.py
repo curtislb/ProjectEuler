@@ -300,6 +300,15 @@ def run_thread(function, stack_size = 128 * 10**6, recursion_limit = 2**20):
     thread.start()
 
 
+def sum_digits(n):
+    """Returns the sum of the decimal digits of the natural number n."""
+    digit_sum = 0
+    while n != 0:
+        digit_sum += n % 10
+        n //= 10
+    return digit_sum
+
+
 def sum_of_squares(n):
     """Returns the sum of the squares of the first n natural numbers."""
     return (2 * n**3 + 3 * n*n + n) // 6
