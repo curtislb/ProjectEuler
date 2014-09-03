@@ -22,7 +22,7 @@ LIMIT = 1000 # default: 1000
 
 def sum_divisible_by(n):
     """Returns the sum of natural numbers below LIMIT divisible by n."""
-    return common.arith_series(n, (LIMIT - 1) // n, n)
+    return common.arithmetic_series(n, (LIMIT - 1) // n, n)
 
 
 if __name__ == '__main__':

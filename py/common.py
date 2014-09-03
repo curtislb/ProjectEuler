@@ -171,7 +171,16 @@ def alphabet_index_upper(letter):
     return ord(letter) - ord('A') + 1
 
 
-def arith_series(a, n, d):
+def arithmetic_product(a, n, d = 1):
+    """Returns the product of the arithmetic sequence with first term a, number
+    of terms n, and difference between terms d."""
+    product = 1
+    for i in range(a, a + n * d, d):
+        product *= i
+    return product
+
+
+def arithmetic_series(a, n, d = 1):
     """Returns the sum of the arithmetic sequence with first term a, number of
     terms n, and difference between terms d."""
     return n * (2 * a + (n - 1) * d) // 2
@@ -324,6 +333,18 @@ def numbers_from_file(input_file):
             matrix.append(row)
     
         return matrix
+
+
+def permutate(n, k):
+    """Returns the number of permutations of k objects from a group of n."""
+    
+    # if faster, compute n! and (n - k)! and return their quotient
+    FACT_COUNT = len(_factorial_sequence)
+    if n - FACT_COUNT <= k:
+        return factorial(n) // factorial(n - k)
+    
+    # compute the product (n - k + 1) * (n - k + 2) * ... * n
+    return arithmetic_product(n - k + 1, k)
 
 
 def prime_factorization(n):

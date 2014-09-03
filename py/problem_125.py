@@ -20,7 +20,7 @@ N = 10**8 # default: 10**8
 
 ###############################################################################
 
-from common import arith_series, is_palindrome, sum_squares_to
+from common import arithmetic_series, is_palindrome, sum_squares_to
 
 k_max = 2
 while sum_squares_to(k_max) < N:
@@ -30,7 +30,7 @@ palin_set = set()
 for k in range(2, k_max):
     n = k
     while True:
-        sqr_sum = k*n**2 - 2*n*arith_series(1, k - 1) + sum_squares_to(k - 1)
+        sqr_sum = k*n**2 - 2*n*arithmetic_series(1, k - 1) + sum_squares_to(k - 1)
         if sqr_sum >= N:
             break
         if is_palindrome(sqr_sum):
