@@ -1,4 +1,5 @@
-"""
+"""problem_022.py
+
 Problem 22: Names scores
 
 Using INPUT_FILE, a large text file containing many first names, begin by
