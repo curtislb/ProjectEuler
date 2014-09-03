@@ -49,8 +49,8 @@ def _compute_fibonacci(n):
         return
 
     # compute numbers iteratively from existing sequence
-    f0 = _fibonacci_sequence[FIB_COUNT - 2]
-    f1 = _fibonacci_sequence[FIB_COUNT - 1]
+    f0 = _fibonacci_sequence[-2]
+    f1 = _fibonacci_sequence[-1]
     for i in range(FIB_COUNT, n + 1):
         temp = f1
         f1 += f0
@@ -214,6 +214,19 @@ def binary_search(sorted_list, item, lo = 0, hi = None):
 def collatz_step(n):
     """Returns the next number in the Collatz sequence following n."""
     return n // 2 if n % 2 == 0 else 3 * n + 1
+
+
+def count_digits(n):
+    """Returns the number of digits of the natural number n."""
+    
+    # divide out and count each digit of n
+    digit_count = 0
+    while n != 0:
+        digit_count += 1
+        n //= 10
+    
+    # return 1 for 0, which has one "digit"
+    return 1 if digit_count == 0 else digit_count
 
 
 def count_divisors(n):
