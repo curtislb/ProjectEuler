@@ -340,6 +340,21 @@ def sum_digits(n):
     return digit_sum
 
 
+def sum_divisors(n):
+    """Returns the sum of the divisors of the natural number n."""
+    
+    # compute the prime factorization of n
+    factorization = prime_factorization(n)
+    
+    # compute sum of divisors of n as the product of (p^(a+1) - 1)/(p - 1) for
+    # each prime factor p^a of n
+    # Source: http://mathschallenge.net/?section=faq&ref=number/sum_of_divisors
+    product = 1
+    for factor in factorization:
+        product *= (factor[0]**(factor[1] + 1) - 1) // (factor[0] - 1)
+    return product
+
+
 def sum_of_squares(n):
     """Returns the sum of the squares of the first n natural numbers."""
     return (2 * n**3 + 3 * n*n + n) // 6
