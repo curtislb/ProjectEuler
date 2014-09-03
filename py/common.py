@@ -365,6 +365,11 @@ def sum_of_squares(n):
     return (2 * n**3 + 3 * n*n + n) // 6
 
 
+def sum_proper_divisors(n):
+    """Returns the sum of the proper divisors of the natural number n."""
+    return sum_divisors(n) - n
+
+
 def triangle(n):
     """Returns the nth triangle number, or the sum of the natural numbers up to
     and including n."""

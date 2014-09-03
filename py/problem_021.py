@@ -25,20 +25,15 @@ LIMIT = 10000 # default: 10000
 
 # SOLUTION ####################################################################
 
-def sum_proper_divisors(n):
-    """Returns the sum of the proper divisors of the natural number n."""
-    return common.sum_divisors(n) - n
-
-
 if __name__ == '__main__':
     total = 0
     
     # search for amicable pairs (m, n) below LIMIT
     for m in range(2, LIMIT):
-        n = sum_proper_divisors(m)
+        n = common.sum_proper_divisors(m)
         
         # do m and n meet conditions of amicable pair with m < n < LIMIT
-        if m < n and n < LIMIT and sum_proper_divisors(n) == m:
+        if m < n and n < LIMIT and common.sum_proper_divisors(n) == m:
             total += m + n
     
     print(total)
