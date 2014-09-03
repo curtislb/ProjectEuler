@@ -25,7 +25,7 @@ British usage.
 # SOLUTION ####################################################################
 
 # Sum of all digit letter counts, excluding 0
-all_digit_letters = (
+ALL_DIGIT_LETTERS = (
     3 # len('one')
   + 3 # len('two')
   + 5 # len('three')
@@ -38,7 +38,7 @@ all_digit_letters = (
 )
 
 # Sum of all 'teen' letter counts, including 10, 11, and 12
-all_teen_letters = (
+ALL_TEEN_LETTERS = (
     3 # len('ten')
   + 6 # len('eleven')
   + 6 # len('twelve')
@@ -52,7 +52,7 @@ all_teen_letters = (
 )
 
 # Sum of all multiples of ten letter counts, excluding 10
-all_ten_letters = (
+ALL_TEN_LETTERS = (
     6 # len('twenty')
   + 6 # len('thirty')
   + 5 # len('forty')
@@ -64,28 +64,31 @@ all_ten_letters = (
 )
 
 # Letter counts of other useful number words
-and_letters = 3 # len('and')
-hundred_letters = 7 # len('hundred')
-one_letters = 3 # len('one')
-thousand_letters = 8 # len('thousand')
+AND_LETTERS = 3 # len('and')
+HUNDRED_LETTERS = 7 # len('hundred')
+ONE_LETTERS = 3 # len('one')
+THOUSAND_LETTERS = 8 # len('thousand')
 
 if __name__ == '__main__':
     # count the letters of all numbers below 20
-    letter_count = all_digit_letters + all_teen_letters
+    letter_count = ALL_DIGIT_LETTERS + ALL_TEEN_LETTERS
 
     # count the letters of all numbers from 20 to 99
-    letter_count += all_ten_letters * 10 + all_digit_letters * 8
-    letters_below_100 = letter_count
+    DIGIT_COUNT = 9
+    TEN_COUNT = 8
+    letter_count += (ALL_TEN_LETTERS * (DIGIT_COUNT + 1)
+                     + ALL_DIGIT_LETTERS * TEN_COUNT)
+    LETTERS_BELOW_100 = letter_count
 
     # count the letters of all numbers from 100 to 999
-    and_word_count = 9 * 99
-    hundred_word_count = and_word_count + 9
-    letter_count += ((all_digit_letters * 100)
-                     + (hundred_letters * hundred_word_count)
-                     + (and_letters * and_word_count)
-                     + (letters_below_100 * 9))
+    AND_WORD_COUNT = DIGIT_COUNT * 99
+    HUNDRED_WORD_COUNT = AND_WORD_COUNT + DIGIT_COUNT
+    letter_count += ((ALL_DIGIT_LETTERS * 100)
+                     + (HUNDRED_LETTERS * HUNDRED_WORD_COUNT)
+                     + (AND_LETTERS * AND_WORD_COUNT)
+                     + (LETTERS_BELOW_100 * DIGIT_COUNT))
 
     # count the letters of 1000
-    letter_count += one_letters + thousand_letters
+    letter_count += ONE_LETTERS + THOUSAND_LETTERS
 
     print(letter_count)

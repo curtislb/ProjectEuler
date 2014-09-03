@@ -29,17 +29,17 @@ S = 1000 # default: 1000
 if __name__ == '__main__':
     # no triplet exists if S is not even
     if S % 2 != 0:
-        print("No such triplet")
+        print('No such triplet')
         sys.exit(0)
 
     # let a = 2*m*n, b = m^2 - n^2, c = m^2 + n^2. Then, m^2 + m*n = S/2
-    s_div_2 = S / 2;
-    m_limit = math.ceil(math.sqrt(s_div_2))
+    S_DIV_2 = S / 2
+    M_LIMIT = math.ceil(math.sqrt(S_DIV_2))
 
     # search for m and n under conditions m > n and m % 2 != n % 2
-    for m in range(2, m_limit):
+    for m in range(2, M_LIMIT):
         if S % m == 0:
-            s_div_2m = s_div_2 / m;
+            s_div_2m = S_DIV_2 / m
             for n in range(1 if m % 2 == 0 else 2, m, 2):
                 if m + n == s_div_2m:
                     # compute a, b, and c from the definitions of m and n

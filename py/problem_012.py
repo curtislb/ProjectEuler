@@ -48,7 +48,7 @@ def count_triangle_divisors(n):
         return count_divisors(n // 2) * count_divisors(n + 1)
     else:
         # n + 1 component of triangle number is evenly divisible by 2
-        return count_divisors(n) * count_divisors((n + 1) // 2);
+        return count_divisors(n) * count_divisors((n + 1) // 2)
     
 
 if __name__ == '__main__':

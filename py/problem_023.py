@@ -17,8 +17,8 @@ be reduced any further by analysis even though it is known that the greatest
 number that cannot be expressed as the sum of two abundant numbers is less than
 this limit.
 
-Find the sum of all the positive integers from below LIMIT which cannot be
-written as the sum of two abundant numbers.
+Find the sum of all the positive integers below LIMIT which cannot be written
+as the sum of two abundant numbers.
 
 @author: Curtis Belmonte
 """

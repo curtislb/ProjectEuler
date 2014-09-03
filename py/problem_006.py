@@ -28,5 +28,5 @@ N = 100 # default: 100
 # SOLUTION ####################################################################
 
 if __name__ == '__main__':
-    n_sum = common.triangle(N)
-    print(n_sum * n_sum - common.sum_of_squares(N))
+    N_SUM = common.triangle(N)
+    print(N_SUM * N_SUM - common.sum_of_squares(N))

@@ -26,5 +26,5 @@ def sum_divisible_by(n):
 
 
 if __name__ == '__main__':
-    lcm = common.lcm(M, N)
-    print(sum_divisible_by(M) + sum_divisible_by(N) - sum_divisible_by(lcm))
+    LCM = common.lcm(M, N)
+    print(sum_divisible_by(M) + sum_divisible_by(N) - sum_divisible_by(LCM))

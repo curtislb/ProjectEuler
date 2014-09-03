@@ -24,11 +24,11 @@ LIMIT = 4000000 # default: 4000000
 if __name__ == '__main__':
     # sum every third (even) Fibonacci number
     i = -1
-    f = 0
+    fib_num = 0
     total = 0
-    while f <= LIMIT:
-        total += f
+    while fib_num <= LIMIT:
+        total += fib_num
         i += 3
-        f = common.fibonacci(i)
+        fib_num = common.fibonacci(i)
 
     print(total)

@@ -26,15 +26,15 @@ _prime_sequence = [2]
 def _compute_factorial(n):
     """Precomputes and stores the factorial terms up to n!."""
     
-    fact_count = len(_factorial_sequence)
+    FACT_COUNT = len(_factorial_sequence)
     
     # have the terms up to n! already been computed?
-    if n < fact_count:
+    if n < FACT_COUNT:
         return
     
     # compute numbers iteratively from existing sequence
     product = _factorial_sequence[-1]
-    for i in range(fact_count, n + 1):
+    for i in range(FACT_COUNT, n + 1):
         product *= i
         _factorial_sequence.append(product)
     
@@ -42,16 +42,16 @@ def _compute_factorial(n):
 def _compute_fibonacci(n):
     """Precomputes and stores the Fibonacci numbers up to F(n)."""
     
-    fib_count = len(_fibonacci_sequence)
+    FIB_COUNT = len(_fibonacci_sequence)
 
     # have the numbers up to F(n) already been computed?
-    if n < fib_count:
+    if n < FIB_COUNT:
         return
 
     # compute numbers iteratively from existing sequence
-    f0 = _fibonacci_sequence[fib_count - 2]
-    f1 = _fibonacci_sequence[fib_count - 1]
-    for i in range(fib_count, n + 1):
+    f0 = _fibonacci_sequence[FIB_COUNT - 2]
+    f1 = _fibonacci_sequence[FIB_COUNT - 1]
+    for i in range(FIB_COUNT, n + 1):
         temp = f1
         f1 += f0
         f0 = temp
@@ -61,52 +61,52 @@ def _compute_fibonacci(n):
 def _compute_primes(n):
     """Precomputes and stores at least the first n prime numbers."""
     
-    prime_count = len(_prime_sequence)
+    PRIME_COUNT = len(_prime_sequence)
 
     # have the first n primes already been computed?
-    if n < prime_count:
+    if n < PRIME_COUNT:
         return
 
     # TODO: implement incremental sieve?
 
     # based on analysis of OEIS data set A006880 and empirical time tests
-    estimate = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
-    increment = n / math.log(n)
+    ESTIMATE = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
+    INCREMENT = n / math.log(n)
 
-    # compute primes up to estimate, then step forward until n are found
-    i = estimate
+    # compute primes up to ESTIMATE, then step forward until n are found
+    i = ESTIMATE
     while len(_prime_sequence) < n:
         _compute_primes_up_to(i)
-        i += increment
+        i += INCREMENT
 
 
 def _compute_primes_up_to(n):
     """Precomputes and stores the prime numbers up to n."""
 
     # have the numbers up to n already been computed?
-    prime_max = _prime_sequence[-1]
-    if prime_max >= n:
+    PRIME_MAX = _prime_sequence[-1]
+    if PRIME_MAX >= n:
         return
 
-    # prepare sieve of Eratosthenes for numbers prime_max + 1 to n
-    sieve_size = n - prime_max
-    sieve = [True] * sieve_size
+    # prepare sieve of Eratosthenes for numbers PRIME_MAX + 1 to n
+    SIEVE_SIZE = n - PRIME_MAX
+    sieve = [True] * SIEVE_SIZE
 
     # sift out composite numbers using previously computed primes
-    prime_count = len(_prime_sequence)
-    for i in range(prime_count):
+    PRIME_COUNT = len(_prime_sequence)
+    for i in range(PRIME_COUNT):
         rho = _prime_sequence[i]
-        for j in range(rho*rho, sieve_size + prime_max + 1, rho):
-            if j < prime_max + 1:
+        for j in range(rho*rho, SIEVE_SIZE + PRIME_MAX + 1, rho):
+            if j < PRIME_MAX + 1:
                 continue
-            sieve[j - prime_max - 1] = False
+            sieve[j - PRIME_MAX - 1] = False
 
     # sift out remaining composite numbers with newly found primes
-    for i in range(sieve_size):
+    for i in range(SIEVE_SIZE):
         if sieve[i]:
-            rho = i + prime_max + 1
+            rho = i + PRIME_MAX + 1
             _prime_sequence.append(rho)
-            for j in range(rho*rho - prime_max - 1, sieve_size, rho):
+            for j in range(rho*rho - PRIME_MAX - 1, SIEVE_SIZE, rho):
                 sieve[j] = False
 
 # PUBLIC DECORATORS ###########################################################
@@ -136,6 +136,34 @@ class memoized(object):
         self.results[args] = result
         return result
 
+# PUBLIC ENUMS ################################################################
+
+class Day:
+    """Enum representing days of the week."""
+    SUNDAY = 0
+    MONDAY = 1
+    TUESDAY = 2
+    WEDNESDAY = 3
+    THURSDAY = 4
+    FRIDAY = 5
+    SATURDAY = 6
+
+
+class Month:
+    """Enum representing months of the year."""
+    JANUARY = 0
+    FEBRUARY = 1
+    MARCH = 2
+    APRIL = 3
+    MAY = 4
+    JUNE = 5
+    JULY = 6
+    AUGUST = 7
+    SEPTEMBER = 8
+    OCTOBER = 9
+    NOVEMBER = 10
+    DECEMBER = 11
+
 # PUBLIC FUNCTIONS ############################################################
 
 def alphabet_index_upper(letter):
@@ -163,10 +191,10 @@ def binary_search(sorted_list, item, lo = 0, hi = None):
     
     # check the middle element in list, then recurse if necessary
     mid = (lo + hi) // 2
-    if sorted_list[mid] > item:
+    if item < sorted_list[mid]:
         # item must be in first half of list or not at all
         return binary_search(sorted_list, item, lo, mid)
-    elif sorted_list[mid] < item:
+    elif item > sorted_list[mid]:
         # item must be in second half of list or not at all
         return binary_search(sorted_list, item, mid + 1, hi)
     else:
@@ -184,8 +212,8 @@ def count_divisors(n):
     
     # compute product of one more than the powers of its prime factors
     divisor_count = 1
-    factorization = prime_factorization(n)
-    for factor in factorization:
+    FACTORIZATION = prime_factorization(n)
+    for factor in FACTORIZATION:
         divisor_count *= factor[1] + 1
 
     return divisor_count
@@ -204,7 +232,7 @@ def fibonacci(n):
 
 
 def gcd(m, n):
-    """Returns the greatest common divisor of natural numbers m and n."""
+    """Returns the greatest common divisor of the natural numbers m and n."""
     while n != 0:
         temp = n
         n = m % n
@@ -225,13 +253,13 @@ def is_leap_year(year):
 def is_palindrome(n):
     """Determines if the natural number n is a palindrome."""
     
-    n_str = str(n)
+    N_STR = str(n)
     
     # compare chars iteratively from beginning and end of string
     i = 0
-    j = len(n_str) - 1
+    j = len(N_STR) - 1
     while (i < j):
-        if n_str[i] != n_str[j]:
+        if N_STR[i] != N_STR[j]:
             return False
         i += 1
         j -= 1
@@ -239,7 +267,7 @@ def is_palindrome(n):
 
 
 def lcm(m, n):
-    """Returns the least common multiple of natural numbers m and n."""
+    """Returns the least common multiple of the natural numbers m and n."""
     return m * n // gcd(m, n)
 
 
@@ -265,10 +293,10 @@ def lcm_all(nums):
 def max_triangle_path(triangle):
     """Returns the maximal sum of numbers from top to bottom in triangle."""
     
-    num_rows = len(triangle)
+    NUM_ROWS = len(triangle)
 
     # add maximum adjacent values from row above to each row
-    for i in range(1, num_rows):
+    for i in range(1, NUM_ROWS):
         for j in range(i + 1):
             if j != 0 and j != i:
                 # two adjacent elements above; add maximal
@@ -288,7 +316,7 @@ def numbers_from_file(input_file):
     """Returns a list of rows of integer numbers read from input_file."""
     
     with open(input_file) as file:
-        # add each line from the input file as a row to the matrix
+        # add each line from the input file as a row to the MATRIX
         matrix = []
         for line in file:
             # add each token from the current line to the row vector
@@ -342,8 +370,8 @@ def primes_up_to(n):
 
     # find the index of the last prime <= n
     i = 0
-    prime_count = len(_prime_sequence)
-    while i < prime_count and _prime_sequence[i] <= n:
+    PRIME_COUNT = len(_prime_sequence)
+    while i < PRIME_COUNT and _prime_sequence[i] <= n:
         i += 1
 
     return _prime_sequence[:i]
@@ -374,14 +402,13 @@ def sum_digits(n):
 def sum_divisors(n):
     """Returns the sum of the divisors of the natural number n."""
     
-    # compute the prime factorization of n
-    factorization = prime_factorization(n)
+    FACTORIZATION = prime_factorization(n)
     
     # compute sum of divisors of n as the product of (p^(a+1) - 1)/(p - 1) for
     # each prime factor p^a of n
     # Source: http://mathschallenge.net/?section=faq&ref=number/sum_of_divisors
     product = 1
-    for factor in factorization:
+    for factor in FACTORIZATION:
         product *= (factor[0]**(factor[1] + 1) - 1) // (factor[0] - 1)
     return product
 

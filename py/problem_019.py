@@ -15,8 +15,8 @@ for yourself.
 - A leap year occurs on any year evenly divisible by 4, but not on a century
   unless it is divisible by 400.
   
-How many Sundays fell on the first of the month during the twentieth century
-(1 Jan 1901 to 31 Dec 2000)?
+How many DAY_OF_WEEKs fell on the first of the month during the twentieth
+century (1 Jan 1901 to 31 Dec 2000)?
 
 @author: Curtis Belmonte
 """
@@ -25,12 +25,13 @@ import common
 
 # PARAMETERS ##################################################################
 
+DAY_OF_WEEK = common.Day.SUNDAY # default: common.Day.SUNDAY
 # TODO: parameterize date range
 
 # SOLUTION ####################################################################
 
 # Number of days in each month
-month_day_counts = [
+MONTH_DAY_COUNTS = [
     31 # January
   , 28 # February (non-leap year)
   , 31 # March
@@ -44,41 +45,33 @@ month_day_counts = [
   , 30 # November
   , 31 # December
 ]
-days_in_year = 365
 
-# Months of the year
-class Month:
-    JANUARY = 0
-    FEBRUARY = 1
-months_in_year = 12
-
-# Days of the week
-class Day:
-    SUNDAY = 0
-    MONDAY = 1
-days_in_week = 7
+# Additional useful constants
+DAYS_IN_WEEK = 7
+DAYS_IN_YEAR = 365
+MONTHS_IN_YEAR = 12
 
 if __name__ == '__main__':
     # advance day from Monday, 1 Jan 1900 to 1 Jan 1901
-    start_year = 1900
-    day = Day.MONDAY
-    day = (day + days_in_year + common.is_leap_year(start_year)) % days_in_week
+    START_YEAR = 1900
+    day = common.Day.MONDAY
+    day = (day + DAYS_IN_YEAR + common.is_leap_year(START_YEAR)) % DAYS_IN_WEEK
 
-    # count occurrences of Sunday on the first of each month
-    first_sunday_count = 0
-    end_year = 2001
-    for year in range(start_year + 1, end_year):
-        for month in range(Month.JANUARY, months_in_year):
+    # count occurrences of DAY_OF_WEEK on the first of each month
+    END_YEAR = 2001
+    first_day_count = 0
+    for year in range(START_YEAR + 1, END_YEAR):
+        for month in range(common.Month.JANUARY, MONTHS_IN_YEAR):
             # count the number of days in the current month
-            days_in_month = month_day_counts[month]
-            if month == Month.FEBRUARY:
+            days_in_month = MONTH_DAY_COUNTS[month]
+            if month == common.Month.FEBRUARY:
                 days_in_month += common.is_leap_year(year)
 
             # check if the first day of the month is Sunday
-            if day == Day.SUNDAY:
-                first_sunday_count += 1
+            if day == common.Day.SUNDAY:
+                first_day_count += 1
 
             # advance day by one month
-            day = (day + days_in_month) % days_in_week
+            day = (day + days_in_month) % DAYS_IN_WEEK
 
-    print(first_sunday_count)
+    print(first_day_count)

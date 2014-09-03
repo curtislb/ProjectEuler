@@ -22,14 +22,14 @@ from common import PAN_STR, primes_up_to, str_permutations
 
 divisors = tuple(primes_up_to(17))
 
-def test_043(num_str):
+def test_043(NUM_STR):
     for n in range(1, 8):
-        if int(num_str[n:n + 3]) % divisors[n - 1] != 0:
+        if int(NUM_STR[n:n + 3]) % divisors[n - 1] != 0:
             return False
     return True
 
 total = 0
-for num_str in str_permutations('0' + PAN_STR):
-    if test_043(num_str):
-        total += int(num_str)
+for NUM_STR in str_permutations('0' + PAN_STR):
+    if test_043(NUM_STR):
+        total += int(NUM_STR)
 print(total)
