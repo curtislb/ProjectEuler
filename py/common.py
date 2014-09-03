@@ -149,6 +149,31 @@ def arith_series(a, n, d):
     return n * (2 * a + (n - 1) * d) // 2
 
 
+def binary_search(sorted_list, item, lo = 0, hi = None):
+    """Returns the index position of item in the sorted list sorted_list or
+    None if item is not found in sorted_list."""
+    
+    # if hi has not been initialized, set it to end of sorted_list
+    if hi is None:
+        hi = len(sorted_list)
+    
+    # base case: no elements left to search
+    if lo >= hi:
+        return None
+    
+    # check the middle element in list, then recurse if necessary
+    mid = (lo + hi) // 2
+    if sorted_list[mid] > item:
+        # item must be in first half of list or not at all
+        return binary_search(sorted_list, item, lo, mid)
+    elif sorted_list[mid] < item:
+        # item must be in second half of list or not at all
+        return binary_search(sorted_list, item, mid + 1, hi)
+    else:
+        # item found at middle position in list
+        return mid
+
+
 def collatz_step(n):
     """Returns the next number in the Collatz sequence following n."""
     return n // 2 if n % 2 == 0 else 3 * n + 1
@@ -164,6 +189,7 @@ def count_divisors(n):
         divisor_count *= factor[1] + 1
 
     return divisor_count
+
 
 def factorial(n):
     """Returns the value of n! = n * (n - 1) * ... * 1."""
