@@ -138,6 +138,11 @@ class memoized(object):
 
 # PUBLIC FUNCTIONS ############################################################
 
+def alphabet_index_upper(letter):
+    """Returns the alphabetic index of the uppercase character letter."""
+    return ord(letter) - ord('A') + 1
+
+
 def arith_series(a, n, d):
     """Returns the sum of the arithmetic sequence with first term a, number of
     terms n, and difference between terms d."""
