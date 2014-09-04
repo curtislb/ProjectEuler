@@ -19,7 +19,7 @@ the same way?
 @author: Curtis Belmonte
 """
 
-import common
+# import common
 
 # PARAMETERS ##################################################################
 

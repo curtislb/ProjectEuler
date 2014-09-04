@@ -20,7 +20,7 @@ MIN_A ≤ a ≤ MAX_A and MIN_B ≤ b ≤ MAX_B?
 @author: Curtis Belmonte
 """
 
-import common
+# import common
 
 # PARAMETERS ##################################################################
 

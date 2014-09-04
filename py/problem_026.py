@@ -24,7 +24,7 @@ in its decimal fraction part.
 @author: Curtis Belmonte
 """
 
-import common
+# import common
 
 # PARAMETERS ##################################################################
 

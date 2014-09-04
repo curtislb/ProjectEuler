@@ -16,7 +16,7 @@ and 1601, is −126479.
 
 Considering quadratics of the form:
 
-    n² + an + b, where |a| < MAX_A and |b| < MAX_B
+    n² + an + b, where |a| < A_LIMIT and |b| < B_LIMIT
 
     where |n| is the modulus/absolute value of n
     e.g. |11| = 11 and |−4| = 4
@@ -32,8 +32,8 @@ import common
 
 # PARAMETERS ##################################################################
 
-MAX_A = 1000 # default: 1000
-MAX_B = 1000 # default: 1000
+A_LIMIT = 1000 # default: 1000
+B_LIMIT = 1000 # default: 1000
 START_N = 0 # default: 0
 
 # SOLUTION ####################################################################
@@ -48,8 +48,8 @@ if __name__ == '__main__':
     # search for best a and b from -MAX + 1 to MAX - 1
     best_product = None
     best_streak = -1
-    for a in range(-MAX_A + 1, MAX_A):
-        for b in range(-MAX_B + 1, MAX_B):
+    for a in range(-A_LIMIT + 1, A_LIMIT):
+        for b in range(-B_LIMIT + 1, B_LIMIT):
             # count number of primes generated for subsequent n
             n = START_N
             result = (n * n) + (a * n) + b
