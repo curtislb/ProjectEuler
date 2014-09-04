@@ -241,6 +241,15 @@ def count_divisors(n):
     return divisor_count
 
 
+def digit_power_sum(n, exponent):
+    """Returns the sum of each digit of n raised to the exponent power."""
+    power_sum = 0
+    while n != 0:
+        n, digit = divmod(n, 10)
+        power_sum += digit**exponent
+    return power_sum
+
+
 def factorial(n):
     """Returns the value of n! = n * (n - 1) * ... * 1."""
     _compute_factorial(n)
@@ -489,8 +498,8 @@ def sum_digits(n):
     """Returns the sum of the decimal digits of the natural number n."""
     digit_sum = 0
     while n != 0:
-        digit_sum += n % 10
-        n //= 10
+        n, digit = divmod(n, 10)
+        digit_sum += digit
     return digit_sum
 
 
