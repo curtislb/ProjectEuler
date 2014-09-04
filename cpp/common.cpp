@@ -816,11 +816,8 @@ namespace common {
     /* Determines if the natural number n is prime. */
     bool isPrime(Natural n) {
         // simple test for small n: 2 and 3 are prime, but 1 is not
-        if (n <= 3) {
-            if (n <= 1)
-                return false;
-            return true;
-        }
+        if (n <= 3)
+            return n > 1;
 
         // check if multiple of 2 or 3
         if (n % 2 == 0 || n % 3 == 0)
