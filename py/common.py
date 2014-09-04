@@ -331,6 +331,48 @@ def lcm_all(nums):
     return product
 
 
+def make_spiral(layers, matrix = None, depth = 0):
+    """Returns a spiral with the given number of layers formed by starting with
+    1 in the center and moving to the right in a clockwise direction."""
+    
+    # compute the dimension of one side of the spiral
+    SIDE = layers * 2 - 1
+    
+    # initialize the matrix that will hold the spiral
+    if matrix is None:
+        matrix = [[1 for i in range(SIDE)] for j in range(SIDE)]
+    
+    # base case: a spiral with one layer will contain the number 1
+    if layers < 2:
+        return matrix
+    
+    SIDE_MIN_1 = SIDE - 1
+    value = SIDE * SIDE
+    
+    # fill the top row of the spiral
+    for i in range(SIDE_MIN_1):
+        matrix[depth][-1 - depth - i] = value
+        value -= 1
+    
+    # fill the left column of the spiral
+    for i in range(SIDE_MIN_1):
+        matrix[depth + i][depth] = value
+        value -= 1
+    
+    # fill the bottom row of the spiral
+    for i in range(SIDE_MIN_1):
+        matrix[-1 - depth][depth + i] = value
+        value -= 1
+    
+    # fill the right column of the spiral
+    for i in range(SIDE_MIN_1):
+        matrix[-1 - depth - i][-1 - depth] = value
+        value -= 1
+    
+    # recurse to fill the inside of the spiral
+    return make_spiral(layers - 1, matrix, depth + 1)
+
+
 def max_triangle_path(triangle):
     """Returns the maximal sum of numbers from top to bottom in triangle."""
     
