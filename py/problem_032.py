@@ -31,6 +31,12 @@ PANDIGIT_STRING = common.pandigital_string(MAX_DIGIT)
 
 
 @common.memoized
+def count_digits(n):
+    """Memoized wrapper for the common.count_digits function."""
+    return common.count_digits(n)
+
+
+@common.memoized
 def max_multiplicand(digit_count):
     """Returns the maximum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
@@ -42,12 +48,6 @@ def min_multiplicand(digit_count):
     """Returns the minimum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
     return int(PANDIGIT_STRING[:digit_count])
-    
-
-@common.memoized
-def count_digits(n):
-    """Memoized wrapper for the common.count_digits function."""
-    return common.count_digits(n)
 
 
 if __name__ == '__main__':
