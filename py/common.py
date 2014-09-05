@@ -216,6 +216,22 @@ def collatz_step(n):
     return n // 2 if n % 2 == 0 else 3 * n + 1
 
 
+def combination_sums(total, addends):
+    """Returns the number of unique combinations of terms in addends that sum
+    to total."""
+    
+    # initialize the combination array
+    combos = [0] * (total + 1)
+    combos[0] = 1
+    
+    # dynamically compute combinations by summing combination dependencies
+    for i in range(len(addends)):
+        for j in range(addends[i], total + 1):
+            combos[j] += combos[j - addends[i]]
+    
+    return combos[total]
+
+
 def count_digits(n):
     """Returns the number of digits of the natural number n."""
     
