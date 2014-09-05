@@ -281,9 +281,7 @@ def fibonacci(n):
 def gcd(m, n):
     """Returns the greatest common divisor of the natural numbers m and n."""
     while n != 0:
-        temp = n
-        n = m % n
-        m = temp
+        m, n = n, m % n
     return m
 
 
