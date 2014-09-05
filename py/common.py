@@ -267,6 +267,19 @@ def digit_function_sum(n, function):
     return total
 
 
+def digit_rotations(n):
+    """Returns all digit rotations of the natural number n."""
+    
+    N_STR = str(n)
+    
+    # convert each digit rotation to an int and add it to list
+    rotations = []
+    for i in range(len(N_STR)):
+        rotations.append(int(N_STR[i:] + N_STR[:i]))
+    
+    return rotations
+
+
 def factorial(n):
     """Returns the value of n! = n * (n - 1) * ... * 1."""
     _compute_factorial(n)
@@ -337,7 +350,10 @@ def is_permutation(iter_a, iter_b):
         return sorted(iter_a) == sorted(iter_b)
     else:
         # check if a and b contain the same numbers of the same items
-        return all(iter_a.count(item) == iter_b.count(item) for item in iter_a)
+        for item in iter_a:
+            if iter_a.count(item) != iter_b.count(item):
+                return False
+        return True
 
 
 def is_prime(n):
