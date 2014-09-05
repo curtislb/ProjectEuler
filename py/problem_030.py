@@ -39,7 +39,7 @@ if __name__ == '__main__':
     # check all numbers below max value with at least two digits
     total = 0
     for n in range(10, max_value):
-        if common.digit_power_sum(n, EXPONENT) == n:
+        if common.digit_function_sum(n, lambda x: x**EXPONENT) == n:
             total += n
     
     print(total)

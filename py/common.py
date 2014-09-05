@@ -257,13 +257,14 @@ def count_divisors(n):
     return divisor_count
 
 
-def digit_power_sum(n, exponent):
-    """Returns the sum of each digit of n raised to the exponent power."""
-    power_sum = 0
+def digit_function_sum(n, function):
+    """Returns the sum of the results of applying function to each of the
+    digits of the natural number n."""
+    total = 0
     while n != 0:
         n, digit = divmod(n, 10)
-        power_sum += digit**exponent
-    return power_sum
+        total += function(digit)
+    return total
 
 
 def factorial(n):
