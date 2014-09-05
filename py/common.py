@@ -313,6 +313,34 @@ def is_palindrome(n):
     return True
 
 
+def is_permutation(iter_a, iter_b):
+    """Determines if the two iterables iter_a and iter_b are permutations of
+    each other.
+    
+    Adapted from: http://stackoverflow.com/questions/396421/"""
+    
+    # convert iterables to lists if necessary
+    if not hasattr(iter_a, 'count'):
+        iter_a = list(iter_a)
+    if not hasattr(iter_b, 'count'):
+        iter_b = list(iter_b)
+    
+    # if lengths of a and b are different, they cannot be permutations
+    len_a = len(iter_a)
+    if len_a != len(iter_b):
+        return False
+    
+    # Threshold length at which Namin's method will be used
+    NAMIN_THRESHOLD = 1000000
+    
+    if len_a < NAMIN_THRESHOLD:
+        # check if a and b are equal when sorted
+        return sorted(iter_a) == sorted(iter_b)
+    else:
+        # check if a and b contain the same numbers of the same items
+        return all(iter_a.count(item) == iter_b.count(item) for item in iter_a)
+
+
 def is_prime(n):
     """Determines if the natural number n is prime."""
     
@@ -432,6 +460,11 @@ def numbers_from_file(input_file):
             matrix.append(row)
     
         return matrix
+
+
+def pandigital_string(n):
+    """Returns a string with each of the digits from 1 to n in order."""
+    return ''.join('%d' % digit for digit in range(1, n + 1))
 
 
 def permutate(n, k):
