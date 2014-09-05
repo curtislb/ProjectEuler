@@ -26,8 +26,8 @@ MAX_DIGIT = 9 # default: 9
 
 # SOLUTION ####################################################################
 
-# A 1 to n pandigital string
-PANDIGIT_STRING = common.pandigital_string(MAX_DIGIT)
+# A 1 to MAX_DIGIT pandigital string
+PANDIGIT_STRING = common.pandigital_string(1, MAX_DIGIT)
 
 
 @common.memoized

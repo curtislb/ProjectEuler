@@ -462,9 +462,9 @@ def numbers_from_file(input_file):
         return matrix
 
 
-def pandigital_string(n):
-    """Returns a string with each of the digits from 1 to n in order."""
-    return ''.join('%d' % digit for digit in range(1, n + 1))
+def pandigital_string(first, last):
+    """Returns a string with each of the digits from first to last in order."""
+    return ''.join('%d' % digit for digit in range(first, last + 1))
 
 
 def permutate(n, k):
