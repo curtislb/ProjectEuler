@@ -299,6 +299,21 @@ def gcd(m, n):
     return m
 
 
+def int_to_base(n, base, numerals = '0123456789abcdefghijklmnopqrstuvwxyz'):
+    """Returns the string representation of the natural number n in the given
+    base using the given set of numerals.
+    
+    Adapted from: http://stackoverflow.com/questions/2267362/"""
+    
+    # base case: 0 is represented as numerals[0] in any base
+    if n == 0:
+        return numerals[0]
+    
+    # compute the low-order digit and recurse to compute higher order digits
+    div, mod = divmod(n, base)
+    return int_to_base(div, base, numerals).lstrip(numerals[0]) + numerals[mod]
+
+
 def is_leap_year(year):
     """Determines if year (given in years A.D.) is a leap year."""
     if year % 100 != 0:
@@ -309,20 +324,20 @@ def is_leap_year(year):
         return year % 400 == 0
 
 
-def is_palindrome(n):
-    """Determines if the natural number n is a palindrome."""
+def is_palindrome(n, base = 10):
+    """Determines if the natural number n is a palindrome in the given base."""
     
-    N_STR = str(n)
+    # create a copy of n and number to hold its reversed value
+    n_copy = n
+    reverse_n = 0
     
-    # compare chars iteratively from beginning and end of string
-    i = 0
-    j = len(N_STR) - 1
-    while (i < j):
-        if N_STR[i] != N_STR[j]:
-            return False
-        i += 1
-        j -= 1
-    return True
+    # append each of the digits of n to reverse_n in reverse order
+    while n_copy != 0:
+        reverse_n = (reverse_n * base) + (n_copy % base)
+        n_copy //= base
+    
+    # compare the original n to its reversed version
+    return n == reverse_n
 
 
 def is_permutation(iter_a, iter_b):
@@ -397,6 +412,29 @@ def lcm_all(nums):
     for factor in max_powers:
         product *= factor**max_powers[factor]
     return product
+
+
+def make_palindrome(n, base, odd_length = False):
+    """Returns a palindrome in the given base formed from the natural number n.
+    If the odd_length flag is set to True, the generated palindrome will have
+    an odd number of digits when written in the given base; otherwise, it will
+    have an even number of digits.
+    
+    Adapted from: https://projecteuler.net/overview=036"""
+    
+    # set beginning of palindrome to be the digits of n
+    palindrome = n
+    
+    # remove final digit of n if palindrome should be odd in length
+    if odd_length:
+        n //= base
+    
+    # append each digit of n to palindrome in reverse order
+    while n != 0:
+        palindrome = (palindrome * base) + (n % base)
+        n //= base
+    
+    return palindrome
 
 
 def make_spiral(layers, matrix = None, depth = 0):
