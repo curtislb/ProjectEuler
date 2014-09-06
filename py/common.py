@@ -280,6 +280,35 @@ def digit_rotations(n):
     return rotations
 
 
+def digit_truncations_left(n):
+    """Returns the left-to-right digit truncations of the natural number n."""
+    truncations = []
+    
+    # prepend the digits of n from right to left to truncated
+    truncated = 0
+    factor_10 = 1
+    while n != 0:
+        n, digit = divmod(n, 10)
+        truncated += digit * factor_10
+        truncations.append(truncated)
+        factor_10 *= 10
+    
+    return truncations
+
+
+def digit_truncations_right(n):
+    """Returns the right-to-left digit truncations of the natural number n."""
+    
+    truncations = []
+    
+    # remove each rightmost digit from n
+    while n != 0:
+        truncations.append(n)
+        n //= 10
+    
+    return truncations
+
+
 def factorial(n):
     """Returns the value of n! = n * (n - 1) * ... * 1."""
     _compute_factorial(n)
@@ -333,8 +362,8 @@ def is_palindrome(n, base = 10):
     
     # append each of the digits of n to reverse_n in reverse order
     while n_copy != 0:
-        reverse_n = (reverse_n * base) + (n_copy % base)
-        n_copy //= base
+        n_copy, digit = divmod(n_copy, base)
+        reverse_n = (reverse_n * base) + digit
     
     # compare the original n to its reversed version
     return n == reverse_n
@@ -431,8 +460,8 @@ def make_palindrome(n, base, odd_length = False):
     
     # append each digit of n to palindrome in reverse order
     while n != 0:
-        palindrome = (palindrome * base) + (n % base)
-        n //= base
+        n, digit = divmod(n, base)
+        palindrome = (palindrome * base) + digit
     
     return palindrome
 
