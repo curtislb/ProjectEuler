@@ -544,7 +544,7 @@ def numbers_from_file(input_file):
         return matrix
 
 
-def pandigital_string(first, last):
+def pandigital_string(first = 1, last = 9):
     """Returns a string with each of the digits from first to last in order."""
     return ''.join('%d' % digit for digit in range(first, last + 1))
 
