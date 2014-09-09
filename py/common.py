@@ -328,9 +328,19 @@ def gcd(m, n):
     return m
 
 
-def int_sqrt(num):
-    """Returns the rounded integer square root of the number num."""
-    return int(round(math.sqrt(num)))
+def get_digit(n, digit):
+    """Returns the given decimal digit of the natural number n."""
+    return int(str(n)[digit - 1])
+
+
+def int_log(x, base = math.e):
+    """Returns the rounded integer logarithm of x for the given base."""
+    return int(round(math.log(x, base)))
+
+
+def int_sqrt(x):
+    """Returns the rounded integer square root of the number x."""
+    return int(round(math.sqrt(x)))
 
 
 def int_to_base(n, base, numerals = '0123456789abcdefghijklmnopqrstuvwxyz'):
