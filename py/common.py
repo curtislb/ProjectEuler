@@ -328,6 +328,11 @@ def gcd(m, n):
     return m
 
 
+def int_sqrt(num):
+    """Returns the rounded integer square root of the number num."""
+    return int(round(math.sqrt(num)))
+
+
 def int_to_base(n, base, numerals = '0123456789abcdefghijklmnopqrstuvwxyz'):
     """Returns the string representation of the natural number n in the given
     base using the given set of numerals.
