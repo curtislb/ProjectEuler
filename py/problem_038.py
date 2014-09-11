@@ -33,7 +33,7 @@ import common
 
 if __name__ == '__main__':
     max_num = 0
-    PANDIGIT_STRING = common.pandigital_string()
+    PANDIGIT_STRING = common.pandigital_string(1)
     
     # try all starting numbers with up to 4 digits
     for num_digits in range(1, 5):
