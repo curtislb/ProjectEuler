@@ -640,6 +640,12 @@ def run_thread(function, stack_size = 128 * 10**6, recursion_limit = 2**20):
     thread.start()
 
 
+def strings_from_file(input_file, sep = ','):
+    """Returns a list of sep-separated strings read from input_file."""
+    with open(input_file) as file:
+        return [string.strip('"\'') for string in file.read().split(sep)]
+
+
 def sum_digits(n):
     """Returns the sum of the decimal digits of the natural number n."""
     digit_sum = 0

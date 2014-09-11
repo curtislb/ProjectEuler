@@ -33,14 +33,13 @@ def name_score(name, position):
 
 
 if __name__ == '__main__':
-    with open(INPUT_FILE) as file:
-        # heap sort names from input file
-        names = [name[1:-1] for name in file.read().split(',')]
-        heapq.heapify(names)
-        
-        # sum up the name scores for all names in alphabetical order
-        total = 0
-        for i in range(1, len(names) + 1):
-            total += name_score(heapq.heappop(names), i)
-        
-        print(total)
+    # heap sort names from input file
+    names = common.strings_from_file(INPUT_FILE)
+    heapq.heapify(names)
+    
+    # sum up the name scores for all names in alphabetical order
+    total = 0
+    for i in range(1, len(names) + 1):
+        total += name_score(heapq.heappop(names), i)
+    
+    print(total)
