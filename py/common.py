@@ -109,6 +109,11 @@ def _compute_primes_up_to(n):
             for j in range(rho*rho - PRIME_MAX - 1, SIEVE_SIZE, rho):
                 sieve[j] = False
 
+# PUBLIC CONSTANTS ############################################################
+
+# Float representation of positive infinity
+INFINITY = float('inf')
+
 # PUBLIC DECORATORS ###########################################################
 
 class memoized(object):
@@ -384,6 +389,17 @@ def is_palindrome(n, base = 10):
     return n == reverse_n
 
 
+def is_perfect_square(n):
+    """Determines if the natural number n is a perfect square."""
+    if n < 0:
+        return False
+    
+    sqrt_n = math.sqrt(n)
+    floored_n = (int(sqrt_n))**2
+    ceiled_n = (int(math.ceil(sqrt_n)))**2
+    return floored_n == n or ceiled_n == n
+
+
 def is_permutation(iter_a, iter_b):
     """Determines if the two iterables iter_a and iter_b are permutations of
     each other.
@@ -417,7 +433,8 @@ def is_permutation(iter_a, iter_b):
 
 def is_pentagon_number(n):
     """Determines if the natural number n is a pentagonal number."""
-    return 
+    radical_sum = 1 + (24 * n)
+    return is_perfect_square(radical_sum) and int_sqrt(radical_sum) % 6 == 5
 
 
 def is_prime(n):
