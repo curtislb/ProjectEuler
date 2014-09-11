@@ -415,6 +415,11 @@ def is_permutation(iter_a, iter_b):
         return True
 
 
+def is_pentagon_number(n):
+    """Determines if the natural number n is a pentagonal number."""
+    return 
+
+
 def is_prime(n):
     """Determines if the natural number n is prime."""
     
@@ -564,6 +569,11 @@ def pandigital_string(first = 0, last = 9):
     return ''.join('%d' % digit for digit in range(first, last + 1))
 
 
+def pentagon_number(n):
+    """Returns the nth pentagonal number."""
+    return n * (3 * n - 1) // 2
+
+
 def permutate(n, k):
     """Returns the number of permutations of k objects from a group of n."""
     
@@ -679,7 +689,7 @@ def sum_proper_divisors(n):
     return sum_divisors(n) - n
 
 
-def triangle(n):
+def triangle_number(n):
     """Returns the nth triangle number, or the sum of the natural numbers up to
     and including n."""
     return n * (n + 1) // 2

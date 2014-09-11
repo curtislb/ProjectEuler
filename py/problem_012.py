@@ -56,4 +56,4 @@ if __name__ == '__main__':
     while count_triangle_divisors(n) < D:
         n += 1
     
-    print(common.triangle(n))
+    print(common.triangle_number(n))

@@ -43,11 +43,11 @@ if __name__ == '__main__':
     # compute triangle numbers up to maximum word value
     triangle_nums = set()
     i = 0
-    triangle_num = common.triangle(i)
+    triangle_num = common.triangle_number(i)
     while triangle_num <= MAX_WORD_VALUE:
         triangle_nums.add(triangle_num)
         i += 1
-        triangle_num = common.triangle(i)
+        triangle_num = common.triangle_number(i)
     
     # count the number of word values that are triangle numbers
     print(sum((word_value in triangle_nums) for word_value in WORD_VALUES))
