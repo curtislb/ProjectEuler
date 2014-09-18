@@ -363,6 +363,12 @@ def int_to_base(n, base, numerals = '0123456789abcdefghijklmnopqrstuvwxyz'):
     return int_to_base(div, base, numerals).lstrip(numerals[0]) + numerals[mod]
 
 
+def is_hexagon_number(n):
+    """Determines if the natural number n is a hexagonal number."""
+    radical_sum = 1 + (8 * n)
+    return is_perfect_square(radical_sum) and int_sqrt(radical_sum) % 4 == 3
+
+
 def is_leap_year(year):
     """Determines if year (given in years A.D.) is a leap year."""
     if year % 100 != 0:
