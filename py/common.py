@@ -12,7 +12,7 @@ import threading
 
 # PRIVATE VARIABLES ###########################################################
 
-# Currently computed factorial terms
+# Currently computed factorial terms (in sorted order)
 _factorial_sequence = [1, 1]
 
 # Currently computed terms of the Fibonacci sequence (in sorted order)
@@ -26,15 +26,15 @@ _prime_sequence = [2]
 def _compute_factorial(n):
     """Precomputes and stores the factorial terms up to n!."""
     
-    FACT_COUNT = len(_factorial_sequence)
+    fact_count = len(_factorial_sequence)
     
     # have the terms up to n! already been computed?
-    if n < FACT_COUNT:
+    if n < fact_count:
         return
     
     # compute numbers iteratively from existing sequence
     product = _factorial_sequence[-1]
-    for i in range(FACT_COUNT, n + 1):
+    for i in range(fact_count, n + 1):
         product *= i
         _factorial_sequence.append(product)
     
@@ -42,16 +42,16 @@ def _compute_factorial(n):
 def _compute_fibonacci(n):
     """Precomputes and stores the Fibonacci numbers up to F(n)."""
     
-    FIB_COUNT = len(_fibonacci_sequence)
+    fib_count = len(_fibonacci_sequence)
 
     # have the numbers up to F(n) already been computed?
-    if n < FIB_COUNT:
+    if n < fib_count:
         return
 
     # compute numbers iteratively from existing sequence
     f0 = _fibonacci_sequence[-2]
     f1 = _fibonacci_sequence[-1]
-    for i in range(FIB_COUNT, n + 1):
+    for i in range(fib_count, n + 1):
         temp = f1
         f1 += f0
         f0 = temp
@@ -61,52 +61,52 @@ def _compute_fibonacci(n):
 def _compute_primes(n):
     """Precomputes and stores at least the first n prime numbers."""
     
-    PRIME_COUNT = len(_prime_sequence)
+    prime_count = len(_prime_sequence)
 
     # have the first n primes already been computed?
-    if n < PRIME_COUNT:
+    if n < prime_count:
         return
 
     # TODO: implement incremental sieve?
 
     # based on analysis of OEIS data set A006880 and empirical time tests
-    ESTIMATE = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
-    INCREMENT = n / math.log(n)
+    estimate = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
+    increment = n / math.log(n)
 
-    # compute primes up to ESTIMATE, then step forward until n are found
-    i = ESTIMATE
+    # compute primes up to estimate, then step forward until n are found
+    i = estimate
     while len(_prime_sequence) < n:
         _compute_primes_up_to(i)
-        i += INCREMENT
+        i += increment
 
 
 def _compute_primes_up_to(n):
     """Precomputes and stores the prime numbers up to n."""
 
     # have the numbers up to n already been computed?
-    PRIME_MAX = _prime_sequence[-1]
-    if PRIME_MAX >= n:
+    prime_max = _prime_sequence[-1]
+    if prime_max >= n:
         return
 
-    # prepare sieve of Eratosthenes for numbers PRIME_MAX + 1 to n
-    SIEVE_SIZE = n - PRIME_MAX
-    sieve = [True] * SIEVE_SIZE
+    # prepare sieve of Eratosthenes for numbers prime_max + 1 to n
+    sieve_size = n - prime_max
+    sieve = [True] * sieve_size
 
     # sift out composite numbers using previously computed primes
-    PRIME_COUNT = len(_prime_sequence)
-    for i in range(PRIME_COUNT):
+    prime_count = len(_prime_sequence)
+    for i in range(prime_count):
         rho = _prime_sequence[i]
-        for j in range(rho*rho, SIEVE_SIZE + PRIME_MAX + 1, rho):
-            if j < PRIME_MAX + 1:
+        for j in range(rho*rho, sieve_size + prime_max + 1, rho):
+            if j < prime_max + 1:
                 continue
-            sieve[j - PRIME_MAX - 1] = False
+            sieve[j - prime_max - 1] = False
 
     # sift out remaining composite numbers with newly found primes
-    for i in range(SIEVE_SIZE):
+    for i in range(sieve_size):
         if sieve[i]:
-            rho = i + PRIME_MAX + 1
+            rho = i + prime_max + 1
             _prime_sequence.append(rho)
-            for j in range(rho*rho - PRIME_MAX - 1, SIEVE_SIZE, rho):
+            for j in range(rho*rho - prime_max - 1, sieve_size, rho):
                 sieve[j] = False
 
 # PUBLIC CONSTANTS ############################################################
@@ -255,8 +255,8 @@ def count_divisors(n):
     
     # compute product of one more than the powers of its prime factors
     divisor_count = 1
-    FACTORIZATION = prime_factorization(n)
-    for factor in FACTORIZATION:
+    factorization = prime_factorization(n)
+    for factor in factorization:
         divisor_count *= factor[1] + 1
 
     return divisor_count
@@ -275,12 +275,12 @@ def digit_function_sum(n, function):
 def digit_rotations(n):
     """Returns all digit rotations of the natural number n."""
     
-    N_STR = str(n)
+    n_str = str(n)
     
     # convert each digit rotation to an int and add it to list
     rotations = []
-    for i in range(len(N_STR)):
-        rotations.append(int(N_STR[i:] + N_STR[:i]))
+    for i in range(len(n_str)):
+        rotations.append(int(n_str[i:] + n_str[:i]))
     
     return rotations
 
@@ -455,8 +455,8 @@ def is_prime(n):
         return False
 
     # search for subsequent prime factors around multiples of 6
-    MAX_FACTOR = int(math.sqrt(n))
-    for i in range(5, MAX_FACTOR + 1, 6):
+    max_factor = int(math.sqrt(n))
+    for i in range(5, max_factor + 1, 6):
         if n % i == 0 or n % (i + 2) == 0:
             return False
     return True
@@ -514,36 +514,36 @@ def make_spiral(layers, matrix = None, depth = 0):
     1 in the center and moving to the right in a clockwise direction."""
     
     # compute the dimension of one side of the spiral
-    SIDE = layers * 2 - 1
+    side = layers * 2 - 1
     
     # initialize the matrix that will hold the spiral
     if matrix is None:
-        matrix = [[1 for i in range(SIDE)] for j in range(SIDE)]
+        matrix = [[1 for i in range(side)] for j in range(side)]
     
     # base case: a spiral with one layer will contain the number 1
     if layers < 2:
         return matrix
     
-    SIDE_MIN_1 = SIDE - 1
-    value = SIDE * SIDE
+    side_min_1 = side - 1
+    value = side * side
     
     # fill the top row of the spiral
-    for i in range(SIDE_MIN_1):
+    for i in range(side_min_1):
         matrix[depth][-1 - depth - i] = value
         value -= 1
     
     # fill the left column of the spiral
-    for i in range(SIDE_MIN_1):
+    for i in range(side_min_1):
         matrix[depth + i][depth] = value
         value -= 1
     
     # fill the bottom row of the spiral
-    for i in range(SIDE_MIN_1):
+    for i in range(side_min_1):
         matrix[-1 - depth][depth + i] = value
         value -= 1
     
     # fill the right column of the spiral
-    for i in range(SIDE_MIN_1):
+    for i in range(side_min_1):
         matrix[-1 - depth - i][-1 - depth] = value
         value -= 1
     
@@ -554,10 +554,10 @@ def make_spiral(layers, matrix = None, depth = 0):
 def max_triangle_path(triangle):
     """Returns the maximal sum of numbers from top to bottom in triangle."""
     
-    NUM_ROWS = len(triangle)
+    num_rows = len(triangle)
 
     # add maximum adjacent values from row above to each row
-    for i in range(1, NUM_ROWS):
+    for i in range(1, num_rows):
         for j in range(i + 1):
             if j != 0 and j != i:
                 # two adjacent elements above; add maximal
@@ -601,8 +601,8 @@ def permutate(n, k):
     """Returns the number of permutations of k objects from a group of n."""
     
     # if faster, compute n! and (n - k)! and return their quotient
-    FACT_COUNT = len(_factorial_sequence)
-    if n - FACT_COUNT <= k:
+    fact_count = len(_factorial_sequence)
+    if n - fact_count <= k:
         return factorial(n) // factorial(n - k)
     
     # compute the product (n - k + 1) * (n - k + 2) * ... * n
@@ -653,8 +653,8 @@ def primes_up_to(n):
 
     # find the index of the last prime <= n
     i = 0
-    PRIME_COUNT = len(_prime_sequence)
-    while i < PRIME_COUNT and _prime_sequence[i] <= n:
+    prime_count = len(_prime_sequence)
+    while i < prime_count and _prime_sequence[i] <= n:
         i += 1
 
     return _prime_sequence[:i]
@@ -688,16 +688,27 @@ def sum_digits(n):
     return digit_sum
 
 
+def sum_keep_digits(m, n, d = None):
+    """Returns the last d digits of the sum of m and n. If d is None, returns
+    the entire sum."""
+    result = m + n
+    if d is None:
+        return result
+    else:
+        return result % 10**d
+        
+
+
 def sum_divisors(n):
     """Returns the sum of the divisors of the natural number n."""
     
-    FACTORIZATION = prime_factorization(n)
+    factorization = prime_factorization(n)
     
     # compute sum of divisors of n as the product of (p^(a+1) - 1)/(p - 1) for
     # each prime factor p^a of n
     # Source: http://mathschallenge.net/?section=faq&ref=number/sum_of_divisors
     product = 1
-    for factor in FACTORIZATION:
+    for factor in factorization:
         product *= (factor[0]**(factor[1] + 1) - 1) // (factor[0] - 1)
     return product
 
