@@ -29,4 +29,30 @@ FACTOR = 2 # default: 2
 # SOLUTION ####################################################################
 
 if __name__ == '__main__':
-    pass
+    n = 7
+    answer = -1
+    
+    # test all odd composite numbers for property
+    while answer == -1:
+        n += 2
+        
+        # skip number if it is not composite
+        if common.is_prime(n):
+            continue
+        
+        # check if the given number is a counterexample
+        is_counterexample = True
+        primes = common.primes_up_to(n)
+        for prime in primes:
+            # test property for each prime
+            diff = n - prime
+            if diff % FACTOR == 0 and common.is_perfect_square(diff // FACTOR):
+                is_counterexample = False
+                break
+        
+        # if property doesn't hold for this n, set it as answer
+        if is_counterexample:
+            answer = n
+            
+    print(answer)
+
