@@ -19,8 +19,6 @@ factors. What is the first of these numbers?
 @author: Curtis Belmonte
 """
 
-import collections
-
 import common
 
 # PARAMETERS ##################################################################
@@ -30,21 +28,28 @@ FACTORS = 4 # default: 4
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
-    n = 2
-    
-    # create buffer of whether property holds for first CONSEC numbers from n
-    buffer = collections.deque()
-    for i in range(n, n + CONSEC):
-        prime_factors = common.prime_factorization(n)
-        buffer.append(len(prime_factors) == FACTORS)
-    
-    # append new element and pop previous, until property holds for all CONSEC
-    while sum(buffer) != CONSEC:
-        n += 1
-        prime_factors = common.prime_factorization(n + (CONSEC - 1))
-        buffer.popleft()
-        buffer.append(len(prime_factors) == FACTORS)
-    
-    print(n)
+# increment for max integer when generating primes
+PRIME_STEP = 1000
 
+if __name__ == '__main__':
+    # precompute fixed range of prime numbers
+    max_prime = PRIME_STEP
+    primes = common.primes_up_to(max_prime)
+    
+    n = 2
+    consec_count = 0
+    while consec_count != CONSEC:
+        # generate more prime numbers as needed
+        if n > max_prime:
+            max_prime += PRIME_STEP
+            primes = common.primes_up_to(max_prime)
+        
+        # increment consecutive count if n has correct number of prime factors
+        if common.count_prime_factors(n, primes) == FACTORS:
+            consec_count += 1
+        else:
+            consec_count = 0
+        
+        n += 1
+    
+    print(n - CONSEC)

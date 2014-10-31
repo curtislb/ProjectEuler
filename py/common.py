@@ -262,6 +262,33 @@ def count_divisors(n):
     return divisor_count
 
 
+def count_prime_factors(n, primes = None):
+    """Returns the number of distinct prime factors of the natural number n,
+    using the given precomputed list of primes."""
+    
+    # generate list of primes up to n if none given
+    if primes is None:
+        primes = primes_up_to(n)
+    
+    # check if n is prime to avoid worst-case performance
+    if binary_search(primes, n) is not None:
+        factor_count = 1
+    else:
+        factor_count = 0
+        for prime in primes:
+            # have all prime factors of n been found?
+            if n == 1:
+                break
+            
+            # if prime divides n, increment count and divide it out of n
+            if n % prime == 0:
+                factor_count += 1
+                while n % prime == 0:
+                    n /= prime
+        
+    return factor_count
+
+
 def digit_function_sum(n, function):
     """Returns the sum of the results of applying function to each of the
     digits of the natural number n."""
