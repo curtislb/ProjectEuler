@@ -678,10 +678,13 @@ def primes_up_to(n):
     
     _compute_primes_up_to(n)
 
+    # return whole sequence if all primes <= n
+    if _prime_sequence[-1] <= n:
+        return _prime_sequence[:]
+    
     # find the index of the last prime <= n
     i = 0
-    prime_count = len(_prime_sequence)
-    while i < prime_count and _prime_sequence[i] <= n:
+    while _prime_sequence[i] <= n:
         i += 1
 
     return _prime_sequence[:i]
