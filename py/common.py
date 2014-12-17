@@ -690,6 +690,43 @@ def primes_up_to(n):
     return _prime_sequence[:i]
 
 
+def rec_loop(function, depth, start, stop = None, step = None,
+             var_list = None, level = 0):
+    if stop is None:
+        start, stop = 0, start
+        
+    if step is None:
+        step = 1
+        
+    if var_list is None:
+        var_list = []
+    
+    if depth == 0:
+        function(var_list)
+    else:
+        var_list.append(0)
+        for i in range(start, stop, step):
+            var_list[level] = i
+            rec_loop(function, depth-1, start, stop, step, var_list, level+1)
+            
+            
+def rec_loop_disjoint(function, depth, stop, step = None, var_list = None,
+                      level = 0):
+    if step is None:
+        step = 1
+        
+    if var_list is None:
+        var_list = []
+    
+    if depth == 0:
+        function(var_list)
+    else:
+        var_list.append(0)
+        for i in range(var_list[level - 1] + 1, stop, step):
+            var_list[level] = i
+            rec_loop(function, depth - 1, stop, step, var_list, level + 1)
+
+
 def run_thread(function, stack_size = 128 * 10**6, recursion_limit = 2**20):
     """Runs function in a new thread with stack size stack_size and maximum
     recursion depth recursion_limit."""
