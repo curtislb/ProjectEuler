@@ -168,6 +168,96 @@ class Month:
     OCTOBER = 9
     NOVEMBER = 10
     DECEMBER = 11
+    
+# PUBLIC CLASSES ##############################################################
+
+class Card(object):
+    """Class representing a standard playing card."""
+    
+    class Face:
+        """Enum representing playing card face values."""
+        TWO = 2
+        THREE = 3
+        FOUR = 4
+        FIVE = 5
+        SIX = 6
+        SEVEN = 7
+        EIGHT = 8
+        NINE = 9
+        TEN = 10
+        JACK = 11
+        QUEEN = 12
+        KING = 13
+        ACE = 14
+    
+    class Suit:
+        """Enum representing playing card suits."""
+        DIAMONDS = 0
+        HEARTS = 1
+        CLUBS = 2
+        SPADES = 3
+    
+    # dict mapping strings to face values
+    _face_map = {'2': Face.TWO,
+                 '3': Face.THREE,
+                 '4': Face.FOUR,
+                 '5': Face.FIVE,
+                 '6': Face.SIX,
+                 '7': Face.SEVEN,
+                 '8': Face.EIGHT,
+                 '9': Face.NINE,
+                '10': Face.TEN,
+                 'T': Face.TEN,
+                 'J': Face.JACK,
+                 'Q': Face.QUEEN,
+                 'K': Face.KING,
+                 'A': Face.ACE}
+    
+    # dict mapping strings to suits
+    _suit_map = {'D': Suit.DIAMONDS,
+                 'H': Suit.HEARTS,
+                 'C': Suit.CLUBS,
+                 'S': Suit.SPADES}
+    
+    @staticmethod
+    def _str_to_face(s):
+        """Converts a string to a face value."""
+        if s in Card._face_map:
+            return Card._face_map[s]
+        else:
+            raise ValueError('cannot convert %s to face' % s)
+    
+    @staticmethod
+    def _str_to_suit(s):
+        """Converts a string to a suit."""
+        if s in Card._suit_map:
+            return Card._suit_map[s]
+        else:
+            raise ValueError('cannot convert %s to suit' % s)
+    
+    def __init__(self, str_rep):
+        self._str_rep = ''.join(str_rep.split()).upper()
+        self.face = Card._str_to_face(self._str_rep[:-1])
+        self.suit = Card._str_to_suit(self._str_rep[-1])
+        
+    def __str__(self):
+        return self._str_rep
+    
+    def __repr__(self):
+        return self.__str__()
+    
+    def __eq__(self, other):
+        if not isinstance(other, type(self)):
+            return False
+        return self.face == other.face and self.suit == other.suit
+    
+    def __lt__(self, other):
+        if self.face < other.face:
+            return True
+        elif self.face > other.face:
+            return False
+        else:
+            return self.suit < other.suit
 
 # PUBLIC FUNCTIONS ############################################################
 
@@ -690,41 +780,43 @@ def primes_up_to(n):
     return _prime_sequence[:i]
 
 
-def rec_loop(function, depth, start, stop = None, step = None,
-             var_list = None, level = 0):
-    if stop is None:
-        start, stop = 0, start
-        
-    if step is None:
-        step = 1
-        
-    if var_list is None:
-        var_list = []
-    
-    if depth == 0:
-        function(var_list)
-    else:
-        var_list.append(0)
-        for i in range(start, stop, step):
-            var_list[level] = i
-            rec_loop(function, depth-1, start, stop, step, var_list, level+1)
-            
-            
-def rec_loop_disjoint(function, depth, stop, step = None, var_list = None,
-                      level = 0):
-    if step is None:
-        step = 1
-        
-    if var_list is None:
-        var_list = []
-    
-    if depth == 0:
-        function(var_list)
-    else:
-        var_list.append(0)
-        for i in range(var_list[level - 1] + 1, stop, step):
-            var_list[level] = i
-            rec_loop(function, depth - 1, stop, step, var_list, level + 1)
+## TODO: test these functions
+#
+# def rec_loop(function, depth, start, stop = None, step = None,
+#              var_list = None, level = 0):
+#     if stop is None:
+#         start, stop = 0, start
+#         
+#     if step is None:
+#         step = 1
+#         
+#     if var_list is None:
+#         var_list = []
+#     
+#     if depth == 0:
+#         function(var_list)
+#     else:
+#         var_list.append(0)
+#         for i in range(start, stop, step):
+#             var_list[level] = i
+#             rec_loop(function, depth-1, start, stop, step, var_list, level+1)
+#             
+#             
+# def rec_loop_disjoint(function, depth, stop, step = None, var_list = None,
+#                       level = 0):
+#     if step is None:
+#         step = 1
+#         
+#     if var_list is None:
+#         var_list = []
+#     
+#     if depth == 0:
+#         function(var_list)
+#     else:
+#         var_list.append(0)
+#         for i in range(var_list[level - 1] + 1, stop, step):
+#             var_list[level] = i
+#             rec_loop(function, depth - 1, stop, step, var_list, level + 1)
 
 
 def run_thread(function, stack_size = 128 * 10**6, recursion_limit = 2**20):
