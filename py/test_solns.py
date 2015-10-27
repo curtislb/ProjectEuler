@@ -1,6 +1,6 @@
 """test_solns.py
 
-[Description]
+Module for testing the correctness and runtime of problem solutions.
 
 @author: Curtis Belmonte
 """
