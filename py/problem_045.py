@@ -17,7 +17,7 @@ pentagonal and hexagonal.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,7 +25,7 @@ LOWER_LIMIT = 40755 # default: 40755
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # generate the first triangle number above LOWER_LIMIT
     tri_num = 0
     n = 1
@@ -34,9 +34,13 @@ if __name__ == '__main__':
         n += 1
     
     # check if each subsequent triangle number is hexagonal and pentagonal
-    while (not common.is_hexagon_number(tri_num) or
-           not common.is_pentagon_number(tri_num)):
+    while (not com.is_hexagon_number(tri_num) or
+           not com.is_pentagon_number(tri_num)):
         tri_num += n
         n += 1
     
-    print(tri_num)
+    return tri_num
+
+
+if __name__ == '__main__':
+    print(main())

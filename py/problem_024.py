@@ -14,7 +14,7 @@ What is the Nth lexicographic permutation of the digits DIGITS?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -23,7 +23,7 @@ DIGITS = [0,1,2,3,4,5,6,7,8,9] # default: [0,1,2,3,4,5,6,7,8,9]
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # adjust permutation number to be zero-indexed
     n = N - 1
     
@@ -31,13 +31,17 @@ if __name__ == '__main__':
     digits = sorted(DIGITS)
     
     # determine each digit of the nth lexicographic permutation
-    DIGIT_COUNT = len(DIGITS)
+    digit_count = len(DIGITS)
     permutation_digits = []
-    for i in range(1, DIGIT_COUNT):
-        digit, n = divmod(n, common.factorial(DIGIT_COUNT - i))
+    for i in range(1, digit_count):
+        digit, n = divmod(n, com.factorial(digit_count - i))
         permutation_digits.append(digits[digit])
         del digits[digit]
     
     # append the remaining digit and print the result
     permutation_digits.append(digits[0])
-    print(''.join('%d' % d for d in permutation_digits))
+    return int(''.join('%d' % d for d in permutation_digits))
+
+
+if __name__ == '__main__':
+    print(main())

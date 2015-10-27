@@ -10,7 +10,7 @@ What is the Nth prime number?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -18,5 +18,9 @@ N = 10001 # default: 10001
 
 # SOLUTION ####################################################################
 
+def main():
+    return com.prime(N)
+
+
 if __name__ == '__main__':
-    print(common.prime(N))
+    print(main())

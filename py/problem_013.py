@@ -8,17 +8,22 @@ INPUT_FILE (all of which have the same number of digits).
 @author: Curtis Belmonte
 """
 
-# import common
+# import common as com
 
 # PARAMETERS ##################################################################
 
+D = 10 # default: 10
 INPUT_FILE = '../input/013.txt' # default: '../input/013.txt'
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     total = 0
-    with open(INPUT_FILE) as file:
-        for line in file:
-            total += int(line[:-1])
-    print(str(total)[:10])
+    with open(INPUT_FILE) as f:
+        for line in f:
+            total += int(line.rstrip())
+    return int(str(total)[:D])
+
+
+if __name__ == '__main__':
+    print(main())

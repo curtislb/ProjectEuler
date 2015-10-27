@@ -11,7 +11,7 @@ numbers from 1 to MAX?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -19,5 +19,9 @@ MAX = 20 # default: 20
 
 # SOLUTION ####################################################################
 
+def main():
+    return com.lcm_all([num for num in range(2, MAX + 1)])
+
+
 if __name__ == '__main__':
-    print(common.lcm_all([num for num in range(2, MAX + 1)]))
+    print(main())

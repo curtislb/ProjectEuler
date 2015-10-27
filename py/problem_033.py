@@ -17,7 +17,7 @@ value of the denominator.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,18 +25,18 @@ D = 2 # default: 2
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # compute minimum and maximum D-digit numbers
-    MIN_VALUE = 10**(D - 1)
-    MAX_VALUE = 10**D - 1
+    min_value = 10**(D - 1)
+    max_value = 10**D - 1
     
     # search for all fractions that satisfy the problem conditions
     product_numer = 1
     product_denom = 1
-    for numerator in range(MIN_VALUE, MAX_VALUE):
-        for denominator in range(numerator + 1, MAX_VALUE + 1):
+    for numerator in range(min_value, max_value):
+        for denominator in range(numerator + 1, max_value + 1):
             # compute the properly reduced numerator and denominator
-            gcd = common.gcd(numerator, denominator)
+            gcd = com.gcd(numerator, denominator)
             reduced_numer = numerator // gcd
             reduced_denom = denominator // gcd
             
@@ -55,7 +55,7 @@ if __name__ == '__main__':
                         canceled_denom = int(denom_str[:j] + denom_str[j + 1:])
                         
                         # compute reduced value of digit canceled fraction
-                        gcd = common.gcd(canceled_numer, canceled_denom)
+                        gcd = com.gcd(canceled_numer, canceled_denom)
                         reduced_canceled_numer = canceled_numer // gcd
                         reduced_canceled_denom = canceled_denom // gcd
                         
@@ -73,4 +73,8 @@ if __name__ == '__main__':
                     break
     
     # print the reduced denominator of product
-    print(product_denom // common.gcd(product_numer, product_denom))
+    return product_denom // com.gcd(product_numer, product_denom)
+
+
+if __name__ == '__main__':
+    print(main())

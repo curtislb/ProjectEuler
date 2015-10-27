@@ -28,7 +28,7 @@ starting with n = START_N.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -38,13 +38,13 @@ START_N = 0 # default: 0
 
 # SOLUTION ####################################################################
 
-@common.memoized
+@com.memoized
 def is_prime(n):
-    """Memoized wrapper for the common.is_prime function."""
-    return common.is_prime(n)
+    """Memoized wrapper for the com.is_prime function."""
+    return com.is_prime(n)
 
 
-if __name__ == '__main__':
+def main():
     # search for best a and b from -MAX + 1 to MAX - 1
     best_product = None
     best_streak = -1
@@ -64,4 +64,8 @@ if __name__ == '__main__':
                 best_product = a * b
                 best_streak = streak
     
-    print(best_product)
+    return best_product
+
+
+if __name__ == '__main__':
+    print(main())

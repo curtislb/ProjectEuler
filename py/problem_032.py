@@ -18,7 +18,7 @@ include it once in your sum.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -27,30 +27,30 @@ MAX_DIGIT = 9 # default: 9
 # SOLUTION ####################################################################
 
 # A 1 to MAX_DIGIT pandigital string
-PANDIGIT_STRING = common.pandigital_string(1, MAX_DIGIT)
+pandigit_string = com.pandigital_string(1, MAX_DIGIT)
 
 
-@common.memoized
+@com.memoized
 def count_digits(n):
-    """Memoized wrapper for the common.count_digits function."""
-    return common.count_digits(n)
+    """Memoized wrapper for the com.count_digits function."""
+    return com.count_digits(n)
 
 
-@common.memoized
+@com.memoized
 def max_multiplicand(digit_count):
     """Returns the maximum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
-    return int(PANDIGIT_STRING[digit_count::-1])
+    return int(pandigit_string[digit_count::-1])
 
 
-@common.memoized
+@com.memoized
 def min_multiplicand(digit_count):
     """Returns the minimum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
-    return int(PANDIGIT_STRING[:digit_count])
+    return int(pandigit_string[:digit_count])
 
 
-if __name__ == '__main__':
+def main():
     # determine possible numbers of digits for multiplicands a and b, a <= b
     candidates = []
     for a_digits in range(1, MAX_DIGIT + 1):
@@ -86,8 +86,12 @@ if __name__ == '__main__':
                 if product not in products:
                     # check if product is pandigital with its multiplicands
                     digit_string = str(a) + str(b) + str(product)
-                    if common.is_permutation(digit_string, PANDIGIT_STRING):
+                    if com.is_permutation(digit_string, pandigit_string):
                         products.add(product)
                         total += product
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

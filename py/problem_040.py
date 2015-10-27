@@ -17,7 +17,7 @@ following expression.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,7 +25,7 @@ MAX_POWER_10 = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # search for and multiply all necessary digits
     product = 1
     power_10 = 1
@@ -33,16 +33,20 @@ if __name__ == '__main__':
     number = 1
     while power_10 <= MAX_POWER_10:
         # step forward to number that contains next necessary digit
-        digit_count = common.count_digits(number)
+        digit_count = com.count_digits(number)
         while position < power_10 - digit_count + 1:
-            digit_count = common.count_digits(number)
+            digit_count = com.count_digits(number)
             position += digit_count
             number += 1
         
         # get necessary digit from current number
-        product *= common.get_digit(number, power_10 - position + 1)
+        product *= com.get_digit(number, power_10 - position + 1)
         
         # advance count to next necessary digit index
         power_10 *= 10
     
-    print(product)
+    return product
+
+
+if __name__ == '__main__':
+    print(main())

@@ -15,7 +15,7 @@ NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -23,13 +23,13 @@ MAX_COUNT = 11 # default: 11
 
 # SOLUTION ####################################################################
 
-@common.memoized
+@com.memoized
 def is_prime(n):
-    """Memoized wrapper for the common.is_prime function."""
-    return common.is_prime(n)
+    """Memoized wrapper for the com.is_prime function."""
+    return com.is_prime(n)
     
 
-if __name__ == '__main__':
+def main():
     total = 0
     
     # search for truncatable primes until MAX_COUNT are found
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         if is_prime(m):
             # check if m is a right truncatable prime
             right_trunc_prime = True
-            for truncation in common.digit_truncations_right(m)[1:]:
+            for truncation in com.digit_truncations_right(m)[1:]:
                 if not is_prime(truncation):
                     right_trunc_prime = False
                     break
@@ -52,7 +52,7 @@ if __name__ == '__main__':
             # if necessary, check if m is also a left truncatable prime
             if right_trunc_prime:
                 left_trunc_prime = True
-                for truncation in common.digit_truncations_left(m)[:-1]:
+                for truncation in com.digit_truncations_left(m)[:-1]:
                     if not is_prime(truncation):
                         left_trunc_prime = False
                         break
@@ -66,7 +66,7 @@ if __name__ == '__main__':
         if is_prime(n):
             # check if n is a right truncatable prime
             right_trunc_prime = True
-            for truncation in common.digit_truncations_right(n)[1:]:
+            for truncation in com.digit_truncations_right(n)[1:]:
                 if not is_prime(truncation):
                     right_trunc_prime = False
                     break
@@ -74,7 +74,7 @@ if __name__ == '__main__':
             # if necessary, check if n is also a left truncatable prime
             if right_trunc_prime:
                 left_trunc_prime = True
-                for truncation in common.digit_truncations_left(n)[:-1]:
+                for truncation in com.digit_truncations_left(n)[:-1]:
                     if not is_prime(truncation):
                         left_trunc_prime = False
                         break
@@ -84,4 +84,8 @@ if __name__ == '__main__':
                     count += 1
                     total += n
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

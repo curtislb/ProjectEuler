@@ -19,7 +19,7 @@ the same way?
 @author: Curtis Belmonte
 """
 
-# import common
+# import common as com
 
 # PARAMETERS ##################################################################
 
@@ -35,12 +35,16 @@ def spiral_diagonal_sum(layers):
     if layers < 2:
         return 1
     
-    SIDE = layers * 2 - 1
-    SIDE_SQUARED = SIDE * SIDE
+    side = layers * 2 - 1
+    side_squared = side * side
     
     # compute the sum of the diagonal entries of the current layer and recurse
-    return SIDE_SQUARED * 4 - (SIDE - 1) * 6 + spiral_diagonal_sum(layers - 1)
+    return side_squared * 4 - (side - 1) * 6 + spiral_diagonal_sum(layers - 1)
+
+
+def main():
+    return spiral_diagonal_sum((N + 1) // 2)
 
 
 if __name__ == '__main__':
-    print(spiral_diagonal_sum((N + 1) // 2))
+    print(main())

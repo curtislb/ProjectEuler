@@ -19,7 +19,7 @@ factors. What is the first of these numbers?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -29,27 +29,31 @@ FACTORS = 4 # default: 4
 # SOLUTION ####################################################################
 
 # increment for max integer when generating primes
-PRIME_STEP = 1000
+prime_step = 1000
 
-if __name__ == '__main__':
+def main():
     # precompute fixed range of prime numbers
-    max_prime = PRIME_STEP
-    primes = common.primes_up_to(max_prime)
+    max_prime = prime_step
+    primes = com.primes_up_to(max_prime)
     
     n = 2
     consec_count = 0
     while consec_count != CONSEC:
         # generate more prime numbers as needed
         if n > max_prime:
-            max_prime += PRIME_STEP
-            primes = common.primes_up_to(max_prime)
+            max_prime += prime_step
+            primes = com.primes_up_to(max_prime)
         
         # increment consecutive count if n has correct number of prime factors
-        if common.count_prime_factors(n, primes) == FACTORS:
+        if com.count_prime_factors(n, primes) == FACTORS:
             consec_count += 1
         else:
             consec_count = 0
         
         n += 1
     
-    print(n - CONSEC)
+    return n - CONSEC
+
+
+if __name__ == '__main__':
+    print(main())

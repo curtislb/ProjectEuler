@@ -23,7 +23,7 @@ as the sum of two abundant numbers.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -31,7 +31,7 @@ LIMIT = 28123 # default: 28123
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     total = 0
     abundant_nums = set()
     for n in range(1, min(LIMIT, 28123)):
@@ -48,7 +48,11 @@ if __name__ == '__main__':
             total += n
         
         # check if n is an abundant number
-        if common.sum_proper_divisors(n) > n:
+        if com.sum_proper_divisors(n) > n:
             abundant_nums.add(n)
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

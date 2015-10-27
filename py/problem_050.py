@@ -17,7 +17,7 @@ primes?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,9 +25,9 @@ LIMIT = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # TODO: find (provably) better lower bound on prime addend size
-    primes = common.primes_up_to(max(1000, LIMIT // 10))
+    primes = com.primes_up_to(max(1000, LIMIT // 10))
     num_primes = len(primes)
     
     # create matrix with primes along diagonal
@@ -55,10 +55,14 @@ if __name__ == '__main__':
                 break
             
             # check if sum meets criteria and is better than best so far
-            if common.is_prime(dyna_sums[i][j]):
+            if com.is_prime(dyna_sums[i][j]):
                 consec = j - i + 1
                 if consec > max_consec:
                     max_consec = consec
                     best_prime = dyna_sums[i][j]
     
-    print(best_prime)
+    return best_prime
+
+
+if __name__ == '__main__':
+    print(main())

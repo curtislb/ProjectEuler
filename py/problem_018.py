@@ -23,7 +23,7 @@ clever method!
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -31,6 +31,10 @@ INPUT_FILE = '../input/018.txt' # default: '../input/018.txt'
 
 # SOLUTION ####################################################################
 
+def main():
+    triangle = com.numbers_from_file(INPUT_FILE)
+    return com.max_triangle_path(triangle)
+
+
 if __name__ == '__main__':
-    triangle = common.numbers_from_file(INPUT_FILE)
-    print(common.max_triangle_path(triangle))
+    print(main())

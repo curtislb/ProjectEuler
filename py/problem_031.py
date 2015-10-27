@@ -16,7 +16,7 @@ How many different ways can AMOUNT be made using any number of coins in COINS?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,5 +25,9 @@ COINS = [1,2,5,10,20,50,100,200] # default: [1,2,5,10,20,50,100,200]
 
 # SOLUTION ####################################################################
 
+def main():
+    return com.combination_sums(AMOUNT, COINS)
+
+
 if __name__ == '__main__':
-    print(common.combination_sums(AMOUNT, COINS))
+    print(main())

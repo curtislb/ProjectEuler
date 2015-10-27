@@ -26,7 +26,7 @@ divisible by its respective divisor in DIVISORS.
 
 import itertools
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -39,14 +39,15 @@ DIVISORS = [2,3,5,7,11,13,17] # default: [2,3,5,7,11,13,17]
 # SOLUTION ####################################################################
 
 # Number of divisors; must match length of DIGIT_INDICES
-DIVISOR_COUNT = len(DIVISORS)
+divisor_count = len(DIVISORS)
+
 
 def concats_divisible_by_divisors(num_string):
     """Determines if the pandigital number with decimal string representation
     num_string satisfies the problem conditions."""
     
     # check if all concatenated numbers are divisible by divisors in DIVISORS
-    for i in range(DIVISOR_COUNT):
+    for i in range(divisor_count):
         # form number by concatenating digits of num_string
         indices = DIGIT_INDICES[i]
         concat_num = int(num_string[indices[0]-1:indices[1]])
@@ -58,12 +59,12 @@ def concats_divisible_by_divisors(num_string):
     return True
 
 
-if __name__ == '__main__':
-    PANDIGIT_STRING = common.pandigital_string(START, END)
+def main():
+    pandigit_string = com.pandigital_string(START, END)
     
     # check if each pandigital number satisfies the problem conditions
     total = 0
-    for digit_chars in itertools.permutations(PANDIGIT_STRING):
+    for digit_chars in itertools.permutations(pandigit_string):
         # form the pandigital string from its permutated digit characters
         num_string = ''.join(digit_chars)
         
@@ -71,4 +72,8 @@ if __name__ == '__main__':
         if concats_divisible_by_divisors(num_string):
             total += int(num_string)
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

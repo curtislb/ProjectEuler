@@ -9,7 +9,7 @@ What is the largest prime factor of the number N?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -17,5 +17,9 @@ N = 600851475143 # default: 600851475143
 
 # SOLUTION ####################################################################
 
+def main():
+    return com.prime_factorization(N)[-1][0]
+
+
 if __name__ == '__main__':
-    print(common.prime_factorization(N)[-1][0])
+    print(main())

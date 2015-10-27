@@ -22,7 +22,7 @@ NOTE: Once the chain starts the terms are allowed to go above LIMIT.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -30,15 +30,17 @@ LIMIT = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-@common.memoized
+@com.memoized
 def collatz_length(n):
     """Returns the number of terms in the Collatz sequence starting from n."""
     if n == 1:
         return 1
-    return 1 + collatz_length(common.collatz_step(n))
+    return 1 + collatz_length(com.collatz_step(n))
 
-def main():
+
+def main_thread():
     # search for longest Collatz sequence starting below LIMIT
+    global best_num
     best_num = 0
     best_length = 0
     for i in range(2, LIMIT):
@@ -46,8 +48,12 @@ def main():
         if length > best_length:
             best_num = i
             best_length = length
-    
-    print(best_num)
+
+
+def main():
+    com.run_thread(main_thread)
+    return best_num
+
 
 if __name__ == '__main__':
-    common.run_thread(main)
+    print(main())

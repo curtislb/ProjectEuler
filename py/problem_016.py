@@ -9,7 +9,7 @@ What is the sum of the digits of the number BASE^EXPONENT?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -18,5 +18,9 @@ EXPONENT = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
+def main():
+    return com.sum_digits(BASE**EXPONENT)
+
+
 if __name__ == '__main__':
-    print(common.sum_digits(BASE**EXPONENT))
+    print(main())

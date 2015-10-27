@@ -21,17 +21,17 @@ century (1 Jan 1901 to 31 Dec 2000)?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
-DAY_OF_WEEK = common.Day.SUNDAY # default: common.Day.SUNDAY
+DAY_OF_WEEK = com.Day.SUNDAY # default: com.Day.SUNDAY
 # TODO: parameterize date range
 
 # SOLUTION ####################################################################
 
 # Number of days in each month
-MONTH_DAY_COUNTS = [
+month_day_counts = [
     31 # January
   , 28 # February (non-leap year)
   , 31 # March
@@ -47,31 +47,36 @@ MONTH_DAY_COUNTS = [
 ]
 
 # Additional useful constants
-DAYS_IN_WEEK = 7
-DAYS_IN_YEAR = 365
-MONTHS_IN_YEAR = 12
+days_in_week = 7
+days_in_year = 365
+months_in_year = 12
 
-if __name__ == '__main__':
+
+def main():
     # advance day from Monday, 1 Jan 1900 to 1 Jan 1901
-    START_YEAR = 1900
-    day = common.Day.MONDAY
-    day = (day + DAYS_IN_YEAR + common.is_leap_year(START_YEAR)) % DAYS_IN_WEEK
+    start_year = 1900
+    day = com.Day.MONDAY
+    day = (day + days_in_year + com.is_leap_year(start_year)) % days_in_week
 
     # count occurrences of DAY_OF_WEEK on the first of each month
-    END_YEAR = 2001
+    end_year = 2001
     first_day_count = 0
-    for year in range(START_YEAR + 1, END_YEAR):
-        for month in range(common.Month.JANUARY, MONTHS_IN_YEAR):
+    for year in range(start_year + 1, end_year):
+        for month in range(com.Month.JANUARY, months_in_year):
             # count the number of days in the current month
-            days_in_month = MONTH_DAY_COUNTS[month]
-            if month == common.Month.FEBRUARY:
-                days_in_month += common.is_leap_year(year)
+            days_in_month = month_day_counts[month]
+            if month == com.Month.FEBRUARY:
+                days_in_month += com.is_leap_year(year)
 
             # check if the first day of the month is Sunday
-            if day == common.Day.SUNDAY:
+            if day == com.Day.SUNDAY:
                 first_day_count += 1
 
             # advance day by one month
-            day = (day + days_in_month) % DAYS_IN_WEEK
+            day = (day + days_in_month) % days_in_week
 
-    print(first_day_count)
+    return first_day_count
+
+
+if __name__ == '__main__':
+    print(main())

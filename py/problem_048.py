@@ -9,7 +9,7 @@ Find the last D digits of the series, 1^1 + 2^2 + 3^3 + ... + MAX^MAX.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -18,8 +18,12 @@ MAX = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     total = 0
     for n in range(1, MAX + 1):
-        total = common.sum_keep_digits(total, n**n, D)
-    print(total)
+        total = com.sum_keep_digits(total, n**n, D)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

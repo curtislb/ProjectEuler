@@ -20,7 +20,7 @@ MIN_A ≤ a ≤ MAX_A and MIN_B ≤ b ≤ MAX_B?
 @author: Curtis Belmonte
 """
 
-# import common
+# import common as com
 
 # PARAMETERS ##################################################################
 
@@ -31,7 +31,7 @@ MAX_B = 100 # default: 100
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # try all combinations of a^b
     terms = set()
     term_count = 0
@@ -43,4 +43,8 @@ if __name__ == '__main__':
                 terms.add(term)
                 term_count += 1
     
-    print(term_count)
+    return term_count
+
+
+if __name__ == '__main__':
+    print(main())

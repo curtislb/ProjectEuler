@@ -25,7 +25,7 @@ What is the value of the first triangle number to have over D divisors?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -33,10 +33,10 @@ D = 500 # default: 500
 
 # SOLUTION ####################################################################
 
-@common.memoized
+@com.memoized
 def count_divisors(n):
-    """Memoized wrapper for the common.count_divisors function."""
-    return common.count_divisors(n)
+    """Memoized wrapper for the com.count_divisors function."""
+    return com.count_divisors(n)
 
 
 def count_triangle_divisors(n):
@@ -51,9 +51,12 @@ def count_triangle_divisors(n):
         return count_divisors(n) * count_divisors((n + 1) // 2)
     
 
-if __name__ == '__main__':
+def main():
     n = 1
     while count_triangle_divisors(n) < D:
         n += 1
-    
-    print(common.triangle_number(n))
+    return com.triangle_number(n)
+
+
+if __name__ == '__main__':
+    print(main())

@@ -19,7 +19,7 @@ numbers and the square of the sum.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -27,6 +27,10 @@ N = 100 # default: 100
 
 # SOLUTION ####################################################################
 
+def main():
+    n_sum = com.triangle_number(N)
+    return n_sum * n_sum - com.sum_of_squares(N)
+
+
 if __name__ == '__main__':
-    N_SUM = common.triangle_number(N)
-    print(N_SUM * N_SUM - common.sum_of_squares(N))
+    print(main())

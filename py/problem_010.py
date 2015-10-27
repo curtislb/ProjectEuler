@@ -9,7 +9,7 @@ Find the sum of all the primes below LIMIT.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -17,5 +17,9 @@ LIMIT = 2000000 # default: 2000000
 
 # SOLUTION ####################################################################
 
+def main():
+    return sum(com.primes_up_to(LIMIT - 1))
+
+
 if __name__ == '__main__':
-    print(sum(common.primes_up_to(LIMIT - 1)))
+    print(main())

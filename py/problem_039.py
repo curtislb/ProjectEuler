@@ -14,7 +14,7 @@ For which value of p ≤ MAX_PERIMETER, is the number of solutions maximised?
 
 import collections
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -22,19 +22,19 @@ MAX_PERIMETER = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-@common.memoized
+@com.memoized
 def int_sqrt(num):
-    """Memoized wrapper for the common.int_sqrt function."""
-    return common.int_sqrt(num)
+    """Memoized wrapper for the com.int_sqrt function."""
+    return com.int_sqrt(num)
 
 
-if __name__ == '__main__':
+def main():
     # precompute perfect squares up to half the max perimeter squared
     squares = set()
     n = 0
     n_square = n * n
-    MAX_SQUARE = (MAX_PERIMETER // 2)**2
-    while n_square <= MAX_SQUARE:
+    max_square = (MAX_PERIMETER // 2)**2
+    while n_square <= max_square:
         squares.add(n_square)
         n += 1
         n_square = n * n
@@ -46,9 +46,9 @@ if __name__ == '__main__':
             c_square = a_square + b_square
             if c_square in squares:
                 # compute the perimeter a + b + c
-                a = common.int_sqrt(a_square)
-                b = common.int_sqrt(b_square)
-                c = common.int_sqrt(c_square)
+                a = com.int_sqrt(a_square)
+                b = com.int_sqrt(b_square)
+                c = com.int_sqrt(c_square)
                 perimeter = a + b + c
                 
                 # if perimeter does not exceed max perimeter, increment count
@@ -56,4 +56,8 @@ if __name__ == '__main__':
                     counts.update([perimeter])
     
     # return the perimeter with the greatest count
-    print(counts.most_common(1)[0][0])
+    return counts.most_common(1)[0][0]
+
+
+if __name__ == '__main__':
+    print(main())

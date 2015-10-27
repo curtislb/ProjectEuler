@@ -17,7 +17,7 @@ adjacent digits) with the same digit, is part of an 8 prime value family.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -28,7 +28,8 @@ import common
 # TODO: refactor to handle prime value families of any size
 FAMILY_SIZE = 8
 
-if __name__ == '__main__':
+
+def main():
     families = set()
     
     # test 5-digit numbers
@@ -48,7 +49,7 @@ if __name__ == '__main__':
                         else:
                             num += digit_repl * 10**d
                     
-                    if common.is_prime(num):
+                    if com.is_prime(num):
                         count += 1
                         family.append(num)
                         
@@ -76,7 +77,7 @@ if __name__ == '__main__':
                                 else:
                                     num += digit_repl * 10**d
                             
-                            if common.is_prime(num):
+                            if com.is_prime(num):
                                 count += 1
                                 family.append(num)
                                 
@@ -87,14 +88,18 @@ if __name__ == '__main__':
     min_primes = []                            
     for family in families:
         min_prime = family[0]
-        digit_count = common.count_digits(min_prime)
+        digit_count = com.count_digits(min_prime)
         same_num_digits = True
         for prime in family[1:]:
-            if common.count_digits(prime) != digit_count:
+            if com.count_digits(prime) != digit_count:
                 same_num_digits = False
                 break
             
             if same_num_digits:
                 min_primes.append(min_prime)
     
-    print(min(min_primes))
+    return min(min_primes)
+
+
+if __name__ == '__main__':
+    print(main())

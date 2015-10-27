@@ -28,7 +28,7 @@ What is the first term in the Fibonacci sequence to contain D digits?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -36,13 +36,17 @@ D = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # search for Fibonacci number containing D digits
     n = 0
-    fib_num = common.fibonacci(n)
-    while common.count_digits(fib_num) < D:
+    fib_num = com.fibonacci(n)
+    while com.count_digits(fib_num) < D:
         n += 1
-        fib_num = common.fibonacci(n)
+        fib_num = com.fibonacci(n)
     
     # shift Fibonacci index so F(0) = 1, F(1) = 1 -> F(1) = 1, F(2) = 1
-    print(n + 1)
+    return n + 1
+
+
+if __name__ == '__main__':
+    print(main())

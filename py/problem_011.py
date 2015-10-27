@@ -2,7 +2,7 @@
 
 Problem 11: Largest product in a grid
 
-In the 20×20 grid below, four numbers along a diagonal line have been marked 
+In the 20×20 grid below, four numbers along a diagonal line have been marked
 with parentheses.
 
     08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -34,7 +34,7 @@ down, left, right, or diagonally) in the grid contained in the file INPUT_FILE?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -43,26 +43,26 @@ INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
-    # read the MATRIX from the input file
-    MATRIX = common.numbers_from_file(INPUT_FILE)
-    NUM_ROWS = len(MATRIX)
-    NUM_COLS = len(MATRIX[0])
+def main():
+    # read the matrix from the input file
+    matrix = com.numbers_from_file(INPUT_FILE)
+    num_rows = len(matrix)
+    num_cols = len(matrix[0])
 
     max_product = 0
 
     # compute all row products
-    for i in range(NUM_ROWS):
+    for i in range(num_rows):
         num_zeros = 0
         product = 1
 
         # compute product of initial N digits in row
         j = 0
         while j < N:
-            if MATRIX[i][j] == 0:
+            if matrix[i][j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[i][j]
+                product *= matrix[i][j]
             j += 1
 
         # set as initial max product if it contains no 0 factors
@@ -70,18 +70,18 @@ if __name__ == '__main__':
             max_product = product
 
         # compute products of remaining sets of N digits in row
-        while j < NUM_COLS:
+        while j < num_cols:
             # remove leftmost digit from product
-            if MATRIX[i][j - N] == 0:
+            if matrix[i][j - N] == 0:
                 num_zeros -= 1
             else:
-                product //= MATRIX[i][j - N]
+                product //= matrix[i][j - N]
 
             # add new rightmost digit to product
-            if MATRIX[i][j] == 0:
+            if matrix[i][j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[i][j]
+                product *= matrix[i][j]
 
             # set as new max product if necessary
             if num_zeros == 0 and product > max_product:
@@ -90,17 +90,17 @@ if __name__ == '__main__':
             j += 1
 
     # compute all column products
-    for i in range(NUM_COLS):
+    for i in range(num_cols):
         num_zeros = 0
         product = 1
 
         # compute product of initial N digits in column
         j = 0
         while j < N:
-            if MATRIX[j][i] == 0:
+            if matrix[j][i] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[j][i]
+                product *= matrix[j][i]
             j += 1
 
         # set as new max product if necessary
@@ -108,18 +108,18 @@ if __name__ == '__main__':
             max_product = product
 
         # compute products of remaining sets of N digits in column
-        while j < NUM_ROWS:
+        while j < num_rows:
             # remove top digit from product
-            if MATRIX[j - N][i] == 0:
+            if matrix[j - N][i] == 0:
                 num_zeros -= 1
             else:
-                product //= MATRIX[j - N][i]
+                product //= matrix[j - N][i]
 
             # add new bottom digit to product
-            if MATRIX[j][i] == 0:
+            if matrix[j][i] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[j][i]
+                product *= matrix[j][i]
 
             # set as new max product if necessary
             if num_zeros == 0 and product > max_product:
@@ -128,17 +128,17 @@ if __name__ == '__main__':
             j += 1
 
     # compute / diagonal products starting along top row
-    for i in range(N - 1, NUM_COLS):
+    for i in range(N - 1, num_cols):
         num_zeros = 0
         product = 1
 
         # compute product of initial N digits along diagonal
         j = 0
         while j < N:
-            if MATRIX[j][i - j] == 0:
+            if matrix[j][i - j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[j][i - j]
+                product *= matrix[j][i - j]
             j += 1
 
         # set as new max product if necessary
@@ -148,16 +148,16 @@ if __name__ == '__main__':
         # compute products of remaining sets of N digits along diagonal
         while j <= i:
             # remove top-rightmost digit from product
-            if MATRIX[j - N][i - j + N] == 0:
+            if matrix[j - N][i - j + N] == 0:
                 num_zeros -= 1
             else:
-                product //= MATRIX[j - N][i - j + N]
+                product //= matrix[j - N][i - j + N]
 
             # add new bottom-leftmost digit to product
-            if MATRIX[j][i - j] == 0:
+            if matrix[j][i - j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[j][i - j]
+                product *= matrix[j][i - j]
 
             # set as new max product if necessary
             if num_zeros == 0 and product > max_product:
@@ -166,17 +166,17 @@ if __name__ == '__main__':
             j += 1
 
     # compute / diagonal products starting along bottom row
-    for i in range(1, NUM_COLS - N + 1):
+    for i in range(1, num_cols - N + 1):
         num_zeros = 0
         product = 1
 
         # compute product of initial N digits along diagonal
         j = 0
         while j < N:
-            if MATRIX[-1 - j][i + j] == 0:
+            if matrix[-1 - j][i + j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[-1 - j][i + j]
+                product *= matrix[-1 - j][i + j]
             j += 1
 
         # set as new max product if necessary
@@ -184,18 +184,18 @@ if __name__ == '__main__':
             max_product = product
 
         # compute products of remaining sets of N digits along diagonal
-        while j < NUM_COLS - i:
+        while j < num_cols - i:
             # remove bottom-leftmost digit from product
-            if MATRIX[-1 - j + N][i + j - N] == 0:
+            if matrix[-1 - j + N][i + j - N] == 0:
                 num_zeros -= 1
             else:
-                product //= MATRIX[-1 - j + N][i + j - N]
+                product //= matrix[-1 - j + N][i + j - N]
 
             # add new top-rightmost digit to product
-            if MATRIX[-1 - j][i + j] == 0:
+            if matrix[-1 - j][i + j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[-1 - j][i + j]
+                product *= matrix[-1 - j][i + j]
 
             # set as new max product if necessary
             if num_zeros == 0 and product > max_product:
@@ -204,17 +204,17 @@ if __name__ == '__main__':
             j += 1
     
     # compute \ diagonal products starting along bottom row
-    for i in range(N - 1, NUM_COLS):
+    for i in range(N - 1, num_cols):
         num_zeros = 0
         product = 1
 
         # compute product of initial N digits along diagonal
         j = 0
         while j < N:
-            if MATRIX[-1 - j][i - j] == 0:
+            if matrix[-1 - j][i - j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[-1 - j][i - j]
+                product *= matrix[-1 - j][i - j]
             j += 1
 
         # set as new max product if necessary
@@ -224,16 +224,16 @@ if __name__ == '__main__':
         # compute products of remaining sets of N digits along diagonal
         while j <= i:
             # remove bottom-rightmost digit from product
-            if MATRIX[-1 - j + N][i - j + N] == 0:
+            if matrix[-1 - j + N][i - j + N] == 0:
                 num_zeros -= 1
             else:
-                product //= MATRIX[-1 - j + N][i - j + N]
+                product //= matrix[-1 - j + N][i - j + N]
 
             # add new top-leftmost digit to product
-            if MATRIX[-1 - j][i - j] == 0:
+            if matrix[-1 - j][i - j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[-1 - j][i - j]
+                product *= matrix[-1 - j][i - j]
 
             # set as new max product if necessary
             if num_zeros == 0 and product > max_product:
@@ -242,17 +242,17 @@ if __name__ == '__main__':
             j += 1
 
     # compute \ diagonal products starting along top row
-    for i in range(1, NUM_COLS - N + 1):
+    for i in range(1, num_cols - N + 1):
         num_zeros = 0
         product = 1
 
         # compute product of initial N digits along diagonal
         j = 0
         while j < N:
-            if MATRIX[j][i + j] == 0:
+            if matrix[j][i + j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[j][i + j]
+                product *= matrix[j][i + j]
             j += 1
 
         # set as new max product if necessary
@@ -260,18 +260,18 @@ if __name__ == '__main__':
             max_product = product
 
         # compute products of remaining sets of N digits along diagonal
-        while j < NUM_COLS - i:
+        while j < num_cols - i:
             # remove top-leftmost digit from product
-            if MATRIX[j - N][i + j - N] == 0:
+            if matrix[j - N][i + j - N] == 0:
                 num_zeros -= 1
             else:
-                product //= MATRIX[j - N][i + j - N]
+                product //= matrix[j - N][i + j - N]
 
             # add new bottom-rightmost digit to product
-            if MATRIX[j][i + j] == 0:
+            if matrix[j][i + j] == 0:
                 num_zeros += 1
             else:
-                product *= MATRIX[j][i + j]
+                product *= matrix[j][i + j]
 
             # set as new max product if necessary
             if num_zeros == 0 and product > max_product:
@@ -279,4 +279,8 @@ if __name__ == '__main__':
 
             j += 1
     
-    print(max_product)
+    return max_product
+
+
+if __name__ == '__main__':
+    print(main())

@@ -20,7 +20,7 @@ and FACTOR times a square?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -28,7 +28,7 @@ FACTOR = 2 # default: 2
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     n = 7
     answer = -1
     
@@ -37,16 +37,16 @@ if __name__ == '__main__':
         n += 2
         
         # skip number if it is not composite
-        if common.is_prime(n):
+        if com.is_prime(n):
             continue
         
         # check if the given number is a counterexample
         is_counterexample = True
-        primes = common.primes_up_to(n)
+        primes = com.primes_up_to(n)
         for prime in primes:
             # test property for each prime
             diff = n - prime
-            if diff % FACTOR == 0 and common.is_perfect_square(diff // FACTOR):
+            if diff % FACTOR == 0 and com.is_perfect_square(diff // FACTOR):
                 is_counterexample = False
                 break
         
@@ -54,5 +54,8 @@ if __name__ == '__main__':
         if is_counterexample:
             answer = n
             
-    print(answer)
+    return answer
 
+
+if __name__ == '__main__':
+    print(main())

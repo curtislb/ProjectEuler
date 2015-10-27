@@ -23,7 +23,7 @@ concatenated product of an integer with (1, 2, ... , n) where n > 1?
 
 import itertools
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -31,14 +31,14 @@ import common
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     max_num = 0
-    PANDIGIT_STRING = common.pandigital_string(1)
+    pandigit_string = com.pandigital_string(1)
     
     # try all starting numbers with up to 4 digits
     for num_digits in range(1, 5):
         # try all permutations of count_digits digits from pandigital string
-        for permutation in itertools.permutations(PANDIGIT_STRING, num_digits):
+        for permutation in itertools.permutations(pandigit_string, num_digits):
             # form the starting number by joining the string digits
             start_num = int(''.join(permutation))
             
@@ -55,11 +55,15 @@ if __name__ == '__main__':
                 continue
             
             # check if concatenated products are 1 to 9 pandigital
-            if common.is_permutation(product_str, PANDIGIT_STRING):
+            if com.is_permutation(product_str, pandigit_string):
                 num = int(product_str)
                 
                 # set new maximum pandigital number if necessart
                 if num > max_num:
                     max_num = num
      
-    print(max_num)
+    return max_num
+
+
+if __name__ == '__main__':
+    print(main())

@@ -1,4 +1,4 @@
-"""common.py
+"""com.py
 
 Common utility functions and classes for various Project Euler problems.
 
@@ -261,7 +261,7 @@ class Card(object):
 
 # PUBLIC FUNCTIONS ############################################################
 
-def alphabet_index_upper(letter):
+def alpha_index_upper(letter):
     """Returns the alphabetic index of the uppercase character letter."""
     return ord(letter) - ord('A') + 1
 
@@ -327,6 +327,10 @@ def combination_sums(total, addends):
     return combos[total]
 
 
+def concat_digits(digits):
+    return int(''.join([str(d) for d in digits]), 10)
+
+
 def count_digits(n):
     """Returns the number of digits of the natural number n."""
     
@@ -346,8 +350,8 @@ def count_divisors(n):
     # compute product of one more than the powers of its prime factors
     divisor_count = 1
     factorization = prime_factorization(n)
-    for factor in factorization:
-        divisor_count *= factor[1] + 1
+    for __, power in factorization:
+        divisor_count *= power + 1
 
     return divisor_count
 
@@ -591,10 +595,10 @@ def lcm_all(nums):
     for num in nums:
         # compute powers of unique prime factors of the current number
         factorization = prime_factorization(num)
-        for factor in factorization:
-            if (factor[0] in max_powers and factor[1] > max_powers[factor[0]]
-                or factor[0] not in max_powers):
-                max_powers[factor[0]] = factor[1]
+        for factor, power in factorization:
+            if (factor in max_powers and power > max_powers[factor]
+                or factor not in max_powers):
+                max_powers[factor] = power
         
     # return the product of prime factors raised to their highest powers
     product = 1
@@ -698,7 +702,7 @@ def numbers_from_file(input_file):
         matrix = []
         for line in file:
             # add each token from the current line to the row vector
-            row = [int(num) for num in line[:-1].split()]
+            row = [int(num) for num in line.rstrip().split()]
             matrix.append(row)
     
         return matrix
@@ -819,7 +823,7 @@ def primes_up_to(n):
 #             rec_loop(function, depth - 1, stop, step, var_list, level + 1)
 
 
-def run_thread(function, stack_size = 128 * 10**6, recursion_limit = 2**20):
+def run_thread(function, stack_size=128*(10**6), recursion_limit=2**20):
     """Runs function in a new thread with stack size stack_size and maximum
     recursion depth recursion_limit."""
     
@@ -828,11 +832,12 @@ def run_thread(function, stack_size = 128 * 10**6, recursion_limit = 2**20):
     sys.setrecursionlimit(recursion_limit)
     
     # run the thread
-    thread = threading.Thread(target = function)
+    thread = threading.Thread(target=function)
     thread.start()
+    thread.join()
 
 
-def strings_from_file(input_file, sep = ','):
+def strings_from_file(input_file, sep=','):
     """Returns a list of sep-separated strings read from input_file."""
     with open(input_file) as file:
         return [string.strip('"\'') for string in file.read().split(sep)]
@@ -855,7 +860,6 @@ def sum_keep_digits(m, n, d = None):
         return result
     else:
         return result % 10**d
-        
 
 
 def sum_divisors(n):
@@ -867,8 +871,8 @@ def sum_divisors(n):
     # each prime factor p^a of n
     # Source: http://mathschallenge.net/?section=faq&ref=number/sum_of_divisors
     product = 1
-    for factor in factorization:
-        product *= (factor[0]**(factor[1] + 1) - 1) // (factor[0] - 1)
+    for factor, power in factorization:
+        product *= (factor**(power + 1) - 1) // (factor - 1)
     return product
 
 

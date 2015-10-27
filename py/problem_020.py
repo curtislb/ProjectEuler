@@ -12,7 +12,7 @@ Find the sum of the digits in the number N!
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -20,5 +20,9 @@ N = 100 # default: 100
 
 # SOLUTION ####################################################################
 
+def main():
+    return com.sum_digits(com.factorial(N))
+
+
 if __name__ == '__main__':
-    print(common.sum_digits(common.factorial(N)))
+    print(main())

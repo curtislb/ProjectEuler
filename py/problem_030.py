@@ -19,7 +19,7 @@ powers of their digits.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -27,19 +27,23 @@ EXPONENT = 5 # default: 5
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # search for max value that could be written as powers of its digits
-    MAX_DIGIT_POWER = 9**EXPONENT
+    max_digit_power = 9**EXPONENT
     max_value = 99
-    max_sum = MAX_DIGIT_POWER * 2
+    max_sum = max_digit_power * 2
     while max_value <= max_sum:
         max_value = max_value * 10 + 9
-        max_sum += MAX_DIGIT_POWER
+        max_sum += max_digit_power
     
     # check all numbers below max value with at least two digits
     total = 0
     for n in range(10, max_value):
-        if common.digit_function_sum(n, lambda x: x**EXPONENT) == n:
+        if com.digit_function_sum(n, lambda x: x**EXPONENT) == n:
             total += n
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

@@ -18,7 +18,7 @@ are triangle words?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -26,29 +26,33 @@ INPUT_FILE = '../input/042.txt' # default: '../input/042.txt'
 
 # SOLUTION ####################################################################
 
-@common.memoized
+@com.memoized
 def word_value(word):
     """Returns the word value for word, computed as the sum of the alphabetical
     positions of each of its letters."""
     if word == '':
         return 0
-    return word_value(word[:-1]) + common.alphabet_index_upper(word[-1])
+    return word_value(word[:-1]) + com.alpha_index_upper(word[-1])
 
-if __name__ == '__main__':
+
+def main():
     # compute word values for all words in the input file
-    WORD_VALUES = [word_value(word)
-                   for word in common.strings_from_file(INPUT_FILE)]
-    MAX_WORD_VALUE = max(WORD_VALUES)
+    word_values = [word_value(word)
+                   for word in com.strings_from_file(INPUT_FILE)]
+    max_word_value = max(word_values)
     
     # compute triangle numbers up to maximum word value
     triangle_nums = set()
     i = 0
-    triangle_num = common.triangle_number(i)
-    while triangle_num <= MAX_WORD_VALUE:
+    triangle_num = com.triangle_number(i)
+    while triangle_num <= max_word_value:
         triangle_nums.add(triangle_num)
         i += 1
-        triangle_num = common.triangle_number(i)
+        triangle_num = com.triangle_number(i)
     
     # count the number of word values that are triangle numbers
-    print(sum((word_value in triangle_nums) for word_value in WORD_VALUES))
-    
+    return sum((word_value in triangle_nums) for word_value in word_values)
+
+
+if __name__ == '__main__':
+    print(main())

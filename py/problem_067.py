@@ -23,7 +23,7 @@ billion years to check them all. There is an efficient algorithm to solve it.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -32,5 +32,5 @@ INPUT_FILE = '../input/067.txt' # default: '../input/067.txt'
 # SOLUTION ####################################################################
 
 if __name__ == '__main__':
-    triangle = common.numbers_from_file(INPUT_FILE)
-    print(common.max_triangle_path(triangle))
+    triangle = com.numbers_from_file(INPUT_FILE)
+    print(com.max_triangle_path(triangle))

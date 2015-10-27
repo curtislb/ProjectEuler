@@ -18,7 +18,7 @@ What is the total of all the name scores in the file?
 
 import heapq
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -28,13 +28,13 @@ INPUT_FILE = '../input/022.txt' # default: '../input/022.txt'
 
 def name_score(name, position):
     """Returns the score for name in position when sorted alphabetically."""
-    score = sum(common.alphabet_index_upper(letter) for letter in name)
+    score = sum(com.alpha_index_upper(letter) for letter in name)
     return position * score
 
 
-if __name__ == '__main__':
+def main():
     # heap sort names from input file
-    names = common.strings_from_file(INPUT_FILE)
+    names = com.strings_from_file(INPUT_FILE)
     heapq.heapify(names)
     
     # sum up the name scores for all names in alphabetical order
@@ -42,4 +42,8 @@ if __name__ == '__main__':
     for i in range(1, len(names) + 1):
         total += name_score(heapq.heappop(names), i)
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

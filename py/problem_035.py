@@ -13,7 +13,7 @@ How many circular primes are there below LIMIT?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -21,7 +21,7 @@ LIMIT = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # search for circular primes from 2 to LIMIT - 1
     count = 0
     tested_rotations = set()
@@ -29,14 +29,14 @@ if __name__ == '__main__':
         # check if the digit rotations of n have already been seen
         if n not in tested_rotations:
             # mark all digit rotations of n as seen
-            rotations = set(common.digit_rotations(n))
+            rotations = set(com.digit_rotations(n))
             for rotation in rotations:
                 tested_rotations.add(rotation)
             
             # check if all digit rotations of n are prime
             all_rotations_prime = True
             for rotation in rotations:
-                if not common.is_prime(rotation):
+                if not com.is_prime(rotation):
                     all_rotations_prime = False
                     break
             
@@ -44,5 +44,9 @@ if __name__ == '__main__':
             if all_rotations_prime:
                 count += len(rotations)
     
-    print(count)
+    return count
+
+
+if __name__ == '__main__':
+    print(main())
     

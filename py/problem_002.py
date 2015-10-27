@@ -13,7 +13,7 @@ LIMIT, find the sum of the even-valued terms.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -21,7 +21,7 @@ LIMIT = 4000000 # default: 4000000
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # sum every third (even) Fibonacci number
     i = -1
     fib_num = 0
@@ -29,6 +29,10 @@ if __name__ == '__main__':
     while fib_num <= LIMIT:
         total += fib_num
         i += 3
-        fib_num = common.fibonacci(i)
+        fib_num = com.fibonacci(i)
 
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

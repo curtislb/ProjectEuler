@@ -1,5 +1,6 @@
-'''
-Problem 55.
+"""problem_055.py
+
+Problem 55: Lychrel numbers
 
 If we take 47, reverse and add, 47 + 74 = 121, which is palindromic.
 
@@ -23,25 +24,32 @@ exists, has managed so far to map it to a palindrome.
 Surprisingly, there are palindromic numbers that are themselves Lychrel numbers;
 the first example is 4994.
 
-How many Lychrel numbers are there below ten-thousand?
+How many Lychrel numbers are there below LIMIT?
 
 @author: Curtis Belmonte
-'''
+"""
+
+import common as com
+
+# PARAMETERS ##################################################################
 
 LIMIT = 10000 # default: 1000
 MAX_ITER = 50 # default: 50
 
-###############################################################################
+# SOLUTION ####################################################################
 
-from common import is_palindrome
+def main():
+    count = 0
+    for n in range(10, LIMIT):
+        for __ in range(MAX_ITER):
+            n += int(str(n)[::-1])
+            if com.is_palindrome(n):
+                break
+        else:
+            count += 1
 
-count = 0
-for n in range(10, LIMIT):
-    lych_num = n
-    for n in range(50):
-        lych_num += int(str(lych_num)[::-1])
-        if is_palindrome(lych_num):
-            break
-    else:
-        count += 1
-print(count)
+    return count
+
+
+if __name__ == '__main__':
+    print(main())

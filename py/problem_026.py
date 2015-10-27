@@ -24,7 +24,7 @@ in its decimal fraction part.
 @author: Curtis Belmonte
 """
 
-# import common
+# import common as com
 
 # PARAMETERS ##################################################################
 
@@ -57,7 +57,7 @@ def reciprocal_cycle_length(n):
     return 0
 
 
-if __name__ == '__main__':
+def main():
     # search for d with longest reciprocal cycle 
     max_d = 0
     max_length = -1
@@ -67,4 +67,8 @@ if __name__ == '__main__':
             max_d = d
             max_length = length
     
-    print(max_d)
+    return max_d
+
+
+if __name__ == '__main__':
+    print(main())

@@ -17,7 +17,7 @@ sequence?
 
 import sys
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,9 +25,9 @@ import common
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # generate all four-digit primes
-    primes = set(filter((lambda x: x > 999), common.primes_up_to(9999)))
+    primes = set(filter((lambda x: x > 999), com.primes_up_to(9999)))
     
     # remove sequence from problem description
     primes.remove(1487)
@@ -44,7 +44,7 @@ if __name__ == '__main__':
             if first is None:
                 first = str(prime)
                 perms.append(prime)
-            elif common.is_permutation(first, str(prime)):
+            elif com.is_permutation(first, str(prime)):
                 perms.append(prime)
         
         # check if any three prime permutations form arithmetic sequence
@@ -54,11 +54,12 @@ if __name__ == '__main__':
                 for j in range(i + 1, len(perms)):
                     for k in range(j + 1, len(perms)):
                         if perms[j] - perms[i] == perms[k] - perms[j]:
-                            print('%d%d%d' % (perms[i], perms[j], perms[k]))
-                            sys.exit()
+                            return int('%d%d%d' % (perms[i],perms[j],perms[k]))
         
         # remove permutation group from primes
         for n in perms:
             primes.remove(n)
 
-                
+
+if __name__ == '__main__':
+    print(main())

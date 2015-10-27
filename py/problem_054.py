@@ -57,8 +57,7 @@ How many hands does Player 1 win?
 @author: Curtis Belmonte
 """
 
-import common
-from common import Card
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -109,13 +108,13 @@ class Rank(object):
             hand[1].suit == hand[2].suit and
             hand[2].suit == hand[3].suit and
             hand[3].suit == hand[4].suit):
-            if (hand[0].face == Card.Face.TEN and
-                hand[1].face == Card.Face.JACK and
-                hand[2].face == Card.Face.QUEEN and
-                hand[3].face == Card.Face.KING and
-                hand[4].face == Card.Face.ACE):
+            if (hand[0].face == com.Card.Face.TEN and
+                hand[1].face == com.Card.Face.JACK and
+                hand[2].face == com.Card.Face.QUEEN and
+                hand[3].face == com.Card.Face.KING and
+                hand[4].face == com.Card.Face.ACE):
                 self.type = Rank.Type.ROYAL_FLUSH
-                self.value = Card.Face.ACE
+                self.value = com.Card.Face.ACE
             elif (hand[0].face + 1 == hand[1].face and
                   hand[1].face + 1 == hand[2].face and
                   hand[2].face + 1 == hand[3].face and
@@ -166,12 +165,12 @@ class Rank(object):
             self._update(Rank.Type.HIGH_CARD, hand[4].face)
 
 
-if __name__ == '__main__':
-    # read all pairs of hands (in sorted order) from input file
+def main():
+    # read (and sort) all hands from input file
     hands = []
     with open(INPUT_FILE) as file:
         for line in file:
-            cards = [Card(s) for s in line.split()]
+            cards = [com.Card(s) for s in line.split()]
             hands.append((sorted(cards[:5]), sorted(cards[5:])))
     
     # count total number of wins for player 1
@@ -198,4 +197,8 @@ if __name__ == '__main__':
                         # player 2 has a higher card at position i
                         break
     
-    print(wins)
+    return wins
+
+
+if __name__ == '__main__':
+    print(main())

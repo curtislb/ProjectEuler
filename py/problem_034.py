@@ -12,7 +12,7 @@ Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -20,19 +20,23 @@ import common
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # search for max value that could be written as powers of its digits
-    MAX_DIGIT_FACTORIAL = common.factorial(9)
+    max_digit_factorial = com.factorial(9)
     max_value = 99
-    max_sum = MAX_DIGIT_FACTORIAL * 2
+    max_sum = max_digit_factorial * 2
     while max_value <= max_sum:
         max_value = max_value * 10 + 9
-        max_sum += MAX_DIGIT_FACTORIAL
+        max_sum += max_digit_factorial
     
     # check all numbers below max value with at least two digits
     total = 0
     for n in range(10, max_value):
-        if common.digit_function_sum(n, common.factorial) == n:
+        if com.digit_function_sum(n, com.factorial) == n:
             total += n
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

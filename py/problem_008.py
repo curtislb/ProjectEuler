@@ -32,7 +32,7 @@ have the greatest product. What is the value of this product?
 @author: Curtis Belmonte
 """
 
-# import common
+# import common as com
 
 # PARAMETERS ##################################################################
 
@@ -41,10 +41,10 @@ INPUT_FILE = '../input/008.txt' # default: '../input/008.txt'
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
-    with open(INPUT_FILE) as file:
+def main():
+    with open(INPUT_FILE) as f:
         # read number from input file
-        NUM_STR = ''.join(line[:-1] for line in file)
+        num_str = ''.join(line.rstrip() for line in f)
         
         num_zeros = 0 # number of zeros in the current product
         product = 1 # current product of N digits (ignoring zeros)
@@ -53,7 +53,7 @@ if __name__ == '__main__':
         # compute product of initial N digits
         i = 0
         while i < N:
-            digit = int(NUM_STR[i])
+            digit = int(num_str[i])
             if digit == 0:
                 num_zeros += 1
             else:
@@ -65,17 +65,17 @@ if __name__ == '__main__':
             max_product = product
     
         # compute products of remaining sets of N digits
-        DIGIT_COUNT = len(NUM_STR)
-        while i < DIGIT_COUNT:
+        digit_count = len(num_str)
+        while i < digit_count:
             # remove leftmost digit from product
-            left_digit = int(NUM_STR[i - N])
+            left_digit = int(num_str[i - N])
             if left_digit == 0:
                 num_zeros -= 1
             else:
                 product //= left_digit
     
             # add new rightmost digit to product
-            right_digit = int(NUM_STR[i])
+            right_digit = int(num_str[i])
             if right_digit == 0:
                 num_zeros += 1
             else:
@@ -87,4 +87,8 @@ if __name__ == '__main__':
     
             i += 1
         
-        print(max_product)
+        return max_product
+
+
+if __name__ == '__main__':
+    print(main())

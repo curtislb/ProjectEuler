@@ -10,7 +10,7 @@ Find the largest palindrome made from the product of two D-digit numbers.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -18,23 +18,27 @@ D = 3 # default: 3
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # calculate max and min D-digit numbers
-    MAX_FACTOR = 10**D - 1
-    MIN_FACTOR = 10**(D - 1)
+    max_factor = 10**D - 1
+    min_factor = 10**(D - 1)
 
     # multiply D-digit products to find largest palindrome
     max_product = -1
-    for i in range(MAX_FACTOR, MIN_FACTOR - 1, -1):
-        for j in range(i, MIN_FACTOR - 1, -1):
+    for i in range(max_factor, min_factor - 1, -1):
+        for j in range(i, min_factor - 1, -1):
             # any products larger than current max_product for this i?
             product = i * j
             if product <= max_product:
                 break
 
             # check if i * j is a palindrome
-            if common.is_palindrome(product):
+            if com.is_palindrome(product):
                 max_product = product
                 break
 
-    print(max_product)
+    return max_product
+
+
+if __name__ == '__main__':
+    print(main())

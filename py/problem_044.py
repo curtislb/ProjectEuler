@@ -17,7 +17,7 @@ of D?
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,21 +25,21 @@ import common
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     # generate pentagonal numbers up to threshold
     # TODO: remove need for arbitrary threshold
-    PENTAGONAL_COUNT = 3000
+    pentagonal_count = 3000
     pentagonal_list = []
-    for n in range(PENTAGONAL_COUNT):
-        pentagonal_list.append(common.pentagon_number(n))
+    for n in range(pentagonal_count):
+        pentagonal_list.append(com.pentagon_number(n))
         
     # add pentagonal numbers to set for fast lookup
     pentagonal_set = set(pentagonal_list)
     
     # compute minimum difference of pentagonal numbers that satisfy conditions
-    min_diff = common.INFINITY
-    for m in range(1, PENTAGONAL_COUNT):
-        for k in range(m + 1, PENTAGONAL_COUNT):
+    min_diff = com.INFINITY
+    for m in range(1, pentagonal_count):
+        for k in range(m + 1, pentagonal_count):
             # check if sum of P(m) and P(k) is pentagonal
             if pentagonal_list[k] + pentagonal_list[m] in pentagonal_set:
                 # check if difference of P(m) and P(k) is pentagonal
@@ -47,4 +47,8 @@ if __name__ == '__main__':
                 if diff in pentagonal_set and diff < min_diff:
                     min_diff = diff
     
-    print(min_diff)
+    return min_diff
+
+
+if __name__ == '__main__':
+    print(main())

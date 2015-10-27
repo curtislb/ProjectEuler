@@ -17,7 +17,7 @@ Evaluate the sum of all the amicable numbers under LIMIT.
 @author: Curtis Belmonte
 """
 
-import common
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,15 +25,19 @@ LIMIT = 10000 # default: 10000
 
 # SOLUTION ####################################################################
 
-if __name__ == '__main__':
+def main():
     total = 0
     
     # search for amicable pairs (m, n) below LIMIT
     for m in range(2, LIMIT):
-        n = common.sum_proper_divisors(m)
+        n = com.sum_proper_divisors(m)
         
         # do m and n meet conditions of amicable pair with m < n < LIMIT
-        if m < n and n < LIMIT and common.sum_proper_divisors(n) == m:
+        if m < n and n < LIMIT and com.sum_proper_divisors(n) == m:
             total += m + n
     
-    print(total)
+    return total
+
+
+if __name__ == '__main__':
+    print(main())

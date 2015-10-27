@@ -16,7 +16,7 @@ British usage.
 @author: Curtis Belmonte
 """
 
-# import common
+# import common as com
 
 # PARAMETERS ##################################################################
 
@@ -25,7 +25,7 @@ British usage.
 # SOLUTION ####################################################################
 
 # Sum of all digit letter counts, excluding 0
-ALL_DIGIT_LETTERS = (
+all_digit_letters = (
     3 # len('one')
   + 3 # len('two')
   + 5 # len('three')
@@ -38,7 +38,7 @@ ALL_DIGIT_LETTERS = (
 )
 
 # Sum of all 'teen' letter counts, including 10, 11, and 12
-ALL_TEEN_LETTERS = (
+all_teen_letters = (
     3 # len('ten')
   + 6 # len('eleven')
   + 6 # len('twelve')
@@ -52,7 +52,7 @@ ALL_TEEN_LETTERS = (
 )
 
 # Sum of all multiples of ten letter counts, excluding 10
-ALL_TEN_LETTERS = (
+all_ten_letters = (
     6 # len('twenty')
   + 6 # len('thirty')
   + 5 # len('forty')
@@ -64,31 +64,36 @@ ALL_TEN_LETTERS = (
 )
 
 # Letter counts of other useful number words
-AND_LETTERS = 3 # len('and')
-HUNDRED_LETTERS = 7 # len('hundred')
-ONE_LETTERS = 3 # len('one')
-THOUSAND_LETTERS = 8 # len('thousand')
+and_letters = 3 # len('and')
+hundred_letters = 7 # len('hundred')
+one_letters = 3 # len('one')
+thousand_letters = 8 # len('thousand')
 
-if __name__ == '__main__':
+
+def main():
     # count the letters of all numbers below 20
-    letter_count = ALL_DIGIT_LETTERS + ALL_TEEN_LETTERS
+    letter_count = all_digit_letters + all_teen_letters
 
     # count the letters of all numbers from 20 to 99
-    DIGIT_COUNT = 9
-    TEN_COUNT = 8
-    letter_count += (ALL_TEN_LETTERS * (DIGIT_COUNT + 1)
-                     + ALL_DIGIT_LETTERS * TEN_COUNT)
-    LETTERS_BELOW_100 = letter_count
+    digit_count = 9
+    ten_count = 8
+    letter_count += (all_ten_letters * (digit_count + 1)
+                     + all_digit_letters * ten_count)
+    letters_below_100 = letter_count
 
     # count the letters of all numbers from 100 to 999
-    AND_WORD_COUNT = DIGIT_COUNT * 99
-    HUNDRED_WORD_COUNT = AND_WORD_COUNT + DIGIT_COUNT
-    letter_count += ((ALL_DIGIT_LETTERS * 100)
-                     + (HUNDRED_LETTERS * HUNDRED_WORD_COUNT)
-                     + (AND_LETTERS * AND_WORD_COUNT)
-                     + (LETTERS_BELOW_100 * DIGIT_COUNT))
+    and_word_count = digit_count * 99
+    hundred_word_count = and_word_count + digit_count
+    letter_count += ((all_digit_letters * 100)
+                     + (hundred_letters * hundred_word_count)
+                     + (and_letters * and_word_count)
+                     + (letters_below_100 * digit_count))
 
     # count the letters of 1000
-    letter_count += ONE_LETTERS + THOUSAND_LETTERS
+    letter_count += one_letters + thousand_letters
 
-    print(letter_count)
+    return letter_count
+
+
+if __name__ == '__main__':
+    print(main())
