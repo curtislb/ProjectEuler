@@ -266,7 +266,7 @@ def alpha_index_upper(letter):
     return ord(letter) - ord('A') + 1
 
 
-def arithmetic_product(a, n, d = 1):
+def arithmetic_product(a, n, d=1):
     """Returns the product of the arithmetic sequence with first term a, number
     of terms n, and difference between terms d."""
     product = 1
@@ -275,13 +275,13 @@ def arithmetic_product(a, n, d = 1):
     return product
 
 
-def arithmetic_series(a, n, d = 1):
+def arithmetic_series(a, n, d=1):
     """Returns the sum of the arithmetic sequence with first term a, number of
     terms n, and difference between terms d."""
     return n * (2 * a + (n - 1) * d) // 2
 
 
-def binary_search(sorted_list, item, lo = 0, hi = None):
+def binary_search(sorted_list, item, lo=0, hi=None):
     """Returns the index position of item in the sorted list sorted_list or
     None if item is not found in sorted_list."""
     
@@ -356,7 +356,7 @@ def count_divisors(n):
     return divisor_count
 
 
-def count_prime_factors(n, primes = None):
+def count_prime_factors(n, primes=None):
     """Returns the number of distinct prime factors of the natural number n,
     using the given precomputed list of primes."""
     
@@ -459,7 +459,7 @@ def get_digit(n, digit):
     return int(str(n)[digit - 1])
 
 
-def int_log(x, base = math.e):
+def int_log(x, base=math.e):
     """Returns the rounded integer logarithm of x for the given base."""
     return int(round(math.log(x, base)))
 
@@ -500,7 +500,7 @@ def is_leap_year(year):
         return year % 400 == 0
 
 
-def is_palindrome(n, base = 10):
+def is_palindrome(n, base=10):
     """Determines if the natural number n is a palindrome in the given base."""
     
     # create a copy of n and number to hold its reversed value
@@ -607,7 +607,7 @@ def lcm_all(nums):
     return product
 
 
-def make_palindrome(n, base, odd_length = False):
+def make_palindrome(n, base, odd_length=False):
     """Returns a palindrome in the given base formed from the natural number n.
     If the odd_length flag is set to True, the generated palindrome will have
     an odd number of digits when written in the given base; otherwise, it will
@@ -630,7 +630,7 @@ def make_palindrome(n, base, odd_length = False):
     return palindrome
 
 
-def make_spiral(layers, matrix = None, depth = 0):
+def make_spiral(layers, matrix=None, depth=0):
     """Returns a spiral with the given number of layers formed by starting with
     1 in the center and moving to the right in a clockwise direction."""
     
@@ -697,10 +697,10 @@ def max_triangle_path(triangle):
 def numbers_from_file(input_file):
     """Returns a list of rows of integer numbers read from input_file."""
     
-    with open(input_file) as file:
+    with open(input_file) as f:
         # add each line from the input file as a row to the MATRIX
         matrix = []
-        for line in file:
+        for line in f:
             # add each token from the current line to the row vector
             row = [int(num) for num in line.rstrip().split()]
             matrix.append(row)
@@ -708,7 +708,7 @@ def numbers_from_file(input_file):
         return matrix
 
 
-def pandigital_string(first = 0, last = 9):
+def pandigital_string(first=0, last=9):
     """Returns a string with each of the digits from first to last in order."""
     return ''.join('%d' % digit for digit in range(first, last + 1))
 
@@ -786,7 +786,7 @@ def primes_up_to(n):
 
 ## TODO: test these functions
 #
-# def rec_loop(function, depth, start, stop = None, step = None,
+# def rec_loop(function, depth, start, stop=None, step=None,
 #              var_list = None, level = 0):
 #     if stop is None:
 #         start, stop = 0, start
@@ -806,7 +806,7 @@ def primes_up_to(n):
 #             rec_loop(function, depth-1, start, stop, step, var_list, level+1)
 #             
 #             
-# def rec_loop_disjoint(function, depth, stop, step = None, var_list = None,
+# def rec_loop_disjoint(function, depth, stop, step=None, var_list=None,
 #                       level = 0):
 #     if step is None:
 #         step = 1
@@ -839,8 +839,8 @@ def run_thread(function, stack_size=128*(10**6), recursion_limit=2**20):
 
 def strings_from_file(input_file, sep=','):
     """Returns a list of sep-separated strings read from input_file."""
-    with open(input_file) as file:
-        return [string.strip('"\'') for string in file.read().split(sep)]
+    with open(input_file) as f:
+        return [string.strip('"\'') for string in f.read().split(sep)]
 
 
 def sum_digits(n):
@@ -852,7 +852,7 @@ def sum_digits(n):
     return digit_sum
 
 
-def sum_keep_digits(m, n, d = None):
+def sum_keep_digits(m, n, d=None):
     """Returns the last d digits of the sum of m and n. If d is None, returns
     the entire sum."""
     result = m + n

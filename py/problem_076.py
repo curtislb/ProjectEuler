@@ -1,5 +1,6 @@
-'''
-Problem 76.
+"""problem_076.py
+
+Problem 76: Counting summations
 
 It is possible to write five as a sum in exactly six different ways:
 
@@ -14,12 +15,19 @@ How many different ways can N be written as a sum of at least two positive
 integers?
 
 @author: Curtis Belmonte
-'''
+"""
+
+import common as com
+
+# PARAMETER ###################################################################
 
 N = 100 # default: 100
 
-###############################################################################
+# SOLUTION ####################################################################
 
-from common import sum_combos
+def main():
+    return com.combination_sums(N, list(range(1, N)))
 
-print(sum_combos(N, list(range(1, N))))
+
+if __name__ == '__main__':
+    print(main())

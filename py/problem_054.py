@@ -168,8 +168,8 @@ class Rank(object):
 def main():
     # read (and sort) all hands from input file
     hands = []
-    with open(INPUT_FILE) as file:
-        for line in file:
+    with open(INPUT_FILE) as f:
+        for line in f:
             cards = [com.Card(s) for s in line.split()]
             hands.append((sorted(cards[:5]), sorted(cards[5:])))
     
