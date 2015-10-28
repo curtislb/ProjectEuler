@@ -535,7 +535,9 @@ def is_palindrome(n, base=10):
 
 def is_perfect_power(n, p):
     """Determines if the natural number n is a perfect power with exponent p.
-    That is, if n = m**p for some natural number m."""
+    
+    That is, returns True iff n = m**p for some natural number m."""
+
     root_n = n**(1 / p)
     root_pow = (int(round(root_n)))**p
     return root_pow == n
@@ -628,6 +630,7 @@ def lcm_all(nums):
 
 def make_palindrome(n, base, odd_length=False):
     """Returns a palindrome in the given base formed from the natural number n.
+    
     If the odd_length flag is set to True, the generated palindrome will have
     an odd number of digits when written in the given base; otherwise, it will
     have an even number of digits.
@@ -754,22 +757,26 @@ def prime_factorization(n):
     
     Returns a list of base-exponent pairs containing each prime factor and
     its power in the prime factorization of n."""
-    
-    factorization = []
 
     i = 2
-    while i <= n:
+    factorization = []
+    while i <= int(math.sqrt(n)):
         # compute power of i in factorization
         factor = [i, 0]
-        while n % i == 0:
-            n //= i
+        div, mod = divmod(n, i)
+        while mod == 0:
+            n = div
             factor[1] += 1
+            div, mod = divmod(n, i)
 
         # add factor to factorization if necessary
         if factor[1] > 0:
             factorization.append(factor)
             
         i += 1
+
+    if n > 1:
+        factorization.append([n, 1])
 
     return factorization
 
