@@ -6,6 +6,7 @@ Common utility functions and classes for various Project Euler problems.
 """
 
 import collections
+import itertools
 import math
 import sys
 import threading
@@ -383,6 +384,16 @@ def count_prime_factors(n, primes=None):
     return factor_count
 
 
+def digit_counts(n):
+    """Returns a list with the count of each decimal digit in the natural
+    number n."""
+    counts = [0] * 10
+    while n != 0:
+        n, digit = divmod(n, 10)
+        counts[digit] += 1
+    return counts
+
+
 def digit_function_sum(n, function):
     """Returns the sum of the results of applying function to each of the
     digits of the natural number n."""
@@ -393,16 +404,22 @@ def digit_function_sum(n, function):
     return total
 
 
+def digit_permutations(n):
+    """Returns all of the digit permutations of the natural number n,
+    excluding permutations with leading zeros."""
+    perms = []
+    for perm_tuple in itertools.permutations(str(n)):
+        if perm_tuple[0] != '0':
+            perms.append(int(''.join(perm_tuple)))
+    return perms
+
+
 def digit_rotations(n):
     """Returns all digit rotations of the natural number n."""
-    
     n_str = str(n)
-    
-    # convert each digit rotation to an int and add it to list
     rotations = []
     for i in range(len(n_str)):
         rotations.append(int(n_str[i:] + n_str[:i]))
-    
     return rotations
 
 
@@ -516,15 +533,17 @@ def is_palindrome(n, base=10):
     return n == reverse_n
 
 
+def is_perfect_power(n, p):
+    """Determines if the natural number n is a perfect power with exponent p.
+    That is, if n = m**p for some natural number m."""
+    root_n = n**(1 / p)
+    root_pow = (int(round(root_n)))**p
+    return root_pow == n
+
+
 def is_perfect_square(n):
     """Determines if the natural number n is a perfect square."""
-    if n < 0:
-        return False
-    
-    sqrt_n = math.sqrt(n)
-    floored_n = (int(sqrt_n))**2
-    ceiled_n = (int(math.ceil(sqrt_n)))**2
-    return floored_n == n or ceiled_n == n
+    return is_perfect_power(n, 2)
 
 
 def is_permutation(iter_a, iter_b):
