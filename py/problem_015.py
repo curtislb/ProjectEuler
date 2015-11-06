@@ -18,7 +18,7 @@ N = 20 # default: 20
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # compute the value of (2*N)! / N! = (2*N) * (2*N - 1) * ... * 1
     product = 1
     for i in range(N + 1, 2 * N + 1):
@@ -29,4 +29,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

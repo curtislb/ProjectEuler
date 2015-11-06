@@ -57,7 +57,7 @@ def reciprocal_cycle_length(n):
     return 0
 
 
-def main():
+def solve():
     # search for d with longest reciprocal cycle 
     max_d = 0
     max_length = -1
@@ -71,4 +71,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

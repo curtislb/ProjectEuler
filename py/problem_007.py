@@ -18,9 +18,9 @@ N = 10001 # default: 10001
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     return com.prime(N)
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

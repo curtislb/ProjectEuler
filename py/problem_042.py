@@ -35,7 +35,7 @@ def word_value(word):
     return word_value(word[:-1]) + com.alpha_index_upper(word[-1])
 
 
-def main():
+def solve():
     # compute word values for all words in the input file
     word_values = [word_value(word)
                    for word in com.strings_from_file(INPUT_FILE)]
@@ -55,4 +55,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

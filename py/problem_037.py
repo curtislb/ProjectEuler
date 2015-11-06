@@ -29,7 +29,7 @@ def is_prime(n):
     return com.is_prime(n)
     
 
-def main():
+def solve():
     total = 0
     
     # search for truncatable primes until MAX_COUNT are found
@@ -88,4 +88,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

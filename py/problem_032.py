@@ -50,7 +50,7 @@ def min_multiplicand(digit_count):
     return int(pandigit_string[:digit_count])
 
 
-def main():
+def solve():
     # determine possible numbers of digits for multiplicands a and b, a <= b
     candidates = []
     for a_digits in range(1, MAX_DIGIT + 1):
@@ -94,4 +94,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

@@ -59,7 +59,7 @@ def concats_divisible_by_divisors(num_string):
     return True
 
 
-def main():
+def solve():
     pandigit_string = com.pandigital_string(START, END)
     
     # check if each pandigital number satisfies the problem conditions
@@ -76,4 +76,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

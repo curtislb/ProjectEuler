@@ -28,7 +28,7 @@ FACTOR = 2 # default: 2
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     n = 7
     answer = -1
     
@@ -58,4 +58,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

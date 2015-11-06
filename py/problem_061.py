@@ -68,7 +68,7 @@ def find_cycle(P_strs, found, k_used):
                         return cycle
 
 
-def main():
+def solve():
     P_strs = [[] for n in range(6)]
 
     for k in range(3, 9):
@@ -95,4 +95,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

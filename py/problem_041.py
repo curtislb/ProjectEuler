@@ -22,7 +22,7 @@ import common as com
 # Array of 1 to n pandigital numbers for n from 2 to 7
 pandigit_strings = [com.pandigital_string(1, n) for n in range(2, 8)]
 
-def main():
+def solve():
     # compute primes up to maximum possible pandigital number
     # note: 1 to 8 or 9 pandigital numbers cannot be prime (divisible by 3)
     primes = com.primes_up_to(7654321)
@@ -42,4 +42,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

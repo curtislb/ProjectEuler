@@ -17,9 +17,9 @@ N = 600851475143 # default: 600851475143
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     return com.prime_factorization(N)[-1][0]
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

@@ -32,7 +32,7 @@ FACTORS = 4 # default: 4
 prime_step = 1000
 
 
-def main():
+def solve():
     # precompute fixed range of prime numbers
     max_prime = prime_step
     primes = com.primes_up_to(max_prime)
@@ -57,4 +57,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

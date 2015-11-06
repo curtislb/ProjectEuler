@@ -23,7 +23,7 @@ N = 10**12 # default: 10**12
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     total = 1
     repunits = {1}
     for k in range(3, int(math.ceil(math.log(N, 2)))):
@@ -41,4 +41,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

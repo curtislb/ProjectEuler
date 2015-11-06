@@ -25,7 +25,7 @@ LIMIT = 10000 # default: 10000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     total = 0
     
     # search for amicable pairs (m, n) below LIMIT
@@ -40,4 +40,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

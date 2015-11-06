@@ -29,7 +29,7 @@ import common as com
 FAMILY_SIZE = 8
 
 
-def main():
+def solve():
     families = set()
     
     # test 5-digit numbers
@@ -102,4 +102,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

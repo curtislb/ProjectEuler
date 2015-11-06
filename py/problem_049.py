@@ -25,7 +25,7 @@ import common as com
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # generate all four-digit primes
     primes = set(filter((lambda x: x > 999), com.primes_up_to(9999)))
     
@@ -62,4 +62,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

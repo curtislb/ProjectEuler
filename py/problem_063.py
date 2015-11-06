@@ -18,7 +18,7 @@ N_MAX = 21 # default: 21
 
 # PARAMETERS ##################################################################
 
-def main():
+def solve():
     ans_set = {1, 2, 3, 4, 5, 6, 7, 8, 9}
     for n in range(2, N_MAX + 1):
         b = 2
@@ -34,4 +34,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

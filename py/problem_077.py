@@ -24,7 +24,7 @@ N = 5000 # default: 5000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     primes = list(com.primes_up_to(2 * N))
     n = 2
     while com.combination_sums(n, primes) <= N:
@@ -33,4 +33,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

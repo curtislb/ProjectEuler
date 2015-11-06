@@ -70,7 +70,7 @@ one_letters = 3 # len('one')
 thousand_letters = 8 # len('thousand')
 
 
-def main():
+def solve():
     # count the letters of all numbers below 20
     letter_count = all_digit_letters + all_teen_letters
 
@@ -96,4 +96,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

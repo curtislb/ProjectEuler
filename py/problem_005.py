@@ -19,9 +19,9 @@ MAX = 20 # default: 20
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     return com.lcm_all([num for num in range(2, MAX + 1)])
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

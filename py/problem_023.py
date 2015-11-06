@@ -31,7 +31,7 @@ LIMIT = 28123 # default: 28123
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     total = 0
     abundant_nums = set()
     for n in range(1, min(LIMIT, 28123)):
@@ -55,4 +55,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

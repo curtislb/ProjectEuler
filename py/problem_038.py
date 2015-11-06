@@ -31,7 +31,7 @@ import common as com
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     max_num = 0
     pandigit_string = com.pandigital_string(1)
     
@@ -66,4 +66,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

@@ -25,10 +25,10 @@ def sum_divisible_by(n):
     return com.arithmetic_series(n, (LIMIT - 1) // n, n)
 
 
-def main():
+def solve():
     LCM = com.lcm(M, N)
     return sum_divisible_by(M) + sum_divisible_by(N) - sum_divisible_by(LCM)
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

@@ -31,7 +31,7 @@ MIN_VALUE = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     count = 0
 
     for n in range(2, MAX_N + 1):
@@ -55,4 +55,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

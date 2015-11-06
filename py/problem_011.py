@@ -43,7 +43,7 @@ INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # read the matrix from the input file
     matrix = com.numbers_from_file(INPUT_FILE)
     num_rows = len(matrix)
@@ -283,4 +283,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

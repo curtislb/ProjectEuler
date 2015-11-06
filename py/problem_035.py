@@ -21,7 +21,7 @@ LIMIT = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # search for circular primes from 2 to LIMIT - 1
     count = 0
     tested_rotations = set()
@@ -48,5 +48,5 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())
     

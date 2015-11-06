@@ -50,10 +50,10 @@ def main_thread():
             best_length = length
 
 
-def main():
+def solve():
     com.run_thread(main_thread)
     return best_num
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

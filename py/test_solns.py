@@ -38,11 +38,11 @@ def main():
         sys.stdout.write('Testing Problem {0}...'.format(problem_num))
         sys.stdout.flush()
 
-        # import the problem module and ensure its main function exists
+        # import the problem module and ensure its solve function exists
         module_name = 'problem_' + problem_num
         try:
             module = importlib.import_module(module_name)
-            module.main
+            module.solve
         except:
             print('FAILED')
             sys.stderr.write('Problem {0}: No solution\n'.format(problem_num))
@@ -51,7 +51,7 @@ def main():
         # run and time the problem solution
         try:
             start = time.time()
-            answer = module.main()
+            answer = module.solve()
             total_time = time.time() - start
         except Exception as e:
             print('FAILED')

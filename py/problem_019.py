@@ -52,7 +52,7 @@ days_in_year = 365
 months_in_year = 12
 
 
-def main():
+def solve():
     # advance day from Monday, 1 Jan 1900 to 1 Jan 1901
     start_year = 1900
     day = com.Day.MONDAY
@@ -79,4 +79,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

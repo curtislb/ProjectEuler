@@ -28,7 +28,7 @@ def int_sqrt(num):
     return com.int_sqrt(num)
 
 
-def main():
+def solve():
     # precompute perfect squares up to half the max perimeter squared
     squares = set()
     n = 0
@@ -60,4 +60,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

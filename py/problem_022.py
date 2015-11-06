@@ -32,7 +32,7 @@ def name_score(name, position):
     return position * score
 
 
-def main():
+def solve():
     # heap sort names from input file
     names = com.strings_from_file(INPUT_FILE)
     heapq.heapify(names)
@@ -46,4 +46,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

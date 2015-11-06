@@ -41,7 +41,7 @@ INPUT_FILE = '../input/008.txt' # default: '../input/008.txt'
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     with open(INPUT_FILE) as f:
         # read number from input file
         num_str = ''.join(line.rstrip() for line in f)
@@ -91,4 +91,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

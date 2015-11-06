@@ -31,10 +31,10 @@ INPUT_FILE = '../input/067.txt' # default: '../input/067.txt'
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     triangle = com.numbers_from_file(INPUT_FILE)
     return com.max_triangle_path(triangle)
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

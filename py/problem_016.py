@@ -18,9 +18,9 @@ EXPONENT = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     return com.sum_digits(BASE**EXPONENT)
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

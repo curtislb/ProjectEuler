@@ -18,7 +18,7 @@ MAX = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     total = 0
     for n in range(1, MAX + 1):
         total = com.sum_keep_digits(total, n**n, D)
@@ -26,4 +26,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

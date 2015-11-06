@@ -25,7 +25,7 @@ LIMIT = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # TODO: find (provably) better lower bound on prime addend size
     primes = com.primes_up_to(max(1000, LIMIT // 10))
     num_primes = len(primes)
@@ -65,4 +65,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

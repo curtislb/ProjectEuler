@@ -25,7 +25,7 @@ LOWER_LIMIT = 40755 # default: 40755
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # generate the first triangle number above LOWER_LIMIT
     tri_num = 0
     n = 1
@@ -43,4 +43,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

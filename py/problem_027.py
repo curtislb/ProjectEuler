@@ -44,7 +44,7 @@ def is_prime(n):
     return com.is_prime(n)
 
 
-def main():
+def solve():
     # search for best a and b from -MAX + 1 to MAX - 1
     best_product = None
     best_streak = -1
@@ -68,4 +68,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

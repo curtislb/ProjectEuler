@@ -23,7 +23,7 @@ NUM_PERMS = 5 # default: 5
 cube_digits = {}
 
 
-def main():
+def solve():
     n = 1
     cube = n**3
     while True:
@@ -39,4 +39,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

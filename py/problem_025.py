@@ -36,7 +36,7 @@ D = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # search for Fibonacci number containing D digits
     n = 0
     fib_num = com.fibonacci(n)
@@ -49,4 +49,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

@@ -20,7 +20,7 @@ import common as com
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # search for max value that could be written as powers of its digits
     max_digit_factorial = com.factorial(9)
     max_value = 99
@@ -39,4 +39,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

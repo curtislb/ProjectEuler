@@ -25,7 +25,7 @@ D = 2 # default: 2
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # compute minimum and maximum D-digit numbers
     min_value = 10**(D - 1)
     max_value = 10**D - 1
@@ -77,4 +77,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

@@ -25,7 +25,7 @@ import common as com
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # generate pentagonal numbers up to threshold
     # TODO: remove need for arbitrary threshold
     pentagonal_count = 3000
@@ -51,4 +51,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

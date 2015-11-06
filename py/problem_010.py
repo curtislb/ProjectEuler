@@ -17,9 +17,9 @@ LIMIT = 2000000 # default: 2000000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     return sum(com.primes_up_to(LIMIT - 1))
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

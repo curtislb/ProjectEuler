@@ -25,7 +25,7 @@ MAX_POWER_10 = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # search for and multiply all necessary digits
     product = 1
     power_10 = 1
@@ -49,4 +49,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

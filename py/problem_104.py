@@ -17,7 +17,7 @@ AND the last nine digits are 1-9 pandigital, find k.
 '''
 from common import big_mod, fibonacci, is_permutation, PAN_STR, run_thread
 
-def main():
+def solve():
     lo_div = 10**9
     
     def test_104(fib_num):

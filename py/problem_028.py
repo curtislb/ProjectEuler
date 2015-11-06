@@ -42,9 +42,9 @@ def spiral_diagonal_sum(layers):
     return side_squared * 4 - (side - 1) * 6 + spiral_diagonal_sum(layers - 1)
 
 
-def main():
+def solve():
     return spiral_diagonal_sum((N + 1) // 2)
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

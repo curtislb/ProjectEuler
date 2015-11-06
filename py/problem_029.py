@@ -31,7 +31,7 @@ MAX_B = 100 # default: 100
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # try all combinations of a^b
     terms = set()
     term_count = 0
@@ -47,4 +47,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

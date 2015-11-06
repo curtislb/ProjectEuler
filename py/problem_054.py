@@ -165,7 +165,7 @@ class Rank(object):
             self._update(Rank.Type.HIGH_CARD, hand[4].face)
 
 
-def main():
+def solve():
     # read (and sort) all hands from input file
     hands = []
     with open(INPUT_FILE) as f:
@@ -201,4 +201,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

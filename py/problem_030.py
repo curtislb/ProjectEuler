@@ -27,7 +27,7 @@ EXPONENT = 5 # default: 5
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # search for max value that could be written as powers of its digits
     max_digit_power = 9**EXPONENT
     max_value = 99
@@ -46,4 +46,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

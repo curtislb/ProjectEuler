@@ -20,9 +20,9 @@ N = 100 # default: 100
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     return com.sum_digits(com.factorial(N))
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

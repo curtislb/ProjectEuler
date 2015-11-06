@@ -38,7 +38,7 @@ MAX_ITER = 50 # default: 50
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     count = 0
     for n in range(10, LIMIT):
         for __ in range(MAX_ITER):
@@ -52,4 +52,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

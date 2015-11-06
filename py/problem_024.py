@@ -23,7 +23,7 @@ DIGITS = [0,1,2,3,4,5,6,7,8,9] # default: [0,1,2,3,4,5,6,7,8,9]
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # adjust permutation number to be zero-indexed
     n = N - 1
     
@@ -44,4 +44,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

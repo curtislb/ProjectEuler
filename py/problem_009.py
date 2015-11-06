@@ -26,7 +26,7 @@ S = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     # no triplet exists if S is not even
     if S % 2 != 0:
         print('No such triplet')
@@ -49,4 +49,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

@@ -25,9 +25,9 @@ N = 100 # default: 100
 
 # SOLUTION ####################################################################
 
-def main():
+def solve():
     return com.combination_sums(N, list(range(1, N)))
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())

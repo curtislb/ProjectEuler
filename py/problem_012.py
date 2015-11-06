@@ -51,7 +51,7 @@ def count_triangle_divisors(n):
         return count_divisors(n) * count_divisors((n + 1) // 2)
     
 
-def main():
+def solve():
     n = 1
     while count_triangle_divisors(n) < D:
         n += 1
@@ -59,4 +59,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    print(solve())
