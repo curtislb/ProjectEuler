@@ -307,6 +307,11 @@ def binary_search(sorted_list, item, lo=0, hi=None):
         return mid
 
 
+def choose(n, k):
+    """Returns the number of ways to choose k objects from a group of n."""
+    return permutate(n, k) // factorial(k)
+
+
 def collatz_step(n):
     """Returns the next number in the Collatz sequence following n."""
     return n // 2 if n % 2 == 0 else 3 * n + 1
@@ -775,6 +780,7 @@ def prime_factorization(n):
             
         i += 1
 
+    # no more prime factors above sqrt(n)
     if n > 1:
         factorization.append([n, 1])
 

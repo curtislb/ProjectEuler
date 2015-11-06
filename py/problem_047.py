@@ -31,6 +31,7 @@ FACTORS = 4 # default: 4
 # increment for max integer when generating primes
 prime_step = 1000
 
+
 def main():
     # precompute fixed range of prime numbers
     max_prime = prime_step
