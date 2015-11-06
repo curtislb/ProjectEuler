@@ -65,7 +65,7 @@ def solve():
     # check if each pandigital number satisfies the problem conditions
     total = 0
     for digit_chars in itertools.permutations(pandigit_string):
-        # form the pandigital string from its permutated digit characters
+        # form the pandigital string from its permuted digit characters
         num_string = ''.join(digit_chars)
         
         # add to total if pandigital number satisfies the problem conditions

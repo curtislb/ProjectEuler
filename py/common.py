@@ -309,7 +309,7 @@ def binary_search(sorted_list, item, lo=0, hi=None):
 
 def choose(n, k):
     """Returns the number of ways to choose k objects from a group of n."""
-    return permutate(n, k) // factorial(k)
+    return permute(n, k) // factorial(k)
 
 
 def collatz_step(n):
@@ -745,7 +745,7 @@ def pentagon_number(n):
     return n * (3 * n - 1) // 2
 
 
-def permutate(n, k):
+def permute(n, k):
     """Returns the number of permutations of k objects from a group of n."""
     
     # if faster, compute n! and (n - k)! and return their quotient
