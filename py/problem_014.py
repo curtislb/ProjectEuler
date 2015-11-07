@@ -30,28 +30,37 @@ LIMIT = 1000000 # default: 1000000
 
 # SOLUTION ####################################################################
 
-@com.memoized
+collatz_lengths = {}
+
+
 def collatz_length(n):
-    """Returns the number of terms in the Collatz sequence starting from n."""
-    if n == 1:
-        return 1
-    return 1 + collatz_length(com.collatz_step(n))
+    """Returns the length of the Collatz sequence, starting from n."""
+    m = n
+    length = 0
+    while m != 1:
+        # break out early if solution already exists
+        if m in collatz_lengths:
+            length += collatz_lengths[m]
+            break
 
+        # compute next step in sequence
+        else:
+            length += 1
+            m = com.collatz_step(m)
 
-def main_thread():
-    # search for longest Collatz sequence starting below LIMIT
-    global best_num
-    best_num = 0
-    best_length = 0
-    for i in range(2, LIMIT):
-        length = collatz_length(i)
-        if length > best_length:
-            best_num = i
-            best_length = length
+    # memoize answer and return
+    collatz_lengths[n] = length
+    return length
 
 
 def solve():
-    com.run_thread(main_thread)
+    best_num = 0
+    best_length = 0
+    for n in range(2, LIMIT):
+        length = collatz_length(n)
+        if length > best_length:
+            best_num = n
+            best_length = length
     return best_num
 
 
