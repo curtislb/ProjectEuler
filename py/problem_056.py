@@ -21,7 +21,13 @@ MAX_VALUE = 100 # default: 100
 # SOLUTION ####################################################################
 
 def solve():
-    pass
+    max_sum = 0
+    for a in range(2, MAX_VALUE):
+        for b in range(2, MAX_VALUE):
+            digit_sum = com.sum_digits(a**b)
+            if digit_sum > max_sum:
+                max_sum = digit_sum
+    return max_sum
 
 
 if __name__ == '__main__':
