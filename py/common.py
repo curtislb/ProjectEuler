@@ -53,9 +53,7 @@ def _compute_fibonacci(n):
     f0 = _fibonacci_sequence[-2]
     f1 = _fibonacci_sequence[-1]
     for i in range(fib_count, n + 1):
-        temp = f1
-        f1 += f0
-        f0 = temp
+        f0, f1 = f1, f0 + f1
         _fibonacci_sequence.append(f1)
 
 

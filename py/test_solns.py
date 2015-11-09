@@ -5,6 +5,14 @@ Module for testing the correctness and runtime of problem solutions.
 Author: Curtis Belmonte
 """
 
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals
+)
+
+import argparse
 import importlib
 import sys
 import time
@@ -26,14 +34,27 @@ def answers_from_file(answer_file):
 
 
 def main():
+    # parse optional and positional arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--skip', action='store_true',
+        help='test all except the following problems')
+    parser.add_argument('problem_nums', metavar='prob_num', type=int,
+        nargs='*', help='problem number of a solution to be tested')
+    args = parser.parse_args()
+
     answers = answers_from_file(ANSWER_FILE)
 
     # determine the problem numbers to be tested
-    if len(sys.argv) == 1:
+    if len(args.problem_nums) == 0:
         problem_nums = sorted(answers.keys())
+    elif args.skip:
+        problem_nums = set(answers.keys())
+        for num in args.problem_nums:
+            problem_nums.remove('{0:03d}'.format(num))
+        problem_nums = sorted(list(problem_nums))
     else:
-        problem_nums = ['{0:03d}'.format(int(arg, 10)) for arg in sys.argv[1:]]
-
+        problem_nums = ['{0:03d}'.format(num) for num in args.problem_nums]
+    
     for problem_num in problem_nums:
         sys.stdout.write('Testing Problem {0}...'.format(problem_num))
         sys.stdout.flush()
