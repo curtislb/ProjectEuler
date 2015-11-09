@@ -13,7 +13,7 @@ the squares of positive integers.
 Find the sum of all the numbers less than N that are both palindromic and can
 be written as the sum of consecutive squares.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 '''
 
 N = 10**8 # default: 10**8

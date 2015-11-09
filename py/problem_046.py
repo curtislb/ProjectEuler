@@ -17,7 +17,7 @@ It turns out that the conjecture was false.
 What is the smallest odd composite that cannot be written as the sum of a prime
 and FACTOR times a square?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

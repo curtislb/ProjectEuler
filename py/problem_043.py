@@ -21,7 +21,7 @@ Find the sum of all START to END pandigital numbers with the property that each
 of the digit substrings with start and end indices in DIGIT_INDICES is
 divisible by its respective divisor in DIVISORS.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import itertools

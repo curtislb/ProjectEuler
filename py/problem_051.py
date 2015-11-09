@@ -14,7 +14,7 @@ smallest prime with this property.
 Find the smallest prime which, by replacing part of the number (not necessarily
 adjacent digits) with the same digit, is part of an 8 prime value family.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

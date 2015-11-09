@@ -6,7 +6,7 @@ Problem 16: Power digit sum
 
 What is the sum of the digits of the number BASE^EXPONENT?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

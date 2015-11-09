@@ -22,7 +22,7 @@ We can see that 28 is the first triangle number to have over five divisors.
 
 What is the value of the first triangle number to have over D divisors?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

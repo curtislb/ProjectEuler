@@ -8,7 +8,7 @@ the same digits, but in a different order.
 Find the smallest positive integer, x, such that 2x, 3x, ..., Nx contain the
 same digits.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

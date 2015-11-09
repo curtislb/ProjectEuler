@@ -14,7 +14,7 @@ following expression.
 
     d(1) × d(10) × d(100) × ... × d(MAX_POWER_10)
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

@@ -5,7 +5,7 @@ Problem 13: Large sum
 Work out the first D digits of the sum of the numbers contained in the file
 INPUT_FILE (all of which have the same number of digits).
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 # import common as com

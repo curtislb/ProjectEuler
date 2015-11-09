@@ -12,7 +12,7 @@ Furthermore, the sum of all strong repunits below 1000 equals 15864.
 
 Find the sum of all strong repunits below N.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import math

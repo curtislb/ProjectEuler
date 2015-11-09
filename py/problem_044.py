@@ -14,7 +14,7 @@ Find the pair of pentagonal numbers, P(m) and P(k), for which their sum and
 difference is pentagonal and D = |P(k) - P(m)| is minimised; what is the value
 of D?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

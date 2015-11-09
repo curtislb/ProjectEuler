@@ -13,7 +13,7 @@ It is possible to make £2 in the following way:
 
 How many different ways can AMOUNT be made using any number of coins in COINS?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

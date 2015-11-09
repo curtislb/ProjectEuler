@@ -2,7 +2,7 @@
 
 Common utility functions and classes for various Project Euler problems.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import collections

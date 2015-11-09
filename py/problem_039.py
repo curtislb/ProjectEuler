@@ -9,7 +9,7 @@ If p is the perimeter of a right angle triangle with integral length sides,
 
 For which value of p ≤ MAX_PERIMETER, is the number of solutions maximised?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import collections

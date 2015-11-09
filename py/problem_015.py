@@ -7,7 +7,7 @@ the right and down, there are exactly 6 routes to the bottom right corner.
 
 How many such routes are there through an N × N grid?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

@@ -8,7 +8,7 @@ to 10 without any remainder.
 What is the smallest positive number that is evenly divisible by all of the
 numbers from 1 to MAX?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

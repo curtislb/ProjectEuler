@@ -16,7 +16,7 @@ numbers and the square of the sum is 3025 − 385 = 2640.
 Find the difference between the sum of the squares of the first N natural
 numbers and the square of the sum.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

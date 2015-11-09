@@ -8,7 +8,7 @@ also prime.
 
 What is the largest n-digit pandigital prime that exists?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

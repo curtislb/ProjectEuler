@@ -10,7 +10,7 @@ There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37, 71,
 
 How many circular primes are there below LIMIT?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

@@ -54,7 +54,7 @@ hand is in no specific order, and in each hand there is a clear winner.
 
 How many hands does Player 1 win?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

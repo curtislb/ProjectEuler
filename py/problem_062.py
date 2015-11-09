@@ -9,7 +9,7 @@ which has exactly three permutations of its digits which are also cube.
 Find the smallest cube for which exactly NUM_PERMS permutations of its digits
 are cube.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

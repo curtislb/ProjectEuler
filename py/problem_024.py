@@ -11,7 +11,7 @@ lexicographic permutations of 0, 1 and 2 are:
 
 What is the Nth lexicographic permutation of the digits DIGITS?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

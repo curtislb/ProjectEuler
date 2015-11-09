@@ -12,7 +12,7 @@ There exists exactly one Pythagorean triplet for which a + b + c = S.
 
 Find the product a*b*c.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import math

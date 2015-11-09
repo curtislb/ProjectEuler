@@ -7,7 +7,7 @@ get 3, 5, 6 and 9. The sum of these multiples is 23.
 
 Find the sum of all the multiples of M or N below LIMIT.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

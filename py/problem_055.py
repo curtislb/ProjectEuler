@@ -26,7 +26,7 @@ the first example is 4994.
 
 How many Lychrel numbers are there below LIMIT?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

@@ -25,7 +25,7 @@ The 12th term, F(12), is the first term to contain three digits.
 
 What is the first term in the Fibonacci sequence to contain D digits?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

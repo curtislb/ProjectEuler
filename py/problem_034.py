@@ -9,7 +9,7 @@ their digits.
 
 Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

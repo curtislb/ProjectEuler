@@ -13,7 +13,7 @@ pandigital.
 Given that F(k) is the first Fibonacci number for which the first nine digits
 AND the last nine digits are 1-9 pandigital, find k.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 '''
 from common import big_mod, fibonacci, is_permutation, PAN_STR, run_thread
 

@@ -19,7 +19,7 @@ Which starting number, under LIMIT, produces the longest chain?
 
 NOTE: Once the chain starts the terms are allowed to go above LIMIT.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

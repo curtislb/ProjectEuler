@@ -14,7 +14,7 @@ value, and containing D digits in the numerator and denominator.
 If the product of these fractions is given in its lowest common terms, find the
 value of the denominator.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

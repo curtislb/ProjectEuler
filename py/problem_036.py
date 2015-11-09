@@ -10,7 +10,7 @@ BASE_A and base BASE_B.
 (Please note that the palindromic number, in either base, may not include
 leading zeros.)
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

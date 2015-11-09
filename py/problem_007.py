@@ -7,7 +7,7 @@ the 6th prime is 13.
 
 What is the Nth prime number?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

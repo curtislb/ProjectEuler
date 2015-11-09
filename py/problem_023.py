@@ -20,7 +20,7 @@ this limit.
 Find the sum of all the positive integers below LIMIT which cannot be written
 as the sum of two abundant numbers.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com

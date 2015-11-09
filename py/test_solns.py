@@ -2,7 +2,7 @@
 
 Module for testing the correctness and runtime of problem solutions.
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import importlib

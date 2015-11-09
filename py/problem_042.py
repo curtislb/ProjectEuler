@@ -15,7 +15,7 @@ is a triangle number then we shall call the word a triangle word.
 Using INPUT_FILE, a text file containing many common English words, how many
 are triangle words?
 
-@author: Curtis Belmonte
+Author: Curtis Belmonte
 """
 
 import common as com
