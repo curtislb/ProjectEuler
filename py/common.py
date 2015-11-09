@@ -20,7 +20,7 @@ _factorial_sequence = [1, 1]
 _fibonacci_sequence = [1, 1]
 
 # Currently computed prime number terms (in sorted order)
-_prime_sequence = [2, 3, 5, 7]
+_prime_sequence = [2]
 
 # PRIVATE FUNCTIONS ###########################################################
 
