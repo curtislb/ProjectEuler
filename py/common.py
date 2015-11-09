@@ -20,7 +20,7 @@ _factorial_sequence = [1, 1]
 _fibonacci_sequence = [1, 1]
 
 # Currently computed prime number terms (in sorted order)
-_prime_sequence = [2]
+_prime_sequence = [2, 3, 5, 7]
 
 # PRIVATE FUNCTIONS ###########################################################
 
@@ -97,9 +97,8 @@ def _compute_primes_up_to(n):
     prime_count = len(_prime_sequence)
     for i in range(prime_count):
         rho = _prime_sequence[i]
-        for j in range(rho*rho, sieve_size + prime_max + 1, rho):
-            if j < prime_max + 1:
-                continue
+        rho_start = next_multiple(rho, prime_max + 1)
+        for j in range(rho_start, n + 1, rho):
             sieve[j - prime_max - 1] = False
 
     # sift out remaining composite numbers with newly found primes
@@ -719,6 +718,11 @@ def max_triangle_path(triangle):
 
     # return maximal sum accumulated in last row of triangle
     return max(triangle[-1])
+
+
+def next_multiple(n, min_val):
+    """Returns the next multiple of the natural number n >= min_val."""
+    return min_val + ((n - (min_val % n)) % n)
 
 
 def numbers_from_file(input_file):
