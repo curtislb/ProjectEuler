@@ -259,6 +259,11 @@ class Card(object):
 
 # PUBLIC FUNCTIONS ############################################################
 
+def alpha_char_lower(index):
+    """Returns the letter of the alphabet corresponding to index."""
+    return chr(index + ord('a') - 1)
+
+
 def alpha_index_upper(letter):
     """Returns the alphabetic index of the uppercase character letter."""
     return ord(letter) - ord('A') + 1
