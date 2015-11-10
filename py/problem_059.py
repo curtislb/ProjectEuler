@@ -53,13 +53,8 @@ def solve():
     target_seq = ' the '
 
     # create the encrypted message from the file
-    encrypted = []
-    with open(INPUT_FILE) as f:
-        for line in f:
-            tokens = line.strip().split(',')
-            chars = [chr(int(value)) for value in tokens]
-            encrypted.append(''.join(chars))
-    encrypted = ''.join(encrypted)
+    byte_strs = com.strings_from_file(INPUT_FILE)
+    encrypted = ''.join(chr(int(byte)) for byte in byte_strs)
 
     # try each possible key and look for target sequence in message
     for i in range(1, 27):
