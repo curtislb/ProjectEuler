@@ -1,4 +1,4 @@
-"""com.py
+"""common.py
 
 Common utility functions and classes for various Project Euler problems.
 
