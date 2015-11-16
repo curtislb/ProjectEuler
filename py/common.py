@@ -269,6 +269,28 @@ def alpha_index_upper(letter):
     return ord(letter) - ord('A') + 1
 
 
+def argmax(values):
+    """Returns the first index of the maximum value in values."""
+    max_index = 0
+    max_value = values[0]
+    for i, value in enumerate(values):
+        if value > min_value:
+            max_index = i
+            max_value = value
+    return min_index
+
+
+def argmin(values):
+    """Returns the first index of the minimum value in values."""
+    min_index = 0
+    min_value = values[0]
+    for i, value in enumerate(values):
+        if value < min_value:
+            min_index = i
+            min_value = value
+    return min_index
+
+
 def arithmetic_product(a, n, d=1):
     """Returns the product of the arithmetic sequence with first term a, number
     of terms n, and difference between terms d."""
@@ -337,6 +359,12 @@ def combination_sums(total, addends):
 
 def concat_digits(digits):
     return int(''.join([str(d) for d in digits]), 10)
+
+
+def concat_numbers(n, m):
+    """Returns the number that results from concatenating the natural numbers
+    n and m, in that order."""
+    return int(str(n) + str(m))
 
 
 def count_digits(n):
@@ -493,7 +521,7 @@ def int_sqrt(x):
     return int(round(math.sqrt(x)))
 
 
-def int_to_base(n, base, numerals = '0123456789abcdefghijklmnopqrstuvwxyz'):
+def int_to_base(n, base, numerals='0123456789abcdefghijklmnopqrstuvwxyz'):
     """Returns the string representation of the natural number n in the given
     base using the given set of numerals.
     
@@ -633,6 +661,52 @@ def lcm_all(nums):
     for factor in max_powers:
         product *= factor**max_powers[factor]
     return product
+
+
+def loop_indices(depth, function, start, stop=None, disjoint=False):
+    """Simulates a nested index loop with a specified number of levels.
+
+    depth      the number of loop levels to simulate
+    function   a function to perform some operation given a list of indices
+    start      the minimum value for each index (step is fixed at 1)
+    stop       the maximum value for each index (range is 0 to start if None)
+    disjoint   if True, loop indices will be disjoint (in sorted order)
+    """
+
+    # set range to 0..start if stop not specified
+    if stop is None:
+        start, stop = 0, start
+
+    # don't run function if loops would not execute
+    if start >= stop or disjoint and start + depth - 1 >= stop:
+        return
+
+    # set initial index values
+    indices = []
+    for i in range(depth):
+        init_index = start + i if disjoint else start
+        indices.append(init_index)
+
+    while indices[0] < stop:
+        # execute the function for the given set of indices
+        function(indices)
+
+        # update all index values
+        indices[-1] += 1
+        while indices[-1] >= stop:
+            # search for deepest index that can be incremented
+            i = depth - 1
+            while i > 0 and indices[i] >= stop - 1:
+                i -= 1
+
+            # if outermost index reaches stop, then return
+            if indices[0] >= stop:
+                return
+
+            # set new start values for deeper indices
+            indices[i] += 1
+            for j in range(i + 1, depth):
+                indices[j] = indices[j - 1] + 1 if disjoint else start
 
 
 def make_palindrome(n, base, odd_length=False):
@@ -835,6 +909,14 @@ def run_thread(function, stack_size=128*(10**6), recursion_limit=2**20):
     thread = threading.Thread(target=function)
     thread.start()
     thread.join()
+
+
+def sort_by(values, keys):
+    """Returns a copy of values sorted by their corresponding keys.
+
+    Adapted from: http://stackoverflow.com/a/6618543"""
+    first = lambda vals: vals[0]
+    return [value for (key, value) in sorted(zip(keys, values), key=first)]
 
 
 def strings_from_file(input_file, sep=','):
