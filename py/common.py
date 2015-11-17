@@ -369,15 +369,7 @@ def concat_numbers(n, m):
 
 def count_digits(n):
     """Returns the number of digits of the natural number n."""
-    
-    # divide out and count each digit of n
-    digit_count = 0
-    while n != 0:
-        digit_count += 1
-        n //= 10
-    
-    # return 1 for 0, which has one "digit"
-    return 1 if digit_count == 0 else digit_count
+    return len(str(n))
 
 
 def count_divisors(n):
