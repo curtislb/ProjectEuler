@@ -911,6 +911,61 @@ def sort_by(values, keys):
     return [value for (key, value) in sorted(zip(keys, values), key=first)]
 
 
+def sqrt_expansion(n, precision):
+    """Returns the square root of the natural number n to arbitrary precision.
+
+    Result is a string with precision digits following the decimal point."""
+
+    # break n into two-digit chunks
+    n_digits = []
+    while n > 0:
+        n, mod = divmod(n, 100)
+        n_digits.append(mod)
+
+    expansion = []
+    remainder = 0
+    root_part = 0
+    f = lambda x: x*(20*root_part + x)
+
+    # compute digits before decimal point
+    for carry in n_digits:
+        c = remainder*100 + carry
+
+        x = 1
+        y = f(x)
+        while y <= c:
+            x += 1
+            y = f(x)
+
+        x -= 1
+        y = f(x)
+
+        remainder = c - y
+        root_part = root_part*10 + x
+        expansion.append(str(x))
+
+    expansion.append('.')
+
+    # compute digits after decimal point
+    for __ in range(precision):
+        c = remainder*100
+
+        x = 1
+        y = f(x)
+        while y <= c:
+            x += 1
+            y = f(x)
+
+        x -= 1
+        y = f(x)
+
+        remainder = c - y
+        root_part = root_part*10 + x
+        expansion.append(str(x))
+
+    return ''.join(expansion)
+
+
 def strings_from_file(input_file, sep=','):
     """Returns a list of sep-separated strings read from input_file."""
     with open(input_file) as f:
