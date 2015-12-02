@@ -12,15 +12,16 @@ Author: Curtis Belmonte
 
 import common as com
 
-# SOLUTION ####################################################################
-
-N_MAX = 21 # default: 21
-
 # PARAMETERS ##################################################################
 
+# N/A
+
+# SOLUTION ####################################################################
+
 def solve():
-    ans_set = {1, 2, 3, 4, 5, 6, 7, 8, 9}
-    for n in range(2, N_MAX + 1):
+    n_max = 21
+    ans_set = set(range(1, 10))
+    for n in range(2, n_max + 1):
         b = 2
         bn = b**n
         bn_digits = com.count_digits(bn)

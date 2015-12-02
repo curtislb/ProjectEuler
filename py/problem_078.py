@@ -28,12 +28,7 @@ DIVISOR = 1000000 # Default: 1000000
 # SOLUTION ####################################################################
 
 def solve():
-    n = 2800
-    p = com.combination_sums(n, list(range(1, n + 1)))
-    while p % DIVISOR != 0:
-        n += 1
-        p = com.combination_sums(n, list(range(1, n + 1)))
-    return n
+    pass
 
 
 if __name__ == '__main__':
