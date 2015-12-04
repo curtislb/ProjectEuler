@@ -658,14 +658,16 @@ def lcm_all(nums):
 def loop_indices(depth, function, start, stop=None, disjoint=False):
     """Simulates a nested index loop with a specified number of levels.
 
+    The step size is 1 for each index, and the range is [start, stop).
+
     depth      the number of loop levels to simulate
     function   a function to perform some operation given a list of indices
-    start      the minimum value for each index (step is fixed at 1)
-    stop       the maximum value for each index (range is 0 to start if None)
+    start      the min value (inclusive) for each index
+    stop       the max value (exclusive) for each index, or [0, start) if None
     disjoint   if True, loop indices will be disjoint (in sorted order)
     """
 
-    # set range to 0..start if stop not specified
+    # set range to 0:start if stop not specified
     if stop is None:
         start, stop = 0, start
 
