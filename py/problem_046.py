@@ -46,7 +46,7 @@ def solve():
         for prime in primes:
             # test property for each prime
             diff = n - prime
-            if diff % FACTOR == 0 and com.is_perfect_square(diff // FACTOR):
+            if diff % FACTOR == 0 and com.is_square(diff // FACTOR):
                 is_counterexample = False
                 break
         

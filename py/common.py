@@ -531,7 +531,12 @@ def int_to_base(n, base, numerals='0123456789abcdefghijklmnopqrstuvwxyz'):
 def is_hexagon_number(n):
     """Determines if the natural number n is a hexagonal number."""
     radical_sum = 1 + (8 * n)
-    return is_perfect_square(radical_sum) and int_sqrt(radical_sum) % 4 == 3
+    return is_square(radical_sum) and int_sqrt(radical_sum) % 4 == 3
+
+
+def is_int(x):
+    """Determines if the floating point number x has an integer value."""
+    return x - int(x) == 0
 
 
 def is_leap_year(year):
@@ -558,21 +563,6 @@ def is_palindrome(n, base=10):
     
     # compare the original n to its reversed version
     return n == reverse_n
-
-
-def is_perfect_power(n, p):
-    """Determines if the natural number n is a perfect power with exponent p.
-    
-    That is, returns True iff n = m**p for some natural number m."""
-
-    root_n = n**(1 / p)
-    root_pow = (int(round(root_n)))**p
-    return root_pow == n
-
-
-def is_perfect_square(n):
-    """Determines if the natural number n is a perfect square."""
-    return is_perfect_power(n, 2)
 
 
 def is_permutation(iter_a, iter_b):
@@ -609,7 +599,17 @@ def is_permutation(iter_a, iter_b):
 def is_pentagon_number(n):
     """Determines if the natural number n is a pentagonal number."""
     radical_sum = 1 + (24 * n)
-    return is_perfect_square(radical_sum) and int_sqrt(radical_sum) % 6 == 5
+    return is_square(radical_sum) and int_sqrt(radical_sum) % 6 == 5
+
+
+def is_power(n, p):
+    """Determines if the natural number n is a perfect power with exponent p.
+    
+    Specifically, returns True iff n = m**p for some natural number m."""
+
+    root_n = n**(1 / p)
+    root_pow = (int(round(root_n)))**p
+    return root_pow == n
 
 
 def is_prime(n):
@@ -629,6 +629,11 @@ def is_prime(n):
         if n % i == 0 or n % (i + 2) == 0:
             return False
     return True
+
+
+def is_square(n):
+    """Determines if the natural number n is a perfect square."""
+    return is_power(n, 2)
 
 
 def lcm(m, n):

@@ -27,7 +27,7 @@ DIGIT_COUNT = 100 # default: 100
 def solve():
     total = 0
     for n in range(2, NUM_COUNT + 1):
-        if com.is_perfect_square(n):
+        if com.is_square(n):
             continue
 
         root = com.sqrt_expansion(n, DIGIT_COUNT)
