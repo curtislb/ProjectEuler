@@ -70,7 +70,7 @@ def _compute_primes(n):
 
     # based on analysis of OEIS data set A006880 and empirical time tests
     estimate = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
-    increment = n / math.log(n)
+    increment = int(round(n / math.log(n)))
 
     # compute primes up to estimate, then step forward until n are found
     i = estimate
@@ -196,26 +196,30 @@ class Card(object):
         SPADES = 3
     
     # dict mapping strings to face values
-    _face_map = {'2': Face.TWO,
-                 '3': Face.THREE,
-                 '4': Face.FOUR,
-                 '5': Face.FIVE,
-                 '6': Face.SIX,
-                 '7': Face.SEVEN,
-                 '8': Face.EIGHT,
-                 '9': Face.NINE,
-                '10': Face.TEN,
-                 'T': Face.TEN,
-                 'J': Face.JACK,
-                 'Q': Face.QUEEN,
-                 'K': Face.KING,
-                 'A': Face.ACE}
+    _face_map = {
+        '2': Face.TWO,
+        '3': Face.THREE,
+        '4': Face.FOUR,
+        '5': Face.FIVE,
+        '6': Face.SIX,
+        '7': Face.SEVEN,
+        '8': Face.EIGHT,
+        '9': Face.NINE,
+        '10': Face.TEN,
+        'T': Face.TEN,
+        'J': Face.JACK,
+        'Q': Face.QUEEN,
+        'K': Face.KING,
+        'A': Face.ACE,
+    }
     
     # dict mapping strings to suits
-    _suit_map = {'D': Suit.DIAMONDS,
-                 'H': Suit.HEARTS,
-                 'C': Suit.CLUBS,
-                 'S': Suit.SPADES}
+    _suit_map = {
+        'D': Suit.DIAMONDS,
+        'H': Suit.HEARTS,
+        'C': Suit.CLUBS,
+        'S': Suit.SPADES,
+    }
     
     @staticmethod
     def _str_to_face(s):
@@ -248,6 +252,9 @@ class Card(object):
         if not isinstance(other, type(self)):
             return False
         return self.face == other.face and self.suit == other.suit
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
     
     def __lt__(self, other):
         if self.face < other.face:
@@ -796,12 +803,17 @@ def max_triangle_path(triangle):
     return max(triangle[-1])
 
 
+def mod_multiply(n, m, mod):
+    """Returns the the product of natural numbers n and m modulo mod."""
+    return ((n % mod) * (m % mod)) % mod
+
+
 def next_multiple(n, min_val):
     """Returns the next multiple of the natural number n >= min_val."""
     return min_val + ((n - (min_val % n)) % n)
 
 
-def numbers_from_file(input_file):
+def numbers_from_file(input_file, sep=' '):
     """Returns a list of rows of integer numbers read from input_file."""
     
     with open(input_file) as f:
@@ -809,7 +821,7 @@ def numbers_from_file(input_file):
         matrix = []
         for line in f:
             # add each token from the current line to the row vector
-            row = [int(num) for num in line.rstrip().split()]
+            row = [int(num) for num in line.rstrip().split(sep)]
             matrix.append(row)
     
         return matrix
