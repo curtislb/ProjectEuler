@@ -30,6 +30,7 @@ def solve():
     matrix = com.numbers_from_file(INPUT_FILE, sep=',')
     n = len(matrix[0])
     
+    # dynamically update costs along diagonals from bottom-right to middle
     for diag in range(2, n + 1):
         i = -1
         j = -diag
@@ -40,6 +41,7 @@ def solve():
             i -= 1
             j += 1
 
+    # dynamically update costs along diagonals from middle to top-left
     for diag in range(2, n + 1):
         i = -diag
         j = -n

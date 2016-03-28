@@ -6,6 +6,8 @@ Author: Curtis Belmonte
 """
 
 import collections
+import functools
+import heapq
 import itertools
 import math
 import sys
@@ -169,6 +171,7 @@ class Month:
     
 # PUBLIC CLASSES ##############################################################
 
+@functools.total_ordering
 class Card(object):
     """Class representing a standard playing card."""
     
@@ -263,6 +266,128 @@ class Card(object):
             return False
         else:
             return self.suit < other.suit
+
+
+class Graph(object):
+    """Class representing a directed graph with weighted edges."""
+
+    def __init__(self):
+        self._adj = {}
+        self._node_count = 0
+        self._edge_count = 0
+
+    def num_nodes(self):
+        """Returns the number of vertices in the graph."""
+        return self._node_count
+
+    def num_edges(self):
+        """Returns the number of edges in the graph."""
+        return self._edge_count
+
+    def nodes(self):
+        """Returns an iterable of the unique vertices in the graph."""
+        return self._adj.keys()
+
+    def add_node(self, label):
+        """Adds a node with a given label to the graph."""
+
+        if label in self._adj:
+            raise ValueError('Node ' + str(label) + ' already in graph')
+
+        self._adj[label] = {}
+        self._node_count += 1
+
+    def has_node(self, label):
+        """Determines if the graph contains a vertex with the given label."""
+        return label in self._adj
+
+    def _assert_node(self, label):
+        if label not in self._adj:
+            raise ValueError('No node ' + str(label) + ' in graph')
+
+    def add_edge(self, source, dest, weight=1):
+        """Adds edge (source, dest) with specified weight to the graph."""
+
+        self._assert_node(source)
+        self._assert_node(dest)
+
+        if dest in self._adj[source]:
+            raise ValueError(
+                'Edge ({}, {}) already in graph'.format(source, dest)
+            )
+
+        self._adj[source][dest] = weight
+        self._edge_count += 1
+
+    def has_edge(self, source, dest):
+        """Determines if the graph contains an edge from source to dest."""
+
+        self._assert_node(source)
+        self._assert_node(dest)
+
+        return dest in self._adj[source]
+
+    def neighbors(self, label):
+        """Returns an iterable of the vertices adjacent to the vertex with
+        specified label in the graph."""
+
+        self._assert_node(label)
+        
+        return self._adj[label].keys()
+
+    def edge_weight(self, source, dest):
+        """Returns the weight of edge (source, dest) in the graph."""
+
+        self._assert_node(source)
+        self._assert_node(dest)
+
+        if dest not in self._adj[source]:
+            raise ValueError('No such edge ({}, {})'.format(source, dest))
+
+        return self._adj[source][dest]
+
+
+class MinPQ(object):
+    """Class representing a minimum priority queue that supports update-key.
+
+    Adapted from: https://docs.python.org/3/library/heapq.html#priority-queue-
+    implementation-notes"""
+
+    def __init__(self):
+        self._heap = []
+        self._entry_map = {}
+        self._counter = itertools.count()
+
+    def __len__(self):
+        return len(self._entry_map)
+
+    def is_empty(self):
+        """Determines if the priority queue is empty."""
+        return len(self._entry_map) == 0
+
+    def put(self, value, priority=0):
+        """Inserts a value with priority into the queue, or updates the value's
+        priority if it is already contained in the priority queue."""
+
+        if value in self._entry_map:
+            self.delete(value)
+        
+        entry = [priority, next(self._counter), value]
+        self._entry_map[value] = entry
+        heapq.heappush(self._heap, entry)
+
+    def delete(self, value):
+        """Removes the given value from the priority queue."""
+        entry = self._entry_map.pop(value)
+        entry[-1] = None
+
+    def pop_min(self):
+        """Deletes and returns the minimum element in the priority queue."""
+        while self._heap:
+            value = heapq.heappop(self._heap)[-1]
+            if value is not None:
+                del self._entry_map[value]
+                return value
 
 # PUBLIC FUNCTIONS ############################################################
 
@@ -364,13 +489,15 @@ def combination_sums(total, addends):
     return combos[total]
 
 
-def concat_digits(digits):
-    return int(''.join([str(d) for d in digits]), 10)
+def concat_digits(digits, base=10):
+    """Return the integer that results from concatenating digits in order."""
+    return int(''.join([str(d) for d in digits]), base)
 
 
 def concat_numbers(n, m):
     """Returns the number that results from concatenating the natural numbers
     n and m, in that order."""
+
     return int(str(n) + str(m))
 
 
@@ -421,44 +548,53 @@ def count_prime_factors(n, primes=None):
 def digit_counts(n):
     """Returns a list with the count of each decimal digit in the natural
     number n."""
+
     counts = [0] * 10
     while n != 0:
         n, digit = divmod(n, 10)
         counts[digit] += 1
+
     return counts
 
 
 def digit_function_sum(n, function):
     """Returns the sum of the results of applying function to each of the
     digits of the natural number n."""
+
     total = 0
     while n != 0:
         n, digit = divmod(n, 10)
         total += function(digit)
+
     return total
 
 
 def digit_permutations(n):
     """Returns all of the digit permutations of the natural number n,
     excluding permutations with leading zeros."""
+
     perms = []
     for perm_tuple in itertools.permutations(str(n)):
         if perm_tuple[0] != '0':
             perms.append(int(''.join(perm_tuple)))
+
     return perms
 
 
 def digit_rotations(n):
     """Returns all digit rotations of the natural number n."""
+
     n_str = str(n)
     rotations = []
     for i in range(len(n_str)):
         rotations.append(int(n_str[i:] + n_str[:i]))
+
     return rotations
 
 
 def digit_truncations_left(n):
     """Returns the left-to-right digit truncations of the natural number n."""
+
     truncations = []
     
     # prepend the digits of n from right to left to truncated
@@ -484,6 +620,33 @@ def digit_truncations_right(n):
         n //= 10
     
     return truncations
+
+
+def dijkstra(graph, source):
+    """Returns the result of Djikstra's shortest path algorithm on a directed
+    graph from a given source vertex."""
+
+    distance = {source: 0}
+    previous = {}
+
+    pq = MinPQ()
+    for node in graph.nodes():
+        if node != source:
+            distance[node] = INFINITY
+            previous[node] = None
+
+        pq.put(node, distance[node])
+
+    while not pq.is_empty():
+        node = pq.pop_min()
+        for neighbor in graph.neighbors(node):
+            path_cost = distance[node] + graph.edge_weight(node, neighbor)
+            if path_cost < distance[neighbor]:
+                distance[neighbor] = path_cost
+                previous[neighbor] = node
+                pq.put(neighbor, path_cost)
+
+    return distance, previous
 
 
 def factorial(n):
@@ -926,6 +1089,7 @@ def sort_by(values, keys):
     """Returns a copy of values sorted by their corresponding keys.
 
     Adapted from: http://stackoverflow.com/a/6618543"""
+
     first = lambda vals: vals[0]
     return [value for (key, value) in sorted(zip(keys, values), key=first)]
 
