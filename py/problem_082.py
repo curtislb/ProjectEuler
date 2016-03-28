@@ -12,13 +12,11 @@ down, and right, is indicated by parentheses; the sum is equal to 994.
      537   699   497   121   956
      805   732   524    37   331
 
-Find the minimal path sum, in INPUT_FILE, a text file containing a square
+Find the minimal path sum in INPUT_FILE, a text file containing a square
 matrix, from the left column to the right column.
 
 Author: Curtis Belmonte
 """
-
-from functools import total_ordering
 
 import common as com
 
@@ -29,6 +27,7 @@ INPUT_FILE = '../input/082.txt' # default: '../input/082.txt'
 # SOLUTION ####################################################################
 
 def try_add_edge(graph, matrix, node, row, col):
+    """Adds edge from node to (row, col) in graph if a valid matrix index."""
     n = len(matrix)
     if 0 <= row < n and 0 <= col < n:
         graph.add_edge(node, (row, col), matrix[row][col])
@@ -65,7 +64,7 @@ def solve():
             try_add_edge(graph, matrix, node, i, j + 1) # right
 
     # connect nodes in right column to virtual goal node
-    for i, row in enumerate(matrix):
+    for i in range(n):
         node = (i, n - 1)
         graph.add_edge(node, goal_node, 0)
 
