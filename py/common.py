@@ -549,6 +549,25 @@ def count_prime_factors(n, primes=None):
     return factor_count
 
 
+def cumulative_partial_sum(nums, limit=INFINITY):
+    """Returns a list of cumulative sums of the numbers in nums, keeping the
+    sum of only the previous limit elements."""
+
+    sums = []
+    total = 0
+    terms = collections.deque()
+    for i, num in enumerate(nums):
+        total += num
+        terms.append(num)
+
+        if len(terms) > limit:
+            total -= terms.popleft()
+        
+        sums.append(total)
+
+    return sums
+
+
 def digit_counts(n):
     """Returns a list with the count of each decimal digit in the natural
     number n."""
@@ -665,6 +684,19 @@ def fibonacci(n):
     return _fibonacci_sequence[n]
 
 
+def flatten_matrix(matrix, keep_indices=False):
+    """Returns a list of the elements in matrix in row-major order. If
+    keep_indices is set to True, also returns the indices of each element."""
+
+    flat_matrix = []
+    for i, row in enumerate(matrix):
+        for j, value in enumerate(row):
+            flat_val = (value, i, j) if keep_indices else value
+            flat_matrix.append(flat_val)
+
+    return flat_matrix
+
+
 def gcd(m, n):
     """Returns the greatest common divisor of the natural numbers m and n."""
     while n != 0:
@@ -680,6 +712,11 @@ def get_digit(n, digit):
 def int_log(x, base=math.e):
     """Returns the rounded integer logarithm of x for the given base."""
     return int(round(math.log(x, base)))
+
+
+def int_pow(x, exponent):
+    """Returns the rounded integer power of x to the exponent power."""
+    return int(round(x**exponent))
 
 
 def int_sqrt(x):
