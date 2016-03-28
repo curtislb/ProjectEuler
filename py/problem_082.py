@@ -26,13 +26,6 @@ INPUT_FILE = '../input/082.txt' # default: '../input/082.txt'
 
 # SOLUTION ####################################################################
 
-def try_add_edge(graph, matrix, node, row, col):
-    """Adds edge from node to (row, col) in graph if a valid matrix index."""
-    n = len(matrix)
-    if 0 <= row < n and 0 <= col < n:
-        graph.add_edge(node, (row, col), matrix[row][col])
-
-
 def solve():
     matrix = com.numbers_from_file(INPUT_FILE, sep=',')
     n = len(matrix)
@@ -59,9 +52,9 @@ def solve():
     for i in range(n):
         for j in range(n):
             node = (i, j)
-            try_add_edge(graph, matrix, node, i - 1, j) # above
-            try_add_edge(graph, matrix, node, i + 1, j) # below
-            try_add_edge(graph, matrix, node, i, j + 1) # right
+            com.try_add_edge(graph, matrix, node, i - 1, j) # above
+            com.try_add_edge(graph, matrix, node, i + 1, j) # below
+            com.try_add_edge(graph, matrix, node, i, j + 1) # right
 
     # connect nodes in right column to virtual goal node
     for i in range(n):

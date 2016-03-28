@@ -363,7 +363,7 @@ class MinPQ(object):
 
     def is_empty(self):
         """Determines if the priority queue is empty."""
-        return len(self._entry_map) == 0
+        return not self._entry_map
 
     def put(self, value, priority=0):
         """Inserts a value with priority into the queue, or updates the value's
@@ -383,6 +383,10 @@ class MinPQ(object):
 
     def pop_min(self):
         """Deletes and returns the minimum element in the priority queue."""
+
+        if self.is_empty():
+            raise KeyError('Cannot pop from an empty MinPQ')
+
         while self._heap:
             value = heapq.heappop(self._heap)[-1]
             if value is not None:
@@ -1202,3 +1206,10 @@ def triangle_number(n):
     """Returns the nth triangle number, or the sum of the natural numbers up to
     and including n."""
     return n * (n + 1) // 2
+
+
+def try_add_edge(graph, matrix, node, row, col):
+    """Adds edge from node to (row, col) in graph if a valid matrix index."""
+    n = len(matrix)
+    if 0 <= row < n and 0 <= col < n:
+        graph.add_edge(node, (row, col), matrix[row][col])
