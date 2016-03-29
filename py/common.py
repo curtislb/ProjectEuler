@@ -346,6 +346,19 @@ class Graph(object):
 
         return self._adj[source][dest]
 
+    def reverse(self):
+        """Returns a copy of the graph with all edge directions reversed."""
+
+        rev_graph = Graph()
+        for node in self._adj:
+            rev_graph.add_node(node)
+
+        for node, edges in self._adj.items():
+            for neighbor, weight in edges.items():
+                rev_graph.add_edge(neighbor, node, weight)
+
+        return rev_graph
+
 
 class MinPQ(object):
     """Class representing a minimum priority queue that supports update-key.
