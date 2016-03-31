@@ -43,13 +43,14 @@ def main():
     elif args.skip:
         problem_nums = set(answers.keys())
         for num in args.problem_nums:
-            problem_nums.remove('{0:03d}'.format(num))
+            problem_nums.remove('{:03d}'.format(num))
         problem_nums = sorted(list(problem_nums))
     else:
-        problem_nums = ['{0:03d}'.format(num) for num in args.problem_nums]
+        problem_nums = ['{:03d}'.format(num) for num in args.problem_nums]
     
+    pass_count = 0
     for problem_num in problem_nums:
-        sys.stdout.write('Testing Problem {0}...'.format(problem_num))
+        sys.stdout.write('Testing Problem {}...'.format(problem_num))
         sys.stdout.flush()
 
         # import the problem module and ensure its solve function exists
@@ -59,7 +60,7 @@ def main():
             module.solve
         except:
             print('FAILED')
-            sys.stderr.write('Problem {0}: No solution\n'.format(problem_num))
+            sys.stderr.write('Problem {}: No solution\n'.format(problem_num))
             continue
 
         # run and time the problem solution
@@ -69,22 +70,26 @@ def main():
             total_time = time.time() - start
         except Exception as e:
             print('FAILED')
-            sys.stderr.write('Problem {0}: Exception\n'.format(problem_num))
+            sys.stderr.write('Problem {}: Exception\n'.format(problem_num))
             sys.stderr.write(str(e) + '\n')
             continue
         
         # check if solution matches correct answer for the problem
         if answer == answers[problem_num]:
-            print('PASSED ({0:.3f} s)'.format(total_time))
+            print('PASSED ({:.3f} s)'.format(total_time))
+            pass_count += 1
         else:
             print('FAILED')
             sys.stderr.write(
-                'Problem {0}: Answer {1} != {2}\n'.format(
+                'Problem {}: Answer {} != {}\n'.format(
                     problem_num,
                     answer,
                     answers[problem_num]
                 )
             )
+
+    print('-' * 40)
+    print('Solutions passed {}/{} tests'.format(pass_count, len(problem_nums)))
 
 
 if __name__ == '__main__':
