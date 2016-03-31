@@ -490,18 +490,17 @@ def collatz_step(n):
     return n // 2 if n % 2 == 0 else 3 * n + 1
 
 
-def combination_sums(total, addends):
-    """Returns the number of unique combinations of terms in addends that sum
-    to total."""
+def combination_sums(total, terms):
+    """Returns the number of unique combinations of terms that sum to total."""
     
     # initialize the combination array
     combos = [0] * (total + 1)
     combos[0] = 1
     
     # dynamically compute combinations by summing combination dependencies
-    for i in range(len(addends)):
-        for j in range(addends[i], total + 1):
-            combos[j] += combos[j - addends[i]]
+    for i, term in enumerate(terms):
+        for j in range(term, total + 1):
+            combos[j] += combos[j - terms[i]]
     
     return combos[total]
 
@@ -1052,6 +1051,11 @@ def pandigital_string(first=0, last=9):
 def pentagon_number(n):
     """Returns the nth pentagonal number."""
     return n * (3 * n - 1) // 2
+
+
+def percent_error(x, y):
+    """ """
+    return abs(x - y) / y
 
 
 def permute(n, k):
