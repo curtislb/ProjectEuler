@@ -751,6 +751,11 @@ def int_to_base(n, base, numerals='0123456789abcdefghijklmnopqrstuvwxyz'):
     return int_to_base(div, base, numerals).lstrip(numerals[0]) + numerals[mod]
 
 
+def is_coprime_pair(n, m):
+    """Determines if the natural numbers n and m are relatively prime."""
+    return gcd(n, m) == 1
+
+
 def is_hexagon_number(n):
     """Determines if the natural number n is a hexagonal number."""
     radical_sum = 1 + (8 * n)
