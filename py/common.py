@@ -6,6 +6,7 @@ Author: Curtis Belmonte
 """
 
 import collections
+import fractions
 import functools
 import heapq
 import itertools
@@ -1259,6 +1260,33 @@ def sum_of_squares(n):
 def sum_proper_divisors(n):
     """Returns the sum of the proper divisors of the natural number n."""
     return sum_divisors(n) - n
+
+
+def totients_up_to(n):
+    """Returns the values of Euler's totient function for integers 2 to n."""
+
+    sieve = [True] * (n + 1)
+    sieve[0] = False
+    sieve[1] = False
+
+    prime_factors = [[] for __ in range(n + 1)]
+
+    for curr_num in range(2, n + 1):
+        if sieve[curr_num]:
+            prime_factors[curr_num].append(curr_num)
+            for multiple in range(2 * curr_num, n + 1, curr_num):
+                sieve[multiple] = False
+                prime_factors[multiple].append(curr_num)
+
+    totients = []
+    for i, factors in enumerate(prime_factors[2:]):
+        product = fractions.Fraction(i + 2)
+        for p in factors:
+            product *= 1 - fractions.Fraction(1, p)
+
+        totients.append(product.numerator)
+
+    return totients
 
 
 def triangle_number(n):
