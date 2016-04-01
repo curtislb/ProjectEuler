@@ -63,6 +63,8 @@ chain_lengths = {
 
 
 def get_chain_length(n):
+    """Returns the length of the digit factorial chain starting with n."""
+
     if n in chain_lengths:
         return chain_lengths[n]
 
@@ -72,10 +74,12 @@ def get_chain_length(n):
 
 
 def solve():
+    # compute all chain lengths
     for n in range(3, MAX_START + 1):
         if n not in chain_lengths:
             chain_lengths[n] = get_chain_length(n)
 
+    # count number of chains of the correct length
     total = 0
     for __, length in chain_lengths.items():
         if length == TARGET_LEN:
