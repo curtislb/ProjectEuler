@@ -360,6 +360,31 @@ class Graph(object):
 
         return rev_graph
 
+# @functools.total_ordering
+# class ListNode(object):
+#     def __init__(self, value=None, prev=None, next=None):
+#         self.value = value
+#         self.prev = prev
+#         self.next = next
+
+#     def __eq__(self, other):
+#         if type(other) is type(self):
+#             return self.value == other.value
+#         else:
+#             return False
+
+#     def __ne__(self, other):
+#         return not self.__eq__(other)
+
+#     def __lt__(self, other):
+#         return self.value < other.value
+
+#     def __hash__(self):
+#         return self.value.__hash__()
+
+#     def __str__(self):
+#         return '({})'.format(self.value)
+
 
 class MinPQ(object):
     """Class representing a minimum priority queue that supports update-key.
