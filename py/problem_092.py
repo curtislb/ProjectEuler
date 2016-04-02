@@ -51,6 +51,8 @@ chains_to_89 = {
 
 
 def has_chain_to_89(n):
+    """Determines if the square digit chain from n will arrive at 89."""
+
     if n in chains_to_89:
         return chains_to_89[n]
 
