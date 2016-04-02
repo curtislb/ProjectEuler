@@ -24,26 +24,26 @@ INPUT_FILE = '../input/079.txt' # default: '../input/079.txt'
 # SOLUTION ####################################################################
 
 def solve():
-    with open(INPUT_FILE) as f:
-        # keep track of all digits preceding other digits
-        pre_digits = {}
-        for line in f:
-            digits = [int(digit_str) for digit_str in line.rstrip()]
-            for i, digit in enumerate(digits):
-                # add digit to dict if we haven't seen it before
-                if digit not in pre_digits:
-                    pre_digits[digit] = set()
+    # keep track of all digits preceding other digits
+    pre_digits = {}
+    attempts = com.numbers_from_file(INPUT_FILE)
+    for attempt in attempts:
+        digits = com.digits(attempt[0])
+        for i, digit in enumerate(digits):
+            # add digit to dict if we haven't seen it before
+            if digit not in pre_digits:
+                pre_digits[digit] = set()
 
-                # add all of the preceding digits
-                for j in range(i):
-                    pre_digits[digit].add(digits[j])
+            # add all of the preceding digits
+            for j in range(i):
+                pre_digits[digit].add(digits[j])
 
-        # sort digits by how many other digits precede them
-        ordering = list(pre_digits.items())
-        ordering.sort(key=(lambda x: len(x[1])))
-        digits = [order[0] for order in ordering]
+    # sort digits by how many other digits precede them
+    ordering = list(pre_digits.items())
+    ordering.sort(key=(lambda x: len(x[1])))
+    digits = [order[0] for order in ordering]
 
-        return com.concat_digits(digits)
+    return com.concat_digits(digits)
 
 
 if __name__ == '__main__':

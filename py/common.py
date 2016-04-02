@@ -683,6 +683,18 @@ def digit_truncations_right(n):
     return truncations
 
 
+def digits(n, base=10):
+    """Returns a list of digits of the natural number n."""
+
+    digit_list = []
+
+    while n != 0:
+        n, digit = divmod(n, base)
+        digit_list.append(digit)
+
+    return digit_list[::-1]
+
+
 def dijkstra(graph, source):
     """Returns the result of Djikstra's shortest path algorithm on a directed
     graph from a given source vertex."""
