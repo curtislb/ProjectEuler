@@ -356,7 +356,8 @@ class Graph(object):
 
         for node, edges in self._adj.items():
             for neighbor, weight in edges.items():
-                rev_graph.add_edge(neighbor, node, weight)
+                rev_graph._adj[neighbor][node] = weight
+                rev_graph._edge_count += 1
 
         return rev_graph
 
@@ -378,7 +379,7 @@ class Graph(object):
         path.add(node)
         visited.add(node)
 
-        for neighbor in self.neighbors(node):
+        for neighbor in self._adj[node]:
             if neighbor in path:
                 raise RuntimeError('Graph contains a cycle')
 
@@ -386,6 +387,62 @@ class Graph(object):
                 self._postorder_dfs(neighbor, path.copy(), visited, post)
 
         post.append(node)
+
+    def bfs(self, source):
+        """Runs breadth-first search from a source node in the graph.
+
+        Returns two dicts that map each node to its distance from source and
+        the previous node along the search path from source to that node."""
+
+        self._assert_node(source)
+
+        distance = {source: 0}
+        previous = {}
+        visited = {source}
+
+        frontier = collections.deque()
+        frontier.append(source)
+
+        while frontier:
+            node = frontier.popleft()
+            for neighbor in self._adj[node]:
+                if neighbor not in visited:
+                    distance[neighbor] = distance[node] + 1
+                    previous[neighbor] = node
+                    visited.add(neighbor)
+                    frontier.append(neighbor)
+
+        return distance, previous
+
+    def dijkstra(self, source):
+        """Runs Djikstra's shortest path algorithm from a source node.
+
+        Returns two dicts that map each node to its distance from source and
+        the previous node along a shortest path from source to that node."""
+
+        self._assert_node(source)
+
+        distance = {source: 0}
+        previous = {}
+
+        pq = MinPQ()
+        for node in self._adj:
+            if node != source:
+                distance[node] = INFINITY
+                previous[node] = None
+
+            pq.put(node, distance[node])
+
+        while not pq.is_empty():
+            node = pq.pop_min()
+            for neighbor in self._adj[node]:
+                path_cost = distance[node] + self._adj[node][neighbor]
+                if path_cost < distance[neighbor]:
+                    distance[neighbor] = path_cost
+                    previous[neighbor] = node
+                    pq.put(neighbor, path_cost)
+
+        return distance, previous
 
 
 class MinPQ(object):
@@ -695,35 +752,6 @@ def digits(n, base=10):
         digit_list.append(digit)
 
     return digit_list[::-1]
-
-
-def dijkstra(graph, source):
-    """Runs Djikstra's shortest path algorithm from a source node in graph.
-
-    Returns two dicts that map each node to its distance from source and
-    the previous node along a shortest path from source to that node."""
-
-    distance = {source: 0}
-    previous = {}
-
-    pq = MinPQ()
-    for node in graph.nodes():
-        if node != source:
-            distance[node] = INFINITY
-            previous[node] = None
-
-        pq.put(node, distance[node])
-
-    while not pq.is_empty():
-        node = pq.pop_min()
-        for neighbor in graph.neighbors(node):
-            path_cost = distance[node] + graph.edge_weight(node, neighbor)
-            if path_cost < distance[neighbor]:
-                distance[neighbor] = path_cost
-                previous[neighbor] = node
-                pq.put(neighbor, path_cost)
-
-    return distance, previous
 
 
 def factorial(n):

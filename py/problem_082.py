@@ -61,7 +61,7 @@ def solve():
         node = (i, n - 1)
         graph.add_edge(node, goal_node, 0)
 
-    distance, __ = com.dijkstra(graph, start_node)
+    distance, __ = graph.dijkstra(start_node)
     return distance[goal_node]
 
 

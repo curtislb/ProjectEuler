@@ -53,7 +53,7 @@ def solve():
             com.try_add_edge(graph, matrix, node, i, j - 1) # left
             com.try_add_edge(graph, matrix, node, i, j + 1) # right
 
-    distance, __ = com.dijkstra(graph, start_node)
+    distance, __ = graph.dijkstra(start_node)
     goal_node = (n - 1, n - 1)
     return distance[goal_node]
 
