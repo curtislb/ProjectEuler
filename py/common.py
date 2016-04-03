@@ -368,18 +368,22 @@ class Graph(object):
 
         for node in self._adj:
             if node not in visited:
-                self._postorder_dfs(node, visited, post)
+                self._postorder_dfs(node, set(), visited, post)
 
         return post
 
-    def _postorder_dfs(self, node, visited, post):
+    def _postorder_dfs(self, node, path, visited, post):
         """Helper function for postorder that runs DFS from a given node."""
 
+        path.add(node)
         visited.add(node)
 
         for neighbor in self.neighbors(node):
+            if neighbor in path:
+                raise RuntimeError('Graph contains a cycle')
+
             if neighbor not in visited:
-                self._postorder_dfs(neighbor, visited, post)
+                self._postorder_dfs(neighbor, path.copy(), visited, post)
 
         post.append(node)
 
