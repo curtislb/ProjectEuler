@@ -699,8 +699,6 @@ def dijkstra(graph, source):
     Returns two dicts that map each node to its distance from source and
     the previous node along a shortest path from source to that node."""
 
-    self._assert_node(source)
-
     distance = {source: 0}
     previous = {}
 
