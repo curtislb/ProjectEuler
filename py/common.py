@@ -360,30 +360,28 @@ class Graph(object):
 
         return rev_graph
 
-# @functools.total_ordering
-# class ListNode(object):
-#     def __init__(self, value=None, prev=None, next=None):
-#         self.value = value
-#         self.prev = prev
-#         self.next = next
+    def postorder(self):
+        """Returns a postorder traversal of all nodes in the graph."""
 
-#     def __eq__(self, other):
-#         if type(other) is type(self):
-#             return self.value == other.value
-#         else:
-#             return False
+        visited = set()
+        post = []
 
-#     def __ne__(self, other):
-#         return not self.__eq__(other)
+        for node in self._adj:
+            if node not in visited:
+                self._postorder_dfs(node, visited, post)
 
-#     def __lt__(self, other):
-#         return self.value < other.value
+        return post
 
-#     def __hash__(self):
-#         return self.value.__hash__()
+    def _postorder_dfs(self, node, visited, post):
+        """Helper function for postorder that runs DFS from a given node."""
 
-#     def __str__(self):
-#         return '({})'.format(self.value)
+        visited.add(node)
+
+        for neighbor in self.neighbors(node):
+            if neighbor not in visited:
+                self._postorder_dfs(neighbor, visited, post)
+
+        post.append(node)
 
 
 class MinPQ(object):
@@ -696,8 +694,12 @@ def digits(n, base=10):
 
 
 def dijkstra(graph, source):
-    """Returns the result of Djikstra's shortest path algorithm on a directed
-    graph from a given source vertex."""
+    """Runs Djikstra's shortest path algorithm from a source node in graph.
+
+    Returns two dicts that map each node to its distance from source and
+    the previous node along a shortest path from source to that node."""
+
+    self._assert_node(source)
 
     distance = {source: 0}
     previous = {}
