@@ -6,7 +6,6 @@ Author: Curtis Belmonte
 """
 
 import collections
-import fractions
 import functools
 import heapq
 import itertools
@@ -1372,6 +1371,23 @@ def sum_proper_divisors(n):
     return sum_divisors(n) - n
 
 
+def totient(n, prime_factors=None):
+    """Returns the number of integers 0 < i < n relatively prime to n."""
+    
+    # determine prime factors of n if not provided
+    if prime_factors is None:
+        prime_factors = [factor[0] for factor in prime_factorization(n)]
+    
+    # calculate totient using Euler's product formula
+    numer = n
+    denom = 1
+    for p in prime_factors:
+        numer *= p - 1
+        denom *= p
+
+    return numer // denom
+
+
 def totients_up_to(n):
     """Returns the values of Euler's totient function for integers 2 to n."""
 
@@ -1381,6 +1397,7 @@ def totients_up_to(n):
 
     prime_factors = [[] for __ in range(n + 1)]
 
+    # run sieve algorithm, keeping track of prime factors
     for curr_num in range(2, n + 1):
         if sieve[curr_num]:
             prime_factors[curr_num].append(curr_num)
@@ -1388,13 +1405,10 @@ def totients_up_to(n):
                 sieve[multiple] = False
                 prime_factors[multiple].append(curr_num)
 
+    # calculate each totient using its prime factors
     totients = []
     for i, factors in enumerate(prime_factors[2:]):
-        product = fractions.Fraction(i + 2)
-        for p in factors:
-            product *= 1 - fractions.Fraction(1, p)
-
-        totients.append(product.numerator)
+        totients.append(totient(i + 2, factors))
 
     return totients
 
