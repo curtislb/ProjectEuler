@@ -76,7 +76,7 @@ def main():
         
         # check if solution matches correct answer for the problem
         if answer == answers[problem_num]:
-            print('PASSED ({:.3f} s)'.format(total_time))
+            print('PASSED ({:6.3f} s)'.format(total_time))
             pass_count += 1
         else:
             print('FAILED')

@@ -5,8 +5,8 @@ Problem 17: Number letter counts
 If the numbers 1 to 5 are written out in words: one, two, three, four, five,
 then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
 
-If all the numbers from 1 to 1000 (one thousand) inclusive were written out in
-words, how many letters would be used?
+If all the numbers from 1 to MAX_NUMBER inclusive were written out in words,
+how many letters would be used?
 
 NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and
 forty-two) contains 23 letters and 115 (one hundred and fifteen) contains 20
@@ -16,83 +16,64 @@ British usage.
 Author: Curtis Belmonte
 """
 
-# import common as com
+import common as com
 
 # PARAMETERS ##################################################################
 
-# TODO: parameterize upper limit
+# TODO: currently requires MAX_NUMBER <= 9999; adapt to work for larger numbers
+
+MAX_NUMBER = 1000 # default: 1000
 
 # SOLUTION ####################################################################
 
-# Sum of all digit letter counts, excluding 0
-all_digit_letters = (
-    3 # len('one')
-  + 3 # len('two')
-  + 5 # len('three')
-  + 4 # len('four')
-  + 4 # len('five')
-  + 3 # len('six')
-  + 5 # len('seven')
-  + 5 # len('eight')
-  + 4 # len('nine')
-)
+and_letters = len('and')
 
-# Sum of all 'teen' letter counts, including 10, 11, and 12
-all_teen_letters = (
-    3 # len('ten')
-  + 6 # len('eleven')
-  + 6 # len('twelve')
-  + 8 # len('thirteen')
-  + 8 # len('fourteen')
-  + 7 # len('fifteen')
-  + 7 # len('sixteen')
-  + 9 # len('seventeen')
-  + 8 # len('eighteen')
-  + 8 # len('nineteen')
-)
+# letter counts for unique numbers (see common.NUMBER_WORDS)
+num_letters = {0: 0}
+for number, word in com.NUMBER_WORDS.items():
+    num_letters[number] = len(word)
 
-# Sum of all multiples of ten letter counts, excluding 10
-all_ten_letters = (
-    6 # len('twenty')
-  + 6 # len('thirty')
-  + 5 # len('forty')
-  + 5 # len('fifty')
-  + 5 # len('sixty')
-  + 7 # len('seventy')
-  + 6 # len('eighty')
-  + 6 # len('ninety')
-)
-
-# Letter counts of other useful number words
-and_letters = 3 # len('and')
-hundred_letters = 7 # len('hundred')
-one_letters = 3 # len('one')
-thousand_letters = 8 # len('thousand')
+# letter counts for relevant powers of 10
+pow10_letters = {
+    100: len('hundred'),
+    1000: len('thousand'),
+}
 
 
 def solve():
-    # count the letters of all numbers below 20
-    letter_count = all_digit_letters + all_teen_letters
+    total = 0
 
-    # count the letters of all numbers from 20 to 99
-    digit_count = 9
-    ten_count = 8
-    letter_count += (all_ten_letters * (digit_count + 1)
-                     + all_digit_letters * ten_count)
-    letters_below_100 = letter_count
+    # count letters for all numbers from 1 to MAX_NUMBER
+    for n in range(1, MAX_NUMBER + 1):
+        letter_count = 0
 
-    # count the letters of all numbers from 100 to 999
-    and_word_count = digit_count * 99
-    hundred_word_count = and_word_count + digit_count
-    letter_count += ((all_digit_letters * 100)
-                     + (hundred_letters * hundred_word_count)
-                     + (and_letters * and_word_count)
-                     + (letters_below_100 * digit_count))
+        # count letters for powers of 10
+        pow10_flag = False
+        for pow10 in sorted(pow10_letters.keys(), reverse=True):
+            if n >= pow10:
+                pow10_flag = True
 
-    # count the letters of 1000
-    letter_count += one_letters + thousand_letters
+                div, mod = divmod(n, pow10)
+                letter_count += num_letters[div] + pow10_letters[pow10]
+                n = mod
 
-    return letter_count
+        # count letters for "and" if necessary
+        if pow10_flag and n > 0:
+            letter_count += and_letters
+
+        # count letters for tens place (at and above 20)
+        if n >= 20:
+            ones_digit = n % 10
+            letter_count += num_letters[n - ones_digit]
+            n = ones_digit
+        
+        # count letters for ones place
+        letter_count += num_letters[n]
+
+        # add letter count for current number to running total
+        total += letter_count
+
+    return total
 
 
 if __name__ == '__main__':
