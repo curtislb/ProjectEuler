@@ -20,8 +20,6 @@ import common as com
 
 # PARAMETERS ##################################################################
 
-# TODO: currently requires MAX_NUMBER <= 9999; adapt to work for larger numbers
-
 MAX_NUMBER = 1000 # default: 1000
 
 # SOLUTION ####################################################################
@@ -37,42 +35,47 @@ for number, word in com.NUMBER_WORDS.items():
 pow10_letters = {
     100: len('hundred'),
     1000: len('thousand'),
+    10**6: len('million'),
 }
+
+
+@com.memoized
+def count_letters(n):
+    """Returns the number of letters in the written representation of the
+    natural number n (in compliance with British usage)."""
+
+    count = 0
+
+    # count letters for powers of 10
+    pow10_flag = False
+    for pow10 in sorted(pow10_letters.keys(), reverse=True):
+        if n >= pow10:
+            pow10_flag = True
+
+            div, mod = divmod(n, pow10)
+            count += count_letters(div) + pow10_letters[pow10]
+            n = mod
+
+    # count letters for "and" if necessary
+    if pow10_flag and n > 0:
+        count += and_letters
+
+    # count letters for tens place (at and above 20)
+    if n >= 20:
+        ones_digit = n % 10
+        count += num_letters[n - ones_digit]
+        n = ones_digit
+    
+    # count letters for ones place
+    count += num_letters[n]
+
+    return count
 
 
 def solve():
     total = 0
-
-    # count letters for all numbers from 1 to MAX_NUMBER
     for n in range(1, MAX_NUMBER + 1):
-        letter_count = 0
-
-        # count letters for powers of 10
-        pow10_flag = False
-        for pow10 in sorted(pow10_letters.keys(), reverse=True):
-            if n >= pow10:
-                pow10_flag = True
-
-                div, mod = divmod(n, pow10)
-                letter_count += num_letters[div] + pow10_letters[pow10]
-                n = mod
-
-        # count letters for "and" if necessary
-        if pow10_flag and n > 0:
-            letter_count += and_letters
-
-        # count letters for tens place (at and above 20)
-        if n >= 20:
-            ones_digit = n % 10
-            letter_count += num_letters[n - ones_digit]
-            n = ones_digit
-        
-        # count letters for ones place
-        letter_count += num_letters[n]
-
-        # add letter count for current number to running total
-        total += letter_count
-
+        total += count_letters(n)
     return total
 
 
