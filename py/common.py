@@ -690,6 +690,21 @@ def count_divisors(n):
     return divisor_count
 
 
+def count_divisors_up_to(n):
+    """Returns a list of divisor counts for integers 0 to n, inclusive."""
+
+    # set counts for 1..n to 1
+    divisor_counts = [1] * (n + 1)
+    divisor_counts[0] = 0
+
+    # increment counts for multiples of each number up to n
+    for i in range(2, n + 1):
+        for j in range(i, n + 1, i):
+            divisor_counts[j] += 1
+
+    return divisor_counts
+
+
 def count_prime_factors(n, primes=None):
     """Returns the number of distinct prime factors of the natural number n,
     using the given precomputed list of primes."""
