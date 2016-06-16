@@ -49,7 +49,7 @@ def solve():
             
             n += 1
 
-    # return sum of deduplicated plaindromes
+    # return sum of deduplicated palindromes
     return sum(palindromes)
 
 
