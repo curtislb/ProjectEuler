@@ -732,6 +732,17 @@ def count_prime_factors(n, primes=None):
     return factor_count
 
 
+def cross_product_3d(p1, p2):
+    """Returns the cross product p1 x p2 of 3-dimensional points p1 and p2."""
+    
+    # compute determinant of cross product matrix
+    prod_i = (p1[1] * p2[2]) - (p1[2] * p2[1])
+    prod_j = (p1[2] * p2[0]) - (p1[0] * p2[2])
+    prod_k = (p1[0] * p2[1]) - (p1[1] * p2[0])
+
+    return (prod_i, prod_j, prod_k)
+
+
 def cumulative_partial_sum(nums, limit=INFINITY):
     """Returns a list of cumulative sums of the numbers in nums, keeping the
     sum of only the previous limit elements."""
@@ -838,6 +849,11 @@ def digits(n, base=10):
         digit_list.append(digit)
 
     return digit_list[::-1]
+
+
+def dot_product(u, v):
+    """Returns the dot product of vectors u and v."""
+    return sum(i * j for i, j in zip(u, v))
 
 
 def factorial(n):
@@ -1470,3 +1486,9 @@ def try_add_edge(graph, matrix, node, row, col):
     n = len(matrix)
     if 0 <= row < n and 0 <= col < n:
         graph.add_edge(node, (row, col), matrix[row][col])
+
+
+def vector_pair_op(u, v, operation):
+    """Returns the vector that results from applying the pairwise function
+    operation to each pair of corresponding components in vectors u and v."""
+    return tuple([operation(i, j) for i, j in zip(u, v)])
