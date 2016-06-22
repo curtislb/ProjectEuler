@@ -27,7 +27,7 @@ import common as com
 
 INPUT_FILE = '../input/102.txt' # default: '../input/102.txt'
 
-QUERY_POINT = (0, 0, 0) # default: (0, 0, 0)
+QUERY_POINT = (0, 0) # default: (0, 0)
 
 # SOLUTION ####################################################################
 
@@ -45,6 +45,7 @@ def same_side(p1, p2, A, B):
 
 def solve():
     count = 0
+    point = QUERY_POINT + (0,)
 
     with open(INPUT_FILE) as f:
         for line in f:
@@ -56,9 +57,9 @@ def solve():
 
             # check if query point on correct side of all segments
             if (
-                same_side(QUERY_POINT, A, B, C) and
-                same_side(QUERY_POINT, B, C, A) and
-                same_side(QUERY_POINT, C, B, A)
+                same_side(point, A, B, C) and
+                same_side(point, B, C, A) and
+                same_side(point, C, A, B)
             ):
                 count += 1
 

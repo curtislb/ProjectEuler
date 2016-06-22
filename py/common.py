@@ -159,10 +159,6 @@ class memoized(object):
         self.results = {}
     
     def __call__(self, *args):
-        # if given arguments are not hashable, don't attempt any caching
-        if not isinstance(args, collections.Hashable):
-            return self.function(*args)
-        
         # if result of running function on args has been cached, return it
         if args in self.results:
             return self.results[args]
