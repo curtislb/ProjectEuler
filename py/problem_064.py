@@ -69,8 +69,8 @@ def solve():
         if com.is_square(n):
             continue
 
-        # compute the continued fraction expansion of sqrt(n)
-        a0, block = com.sqrt_fraction_expansion(n)
+        # compute continued fraction expansion of sqrt(n)
+        __, block = com.sqrt_fraction_expansion(n)
         
         # increment count if expansion has odd period
         period = len(block)
