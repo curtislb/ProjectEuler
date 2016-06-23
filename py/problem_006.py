@@ -28,7 +28,7 @@ N = 100 # default: 100
 # SOLUTION ####################################################################
 
 def solve():
-    n_sum = com.triangle_number(N)
+    n_sum = com.triangular(N)
     return n_sum * n_sum - com.sum_of_squares(N)
 
 

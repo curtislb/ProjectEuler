@@ -31,7 +31,7 @@ octagonal, is represented by a different number in the set.
 Author: Curtis Belmonte
 """
 
-# import common as com
+import common as com
 
 # PARAMETERS ##################################################################
 
@@ -40,12 +40,14 @@ Author: Curtis Belmonte
 # SOLUTION ####################################################################
 
 # A dict defined so that P[m](n) = P(m, n)
-P = {3: lambda n: n * (n + 1) // 2,
-     4: lambda n: n**2,
-     5: lambda n: n * (3*n - 1) // 2,
-     6: lambda n: n * (2*n - 1),
-     7: lambda n: n * (5*n - 3) // 2,
-     8: lambda n: n * (3*n - 2)}
+P = {
+    3: com.triangular,
+    4: lambda n: n**2,
+    5: com.pentagonal,
+    6: com.hexagonal,
+    7: lambda n: n * (5*n - 3) // 2,
+    8: lambda n: n * (3*n - 2)
+}
 
 
 def is_cyclic_6(num_list):

@@ -26,7 +26,7 @@ INPUT_FILE = '../input/079.txt' # default: '../input/079.txt'
 def solve():
     # keep track of all digits preceding other digits
     pre_digits = {}
-    attempts = com.numbers_from_file(INPUT_FILE)
+    attempts = com.ints_from_file(INPUT_FILE)
     for attempt in attempts:
         digits = com.digits(attempt[0])
         for i, digit in enumerate(digits):

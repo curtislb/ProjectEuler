@@ -50,6 +50,10 @@ def main():
     
     pass_count = 0
     for problem_num in problem_nums:
+        if problem_num not in answers:
+            sys.stderr.write('Problem {}: No answer\n'.format(problem_num))
+            continue
+
         sys.stdout.write('Testing Problem {}...'.format(problem_num))
         sys.stdout.flush()
 

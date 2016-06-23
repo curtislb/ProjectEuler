@@ -35,7 +35,7 @@ def solve():
     palindromes = set()
     for k in range(2, k_max):
         n = k
-        sum_to_k = com.triangle_number(k - 1)
+        sum_to_k = com.triangular(k - 1)
         sum_squares_to_k = com.sum_of_squares(k - 1)
         while True:
             square_sum = (k * n**2) - (2 * n * sum_to_k) + sum_squares_to_k

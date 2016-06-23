@@ -31,7 +31,7 @@ def solve():
     pentagonal_count = 3000
     pentagonal_list = []
     for n in range(pentagonal_count):
-        pentagonal_list.append(com.pentagon_number(n))
+        pentagonal_list.append(com.pentagonal(n))
         
     # add pentagonal numbers to set for fast lookup
     pentagonal_set = set(pentagonal_list)

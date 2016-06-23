@@ -27,10 +27,12 @@ DIGIT_COUNT = 100 # default: 100
 def solve():
     total = 0
     for n in range(2, NUM_COUNT + 1):
+        # skip perfect square values
         if com.is_square(n):
             continue
 
-        root = com.sqrt_expansion(n, DIGIT_COUNT)
+        # compute decimal expansion of sqrt(n) to necessary precision
+        root = com.sqrt_decimal_expansion(n, DIGIT_COUNT)
         root = root.replace('.', '')
         total += sum([int(digit) for digit in root[:DIGIT_COUNT]])
 

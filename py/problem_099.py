@@ -27,7 +27,7 @@ INPUT_FILE = '../input/099.txt' # default: '../input/099.txt'
 def solve():
     max_line = None
     max_value = -com.INFINITY
-    base_exp_pairs = com.numbers_from_file(INPUT_FILE, sep=',')
+    base_exp_pairs = com.ints_from_file(INPUT_FILE, sep=',')
 
     # compare exponent * log(base) for all pairs
     for i, pair in enumerate(base_exp_pairs):

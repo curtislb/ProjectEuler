@@ -34,8 +34,8 @@ def solve():
         n += 1
     
     # check if each subsequent triangle number is hexagonal and pentagonal
-    while (not com.is_hexagon_number(tri_num) or
-           not com.is_pentagon_number(tri_num)):
+    while (not com.is_hexagonal(tri_num) or
+           not com.is_pentagonal(tri_num)):
         tri_num += n
         n += 1
     

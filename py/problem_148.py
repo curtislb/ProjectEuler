@@ -37,7 +37,7 @@ ROW_COUNT = 10**9 # default: 10**9
 def solve():
     # count number of entries up to nearest power of PRIME
     log_p = int(math.log(ROW_COUNT, PRIME))
-    tri_p = com.triangle_number(PRIME)
+    tri_p = com.triangular(PRIME)
     power = PRIME**log_p
     nonzero = tri_p**log_p
 
@@ -46,7 +46,7 @@ def solve():
     remaining = ROW_COUNT
     while remaining > 0:
         msd, remaining = divmod(remaining, power)
-        count += nonzero * com.triangle_number(msd)
+        count += nonzero * com.triangular(msd)
         power //= PRIME
         nonzero = nonzero * (msd + 1) // tri_p
     

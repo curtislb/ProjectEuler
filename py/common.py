@@ -889,6 +889,11 @@ def get_digit(n, digit):
     return int(str(n)[digit - 1])
 
 
+def hexagonal(n):
+    """Returns the nth hexagonal number."""
+    return n * (2*n - 1)
+
+
 def int_log(x, base=math.e):
     """Returns the rounded integer logarithm of x for the given base."""
     return int(round(math.log(x, base)))
@@ -919,12 +924,26 @@ def int_to_base(n, base, numerals='0123456789abcdefghijklmnopqrstuvwxyz'):
     return int_to_base(div, base, numerals).lstrip(numerals[0]) + numerals[mod]
 
 
+def ints_from_file(input_file, sep=' '):
+    """Returns a list of rows of integer numbers read from input_file."""
+    
+    with open(input_file) as f:
+        # add each line from the input file as a row to the MATRIX
+        matrix = []
+        for line in f:
+            # add each token from the current line to the row vector
+            row = [int(num) for num in line.rstrip().split(sep)]
+            matrix.append(row)
+    
+        return matrix
+
+
 def is_coprime_pair(n, m):
     """Determines if the natural numbers n and m are relatively prime."""
     return gcd(n, m) == 1
 
 
-def is_hexagon_number(n):
+def is_hexagonal(n):
     """Determines if the natural number n is a hexagonal number."""
     radical_sum = 1 + (8 * n)
     return is_square(radical_sum) and int_sqrt(radical_sum) % 4 == 3
@@ -992,7 +1011,7 @@ def is_permutation(iter_a, iter_b):
         return True
 
 
-def is_pentagon_number(n):
+def is_pentagonal(n):
     """Determines if the natural number n is a pentagonal number."""
     radical_sum = 1 + (24 * n)
     return is_square(radical_sum) and int_sqrt(radical_sum) % 6 == 5
@@ -1004,8 +1023,9 @@ def is_power(n, p):
     Specifically, returns True iff n = m**p for some natural number m."""
 
     root_n = n**(1 / p)
-    root_pow = (int(round(root_n)))**p
-    return root_pow == n
+    lo_power = (int(root_n))**p
+    hi_power = (int(math.ceil(root_n)))**p
+    return lo_power == n or hi_power == n
 
 
 def is_prime(n):
@@ -1029,7 +1049,10 @@ def is_prime(n):
 
 def is_square(n):
     """Determines if the natural number n is a perfect square."""
-    return is_power(n, 2)
+    sqrt_n = math.sqrt(n)
+    lo_power = (int(sqrt_n))**2
+    hi_power = (int(math.ceil(sqrt_n)))**2
+    return lo_power == n or hi_power == n
 
 
 def lcm(m, n):
@@ -1202,28 +1225,14 @@ def next_multiple(n, min_val):
     return min_val + ((n - (min_val % n)) % n)
 
 
-def numbers_from_file(input_file, sep=' '):
-    """Returns a list of rows of integer numbers read from input_file."""
-    
-    with open(input_file) as f:
-        # add each line from the input file as a row to the MATRIX
-        matrix = []
-        for line in f:
-            # add each token from the current line to the row vector
-            row = [int(num) for num in line.rstrip().split(sep)]
-            matrix.append(row)
-    
-        return matrix
-
-
 def pandigital_string(first=0, last=9):
     """Returns a string with each of the digits from first to last in order."""
     return ''.join('%d' % digit for digit in range(first, last + 1))
 
 
-def pentagon_number(n):
+def pentagonal(n):
     """Returns the nth pentagonal number."""
-    return n * (3 * n - 1) // 2
+    return n * (3*n - 1) // 2
 
 
 def percent_error(x, y):
@@ -1325,7 +1334,7 @@ def sort_by(values, keys):
     return [value for (key, value) in sorted(zip(keys, values), key=first)]
 
 
-def sqrt_expansion(n, precision):
+def sqrt_decimal_expansion(n, precision):
     """Returns the square root of the natural number n to arbitrary precision.
 
     Result is a string with precision digits following the decimal point."""
@@ -1378,6 +1387,38 @@ def sqrt_expansion(n, precision):
         expansion.append(str(x))
 
     return ''.join(expansion)
+
+
+def sqrt_fraction_expansion(n):
+    """Returns the terms in the continued fraction expansion of the square root
+    of the natural number n, in the format (a0, a1..ar)."""
+
+    # perform the first expansion step
+    sqrt_n = math.sqrt(n)
+    a0 = int(sqrt_n)
+    addend = -a0
+    denom = 1
+
+    # continue expansion until terms begin to cycle
+    block = []
+    end_term = 2 * a0
+    while True:
+        # compute newly expanded denominator
+        new_denom = n - addend**2
+        new_denom //= gcd(denom, new_denom)
+
+        # extract term and compute new addend
+        term = int((sqrt_n - addend) / new_denom)
+        new_addend = -addend - (term * new_denom)
+
+        # add term to expansion and update rational value
+        block.append(term)
+        addend = new_addend
+        denom = new_denom
+
+        # check if term completes cycle
+        if term == end_term:
+            return a0, block
 
 
 def strings_from_file(input_file, sep=','):
@@ -1471,7 +1512,7 @@ def totients_up_to(n):
     return totients
 
 
-def triangle_number(n):
+def triangular(n):
     """Returns the nth triangle number, or the sum of the natural numbers up to
     and including n."""
     return n * (n + 1) // 2

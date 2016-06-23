@@ -55,7 +55,7 @@ def solve():
     n = 1
     while count_triangle_divisors(n) < D:
         n += 1
-    return com.triangle_number(n)
+    return com.triangular(n)
 
 
 if __name__ == '__main__':

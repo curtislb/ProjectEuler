@@ -44,11 +44,11 @@ def solve():
     # compute triangle numbers up to maximum word value
     triangle_nums = set()
     i = 0
-    triangle_num = com.triangle_number(i)
+    triangle_num = com.triangular(i)
     while triangle_num <= max_word_value:
         triangle_nums.add(triangle_num)
         i += 1
-        triangle_num = com.triangle_number(i)
+        triangle_num = com.triangular(i)
     
     # count the number of word values that are triangle numbers
     return sum((word_value in triangle_nums) for word_value in word_values)

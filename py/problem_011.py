@@ -45,7 +45,7 @@ INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 
 def solve():
     # read the matrix from the input file
-    matrix = com.numbers_from_file(INPUT_FILE)
+    matrix = com.ints_from_file(INPUT_FILE)
     num_rows = len(matrix)
     num_cols = len(matrix[0])
 

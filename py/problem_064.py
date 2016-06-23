@@ -61,24 +61,6 @@ MAX_N = 10000 # default: 10000
 
 # SOLUTION ####################################################################
 
-def expand(root, addend, denom):
-    """Performs one step in the fractional expansion of the rational value
-    (sqrt(root) + addend)/denom.
-
-    Returns the next term in the expansion, and the newly expanded rational
-    value in the form (root, addend, denom)."""
-
-    # compute newly expanded denominator
-    new_denom = root - addend**2
-    new_denom //= com.gcd(denom, new_denom)
-
-    # extract term and compute new addend
-    term = int((math.sqrt(root) - addend) / new_denom)
-    new_addend = -addend - (term * new_denom)
-
-    return term, (root, new_addend, new_denom)
-
-
 def solve():
     count = 0
 
@@ -87,23 +69,13 @@ def solve():
         if com.is_square(n):
             continue
 
-        # perform the first expansion step
-        root = n
-        addend = -int(math.sqrt(n))
-        denom = 1
-
-        # continue expansion until terms begin to cycle
-        period = 0
-        orig_addend = addend
-        while True:
-            __, (__, addend, denom) = expand(root, addend, denom)
-            period += 1
-
-            # check if next expansion matches first in cycle
-            if addend == orig_addend and denom == 1:
-                if period % 2 == 1:
-                    count += 1
-                break
+        # compute the continued fraction expansion of sqrt(n)
+        a0, block = com.sqrt_fraction_expansion(n)
+        
+        # increment count if expansion has odd period
+        period = len(block)
+        if period % 2 == 1:
+            count += 1
 
     return count
 
