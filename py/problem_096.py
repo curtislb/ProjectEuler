@@ -10,19 +10,19 @@ Squares. The objective of Su Doku puzzles, however, is to replace the blanks
 contains each of the digits 1 to 9. Below is an example of a typical starting
 puzzle grid and its solution grid.
 
-+-------+-------+-------+    +-------+-------+-------+
-| 0 0 3 | 0 2 0 | 6 0 0 |    | 4 8 3 | 9 2 1 | 6 5 7 |
-| 9 0 0 | 3 0 5 | 0 0 1 |    | 9 6 7 | 3 4 5 | 8 2 1 |
-| 0 0 1 | 8 0 6 | 4 0 0 |    | 2 5 1 | 8 7 6 | 4 9 3 |
-+-------+-------+-------+    +-------+-------+-------+
-| 0 0 8 | 1 0 2 | 9 0 0 |    | 5 4 8 | 1 3 2 | 9 7 6 |
-| 7 0 0 | 0 0 0 | 0 0 8 |    | 7 2 9 | 5 6 4 | 1 3 8 |
-| 0 0 6 | 7 0 8 | 2 0 0 |    | 1 3 6 | 7 9 8 | 2 4 5 |
-+-------+-------+-------+    +-------+-------+-------+
-| 0 0 2 | 6 0 9 | 5 0 0 |    | 3 7 2 | 6 8 9 | 5 1 4 |
-| 8 0 0 | 2 0 3 | 0 0 9 |    | 8 1 4 | 2 5 3 | 7 6 9 |
-| 0 0 5 | 0 1 0 | 3 0 0 |    | 6 9 5 | 4 1 7 | 3 8 2 |
-+-------+-------+-------+    +-------+-------+-------+
+    +-------+-------+-------+    +-------+-------+-------+
+    | 0 0 3 | 0 2 0 | 6 0 0 |    | 4 8 3 | 9 2 1 | 6 5 7 |
+    | 9 0 0 | 3 0 5 | 0 0 1 |    | 9 6 7 | 3 4 5 | 8 2 1 |
+    | 0 0 1 | 8 0 6 | 4 0 0 |    | 2 5 1 | 8 7 6 | 4 9 3 |
+    +-------+-------+-------+    +-------+-------+-------+
+    | 0 0 8 | 1 0 2 | 9 0 0 |    | 5 4 8 | 1 3 2 | 9 7 6 |
+    | 7 0 0 | 0 0 0 | 0 0 8 |    | 7 2 9 | 5 6 4 | 1 3 8 |
+    | 0 0 6 | 7 0 8 | 2 0 0 |    | 1 3 6 | 7 9 8 | 2 4 5 |
+    +-------+-------+-------+    +-------+-------+-------+
+    | 0 0 2 | 6 0 9 | 5 0 0 |    | 3 7 2 | 6 8 9 | 5 1 4 |
+    | 8 0 0 | 2 0 3 | 0 0 9 |    | 8 1 4 | 2 5 3 | 7 6 9 |
+    | 0 0 5 | 0 1 0 | 3 0 0 |    | 6 9 5 | 4 1 7 | 3 8 2 |
+    +-------+-------+-------+    +-------+-------+-------+
 
 A well constructed Su Doku puzzle has a unique solution and can be solved by
 logic, although it may be necessary to employ "guess and test" methods in order
@@ -45,108 +45,105 @@ import common as com
 
 # PARAMETERS ##################################################################
 
-INPUT_FILE = '../input/096.txt'
+INPUT_FILE = '../input/096.txt' # default: '../input/096.txt'
 
 # SOLUTION ####################################################################
 
-def read_puzzles(filename):
-    with open(INPUT_FILE) as f:
-        puzzles = []
-        while True:
-            line = f.readline()
-            if line == '':
-                break
-            grid = []
-            for __ in range(9):
-                row = [int(digit) for digit in f.readline().rstrip()]
-                grid.append(row)
-            puzzles.append(grid)
-    return puzzles
+def get_valid_digits(grid, i, j):
+    """Returns a set of all digits that could be placed in cell (i, j) based on
+    the current configuration of grid."""
 
-
-def box_coords(n_box, row, col):
-    i_box, j_box = divmod(n_box, 3)
-    delta_i = (row // 3) * 3
-    delta_j = (col // 3) * 3
-    return (i_box + delta_i, j_box + delta_j)
-
-
-def valid_digits(grid, row, col):
     digits = set(range(1, 10))
-    
-    # 1-9 in row
-    for j in range(9):
-        if j != col:
-            try:
-                digits.remove(grid[row][j])
-            except KeyError:
-                pass
-    
-    # 1-9 in column
-    for i in range(9):
-        if i != row:
-            try:
-                digits.remove(grid[i][col])
-            except KeyError:
-                pass
-    
-    # 1-9 in box
-    for n_box in range(9):
-        i, j = box_coords(n_box, row, col)
-        if (i, j) != (row, col):
-            try:
-                digits.remove(grid[i][j])
-            except KeyError:
-                pass
-            
-    return list(digits)
+
+    # remove digits in same row or column
+    for k in range(9):
+        row_digit = grid[i][k]
+        if row_digit in digits:
+            digits.remove(row_digit)
+
+        col_digit = grid[k][j]
+        if col_digit in digits:
+            digits.remove(col_digit)
+
+    # remove digits in same 3x3 box
+    box_i = (i // 3) * 3
+    box_j = (j // 3) * 3
+    for row in range(box_i, box_i + 3):
+        for col in range(box_j, box_j + 3):
+            box_digit = grid[row][col]
+            if box_digit in digits:
+                digits.remove(box_digit)
+
+    return digits
 
 
-def solve_puzzle(puzzle):
-    grid = [row[:] for row in puzzle]
-    
-    modified = True
-    min_digits = (None, 10)
-    min_square = None
-    while modified:
-        modified = False
+def solve_puzzle(grid):
+    """Solves the puzzle represented by grid and returns the solution grid."""
+
+    # deterministically fill in puzzle grid as much as possible
+    puzzle_changed = True
+    while puzzle_changed:
+        puzzle_changed = False
+        best_count = com.INFINITY
+        best_digits = None
+        best_cell = None
         for i, row in enumerate(grid):
-            for j, square in enumerate(row):
-                if square == 0:
-                    digits = valid_digits(grid, i, j)
-                    num_digits = len(digits)
-                    if num_digits == 0:
-                        return None
-                    elif num_digits == 1:
-                        grid[i][j] = digits[0]
-                        modified = True  
-                    elif num_digits < min_digits[1]:
-                        min_digits = (digits, num_digits)
-                        min_square = (i, j)
-    
-    if min_square is None:
-        return [row[:] for row in grid]
+            for j, digit in enumerate(row):
+                if digit == 0:
+                    digits = get_valid_digits(grid, i, j)
+                    valid_count = len(digits)
+                    if valid_count == 0:
+                        # no possible solutions
+                        return False
+                    elif valid_count == 1:
+                        # only one valid digit; fill it in
+                        grid[i][j] = list(digits)[0]
+                        puzzle_changed = True
+                    elif valid_count < best_count:
+                        # keep track of cell with fewest valid digits
+                        best_count = valid_count
+                        best_digits = digits
+                        best_cell = (i, j)
+
+    # solve puzzle recursively and return solution grid
+    if best_digits is None:
+        # puzzle is already solved
+        return grid
     else:
-        i, j = min_square
-        for digit in min_digits[0]:
-            grid[i][j] = digit
-            soln = solve_puzzle(grid)
-            if soln is not None:
-                return [row[:] for row in soln]
-        return None
+        # try each valid digit for cell with fewest possible
+        i, j = best_cell
+        for digit in best_digits:
+            grid_copy = [row[:] for row in grid]
+            grid_copy[i][j] = digit
+            solved = solve_puzzle(grid_copy)
+            if solved:
+                return solved
+    
+    # no possible solutions
+    return False
+
+
+def solve():
+    # read intial puzzle grids from input file
+    grids = []
+    with open(INPUT_FILE) as f:
+        while f.readline():
+            grid = []
+            for i in range(9):
+                line = f.readline().strip()
+                row = [int(c) for c in line]
+                grid.append(row)
+
+            grids.append(grid)
+
+    # solve each puzzle and sum top-left values
+    total = 0
+    for grid in grids:
+        solved = solve_puzzle(grid)
+        total += int(''.join(map(str, solved[0][:3])))
+
+    return total
 
 
 if __name__ == '__main__':
-    puzzles = read_puzzles(INPUT_FILE)
-    total = 0
-    for puzzle in puzzles[40:41]:
-        grid = solve_puzzle(puzzle)
-        
-#         for row in puzzle:
-#             print(row)
-#         print()
-        for row in grid:
-            print(row)
-        
-        total += com.concat_digits((grid[0][0], grid[0][1], grid[0][2]))
-    print(total)
+    print(solve())

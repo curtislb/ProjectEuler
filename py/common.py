@@ -1,6 +1,6 @@
 """common.py
 
-Common utility functions and classes for various Project Euler problems.
+Common utility vars, functions, and classes for various Project Euler problems.
 
 Author: Curtis Belmonte
 """
@@ -371,6 +371,20 @@ class Graph(object):
         self._assert_node(dest)
 
         return dest in self._adj[source]
+
+
+    def update_edge(self, source, dest, weight):
+        """Updates the weight of edge (source, dest) in the graph."""
+
+        self._assert_node(source)
+        self._assert_node(dest)
+
+        if dest not in self._adj[source]:
+            raise ValueError(
+                'Edge ({}, {}) not in graph'.format(source, dest)
+            )
+
+        self._adj[source][dest] = weight
 
 
     def neighbors(self, label):
