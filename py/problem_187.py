@@ -14,8 +14,6 @@ distinct, prime factors?
 Author: Curtis Belmonte
 """
 
-import math
-
 import common as com
 
 # PARAMETERS ##################################################################
@@ -25,9 +23,11 @@ LIMIT = 10**8 # default: 10**8
 # SOLUTION ####################################################################
 
 def solve():
+    # compute all possible prime factors
     primes = com.primes_up_to((LIMIT - 1) // 2)
     num_primes = len(primes)
 
+    # count all pairs of factors whose product is less than limit
     count = 0
     for i in range(num_primes):
         a = primes[i]
