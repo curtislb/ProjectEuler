@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_102.py
 
 Problem 102: Triangle containment

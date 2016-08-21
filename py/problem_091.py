@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_091.py
 
 Problem 91: Right triangles with integer coordinates

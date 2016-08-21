@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_029.py
 
 Problem 29: Distinct powers

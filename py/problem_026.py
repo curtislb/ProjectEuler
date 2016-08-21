@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_026.py
 
 Problem 26: Reciprocal cycles

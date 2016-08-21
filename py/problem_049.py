@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_049.py
 
 Problem 49: Prime permutations

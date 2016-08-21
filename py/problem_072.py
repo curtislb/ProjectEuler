@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_072.py
 
 Problem 72: Counting fractions

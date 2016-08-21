@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_031.py
 
 Problem 31: Coin sums

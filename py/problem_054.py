@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_054.py
 
 Problem 54: Poker hands

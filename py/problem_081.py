@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_081.py
 
 Problem 81: Path sum: two ways

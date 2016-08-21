@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_050.py
 
 Problem 50: Consecutive prime sum

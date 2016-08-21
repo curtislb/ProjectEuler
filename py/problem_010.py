@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_010.py
 
 Problem 10: Summation of primes

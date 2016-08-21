@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_006.py
 
 Problem 6: Sum square difference

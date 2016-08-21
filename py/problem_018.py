@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_018.py
 
 Problem 18: Maximum path sum I

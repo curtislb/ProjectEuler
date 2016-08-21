@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_096.py
 
 Problem 96: Su Doku

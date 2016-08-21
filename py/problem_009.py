@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_009.py
 
 Problem 9: Special Pythagorean triplet

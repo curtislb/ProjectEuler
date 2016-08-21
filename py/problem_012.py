@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_012.py
 
 Problem 12: Highly divisible triangular number

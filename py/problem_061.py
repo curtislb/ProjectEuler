@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_061.py
 
 Problem 61: Cyclical figurate numbers

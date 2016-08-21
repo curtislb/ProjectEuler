@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_076.py
 
 Problem 76: Counting summations

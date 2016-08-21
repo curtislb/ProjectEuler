@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_075.py
 
 Problem 75: Singular integer right triangles

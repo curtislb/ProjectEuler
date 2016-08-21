@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_058.py
 
 Problem 58: Spiral primes

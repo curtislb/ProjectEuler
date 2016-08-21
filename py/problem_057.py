@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_057.py
 
 Problem 57: Square root convergents

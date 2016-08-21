@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_040.py
 
 Problem 40: Champernowne's constant

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_016.py
 
 Problem 16: Power digit sum

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_070.py
 
 Problem 70: Totient permutation

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_015.py
 
 Problem 15: Lattice paths

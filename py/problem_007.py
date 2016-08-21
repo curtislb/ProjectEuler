@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_007.py
 
 Problem 7: 10001st prime

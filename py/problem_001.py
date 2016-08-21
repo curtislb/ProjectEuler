@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_001.py
 
 Problem 1: Multiples of 3 and 5

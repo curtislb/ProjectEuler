@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_021.py
 
 Problem 21: Amicable numbers

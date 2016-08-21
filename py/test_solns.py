@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """test_solns.py
 
 Module for testing the correctness and runtime of problem solutions.

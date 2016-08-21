@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_019.py
 
 Problem 19: Counting Sundays

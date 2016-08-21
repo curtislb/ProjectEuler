@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_048.py
 
 Problem 48: Self powers

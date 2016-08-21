@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_148.py
 
 Problem 148: Exploring Pascal's triangle

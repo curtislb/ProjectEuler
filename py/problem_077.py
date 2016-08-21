@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_077.py
 
 Problem 77: Prime summations

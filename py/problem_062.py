@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_062.py
 
 Problem 62: Cubic permutations

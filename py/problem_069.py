@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_069.py
 
 Problem 69: Totient maximum

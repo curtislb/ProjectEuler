@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_024.py
 
 Problem 24: Lexicographic permutations

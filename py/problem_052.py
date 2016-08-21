@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_052.py
 
 Problem 52: Permuted multiples

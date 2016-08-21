@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_035.py
 
 Problem 35: Circular primes

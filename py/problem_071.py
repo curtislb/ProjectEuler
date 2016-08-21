@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_071.py
 
 Problem 71: Ordered fractions

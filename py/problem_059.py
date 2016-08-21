@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_059.py
 
 Problem 59: XOR decryption

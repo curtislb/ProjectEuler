@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_055.py
 
 Problem 55: Lychrel numbers

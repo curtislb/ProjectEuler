@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_005.py
 
 Problem 5: Smallest multiple

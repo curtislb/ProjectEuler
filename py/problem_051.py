@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_051.py
 
 Problem 51: Prime digit replacements

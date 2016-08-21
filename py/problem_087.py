@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_087.py
 
 Problem 87: Prime power triples

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_060.py
 
 Problem 60: Prime pair sets

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_025.py
 
 Problem 25: 1000-digit Fibonacci number

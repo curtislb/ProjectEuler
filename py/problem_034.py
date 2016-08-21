@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_034.py
 
 Problem 34: Digit factorials

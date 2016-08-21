@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_042.py
 
 Problem 42: Coded triangle numbers

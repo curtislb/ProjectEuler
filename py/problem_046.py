@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_046.py
 
 Problem 46: Goldbach's other conjecture

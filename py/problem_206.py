@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_206.py
 Problem 206: Concealed Square
 Find the unique positive integer whose square has the form 1_2_3_4_5_6_7_8_9_0,

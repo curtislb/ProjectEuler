@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_022.py
 
 Problem 22: Names scores

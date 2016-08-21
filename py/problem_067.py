@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_067.py
 
 Problem 67: Maximum path sum II

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_027.py
 
 Problem 27: Quadratic primes

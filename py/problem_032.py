@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_032.py
 
 Problem 32: Pandigital products

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_092.py
 
 Problem 92: Square digit chains

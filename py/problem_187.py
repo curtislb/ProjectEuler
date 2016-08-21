@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_187.py
 
 Problem 187: Semiprimes

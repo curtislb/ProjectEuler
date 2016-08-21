@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_493.py
 
 Problem 493: Under The Rainbow

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_043.py
 
 Problem 43: Sub-string divisibility

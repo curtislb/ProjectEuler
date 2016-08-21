@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_104.py
 
 Problem 104: Pandigital Fibonacci ends

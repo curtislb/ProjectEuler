@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_074.py
 
 Problem 74: Digit factorial chains

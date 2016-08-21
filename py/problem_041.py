@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_041.py
 
 Problem 41: Pandigital prime

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_002.py
 
 Problem 2: Even Fibonacci numbers

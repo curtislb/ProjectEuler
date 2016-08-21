@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_004.py
 
 Problem 4: Largest palindrome product

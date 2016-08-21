@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_037.py
 
 Problem 37: Truncatable primes

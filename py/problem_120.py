@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_120.py
 
 Problem 120: Square remainders

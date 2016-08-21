@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_039.py
 
 Problem 39: Integer right triangles

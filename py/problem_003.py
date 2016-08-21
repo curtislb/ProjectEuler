@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_003.py
 
 Problem 3: Largest prime factor

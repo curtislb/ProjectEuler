@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_047.py
 
 Problem 47: Distinct primes factors

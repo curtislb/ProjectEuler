@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """common.py
 
 Common utility vars, functions, and classes for various Project Euler problems.

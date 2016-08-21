@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_066.py
 
 Problem 66: Diophantine equation

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_073.py
 
 Problem 73: Counting fractions in a range

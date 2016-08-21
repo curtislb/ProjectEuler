@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_125.py
 
 Problem 125: 

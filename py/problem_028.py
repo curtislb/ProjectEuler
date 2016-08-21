@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_028.py
 
 Problem 28: Number spiral diagonals

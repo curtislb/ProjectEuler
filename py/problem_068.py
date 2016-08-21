@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_068.py
 
 Problem 68: Magic 5-gon ring

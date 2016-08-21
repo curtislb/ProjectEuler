@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_064.py
 
 Problem 64: Odd period square roots

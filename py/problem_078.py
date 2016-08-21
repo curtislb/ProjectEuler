@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_078.py
 
 Problem 78: Coin partitions

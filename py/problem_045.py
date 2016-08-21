@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_045.py
 
 Problem 45: Triangular, pentagonal, and hexagonal

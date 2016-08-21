@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_056.py
 
 Problem 56: Powerful digit sum

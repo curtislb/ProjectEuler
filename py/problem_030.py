@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_030.py
 
 Problem 30: Digit fifth powers

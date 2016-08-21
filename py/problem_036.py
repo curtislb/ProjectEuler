@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_036.py
 
 Problem 36: Double-base palindromes

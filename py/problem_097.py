@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_097.py
 
 Problem 97: Large non-Mersenne prime

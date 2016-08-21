@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_008.py
 
 Problem 8: Largest product in a series

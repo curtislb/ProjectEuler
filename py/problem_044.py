@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """problem_044.py
 
 Problem 44: Pentagon numbers
