@@ -27,7 +27,7 @@ def solve():
     primes = com.primes_up_to((LIMIT - 1) // 2)
     num_primes = len(primes)
 
-    # count all pairs of factors whose product is less than limit
+    # count all pairs of factors whose product is less than LIMIT
     count = 0
     for i in range(num_primes):
         a = primes[i]
@@ -41,5 +41,5 @@ def solve():
     return count
 
 
-if __name__ == '__main__' :
+if __name__ == '__main__':
     print(solve())
