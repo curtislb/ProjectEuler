@@ -1327,6 +1327,20 @@ def primes_up_to(n):
     return _prime_sequence[:i]
 
 
+def radical(n):
+    """Returns the product of the distinct prime factors of n."""
+
+    # find the distinct prime factors of n
+    factors = [factor[0] for factor in prime_factorization(n)]
+
+    # multiply factors to find their product
+    product = 1
+    for p in factors:
+        product *= p
+
+    return product
+
+
 def run_thread(function, stack_size=128*(10**6), recursion_limit=2**20):
     """Runs function in a new thread with stack size stack_size and maximum
     recursion depth recursion_limit."""
