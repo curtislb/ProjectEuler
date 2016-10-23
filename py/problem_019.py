@@ -34,18 +34,18 @@ DAY_OF_WEEK = com.Day.SUNDAY # default: com.Day.SUNDAY
 
 # Number of days in each month
 month_day_counts = [
-    31 # January
-  , 28 # February (non-leap year)
-  , 31 # March
-  , 30 # April
-  , 31 # May
-  , 30 # June
-  , 31 # July
-  , 31 # August
-  , 30 # September
-  , 31 # October
-  , 30 # November
-  , 31 # December
+  31, # January
+  28, # February (non-leap year)
+  31, # March
+  30, # April
+  31, # May
+  30, # June
+  31, # July
+  31, # August
+  30, # September
+  31, # October
+  30, # November
+  31, # December
 ]
 
 # Additional useful constants
