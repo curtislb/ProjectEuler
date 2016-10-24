@@ -1071,6 +1071,11 @@ def is_square(n):
     return lo_power == n or hi_power == n
 
 
+def is_triangular(n):
+    """Determines if the natural number n is a triangle number."""
+    return is_square(8*n + 1)
+
+
 def lcm(m, n):
     """Returns the least common multiple of the natural numbers m and n."""
     return m * n // gcd(m, n)
