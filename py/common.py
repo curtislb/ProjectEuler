@@ -1332,6 +1332,19 @@ def primes_up_to(n):
     return _prime_sequence[:i]
 
 
+def quadratic_roots(a, b, c):
+    """Finds all roots of the equation a*x^2 + b*x + c = 0, where a != 0.
+
+    Returns a tuple (x0, x1), where x0 and x1 are solutions for x in the above
+    equation and x0 <= x1, assuming a natural ordering. Note that x0 and x1 may
+    each contain an imaginary part if no corresponding real solution exists."""
+    
+    denom = 2*a
+    axis = -b / denom
+    delta = (b**2 - 4*a*c)**0.5 / denom
+    return (axis - delta), (axis + delta)
+
+
 def radical(n):
     """Returns the product of the distinct prime factors of n."""
 

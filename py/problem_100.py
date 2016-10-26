@@ -31,21 +31,29 @@ def b(n):
     """Returns the nth natural number solution for b in the Diophantine
     equation 2b*(b-1) = a*(a-1)."""
 
-    if n == 1:
-        return 1
-
-    if n == 2:
-        return 3
+    if n < 3:
+        return 3 if n == 2 else 1 # if n == 1
 
     return 6*b(n - 1) - b(n - 2) - 2
 
 
+def total_discs(blue_discs):
+    """Returns the number of discs in total for an arrangement with the given
+    number of blue discs."""
+    return com.quadratic_roots(1, -1, -2*blue_discs*(blue_discs - 1))[1]
+
+
 def solve():
-    # Reducing gives 2B*(B-1) = T*(T-1), where B = (# blue) and T = (total #)
+    # search for first b in 2b*(b-1) = t*(t-1), such that t > MIN_DISCS
     n = 1
-    while b(n) < MIN_DISCS:
+    blue = b(n)
+    total = total_discs(blue)
+    while total <= MIN_DISCS:
         n += 1
-    return b(n - 1)
+        blue = b(n)
+        total = total_discs(blue)
+
+    return blue
 
 
 if __name__ == '__main__':
