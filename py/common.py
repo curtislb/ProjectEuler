@@ -15,8 +15,6 @@ import math
 import sys
 import threading
 
-from fractions import Fraction
-
 # PRIVATE VARIABLES ###########################################################
 
 # Currently computed factorial terms (in sorted order)
@@ -29,6 +27,35 @@ _fibonacci_sequence = [1, 1]
 _prime_sequence = [2]
 
 # PRIVATE FUNCTIONS ###########################################################
+
+def _compute_chain_length(lengths, n, incr, is_valid, invalid_set, terms=None):
+    """Recursive helper function for compute_chain_lengths that updates lengths
+    with appropriate chain lengths starting from n."""
+
+    if terms is None:
+        terms = {}
+    
+    # if chain is invalid, mark all terms accordingly
+    if not is_valid(n) or n in invalid_set or n in lengths:
+        for term in terms:
+            invalid_set.add(term)
+
+    # if completed chain, set length for all terms in it and invalidate others
+    elif n in terms:
+        index = terms[n]
+        length = len(terms) - index
+        for term, i in terms.items():
+            if i < index:
+                invalid_set.add(term)
+            else:
+                lengths[term] = length
+
+    # otherwise, continue building the current chain
+    else:
+        terms[n] = len(terms)
+        _compute_chain_length(lengths, incr(n), incr, is_valid, invalid_set,
+            terms)
+
 
 def _compute_factorial(n):
     """Precomputes and stores the factorial terms up to n!."""
@@ -675,8 +702,22 @@ def combination_sums(total, terms):
     return combos[total]
 
 
+def compute_chain_lengths(lengths, values, increment, is_valid=lambda x: True):
+    """Populates lengths with chain lengths starting from each term in values.
+
+    lengths    the dict to be populated, mapping each term to its chain length
+    values     all valid starting terms for a chain
+    increment  for any term n, increment(n) gives the next term in the chain
+    is_valid   is_valid(n) returns True iff n is a valid chain member
+    """
+    
+    invalid_set = set()
+    for n in values:
+        _compute_chain_length(lengths, n, increment, is_valid, invalid_set)
+
+
 def concat_digits(digits, base=10):
-    """Return the integer that results from concatenating digits in order."""
+    """Returns the integer that results from concatenating digits in order."""
     return int(''.join([str(d) for d in digits]), base)
 
 
