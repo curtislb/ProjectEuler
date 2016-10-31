@@ -83,7 +83,7 @@ def solve():
 
     # count number of chains of the correct length
     total = 0
-    for __, length in chain_lengths.items():
+    for length in chain_lengths.values():
         if length == TARGET_LEN:
             total += 1
 

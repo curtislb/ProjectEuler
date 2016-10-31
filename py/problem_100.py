@@ -38,8 +38,8 @@ def b(n):
 
 
 def total_discs(blue_discs):
-    """Returns the number of discs in total for an arrangement with the given
-    number of blue discs."""
+    """Returns the number of discs in total for a valid arrangement with the
+    given number of blue discs."""
     return com.quadratic_roots(1, -1, -2*blue_discs*(blue_discs - 1))[1]
 
 

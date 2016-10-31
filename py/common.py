@@ -15,6 +15,8 @@ import math
 import sys
 import threading
 
+from fractions import Fraction
+
 # PRIVATE VARIABLES ###########################################################
 
 # Currently computed factorial terms (in sorted order)
@@ -1339,10 +1341,10 @@ def quadratic_roots(a, b, c):
     equation and x0 <= x1, assuming a natural ordering. Note that x0 and x1 may
     each contain an imaginary part if no corresponding real solution exists."""
     
+    axis = -b
+    delta = (b**2 - 4*a*c)**0.5
     denom = 2*a
-    axis = -b / denom
-    delta = (b**2 - 4*a*c)**0.5 / denom
-    return (axis - delta), (axis + delta)
+    return (axis - delta)/denom, (axis + delta)/denom
 
 
 def radical(n):

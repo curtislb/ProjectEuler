@@ -32,23 +32,8 @@ LIMIT = 10**7 # default: 10**7
 squares = [n*n for n in range(10)]
 
 chains_to_89 = {
-    # 44 -> 32 -> 13 -> 10 -> 1 (-> 1)
-    44: False,
-    32: False,
-    13: False,
-    10: False,
     1: False,
-
-    # 85 -> 89 -> 145 -> 42 -> 20 -> 4 -> 16 -> 37 -> 58 (-> 89)
-    85: True,
     89: True,
-    145: True,
-    42: True,
-    20: True,
-    4: True,
-    16: True,
-    37: True,
-    58: True,
 }
 
 
