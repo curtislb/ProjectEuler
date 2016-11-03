@@ -997,6 +997,41 @@ def ints_from_file(input_file, sep=' '):
         return matrix
 
 
+def is_bouncy(n):
+    """Determines if the natural number n is a bouncy number.
+
+    A number is bouncy iff its digits are in neither non-decreasing or
+    non-increasing order. That is, they increase and then decrease, or decrease
+    and then increase."""
+
+    n_digits = digits(n)
+    max_index = len(n_digits) - 1
+
+    # search for first increasing or decreasing consecutive digit pair
+    i = 0
+    while i < max_index and n_digits[i] == n_digits[i + 1]:
+        i += 1
+
+    # if all digit pairs are equal, number is not bouncy
+    if i == max_index:
+        return False
+
+    # check whether first non-equal pair is increasing or decreasing
+    increasing = n_digits[i] < n_digits[i + 1]
+
+    # determine if subsequent pairs are also increasing/decreasing
+    i += 1
+    while i < max_index:
+        # if order is reversed, the number is bouncy
+        if (increasing and n_digits[i] > n_digits[i + 1]
+            or not increasing and n_digits[i] < n_digits[i + 1]):
+            return True
+        i += 1
+
+    # number is increasing or decreasing
+    return False
+
+
 def is_coprime_pair(n, m):
     """Determines if the natural numbers n and m are relatively prime."""
     return gcd(n, m) == 1
