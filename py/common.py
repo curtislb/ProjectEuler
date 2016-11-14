@@ -12,8 +12,11 @@ import functools
 import heapq
 import itertools
 import math
+import random
 import sys
 import threading
+
+from fractions import Fraction
 
 # PRIVATE VARIABLES ###########################################################
 
@@ -334,6 +337,165 @@ class Card(object):
             return False
         else:
             return self.suit < other.suit
+
+
+class GameBoard(object):
+    """Class representing a game board with a cyclical sequence of spaces.
+
+    This class supports defining a set of types that are assigned to the spaces
+    in the board. It also allows rules to be specified for each space type that
+    give some probability of ending a turn on a different space than the one
+    which was landed on."""
+
+    class Space(object):
+        """Class representing a space on the board, with a type and number."""
+
+        def __init__(self, space_type, number):
+            self.type = space_type
+            self.number = number
+
+        def __str__(self):
+            return '{0}{1}'.format(self.type, self.number)
+
+        def __repr__(self):
+            return self.__str__()
+
+        def __eq__(self, other):
+            if isinstance(other, self.__class__):
+                return self.type == other.type and self.number == other.number
+            return False
+
+        def __ne__(self, other):
+            return not self.__eq__(other)
+
+        def __hash__(self):
+            return hash((self.type, self.number))
+
+
+    def __init__(self, space_type_map, move_rules):
+        self._space_list = GameBoard._make_space_list(space_type_map)
+        self._move_probs = GameBoard._make_move_probs(
+            move_rules,
+            self._space_list
+        )
+
+
+    @staticmethod
+    def _make_space_list(space_type_map):
+        """Contructs an ordered list of board spaces, from a map of space types
+        to their positions on the board."""
+
+        # allocate the list of spaces
+        num_spaces = sum(len(indices) for indices in space_type_map.values())
+        space_list = [None] * num_spaces
+
+        # create spaces and assign them to their board positions
+        for space_type, indices in space_type_map.items():
+            for i, index in enumerate(indices):
+                space_list[index] = GameBoard.Space(space_type, i + 1)
+
+        return space_list
+
+
+    @staticmethod
+    def _make_move_probs(move_rules, space_list):
+        """Constructs an ordered list of move probabilities from each space.
+
+        move_rules  Maps space types to the probability of ending up on a
+                    different space after landing on them. Each string space
+                    type maps to another dict, mapping rules to probabilities.
+                    See GameBoard._get_rule_dest for a description of all valid
+                    rule types.
+
+        space_list  An ordered list of all spaces on the board.
+        """
+
+        move_probs = []
+        space_map = inverse_index_map(space_list)
+
+        for position, space in enumerate(space_list):
+            # if no rules specified, player always ends on this space
+            if space.type not in move_rules:
+                move_probs.append({position: 1})
+                continue
+            
+            # convert rules to positions and assign probabilities to them
+            space_probs = collections.defaultdict(int)
+            rule_probs = move_rules[space.type]
+            total_prob = 0
+            for rule, prob in rule_probs.items():
+                rule_dest = GameBoard._get_rule_dest(
+                    rule,
+                    position,
+                    space_list,
+                    space_map
+                )
+                space_probs[rule_dest] += prob
+                total_prob += prob
+
+            # player ends on this space with remaining probability
+            if total_prob < 1:
+                space_probs[position] += 1 - total_prob
+
+            move_probs.append(space_probs)
+
+        return move_probs
+
+
+    @staticmethod
+    def _get_rule_dest(rule, position, space_list, space_map):
+        """Returns the position that corresponds to a given rule.
+
+        rule        The rule specifying a space that a player could move to.
+                    Its type should be one of:
+                    1. (str, int): player should move to the specified space
+                    2. str: player should move to the next space of this type
+                    3. int: player should move forward this many spaces
+
+        position    The player's current position on the board
+        
+        space_list  An ordered list of all spaces on the board
+
+        space_map   A dict mapping each space to its position on the board
+        """
+
+        if isinstance(rule, tuple):
+            return space_map[GameBoard.Space(rule[0], rule[1])]
+
+        num_spaces = len(space_list)
+
+        if isinstance(rule, int):
+            return (position + rule) % num_spaces
+
+        if isinstance(rule, str):
+            position = (position + 1) % num_spaces
+            while space_list[position].type != rule:
+                position = (position + 1) % num_spaces
+            return position
+
+        raise ValueError('Rule {0} of type {1} is invalid'.format(
+            rule,
+            type(rule)
+        ))
+
+
+    def move(self, start, spaces):
+        """Simulates moving the given number of spaces forward from position
+        start and returns the position that the player lands on, after
+        probabilistically applying any applicable move rules."""
+
+        # find where player would end before applying move rules
+        target = (start + spaces) % len(self._space_list)
+
+        # create lists for each possible end position and its probability
+        dests = []
+        probs = []
+        for dest, prob in self._move_probs[target].items():
+            dests.append(dest)
+            probs.append(prob)
+
+        # choose end position probabilistically
+        return choose_weighted_random(dests, probs)
 
 
 class Graph(object):
@@ -682,6 +844,24 @@ def choose(n, k):
     return permute(n, k) // factorial(k)
 
 
+def choose_weighted_random(values, probs):
+    """Returns a value at random from values, weighted by probs.
+
+    Note: The sum of values in probs must equal 1."""
+
+    # generate a random float in [0, 1)
+    x = random.random()
+
+    # search for corresponding index in values
+    i = 0
+    cum_prob = probs[0]
+    while x > cum_prob:
+        i += 1
+        cum_prob += probs[i]
+
+    return values[i]
+
+
 def collatz_step(n):
     """Returns the next number in the Collatz sequence following n."""
     return n // 2 if n % 2 == 0 else 3 * n + 1
@@ -815,6 +995,16 @@ def cumulative_partial_sum(nums, limit=INFINITY):
         sums.append(total)
 
     return sums
+
+
+def dice_probability(x, n=2, s=6):
+    """Returns the probability of rolling a value of x with n s-sided dice."""
+    
+    outcomes = 0
+    for k in range((x - n)//s + 1):
+        outcomes += (-1)**k * choose(n, k) * choose(x - s*k - 1, n - 1)
+    
+    return Fraction(outcomes, s**n)
 
 
 def digit_counts(n):
@@ -995,6 +1185,19 @@ def ints_from_file(input_file, sep=' '):
             matrix.append(row)
     
         return matrix
+
+
+def inverse_index_map(values, distinct=True):
+    inverse_map = {} if distinct else collections.defaultdict(list)
+
+    if distinct:
+        for i, value in enumerate(values):
+            inverse_map[value] = i
+    else:
+        for i, value in enumerate(values):
+            inverse_map[value].append(i)
+
+    return inverse_map
 
 
 def is_bouncy(n):
