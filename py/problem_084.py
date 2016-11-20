@@ -140,10 +140,11 @@ def solve():
     board = com.GameBoard(space_type_map, move_rules)
 
     # precompute possible roll values and their probabilities
-    roll_values = list(range(NUM_DICE, NUM_DICE*NUM_SIDES + 1))
+    roll_values = []
     roll_probs = []
-    for x in roll_values:
-        roll_probs.append(com.dice_probability(x, NUM_DICE, NUM_SIDES))
+    for roll in range(NUM_DICE, NUM_DICE*NUM_SIDES + 1):
+        roll_values.append(roll)
+        roll_probs.append(com.dice_probability(roll, NUM_DICE, NUM_SIDES))
     
     # simulate many moves, keeping track of most popular spaces
     counts = collections.Counter()

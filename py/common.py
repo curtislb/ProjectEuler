@@ -459,20 +459,24 @@ class GameBoard(object):
         space_map   A dict mapping each space to its position on the board
         """
 
+        # check if rule is tuple, indicating a particular space
         if isinstance(rule, tuple):
-            return space_map[GameBoard.Space(rule[0], rule[1])]
+            return space_map[GameBoard.Space(*rule)]
 
         num_spaces = len(space_list)
 
-        if isinstance(rule, int):
-            return (position + rule) % num_spaces
-
+        # check if rule is str, indicating next space of given type
         if isinstance(rule, str):
             position = (position + 1) % num_spaces
             while space_list[position].type != rule:
                 position = (position + 1) % num_spaces
             return position
 
+        # check if rule is int, indicating relative movement
+        if isinstance(rule, int):
+            return (position + rule) % num_spaces
+
+        # received invalid rule type
         raise ValueError('Rule {0} of type {1} is invalid'.format(
             rule,
             type(rule)
