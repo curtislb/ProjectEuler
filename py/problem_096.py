@@ -43,6 +43,8 @@ in the top left corner of the solution grid above.
 Author: Curtis Belmonte
 """
 
+import copy
+
 import common as com
 
 # PARAMETERS ##################################################################
@@ -115,7 +117,7 @@ def solve_puzzle(grid):
         # try each valid digit for cell with fewest possible
         i, j = best_cell
         for digit in best_digits:
-            grid_copy = [row[:] for row in grid]
+            grid_copy = copy.deepcopy(grid)
             grid_copy[i][j] = digit
             solved = solve_puzzle(grid_copy)
             if solved:

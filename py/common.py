@@ -8,6 +8,7 @@ Author: Curtis Belmonte
 """
 
 import collections
+import copy
 import functools
 import heapq
 import itertools
@@ -142,6 +143,73 @@ def _compute_primes_up_to(n):
             _prime_sequence.append(rho)
             for j in range(rho*rho - prime_max - 1, sieve_size, rho):
                 sieve[j] = False
+
+
+def _try_assign_zeros(matrix):
+    """Returns a list of all unambiguous (row, col) assignments for zero values
+    in matrix, such that no row or column is repeated."""
+
+    n = len(matrix)
+    row_assignments = [None] * n
+    col_assignments = [None] * n
+
+    # assign zeros until no more obvious assignments are possible
+    count = -1
+    prev_count = 0
+    while count < n and count != prev_count:
+        prev_count = count
+
+        # assign each row with one unassigned zero
+        for i, row in enumerate(matrix):
+            # check if row already has assignment
+            if row_assignments[i] is not None:
+                continue
+
+            # search for unassigned zeros in row
+            zero_pos = None
+            for j, value in enumerate(row):
+                if col_assignments[j] is None and value == 0:
+                    if zero_pos is None:
+                        zero_pos = j
+                    else:
+                        zero_pos = None
+                        break
+
+            # assign if only unassigned zero in row
+            if zero_pos is not None:
+                row_assignments[i] = zero_pos
+                col_assignments[zero_pos] = i
+                count += 1
+
+        # assign each column with one unassigned zero
+        for j in range(n):
+            # check if column already has assignment
+            if col_assignments[j] is not None:
+                continue
+
+            # search for unassigned zeros in column
+            zero_pos = None
+            for i in range(n):
+                value = matrix[i][j]
+                if row_assignments[i] is None and value == 0:
+                    if zero_pos is None:
+                        zero_pos = i
+                    else:
+                        zero_pos = None
+                        break
+
+            # assign if only unassigned zero in column
+            if zero_pos is not None:
+                row_assignments[zero_pos] = j
+                col_assignments[j] = zero_pos
+                count += 1
+
+    # convert to and return (row, col) assignment pairs
+    assignments = []
+    for i, j in enumerate(row_assignments):
+        if j is not None:
+            assignments.append((i, j))
+    return assignments
 
 # PUBLIC CONSTANTS ############################################################
 
@@ -1520,6 +1588,62 @@ def max_triangle_path(triangle):
     # return maximal sum accumulated in last row of triangle
     return max(triangle[-1])
 
+def minimum_line_cover(matrix):
+    """Returns a list of the fewest lines needed to cover all zeros in matrix.
+
+    Lines are given in the format (is_vertical, i), where is_vertical is a
+    boolean indicating whether the line is oriented vertically, and i is the
+    index of the row (if is_vertical = False) or column (if is_vertical = True)
+    in the matrix that would be covered by this line.
+    """
+
+    # assign as many (row, col) pairs with zeros as possible
+    assignments = _try_assign_zeros(matrix)
+
+    # if all zeros assigned, n lines are needed
+    n = len(matrix)
+    if len(assignments) == n:
+        return [(False, i) for i in range(n)]
+
+    # convert to row assignment array
+    row_assignments = [None] * n
+    for i, j in assignments:
+        row_assignments[i] = j
+
+    # mark all unassigned rows
+    row_marked = [False] * n
+    col_marked = [False] * n
+    new_marked_rows = []
+    for i, assigned_col in enumerate(row_assignments):
+        if assigned_col is None:
+            row_marked[i] = True
+            new_marked_rows.append(i)
+
+    while new_marked_rows:
+        # mark all unmarked columns with zeros in newly marked rows
+        for i in new_marked_rows:
+            for j in range(n):
+                if not col_marked[j] and matrix[i][j] == 0:
+                    col_marked[j] = True
+
+        # mark all unmarked rows with assigned zeros in marked columns
+        new_marked_rows = []
+        for i in range(n):
+            if not row_marked[i] and col_marked[row_assignments[i]]:
+                row_marked[i] = True
+                new_marked_rows.append(i)
+
+    # cover all unmarked rows and marked columns
+    lines = []
+    for i, marked in enumerate(row_marked):
+        if not marked:
+            lines.append((False, i))
+    for j, marked in enumerate(col_marked):
+        if marked:
+            lines.append((True, j))
+
+    return lines
+
 
 def mod_multiply(n, m, mod):
     """Returns the the product of natural numbers n and m modulo mod."""
@@ -1529,6 +1653,71 @@ def mod_multiply(n, m, mod):
 def next_multiple(n, min_val):
     """Returns the next multiple of the natural number n >= min_val."""
     return min_val + ((n - (min_val % n)) % n)
+
+
+def optimal_assignment(cost_matrix):
+    """Assigns each row to a column of cost_matrix so that the sum of the
+    cost values in the assigned positions is minimized.
+
+    Returns a list of matrix coordinates in the format (row, col).
+    """
+
+    n = len(cost_matrix)
+
+    # make a deep copy so we don't change the input matrix
+    cost_matrix = copy.deepcopy(cost_matrix)
+
+    # Step 1: subtract the minimum element from each row
+    for i, row in enumerate(cost_matrix):
+        min_value = min(row)
+        for j in range(n):
+            cost_matrix[i][j] -= min_value
+
+    # Step 2: subtract the minimum element from each column
+    for j in range(n):
+        col = [cost_matrix[i][j] for i in range(n)]
+        min_value = min(col)
+        for i in range(n):
+            cost_matrix[i][j] -= min_value
+
+    # Step 3: cover zeros with minimum number of lines
+    lines = minimum_line_cover(cost_matrix)
+
+    # Step 4: subtract min uncovered from all uncovered & add to double-covered
+    while len(lines) < n:
+        # find rows and columns covered by lines
+        covered_rows = set()
+        covered_cols = set()
+        for is_vertical, index in lines:
+            if is_vertical:
+                covered_cols.add(index)
+            else:
+                covered_rows.add(index)
+
+        # search for min uncovered value
+        min_value = INFINITY
+        for i, row in enumerate(cost_matrix):
+            if i in covered_rows:
+                continue
+            for j, value in enumerate(row):
+                if j in covered_cols:
+                    continue
+                if value < min_value:
+                    min_value = value
+
+        # subtract and add min value to matrix entries as needed
+        for i in range(n):
+            for j in range(n):
+                if i not in covered_rows and j not in covered_cols:
+                    cost_matrix[i][j] -= min_value
+                elif i in covered_rows and j in covered_cols:
+                    cost_matrix[i][j] += min_value
+
+        # repeat steps 3-4 until n lines are needed to cover zeros
+        lines = minimum_line_cover(cost_matrix)
+
+    # now that a total assignment exists, find and return it
+    return _try_assign_zeros(cost_matrix)
 
 
 def pandigital_string(first=0, last=9):
