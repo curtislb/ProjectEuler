@@ -149,67 +149,45 @@ def _try_assign_zeros(matrix):
     """Returns a list of all unambiguous (row, col) assignments for zero values
     in matrix, such that no row or column is repeated."""
 
-    n = len(matrix)
-    row_assignments = [None] * n
-    col_assignments = [None] * n
+    # convert matrix to bipartite graph, with zeros indicating edges
+    edge_matrix = copy.deepcopy(matrix)
+    for i, row in enumerate(edge_matrix):
+        for j, value in enumerate(row):
+            edge_matrix[i][j] = (value == 0)
 
-    # assign zeros until no more obvious assignments are possible
-    count = -1
-    prev_count = 0
-    while count < n and count != prev_count:
-        prev_count = count
+    return max_bipartite_matching(edge_matrix)
 
-        # assign each row with one unassigned zero
-        for i, row in enumerate(matrix):
-            # check if row already has assignment
-            if row_assignments[i] is not None:
-                continue
 
-            # search for unassigned zeros in row
-            zero_pos = None
-            for j, value in enumerate(row):
-                if col_assignments[j] is None and value == 0:
-                    if zero_pos is None:
-                        zero_pos = j
-                    else:
-                        zero_pos = None
-                        break
+def _try_bipartite_match(edge_matrix, i, col_marked, col_assignments):
+    """Attempts to match the given row i to a column in edge_matrix.
 
-            # assign if only unassigned zero in row
-            if zero_pos is not None:
-                row_assignments[i] = zero_pos
-                col_assignments[zero_pos] = i
-                count += 1
+    edge_matrix      A boolean matrix indicating edges between rows and columns
+    i                The given row to attempt to match with a free column
+    col_marked       List of marked, or visited, columns for this row
+    col_assignments  Array of current row assignments for each column, if any
 
-        # assign each column with one unassigned zero
-        for j in range(n):
-            # check if column already has assignment
-            if col_assignments[j] is not None:
-                continue
+    Returns True if row was successfully matched, or False otherwise.
+    """
 
-            # search for unassigned zeros in column
-            zero_pos = None
-            for i in range(n):
-                value = matrix[i][j]
-                if row_assignments[i] is None and value == 0:
-                    if zero_pos is None:
-                        zero_pos = i
-                    else:
-                        zero_pos = None
-                        break
+    # try to match row to each column
+    for j in range(len(edge_matrix[0])):
 
-            # assign if only unassigned zero in column
-            if zero_pos is not None:
-                row_assignments[zero_pos] = j
-                col_assignments[j] = zero_pos
-                count += 1
+        # check if row can be matched with unmarked column
+        if edge_matrix[i][j] and not col_marked[j]:
+            col_marked[j] = True
 
-    # convert to and return (row, col) assignment pairs
-    assignments = []
-    for i, j in enumerate(row_assignments):
-        if j is not None:
-            assignments.append((i, j))
-    return assignments
+            # check if column is unmatched or can be re-matched with new row
+            if col_assignments[j] is None or _try_bipartite_match(
+                edge_matrix,
+                col_assignments[j],
+                col_marked,
+                col_assignments
+            ):
+                col_assignments[j] = i
+                return True
+
+    # couldn't match row with any column
+    return False
 
 # PUBLIC CONSTANTS ############################################################
 
@@ -1567,6 +1545,30 @@ def make_spiral(layers, matrix=None, depth=0):
     return make_spiral(layers - 1, matrix, depth + 1)
 
 
+def max_bipartite_matching(edge_matrix):
+    """Returns the list of edges in the maximum matching of a bipartite graph.
+
+    The argument edge_matrix is a boolean matrix mapping vertices in partition
+    V to those in partition U, such that edge_matrix[u][v] = True iff there
+    exists an edge between u and v, where u is the index of a vertex in U and v
+    is the index of a vertex in V.
+
+    Edges are returned in the format (u, v), with u and v defined as above.
+    """
+
+    n = len(edge_matrix)    # number of rows
+    m = len(edge_matrix[0]) # number of columns
+
+    # try to assign each row to a column
+    col_assignments = [None] * m
+    for i in range(n):
+        col_marked = [False] * m
+        _try_bipartite_match(edge_matrix, i, col_marked, col_assignments)
+
+    # convert to list of matched pairs and return
+    return [(i, j) for j, i in enumerate(col_assignments) if i is not None]
+
+
 def max_triangle_path(triangle):
     """Returns the maximal sum of numbers from top to bottom in triangle."""
     
@@ -1587,6 +1589,7 @@ def max_triangle_path(triangle):
 
     # return maximal sum accumulated in last row of triangle
     return max(triangle[-1])
+
 
 def minimum_line_cover(matrix):
     """Returns a list of the fewest lines needed to cover all zeros in matrix.
