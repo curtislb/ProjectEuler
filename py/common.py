@@ -791,7 +791,7 @@ class MinPQ(object):
 
         if value in self._entry_map:
             self.delete(value)
-        
+
         entry = [priority, next(self._counter), value]
         self._entry_map[value] = entry
         heapq.heappush(self._heap, entry)
@@ -799,6 +799,10 @@ class MinPQ(object):
 
     def delete(self, value):
         """Removes the given value from the priority queue."""
+
+        if value not in self._entry_map:
+            raise KeyError('Value {0} not present in MinPQ'.format(value))
+
         entry = self._entry_map.pop(value)
         entry[-1] = None
 
@@ -832,10 +836,10 @@ def argmax(values):
     max_index = 0
     max_value = values[0]
     for i, value in enumerate(values):
-        if value > min_value:
+        if value > max_value:
             max_index = i
             max_value = value
-    return min_index
+    return max_index
 
 
 def argmin(values):
@@ -918,7 +922,15 @@ def collatz_step(n):
 
 
 def combination_sums(total, terms):
-    """Returns the number of unique combinations of terms that sum to total."""
+    """Returns the number of unique combinations of terms that sum to total.
+
+    Both total and each term in terms must be a natural number."""
+
+    if total <= 0:
+        raise ValueError("Argument 'total' must be a natural number")
+    for term in terms:
+        if term <= 0:
+            raise ValueError("Each term in 'terms' must be a natural number")
     
     # initialize the combination array
     combos = [0] * (total + 1)
@@ -936,7 +948,7 @@ def compute_chain_lengths(lengths, values, increment, is_valid=lambda x: True):
     """Populates lengths with chain lengths starting from each term in values.
 
     lengths    the dict to be populated, mapping each term to its chain length
-    values     all valid starting terms for a chain
+    values     an iterable of all valid starting terms for a chain
     increment  for any term n, increment(n) gives the next term in the chain
     is_valid   is_valid(n) returns True iff n is a valid chain member
     """
