@@ -944,18 +944,18 @@ def combination_sums(total, terms):
     return combos[total]
 
 
-def compute_chain_lengths(lengths, values, increment, is_valid=lambda x: True):
+def compute_chain_lengths(lengths, values, incr, is_valid=lambda x: True):
     """Populates lengths with chain lengths starting from each term in values.
 
-    lengths    the dict to be populated, mapping each term to its chain length
-    values     an iterable of all valid starting terms for a chain
-    increment  for any term n, increment(n) gives the next term in the chain
-    is_valid   is_valid(n) returns True iff n is a valid chain member
+    lengths   the dict to be populated, mapping each term to its chain length
+    values    an iterable of all valid starting terms for a chain
+    incr      for any term n, incr(n) gives the next term in the chain
+    is_valid  is_valid(n) returns True iff n is a valid chain member
     """
     
     invalid_set = set()
     for n in values:
-        _compute_chain_length(lengths, n, increment, is_valid, invalid_set)
+        _compute_chain_length(lengths, n, incr, is_valid, invalid_set)
 
 
 def concat_digits(digits, base=10):
@@ -1059,7 +1059,7 @@ def cumulative_partial_sum(nums, limit=INFINITY):
     return sums
 
 
-def dice_probability(x, n=2, s=6):
+def dice_probability(x, n, s):
     """Returns the probability of rolling a value of x with n s-sided dice."""
     
     outcomes = 0
@@ -1094,32 +1094,33 @@ def digit_function_sum(n, function):
 
 
 def digit_permutations(n):
-    """Returns all of the digit permutations of the natural number n,
+    """Returns all unique digit permutations of the natural number n,
     excluding permutations with leading zeros."""
 
-    perms = []
+    perms = set()
     for perm_tuple in itertools.permutations(str(n)):
         if perm_tuple[0] != '0':
-            perms.append(int(''.join(perm_tuple)))
+            perms.add(int(''.join(perm_tuple)))
 
     return perms
 
 
 def digit_rotations(n):
-    """Returns all digit rotations of the natural number n."""
+    """Returns all unique digit rotations of the natural number n."""
 
     n_str = str(n)
-    rotations = []
+    rotations = set()
     for i in range(len(n_str)):
-        rotations.append(int(n_str[i:] + n_str[:i]))
+        rotations.add(int(n_str[i:] + n_str[:i]))
 
     return rotations
 
 
 def digit_truncations_left(n):
-    """Returns the left-to-right digit truncations of the natural number n."""
+    """Returns all unique left-to-right digit truncations of the natural number
+    n."""
 
-    truncations = []
+    truncations = set()
     
     # prepend the digits of n from right to left to truncated
     truncated = 0
@@ -1127,14 +1128,14 @@ def digit_truncations_left(n):
     while n != 0:
         n, digit = divmod(n, 10)
         truncated += digit * factor_10
-        truncations.append(truncated)
+        truncations.add(truncated)
         factor_10 *= 10
     
     return truncations
 
 
 def digit_truncations_right(n):
-    """Returns the right-to-left digit truncations of the natural number n."""
+    """Returns all right-to-left digit truncations of the natural number n."""
     
     truncations = []
     
@@ -1147,7 +1148,7 @@ def digit_truncations_right(n):
 
 
 def digits(n, base=10):
-    """Returns a list of digits of the natural number n."""
+    """Returns a list of the digits of the natural number n."""
 
     digit_list = []
 
@@ -1250,6 +1251,9 @@ def ints_from_file(input_file, sep=' '):
 
 
 def inverse_index_map(values, distinct=True):
+    """Returns a map of each item in values to its index. If distinct is False,
+    items can be repeated, and each will be mapped to a list of its indices."""
+
     inverse_map = {} if distinct else collections.defaultdict(list)
 
     if distinct:
@@ -1743,11 +1747,6 @@ def pandigital_string(first=0, last=9):
 def pentagonal(n):
     """Returns the nth pentagonal number."""
     return n * (3*n - 1) // 2
-
-
-def percent_error(x, y):
-    """Returns the measurement error ratio of x against a true value y."""
-    return abs(x - y) / y
 
 
 def permute(n, k):

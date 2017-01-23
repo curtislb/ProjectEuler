@@ -46,7 +46,10 @@ def solve():
         if is_prime(m):
             # check if m is a right truncatable prime
             right_trunc_prime = True
-            for truncation in com.digit_truncations_right(m)[1:]:
+            for truncation in com.digit_truncations_right(m):
+                if truncation == m:
+                    continue
+
                 if not is_prime(truncation):
                     right_trunc_prime = False
                     break
@@ -54,7 +57,10 @@ def solve():
             # if necessary, check if m is also a left truncatable prime
             if right_trunc_prime:
                 left_trunc_prime = True
-                for truncation in com.digit_truncations_left(m)[:-1]:
+                for truncation in com.digit_truncations_left(m):
+                    if truncation == m:
+                        continue
+
                     if not is_prime(truncation):
                         left_trunc_prime = False
                         break
@@ -68,7 +74,10 @@ def solve():
         if is_prime(n):
             # check if n is a right truncatable prime
             right_trunc_prime = True
-            for truncation in com.digit_truncations_right(n)[1:]:
+            for truncation in com.digit_truncations_right(n):
+                if truncation == n:
+                    continue
+
                 if not is_prime(truncation):
                     right_trunc_prime = False
                     break
@@ -76,7 +85,10 @@ def solve():
             # if necessary, check if n is also a left truncatable prime
             if right_trunc_prime:
                 left_trunc_prime = True
-                for truncation in com.digit_truncations_left(n)[:-1]:
+                for truncation in com.digit_truncations_left(n):
+                    if truncation == n:
+                        continue
+
                     if not is_prime(truncation):
                         left_trunc_prime = False
                         break
