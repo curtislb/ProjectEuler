@@ -83,8 +83,11 @@ def main():
             total_time = time.time() - start
         except Exception as e:
             print('FAILED')
-            sys.stderr.write('Problem {0}: Exception\n'.format(problem_num))
-            sys.stderr.write(str(e) + '\n')
+            sys.stderr.write('Problem {0}: {1}: {2}\n'.format(
+                problem_num,
+                type(e).__name__,
+                e
+            ))
             continue
         
         # check if solution matches correct answer for the problem
