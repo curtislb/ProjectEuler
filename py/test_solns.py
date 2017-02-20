@@ -127,6 +127,7 @@ def main():
         ]
         for i, slow_list in enumerate(slow_lists):
             if slow_list:
+                slow_list.sort(key=lambda x: x[1], reverse=True)
                 print('\n{0}:'.format(slow_list_names[i]))
                 for prob_num, total_time in slow_list:
                     print('- Problem {0} ({1:6.3f} s)'.format(
