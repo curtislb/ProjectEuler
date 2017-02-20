@@ -29,7 +29,7 @@ INPUT_FILE = '../input/082.txt' # default: '../input/082.txt'
 # SOLUTION ####################################################################
 
 def solve():
-    matrix = com.ints_from_file(INPUT_FILE, sep=',')
+    matrix = list(com.ints_from_file(INPUT_FILE, sep=','))
     n = len(matrix)
     
     # create graph with virtual start and goal nodes

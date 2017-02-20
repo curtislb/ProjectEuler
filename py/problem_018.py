@@ -34,7 +34,7 @@ INPUT_FILE = '../input/018.txt' # default: '../input/018.txt'
 # SOLUTION ####################################################################
 
 def solve():
-    triangle = com.ints_from_file(INPUT_FILE)
+    triangle = list(com.ints_from_file(INPUT_FILE))
     return com.max_triangle_path(triangle)
 
 

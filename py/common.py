@@ -1238,16 +1238,9 @@ def int_to_base(n, base, numerals='0123456789abcdefghijklmnopqrstuvwxyz'):
 
 def ints_from_file(input_file, sep=' '):
     """Returns a list of rows of integer numbers read from input_file."""
-    
     with open(input_file) as f:
-        # add each line from the input file as a row to the MATRIX
-        matrix = []
         for line in f:
-            # add each token from the current line to the row vector
-            row = [int(num) for num in line.rstrip().split(sep)]
-            matrix.append(row)
-    
-        return matrix
+            yield [int(num) for num in line.rstrip().split(sep)]
 
 
 def inverse_index_map(values, distinct=True):

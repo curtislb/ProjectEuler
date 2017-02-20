@@ -55,7 +55,7 @@ def solve():
     target_seq = ' the '
 
     # create the encrypted message from the file
-    byte_vals = com.ints_from_file(INPUT_FILE, sep=',')[0]
+    byte_vals = next(com.ints_from_file(INPUT_FILE, sep=','))
     encrypted = ''.join(chr(byte) for byte in byte_vals)
 
     # try each possible key and look for target sequence in message

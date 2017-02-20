@@ -31,7 +31,7 @@ INPUT_FILE = '../input/345.txt' # default: '../input/345.txt'
 
 def solve():
     # read matrix from input file
-    matrix = com.ints_from_file(INPUT_FILE)
+    matrix = list(com.ints_from_file(INPUT_FILE))
 
     # build cost matrix by subtracting each entry from max entry
     cost_matrix = copy.deepcopy(matrix)

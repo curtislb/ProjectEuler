@@ -29,7 +29,7 @@ INPUT_FILE = '../input/081.txt' # default: '../input/081.txt'
 # SOLUTION ####################################################################
 
 def solve():
-    matrix = com.ints_from_file(INPUT_FILE, sep=',')
+    matrix = list(com.ints_from_file(INPUT_FILE, sep=','))
     n = len(matrix[0])
     
     # dynamically update costs along diagonals from bottom-right to middle
