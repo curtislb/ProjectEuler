@@ -772,6 +772,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.hexagonal(4), 28)
         self.assertEqual(com.hexagonal(5), 45)
         self.assertEqual(com.hexagonal(42), 3486)
+        self.assertEqual(com.hexagonal(6438), 82889250)
 
     def test_int_log(self):
         self.assertEqual(com.int_log(1), 0)
@@ -824,6 +825,162 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.int_to_base(25, 16), '19')
         self.assertEqual(com.int_to_base(595129651, 36), '9uboz7')
         self.assertEqual(com.int_to_base(42, 3, '?!#'), '!!#?')
+
+    def test_inverse_index_map(self):
+        self.assertEqual(com.inverse_index_map([]), {})
+        self.assertEqual(com.inverse_index_map('', False), {})
+        self.assertEqual(com.inverse_index_map([2]), {2: 0})
+        self.assertEqual(com.inverse_index_map([1], False), {1: [0]})
+        self.assertEqual(com.inverse_index_map([3, 3], False), {3: [0, 1]})
+        self.assertEqual(com.inverse_index_map('a'), {'a': 0})
+        self.assertEqual(com.inverse_index_map((3, 2, 1)), {3: 0, 2: 1, 1: 2})
+        self.assertEqual(com.inverse_index_map('XYZ'), {'X':0, 'Y':1, 'Z':2})
+        self.assertEqual(
+            com.inverse_index_map((1, 6, 1, 8, 0, 3, 3, 9, 8, 8), False),
+            {0: [4], 1: [0, 2], 3: [5, 6], 6: [1], 8: [3, 8, 9], 9: [7]}
+        )
+        self.assertEqual(
+            com.inverse_index_map('randomize'),
+            {'r':0, 'a':1, 'n':2, 'd':3, 'o':4, 'm':5, 'i':6, 'z':7, 'e':8}
+        )
+
+    def test_is_bouncy(self):
+        self.assertEqual(com.is_bouncy(1), False)
+        self.assertEqual(com.is_bouncy(9), False)
+        self.assertEqual(com.is_bouncy(11), False)
+        self.assertEqual(com.is_bouncy(12), False)
+        self.assertEqual(com.is_bouncy(21), False)
+        self.assertEqual(com.is_bouncy(111), False)
+        self.assertEqual(com.is_bouncy(119), False)
+        self.assertEqual(com.is_bouncy(199), False)
+        self.assertEqual(com.is_bouncy(100), False)
+        self.assertEqual(com.is_bouncy(110), False)
+        self.assertEqual(com.is_bouncy(66420), False)
+        self.assertEqual(com.is_bouncy(134468), False)
+        self.assertEqual(com.is_bouncy(99964332), False)
+        self.assertEqual(com.is_bouncy(120), True)
+        self.assertEqual(com.is_bouncy(412), True)
+        self.assertEqual(com.is_bouncy(525), True)
+        self.assertEqual(com.is_bouncy(738), True)
+        self.assertEqual(com.is_bouncy(12951), True)
+        self.assertEqual(com.is_bouncy(21780), True)
+        self.assertEqual(com.is_bouncy(155349), True)
+        self.assertEqual(com.is_bouncy(277032), True)
+        self.assertEqual(com.is_bouncy(47894411), True)
+
+    def test_is_coprime_pair(self):
+        self.assertEqual(com.is_coprime_pair(2, 1), True)
+        self.assertEqual(com.is_coprime_pair(3, 1), True)
+        self.assertEqual(com.is_coprime_pair(2, 2), False)
+        self.assertEqual(com.is_coprime_pair(2, 3), True)
+        self.assertEqual(com.is_coprime_pair(2, 4), False)
+        self.assertEqual(com.is_coprime_pair(45, 21), False)
+        self.assertEqual(com.is_coprime_pair(32, 58), False)
+        self.assertEqual(com.is_coprime_pair(70, 27), True)
+        self.assertEqual(com.is_coprime_pair(36, 77), True)
+        self.assertEqual(com.is_coprime_pair(41327, 75600), True)
+        self.assertEqual(com.is_coprime_pair(94753, 22416), True)
+        self.assertEqual(com.is_coprime_pair(94755, 22416), False)
+
+    def test_is_hexagonal(self):
+        hex_nums = {1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325}
+        for n in range(1, 350):
+            self.assertEqual(com.is_hexagonal(n), n in hex_nums)
+        self.assertEqual(com.is_hexagonal(971530876952), False)
+        self.assertEqual(com.is_hexagonal(971530876953), True)
+        self.assertEqual(com.is_hexagonal(971530876954), False)
+
+    def test_is_leap_year(self):
+        self.assertEqual(com.is_leap_year(1), False)
+        self.assertEqual(com.is_leap_year(4), True)
+        self.assertEqual(com.is_leap_year(40), True)
+        self.assertEqual(com.is_leap_year(100), False)
+        self.assertEqual(com.is_leap_year(104), True)
+        self.assertEqual(com.is_leap_year(400), True)
+        self.assertEqual(com.is_leap_year(1248), True)
+        self.assertEqual(com.is_leap_year(1337), False)
+        self.assertEqual(com.is_leap_year(1800), False)
+        self.assertEqual(com.is_leap_year(1804), True)
+        self.assertEqual(com.is_leap_year(1804), True)
+        self.assertEqual(com.is_leap_year(2016), True)
+        self.assertEqual(com.is_leap_year(2017), False)
+        self.assertEqual(com.is_leap_year(2300), False)
+        self.assertEqual(com.is_leap_year(2400), True)
+        self.assertEqual(com.is_leap_year(4936), True)
+        self.assertEqual(com.is_leap_year(4937), False)
+        self.assertEqual(com.is_leap_year(4938), False)
+
+    def test_is_palindrome(self):
+        self.assertEqual(com.is_palindrome(1), True)
+        self.assertEqual(com.is_palindrome(11), True)
+        self.assertEqual(com.is_palindrome(22), True)
+        self.assertEqual(com.is_palindrome(10), False)
+        self.assertEqual(com.is_palindrome(101), True)
+        self.assertEqual(com.is_palindrome(1212), False)
+        self.assertEqual(com.is_palindrome(2332), True)
+        self.assertEqual(com.is_palindrome(72427), True)
+        self.assertEqual(com.is_palindrome(724427), True)
+        self.assertEqual(com.is_palindrome(722444227), True)
+        self.assertEqual(com.is_palindrome(513513), False)
+        self.assertEqual(com.is_palindrome(551133), False)
+        self.assertEqual(com.is_palindrome(5133150), False)
+
+    def test_is_permutation(self):
+        for b in (False, True):
+            self.assertEqual(com.is_permutation([], set(), b), True)
+            self.assertEqual(com.is_permutation('', iter([]), b), True)
+            self.assertEqual(com.is_permutation(iter(()), range(0), b), True)
+            self.assertEqual(com.is_permutation([1], (), b), False)
+            self.assertEqual(com.is_permutation([], (2, 3), b), False)
+            self.assertEqual(com.is_permutation([2], (2, 3), b), False)
+            self.assertEqual(com.is_permutation({1}, [1], b), True)
+            self.assertEqual(com.is_permutation([1], [2], b), False)
+            self.assertEqual(com.is_permutation('12', '21', b), True)
+            self.assertEqual(com.is_permutation('12', ['2', '1'], b), True)
+            self.assertEqual(com.is_permutation('12', [1, 2], b), False)
+            self.assertEqual(com.is_permutation((1, 4, 7), {7, 1, 4}, b), True)
+            self.assertEqual(com.is_permutation('silent', 'listen', b), True)
+            self.assertEqual(com.is_permutation('listen', 'tiles', b), False)
+            self.assertEqual(
+                com.is_permutation(
+                    [37, 86, 19, 0, 4, 19, 655, 101, 4, 19],
+                    [4, 37, 101, 4, 19, 86, 19, 655, 19, 0],
+                    b
+                ),
+                True
+            )
+            self.assertEqual(
+                com.is_permutation(
+                    [37, 86, 19, 0, 4, 655, 101, 4],
+                    [4, 37, 101, 19, 86, 19, 655, 19, 0],
+                    b
+                ),
+                False
+            )
+            self.assertEqual(
+                com.is_permutation(
+                    iter([37, 86, 19, 0, 4, 19, 655, 101, 4, 19]),
+                    iter([4, 37, 101, 4, 19, 86, 19, 655, 19, 0]),
+                    b
+                ),
+                True
+            )
+            self.assertEqual(
+                com.is_permutation(
+                    iter((37, 86, 19, 0, 4, 655, 101, 4)),
+                    iter((4, 37, 101, 19, 86, 19, 655, 19, 0)),
+                    b
+                ),
+                False
+            )
+
+    def test_is_pentagonal(self):
+        pent_nums = {1, 5, 12, 22, 35, 51, 70, 92, 117, 145, 176, 210, 247}
+        for n in range(1, 250):
+            self.assertEqual(com.is_pentagonal(n), n in pent_nums)
+        self.assertEqual(com.is_pentagonal(728648331956), False)
+        self.assertEqual(com.is_pentagonal(728648331957), True)
+        self.assertEqual(com.is_pentagonal(728648331958), False)
 
 ###############################################################################
 

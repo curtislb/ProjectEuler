@@ -1251,8 +1251,10 @@ def ints_from_file(input_file, sep=' '):
 
 
 def inverse_index_map(values, distinct=True):
-    """Returns a map of each item in values to its index. If distinct is False,
-    items can be repeated, and each will be mapped to a list of its indices."""
+    """Returns a map from each item in values to its index.
+
+    If distinct is False, then items in values can be repeated, and each will
+    be mapped to a list of its indices."""
 
     inverse_map = {} if distinct else collections.defaultdict(list)
 
@@ -1312,11 +1314,6 @@ def is_hexagonal(n):
     return is_square(radical_sum) and int_sqrt(radical_sum) % 4 == 3
 
 
-def is_int(x):
-    """Determines if the floating point number x has an integer value."""
-    return x - int(x) == 0
-
-
 def is_leap_year(year):
     """Determines if year (given in years A.D.) is a leap year."""
     if year % 100 != 0:
@@ -1329,7 +1326,7 @@ def is_leap_year(year):
 
 def is_palindrome(n, base=10):
     """Determines if the natural number n is a palindrome in the given base."""
-    
+
     # create a copy of n and number to hold its reversed value
     n_copy = n
     reverse_n = 0
@@ -1343,11 +1340,14 @@ def is_palindrome(n, base=10):
     return n == reverse_n
 
 
-def is_permutation(iter_a, iter_b):
-    """Determines if the two iterables iter_a and iter_b are permutations of
-    each other.
-    
-    Adapted from: http://stackoverflow.com/questions/396421/"""
+def is_permutation(iter_a, iter_b, compare_counts=False):
+    """Determines if iterables iter_a, iter_b are permutations of each other.
+
+    If iter_a and iter_b have the same length, then the compare_counts flag
+    determines how the two will be compared. If compare_counts is True, this
+    function will compare counts of items in the two iterables. Otherwise, this
+    function will compare sorted copies of the iterables.
+    """
     
     # convert iterables to lists if necessary
     if not hasattr(iter_a, 'count'):
@@ -1356,22 +1356,18 @@ def is_permutation(iter_a, iter_b):
         iter_b = list(iter_b)
     
     # if lengths of a and b are different, they cannot be permutations
-    len_a = len(iter_a)
-    if len_a != len(iter_b):
+    if len(iter_a) != len(iter_b):
         return False
     
-    # Threshold length at which Namin's method will be used
-    NAMIN_THRESHOLD = 1000000
-    
-    if len_a < NAMIN_THRESHOLD:
-        # check if a and b are equal when sorted
-        return sorted(iter_a) == sorted(iter_b)
-    else:
+    if compare_counts:
         # check if a and b contain the same numbers of the same items
-        for item in iter_a:
+        for item in set(iter_a):
             if iter_a.count(item) != iter_b.count(item):
                 return False
         return True
+    else:
+        # check if a and b are equal when sorted
+        return sorted(iter_a) == sorted(iter_b)
 
 
 def is_pentagonal(n):
