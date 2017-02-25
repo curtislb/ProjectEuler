@@ -15,14 +15,19 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 # N/A
 
+
 # SOLUTION ####################################################################
+
 
 # Array of 1 to n pandigital numbers for n from 2 to 7
 pandigit_strings = [com.pandigital_string(1, n) for n in range(2, 8)]
+
 
 def solve():
     # compute primes up to maximum possible pandigital number

@@ -17,13 +17,19 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 LIMIT = 1000000 # default: 1000000
+
 BASE_A = 10 # default: 10
+
 BASE_B = 2 # default: 2
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0

@@ -19,15 +19,19 @@ prime cube, and prime fourth power?
 Author: Curtis Belmonte
 """
 
+import math
+
 import common as com
 
-import math
 
 # PARAMETERS ##################################################################
 
+
 LIMIT = 5 * 10**7 # default: 5 * 10**7
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # precompute all primes up to the square root of LIMIT
@@ -38,7 +42,7 @@ def solve():
     prime_cubes = []
     prime_fourths = []
     for p in primes:
-        power = p * p
+        power = p**2
         prime_squares.append(power)
 
         power *= p

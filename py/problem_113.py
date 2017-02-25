@@ -22,13 +22,15 @@ How many numbers below 10^MAX_DIGITS are not bouncy?
 Author: Curtis Belmonte
 """
 
-import common as com
 
 # PARAMETERS ##################################################################
 
+
 MAX_DIGITS = 100 # default: 100
 
+
 # SOLUTION ####################################################################
+
 
 def next_digit_counts(counts, num_digits):
     """Returns the next iteration of the counts matrix with a digit prepended.
@@ -40,7 +42,7 @@ def next_digit_counts(counts, num_digits):
     num_digits  The length of numbers represented by the counts matrix.
     """
 
-    new_counts = [[0] * 3 for __ in range(9)]
+    new_counts = [[0] * 3 for _ in range(9)]
 
     for x in range(9):
         # count cases where next digit is 0
@@ -69,7 +71,7 @@ def next_digit_counts(counts, num_digits):
 
 def solve():
     # iterate counts for each digit, keeping track of bouncy numbers
-    counts = [[0] * 3 for __ in range(9)]
+    counts = [[0] * 3 for _ in range(9)]
     bouncy_count = 0
     for i in range(1, MAX_DIGITS):
         counts = next_digit_counts(counts, i)

@@ -7,15 +7,17 @@ where each “_” is a single digit.
 Author: Curtis Belmonte
 """
 
-import common as com
-
 import math
+
 
 # PARAMETERS ##################################################################
 
+
 # N/A
 
+
 # SOLUTION ####################################################################
+
 
 # the concealed square form to match
 square_form = '1_2_3_4_5_6_7_8_9_0'
@@ -65,4 +67,3 @@ def solve():
 
 if __name__ == '__main__':
     print(solve())
-

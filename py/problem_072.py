@@ -23,11 +23,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 MAX_D = 10**6 # default: 10**6
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     return sum(com.totients_up_to(MAX_D))

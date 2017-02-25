@@ -13,11 +13,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 10**7 # default: 10**7
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     divisor_counts = com.count_divisors_up_to(LIMIT)

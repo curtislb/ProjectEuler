@@ -59,13 +59,17 @@ How many hands does Player 1 win?
 Author: Curtis Belmonte
 """
 
-import common as com
+from common import Card
+
 
 # PARAMETERS ##################################################################
 
+
 INPUT_FILE = '../input/054.txt' # default: '../input/054.txt
 
+
 # SOLUTION ####################################################################
+
 
 def count_faces(cards):
     """Returns a dictionary of occurrences of each face value in cards."""
@@ -93,12 +97,6 @@ class Rank(object):
         FOUR_KIND = 7
         STRAIGHT_FLUSH = 8
         ROYAL_FLUSH = 9
-        
-    def _update(self, type_, value):
-        """Updates type and value of this rank if the new type is superior."""
-        if type_ > self.type:
-            self.type = type_
-            self.value = value
     
     def __init__(self, hand):
         # initialize type and value with dummy values
@@ -106,30 +104,30 @@ class Rank(object):
         self.value = -1
         
         # check for flush or straight hand
-        if (hand[0].suit == hand[1].suit and
-            hand[1].suit == hand[2].suit and
-            hand[2].suit == hand[3].suit and
-            hand[3].suit == hand[4].suit):
-            if (hand[0].face == com.Card.Face.TEN and
-                hand[1].face == com.Card.Face.JACK and
-                hand[2].face == com.Card.Face.QUEEN and
-                hand[3].face == com.Card.Face.KING and
-                hand[4].face == com.Card.Face.ACE):
+        if (hand[0].suit == hand[1].suit
+                and hand[1].suit == hand[2].suit
+                and hand[2].suit == hand[3].suit
+                and hand[3].suit == hand[4].suit):
+            if (hand[0].face == Card.Face.TEN
+                    and hand[1].face == Card.Face.JACK
+                    and hand[2].face == Card.Face.QUEEN
+                    and hand[3].face == Card.Face.KING
+                    and hand[4].face == Card.Face.ACE):
                 self.type = Rank.Type.ROYAL_FLUSH
-                self.value = com.Card.Face.ACE
-            elif (hand[0].face + 1 == hand[1].face and
-                  hand[1].face + 1 == hand[2].face and
-                  hand[2].face + 1 == hand[3].face and
-                  hand[3].face + 1 == hand[4].face):
+                self.value = Card.Face.ACE
+            elif (hand[0].face + 1 == hand[1].face
+                  and hand[1].face + 1 == hand[2].face
+                  and hand[2].face + 1 == hand[3].face
+                  and hand[3].face + 1 == hand[4].face):
                 self.type = Rank.Type.STRAIGHT_FLUSH
                 self.value = hand[4].face
             else:
                 self.type = Rank.Type.FLUSH
                 self.value = hand[4].face
-        elif (hand[0].face + 1 == hand[1].face and
-              hand[1].face + 1 == hand[2].face and
-              hand[2].face + 1 == hand[3].face and
-              hand[3].face + 1 == hand[4].face):
+        elif (hand[0].face + 1 == hand[1].face
+              and hand[1].face + 1 == hand[2].face
+              and hand[2].face + 1 == hand[3].face
+              and hand[3].face + 1 == hand[4].face):
             self._update(Rank.Type.STRAIGHT, hand[4].face)
             
         counts = count_faces(hand)
@@ -166,13 +164,19 @@ class Rank(object):
         else:
             self._update(Rank.Type.HIGH_CARD, hand[4].face)
 
+    def _update(self, new_type, value):
+        """Updates type and value of this rank if new_type is superior."""
+        if new_type > self.type:
+            self.type = new_type
+            self.value = value
+
 
 def solve():
     # read (and sort) all hands from input file
     hands = []
     with open(INPUT_FILE) as f:
         for line in f:
-            cards = [com.Card(s) for s in line.split()]
+            cards = [Card(s) for s in line.split()]
             hands.append((sorted(cards[:5]), sorted(cards[5:])))
     
     # count total number of wins for player 1

@@ -7,19 +7,20 @@ Module for unit testing of functions and classes in the common module.
 Author: Curtis Belmonte
 """
 
-import collections
 import unittest
-
 from fractions import Fraction
 
 import common as com
+from common import Graph, MinPQ
+
 
 # TEST CLASSES ################################################################
+
 
 class TestGraphMethods(unittest.TestCase):
 
     def setUp(self):
-        self.graph = com.Graph()
+        self.graph = Graph()
 
     def test_nodes(self):
         self.assertEqual(self.graph.num_nodes(), 0)
@@ -249,10 +250,11 @@ class TestGraphMethods(unittest.TestCase):
         for node in prev:
             self._verify_reverse_path(prev, 'P', node, dist[node])
 
+
 class TestMinPQMethods(unittest.TestCase):
 
     def setUp(self):
-        self.min_pq = com.MinPQ()
+        self.min_pq = MinPQ()
 
     def test_empty(self):
         self.assertEqual(len(self.min_pq), 0)
@@ -322,16 +324,14 @@ class TestMinPQMethods(unittest.TestCase):
         self.assertEqual(self.min_pq.pop_min(), 'G')
         self.assertCountEqual(
             [self.min_pq.pop_min(), self.min_pq.pop_min()],
-            ['E', 'K']
-        )
+            ['E', 'K'])
         self.assertEqual(self.min_pq.pop_min(), 'J')
         self.assertEqual(self.min_pq.pop_min(), 'H')
         self.assertEqual(self.min_pq.pop_min(), 'B')
         self.assertEqual(self.min_pq.pop_min(), 'I')
         self.assertCountEqual(
             [self.min_pq.pop_min(), self.min_pq.pop_min()],
-            ['A', 'C']
-        )
+            ['A', 'C'])
         self.assertEqual(self.min_pq.pop_min(), 'D')
         self.assertEqual(self.min_pq.pop_min(), 'F')
 
@@ -340,7 +340,9 @@ class TestMinPQMethods(unittest.TestCase):
         self.assertEqual(len(self.min_pq), 0)
         self.assertTrue(self.min_pq.is_empty())
 
+
 # TEST FUNCTIONS ##############################################################
+
 
 class TestCommonFunctions(unittest.TestCase):
 
@@ -459,19 +461,21 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.combination_sums(100, (25, 50, 10, 1, 5)), 292)
         self.assertEqual(
             com.combination_sums(500, [1, 5, 10, 25, 50, 100, 200, 500]),
-            111023
-        )
+            111023)
 
     def test_compute_chain_lengths(self):
         lengths = {}
         values = [0] + list(range(3, 9))
-        incr = lambda x: (
-            2 if x == 0 else
-            4 if x == 3 else
-            6 if x == 5 else
-            x - 1
-        )
-        is_valid = lambda x: x != 6
+
+        def incr(x):
+            return (2 if x == 0 else
+                    4 if x == 3 else
+                    6 if x == 5 else
+                    x - 1)
+
+        def is_valid(x):
+            return x != 6
+
         com.compute_chain_lengths(lengths, values, incr, is_valid)
 
         self.assertEqual(lengths[0], 3)
@@ -531,8 +535,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.count_divisors_up_to(4), [0, 1, 2, 2, 3])
         self.assertEqual(
             com.count_divisors_up_to(21),
-            [0, 1, 2, 2, 3, 2, 4, 2, 4, 3, 4, 2, 6, 2, 4, 4, 5, 2, 6, 2, 6, 4]
-        )
+            [0, 1, 2, 2, 3, 2, 4, 2, 4, 3, 4, 2, 6, 2, 4, 4, 5, 2, 6, 2, 6, 4])
 
     def test_count_prime_factors(self):
         self.assertEqual(com.count_prime_factors(1), 0)
@@ -550,8 +553,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.count_prime_factors(12, [2, 3, 5, 7, 11]), 2)
         self.assertEqual(
             com.count_prime_factors(30, [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]),
-            3
-        )
+            3)
         self.assertEqual(com.count_prime_factors(360), 3)
         self.assertEqual(com.count_prime_factors(1327), 1)
         self.assertEqual(com.count_prime_factors(4200), 4)
@@ -561,16 +563,13 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.cross_product_3d([0, 0, 0], [0, 0, 0]), (0, 0, 0))
         self.assertEqual(
             com.cross_product_3d((2, 3, 4), (5, 6, 7)),
-            (-3, 6, -3)
-        )
+            (-3, 6, -3))
         self.assertEqual(
             com.cross_product_3d((3, -3, 1), (4, 9, 2)),
-            (-15, -2, 39)
-        )
+            (-15, -2, 39))
         self.assertEqual(
             com.cross_product_3d((3, -3, 1), (-12, 12, -4)),
-            (0, 0, 0)
-        )
+            (0, 0, 0))
 
     def test_cumulative_partial_sum(self):
         self.assertEqual(com.cumulative_partial_sum([1]), [1])
@@ -581,10 +580,8 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(
             com.cumulative_partial_sum(
                 [9, -7, -1, 18, 25, -6, 14, -20, 0, 4, -18, 12, -3, 11, 6, -5],
-                8
-            ),
-            [9, 2, 1, 19, 44, 38, 52, 32, 23, 34, 17, 11, -17, 0, -8, 7]
-        )
+                8),
+            [9, 2, 1, 19, 44, 38, 52, 32, 23, 34, 17, 11, -17, 0, -8, 7])
 
     def test_dice_probability(self):
         self.assertEqual(com.dice_probability(1, 1, 1), 1)
@@ -605,8 +602,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.digit_counts(1234567890), [1] * 10)
         self.assertEqual(
             com.digit_counts(490473284389948786968728452),
-            [1, 0, 3, 2, 5, 1, 2, 3, 6, 4]
-        )
+            [1, 0, 3, 2, 5, 1, 2, 3, 6, 4])
 
     def test_digit_function_sum(self):
         self.assertEqual(com.digit_function_sum(0, lambda x: x), 0)
@@ -616,8 +612,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.digit_function_sum(123, lambda x: x**2), 14)
         self.assertEqual(
             com.digit_function_sum(7948531, lambda x: -x if x % 2 == 1 else x),
-            -13
-        )
+            -13)
 
     def test_digit_permutations(self):
         self.assertCountEqual(com.digit_permutations(1), [1])
@@ -627,8 +622,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertCountEqual(com.digit_permutations(12), [12, 21])
         self.assertCountEqual(
             com.digit_permutations(123),
-            [123, 132, 213, 231, 312, 321]
-        )
+            [123, 132, 213, 231, 312, 321])
         self.assertCountEqual(
             com.digit_permutations(1337),
             [
@@ -644,8 +638,7 @@ class TestCommonFunctions(unittest.TestCase):
                 7133,
                 7313,
                 7331,
-            ]
-        )
+            ])
 
     def test_digit_rotations(self):
         self.assertCountEqual(com.digit_rotations(1), [1])
@@ -656,8 +649,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertCountEqual(com.digit_rotations(123), [123, 231, 312])
         self.assertCountEqual(
             com.digit_rotations(600316),
-            [600316, 3166, 31660, 316600, 166003, 660031]
-        )
+            [600316, 3166, 31660, 316600, 166003, 660031])
 
     def test_digit_truncations_left(self):
         self.assertCountEqual(com.digit_truncations_left(1), [1])
@@ -668,8 +660,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertCountEqual(com.digit_truncations_left(123), [123, 23, 3])
         self.assertCountEqual(
             com.digit_truncations_left(600316),
-            [600316, 316, 16, 6]
-        )
+            [600316, 316, 16, 6])
 
     def test_digit_truncations_right(self):
         self.assertCountEqual(com.digit_truncations_right(1), [1])
@@ -679,12 +670,10 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertCountEqual(com.digit_truncations_right(123), [123, 12, 1])
         self.assertCountEqual(
             com.digit_truncations_right(1002),
-            [1002, 100, 10, 1]
-        )
+            [1002, 100, 10, 1])
         self.assertCountEqual(
             com.digit_truncations_right(600316),
-            [600316, 60031, 6003, 600, 60, 6]
-        )
+            [600316, 60031, 6003, 600, 60, 6])
 
     def test_digits(self):
         self.assertEqual(com.digits(1), [1])
@@ -693,8 +682,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.digits(1337), [1, 3, 3, 7])
         self.assertEqual(
             com.digits(698873214754301820),
-            [6, 9, 8, 8, 7, 3, 2, 1, 4, 7, 5, 4, 3, 0, 1, 8, 2, 0]
-        )
+            [6, 9, 8, 8, 7, 3, 2, 1, 4, 7, 5, 4, 3, 0, 1, 8, 2, 0])
 
     def test_dot_product(self):
         self.assertEqual(com.dot_product((2,), (3,)), 6)
@@ -703,8 +691,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.dot_product((2, 3, 4), (5, 6, 7)), 56)
         self.assertEqual(
             com.dot_product((10, -3, -10, 8, 1), (7, 5, -1, -9, 8)),
-            1
-        )
+            1)
 
     def test_factorial(self):
         self.assertEqual(com.factorial(0), 1)
@@ -715,8 +702,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.factorial(13), 6227020800)
         self.assertEqual(
             com.factorial(45),
-            119622220865480194561963161495657715064383733760000000000
-        )
+            119622220865480194561963161495657715064383733760000000000)
 
     def test_fibonacci(self):
         self.assertEqual(com.fibonacci(0), 1)
@@ -728,8 +714,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.fibonacci(37), 39088169)
         self.assertEqual(
             com.fibonacci(273),
-            818706854228831001753880637535093596811413714795418360007
-        )
+            818706854228831001753880637535093596811413714795418360007)
 
     def test_flatten_matrix(self):
         self.assertEqual(com.flatten_matrix([[]]), [])
@@ -739,12 +724,10 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.flatten_matrix([[4, 3], [2, 1]]), [4, 3, 2, 1])
         self.assertEqual(
             com.flatten_matrix([['4', 3], [2, '1']], True),
-            [('4', 0, 0), (3, 0, 1), (2, 1, 0), ('1', 1, 1)]
-        )
+            [('4', 0, 0), (3, 0, 1), (2, 1, 0), ('1', 1, 1)])
         self.assertEqual(
             com.flatten_matrix([[1, 2], [3], [4, 5, 6]], True),
-            [(1, 0, 0), (2, 0, 1), (3, 1, 0), (4, 2, 0), (5, 2, 1), (6, 2, 2)]
-        )
+            [(1, 0, 0), (2, 0, 1), (3, 1, 0), (4, 2, 0), (5, 2, 1), (6, 2, 2)])
 
     def test_gcd(self):
         self.assertEqual(com.gcd(2, 1), 1)
@@ -834,15 +817,29 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.inverse_index_map([3, 3], False), {3: [0, 1]})
         self.assertEqual(com.inverse_index_map('a'), {'a': 0})
         self.assertEqual(com.inverse_index_map((3, 2, 1)), {3: 0, 2: 1, 1: 2})
-        self.assertEqual(com.inverse_index_map('XYZ'), {'X':0, 'Y':1, 'Z':2})
+        self.assertEqual(
+            com.inverse_index_map('XYZ'),
+            {
+                'X': 0,
+                'Y': 1,
+                'Z': 2,
+            })
         self.assertEqual(
             com.inverse_index_map((1, 6, 1, 8, 0, 3, 3, 9, 8, 8), False),
-            {0: [4], 1: [0, 2], 3: [5, 6], 6: [1], 8: [3, 8, 9], 9: [7]}
-        )
+            {0: [4], 1: [0, 2], 3: [5, 6], 6: [1], 8: [3, 8, 9], 9: [7]})
         self.assertEqual(
             com.inverse_index_map('randomize'),
-            {'r':0, 'a':1, 'n':2, 'd':3, 'o':4, 'm':5, 'i':6, 'z':7, 'e':8}
-        )
+            {
+                'r': 0,
+                'a': 1,
+                'n': 2,
+                'd': 3,
+                'o': 4,
+                'm': 5,
+                'i': 6,
+                'z': 7,
+                'e': 8,
+            })
 
     def test_is_bouncy(self):
         self.assertEqual(com.is_bouncy(1), False)
@@ -945,34 +942,26 @@ class TestCommonFunctions(unittest.TestCase):
                 com.is_permutation(
                     [37, 86, 19, 0, 4, 19, 655, 101, 4, 19],
                     [4, 37, 101, 4, 19, 86, 19, 655, 19, 0],
-                    b
-                ),
-                True
-            )
+                    b),
+                True)
             self.assertEqual(
                 com.is_permutation(
                     [37, 86, 19, 0, 4, 655, 101, 4],
                     [4, 37, 101, 19, 86, 19, 655, 19, 0],
-                    b
-                ),
-                False
-            )
+                    b),
+                False)
             self.assertEqual(
                 com.is_permutation(
                     iter([37, 86, 19, 0, 4, 19, 655, 101, 4, 19]),
                     iter([4, 37, 101, 4, 19, 86, 19, 655, 19, 0]),
-                    b
-                ),
-                True
-            )
+                    b),
+                True)
             self.assertEqual(
                 com.is_permutation(
                     iter((37, 86, 19, 0, 4, 655, 101, 4)),
                     iter((4, 37, 101, 19, 86, 19, 655, 19, 0)),
-                    b
-                ),
-                False
-            )
+                    b),
+                False)
 
     def test_is_pentagonal(self):
         pent_nums = {1, 5, 12, 22, 35, 51, 70, 92, 117, 145, 176, 210, 247}
@@ -982,7 +971,9 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.is_pentagonal(728648331957), True)
         self.assertEqual(com.is_pentagonal(728648331958), False)
 
-###############################################################################
+
+# MAIN ########################################################################
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -31,18 +31,25 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import memoized
+
 
 # PARAMETERS ##################################################################
 
+
 A_LIMIT = 1000 # default: 1000
+
 B_LIMIT = 1000 # default: 1000
+
 START_N = 0 # default: 0
+
 
 # SOLUTION ####################################################################
 
-@com.memoized
+
+@memoized
 def is_prime(n):
-    """Memoized wrapper for the com.is_prime function."""
+    """Memoized wrapper for the common.is_prime function."""
     return com.is_prime(n)
 
 

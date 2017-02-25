@@ -24,17 +24,21 @@ ROW_COUNT rows of Pascal's triangle.
 Author: Curtis Belmonte
 """
 
-import common as com
-
 import math
 
+import common as com
+
+
 # PARAMETERS ##################################################################
+
 
 PRIME = 7 # default: 7
 
 ROW_COUNT = 10**9 # default: 10**9
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # count number of entries up to nearest power of PRIME

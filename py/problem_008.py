@@ -34,14 +34,17 @@ have the greatest product. What is the value of this product?
 Author: Curtis Belmonte
 """
 
-# import common as com
 
 # PARAMETERS ##################################################################
 
+
 N = 13 # default: 13
+
 INPUT_FILE = '../input/008.txt' # default: '../input/008.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     with open(INPUT_FILE) as f:

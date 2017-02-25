@@ -33,17 +33,22 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 LIMIT = 10000 # default: 1000
+
 MAX_ITER = 50 # default: 50
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     count = 0
     for n in range(10, LIMIT):
-        for __ in range(MAX_ITER):
+        for _ in range(MAX_ITER):
             n += int(str(n)[::-1])
             if com.is_palindrome(n):
                 break

@@ -34,11 +34,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 INPUT_FILE = '../input/059.txt' # default: '../input/059.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def decrypt_message(message, key):
     """Returns the result of XOR decrypting message with the given key."""

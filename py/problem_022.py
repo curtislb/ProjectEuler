@@ -22,11 +22,15 @@ import heapq
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 INPUT_FILE = '../input/022.txt' # default: '../input/022.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def name_score(name, position):
     """Returns the score for name in position when sorted alphabetically."""

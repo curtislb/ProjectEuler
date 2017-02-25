@@ -21,11 +21,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 10**8 # default: 10**8
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # find max value for which sum of squares is less than N

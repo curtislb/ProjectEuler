@@ -16,13 +16,15 @@ How many reversible numbers are there below 10**DIGIT_LIMIT?
 Author: Curtis Belmonte
 """
 
-import common as com
 
 # PARAMETERS ##################################################################
 
+
 DIGIT_LIMIT = 9 # default: 9
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     count = 0

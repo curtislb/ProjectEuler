@@ -17,15 +17,17 @@ sequence?
 Author: Curtis Belmonte
 """
 
-import sys
-
 import common as com
+
 
 # PARAMETERS ##################################################################
 
+
 # N/A
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # generate all four-digit primes
@@ -56,7 +58,8 @@ def solve():
                 for j in range(i + 1, len(perms)):
                     for k in range(j + 1, len(perms)):
                         if perms[j] - perms[i] == perms[k] - perms[j]:
-                            return int('%d%d%d' % (perms[i],perms[j],perms[k]))
+                            return int(''.join(
+                                map(str, [perms[i], perms[j], perms[k]])))
         
         # remove permutation group from primes
         for n in perms:

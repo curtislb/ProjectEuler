@@ -19,18 +19,22 @@ Author: Curtis Belmonte
 
 import math
 
+
 # PARAMETERS ##################################################################
+
 
 N = 10**12 # default: 10**12
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 1
     repunits = {1}
     for k in range(3, int(math.ceil(math.log(N, 2)))):
         max_b = 2
-        while (max_b**k - 1)//(max_b - 1) < N:
+        while (max_b**k - 1) // (max_b - 1) < N:
             max_b += 1
 
         for b in range(2, max_b):

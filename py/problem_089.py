@@ -35,13 +35,15 @@ than four consecutive identical units.
 Author: Curtis Belmonte
 """
 
-import common as com
 
 # PARAMETERS ##################################################################
 
+
 INPUT_FILE = '../input/089.txt' # default: '../input/089.txt'
 
+
 # SOLUTION ####################################################################
+
 
 numeral_values = {
     'I': 1,

@@ -21,17 +21,23 @@ reduced proper fractions for d ≤ MAX_D?
 Author: Curtis Belmonte
 """
 
+from fractions import Fraction
+
 import common as com
 
-from fractions import Fraction
 
 # PARAMETERS ##################################################################
 
+
 MIN_FRAC = Fraction(1, 3) # default: Fraction(1, 3)
+
 MAX_FRAC = Fraction(1, 2) # default: Fraction(1, 2)
+
 MAX_D = 12000 # default: 12000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0

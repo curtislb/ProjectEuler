@@ -14,11 +14,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 D = 3 # default: 3
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # calculate max and min D-digit numbers

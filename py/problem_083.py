@@ -22,19 +22,24 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import Graph
+
 
 # PARAMETERS ##################################################################
 
+
 INPUT_FILE = '../input/083.txt' # default: '../input/083.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     matrix = list(com.ints_from_file(INPUT_FILE, sep=','))
     n = len(matrix)
     
     # create graph with virtual start nodes
-    graph = com.Graph()
+    graph = Graph()
     start_node = (-1, -1)
     graph.add_node(start_node)
 
@@ -55,7 +60,7 @@ def solve():
             com.try_add_edge(graph, matrix, node, i, j - 1) # left
             com.try_add_edge(graph, matrix, node, i, j + 1) # right
 
-    distance, __ = graph.dijkstra(start_node)
+    distance, _ = graph.dijkstra(start_node)
     goal_node = (n - 1, n - 1)
     return distance[goal_node]
 

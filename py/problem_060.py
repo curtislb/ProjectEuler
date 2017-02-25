@@ -18,13 +18,18 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 NUM_PRIMES = 5 # default: 5
 
+
 # SOLUTION ####################################################################
 
+
 pair_concats = {}
+
 
 def concats_prime(n, m):
     """Determines if n and m can concatenate in either order to form primes."""
@@ -41,10 +46,8 @@ def concats_prime(n, m):
 
     # compute and memoize result
     else:
-        pair_prime = (
-            com.is_prime(com.concat_numbers(n, m)) and
-            com.is_prime(com.concat_numbers(m, n))
-        )
+        pair_prime = (com.is_prime(com.concat_numbers(n, m)) and com.is_prime(
+            com.concat_numbers(m, n)))
         pair_concats[pair] = pair_prime
         return pair_prime
 
@@ -96,7 +99,7 @@ def solve():
     # look for prime pair sets within 1-primes and 2-primes
     one_prime_sets = None
     two_prime_sets = None
-    for __ in range(NUM_PRIMES):
+    for _ in range(NUM_PRIMES):
         one_prime_sets = find_prime_sets(one_primes, one_prime_sets)
         two_prime_sets = find_prime_sets(two_primes, two_prime_sets)
 

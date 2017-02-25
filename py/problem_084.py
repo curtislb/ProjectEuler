@@ -78,18 +78,22 @@ find the six-digit modal string.
 Author: Curtis Belmonte
 """
 
-import collections
+from collections import Counter
+from fractions import Fraction
 
 import common as com
-
-from fractions import Fraction
+from common import GameBoard
 
 # PARAMETERS ##################################################################
 
+
 NUM_DICE = 2 # default: 2
+
 NUM_SIDES = 4 # default: 4
 
+
 # SOLUTION ####################################################################
+
 
 # A mapping from each space type to board positions of this type
 space_type_map = {
@@ -137,28 +141,27 @@ move_rules = {
 
 def solve():
     # set up the game board
-    board = com.GameBoard(space_type_map, move_rules)
+    board = GameBoard(space_type_map, move_rules)
 
     # precompute possible roll values and their probabilities
     roll_values = []
     roll_probs = []
-    for roll in range(NUM_DICE, NUM_DICE*NUM_SIDES + 1):
+    for roll in range(NUM_DICE, NUM_DICE * NUM_SIDES + 1):
         roll_values.append(roll)
         roll_probs.append(com.dice_probability(roll, NUM_DICE, NUM_SIDES))
     
     # simulate many moves, keeping track of most popular spaces
-    counts = collections.Counter()
+    counts = Counter()
     position = 0
-    for __ in range(10**5):
+    for _ in range(10**5):
         roll = com.choose_weighted_random(roll_values, roll_probs)
         position = board.move(position, roll)
         counts[position] += 1
 
     # return modal string as a decimal integer
     return int(
-        ''.join('{0:02d}'.format(key) for key, __ in counts.most_common(3)),
-        10
-    )
+        ''.join('{0:02d}'.format(key) for key, _ in counts.most_common(3)),
+        10)
 
 
 if __name__ == '__main__':

@@ -18,19 +18,20 @@ British usage.
 Author: Curtis Belmonte
 """
 
-import common as com
+from common import memoized, NUMBER_WORDS
+
 
 # PARAMETERS ##################################################################
 
+
 MAX_NUMBER = 1000 # default: 1000
+
 
 # SOLUTION ####################################################################
 
-and_letters = len('and')
-
-# letter counts for unique numbers (see common.NUMBER_WORDS)
+# letter counts for unique numbers
 num_letters = {0: 0}
-for number, word in com.NUMBER_WORDS.items():
+for number, word in NUMBER_WORDS.items():
     num_letters[number] = len(word)
 
 # letter counts for relevant powers of 10
@@ -41,7 +42,7 @@ pow10_letters = {
 }
 
 
-@com.memoized
+@memoized
 def count_letters(n):
     """Returns the number of letters in the written representation of the
     natural number n (in compliance with British usage)."""
@@ -60,7 +61,7 @@ def count_letters(n):
 
     # count letters for "and" if necessary
     if pow10_flag and n > 0:
-        count += and_letters
+        count += 3
 
     # count letters for tens place (at and above 20)
     if n >= 20:

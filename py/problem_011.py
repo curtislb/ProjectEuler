@@ -38,12 +38,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 N = 4 # default: 4
+
 INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # read the matrix from the input file

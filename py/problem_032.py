@@ -21,31 +21,36 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import memoized
+
 
 # PARAMETERS ##################################################################
 
+
 MAX_DIGIT = 9 # default: 9
 
+
 # SOLUTION ####################################################################
+
 
 # A 1 to MAX_DIGIT pandigital string
 pandigit_string = com.pandigital_string(1, MAX_DIGIT)
 
 
-@com.memoized
+@memoized
 def count_digits(n):
-    """Memoized wrapper for the com.count_digits function."""
+    """Memoized wrapper for the common.count_digits function."""
     return com.count_digits(n)
 
 
-@com.memoized
+@memoized
 def max_multiplicand(digit_count):
     """Returns the maximum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
     return int(pandigit_string[digit_count::-1])
 
 
-@com.memoized
+@memoized
 def min_multiplicand(digit_count):
     """Returns the minimum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
@@ -67,7 +72,7 @@ def solve():
             
             # check if target digit count is within min and max product range
             target_digits = MAX_DIGIT - a_digits - b_digits
-            if min_digits <= target_digits and target_digits <= max_digits:
+            if min_digits <= target_digits <= max_digits:
                 candidates.append((a_digits, b_digits))
     
     # search for products that are 1 to n pandigital with their multiplicands

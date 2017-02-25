@@ -55,13 +55,15 @@ Author: Curtis Belmonte
 
 import common as com
 
-import math
 
 # PARAMETERS ##################################################################
 
+
 MAX_N = 10000 # default: 10000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     count = 0
@@ -72,7 +74,7 @@ def solve():
             continue
 
         # compute continued fraction expansion of sqrt(n)
-        __, block = com.sqrt_fraction_expansion(n)
+        _, block = com.sqrt_fraction_expansion(n)
         
         # increment count if expansion has odd period
         period = len(block)

@@ -13,12 +13,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 D = 10 # default: 10
+
 MAX = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0

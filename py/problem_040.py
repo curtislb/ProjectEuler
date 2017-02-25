@@ -21,11 +21,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 MAX_POWER_10 = 1000000 # default: 1000000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # search for and multiply all necessary digits

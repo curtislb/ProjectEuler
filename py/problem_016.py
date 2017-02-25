@@ -13,12 +13,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 BASE = 2 # default: 2
+
 EXPONENT = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     return com.sum_digits(BASE**EXPONENT)

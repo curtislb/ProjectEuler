@@ -16,11 +16,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 100 # default: 100
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     return com.sum_digits(com.factorial(N))

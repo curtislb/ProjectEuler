@@ -24,11 +24,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 FACTOR = 2 # default: 2
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     n = 7

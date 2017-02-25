@@ -27,11 +27,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 INPUT_FILE = '../input/067.txt' # default: '../input/067.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     triangle = list(com.ints_from_file(INPUT_FILE))

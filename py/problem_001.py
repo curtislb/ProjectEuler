@@ -14,13 +14,19 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 M = 3 # default: 3
+
 N = 5 # default: 5
+
 LIMIT = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def sum_divisible_by(n):
     """Returns the sum of natural numbers below LIMIT divisible by n."""
@@ -28,8 +34,10 @@ def sum_divisible_by(n):
 
 
 def solve():
-    LCM = com.lcm(M, N)
-    return sum_divisible_by(M) + sum_divisible_by(N) - sum_divisible_by(LCM)
+    m_sum = sum_divisible_by(M)
+    n_sum = sum_divisible_by(N)
+    lcm_sum = sum_divisible_by(com.lcm(M, N))
+    return m_sum + n_sum - lcm_sum
 
 
 if __name__ == '__main__':

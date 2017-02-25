@@ -10,14 +10,17 @@ INPUT_FILE (all of which have the same number of digits).
 Author: Curtis Belmonte
 """
 
-# import common as com
 
 # PARAMETERS ##################################################################
 
+
 D = 10 # default: 10
+
 INPUT_FILE = '../input/013.txt' # default: '../input/013.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0

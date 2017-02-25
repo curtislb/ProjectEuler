@@ -19,11 +19,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 NUM_DIGITS = 10 # default: 10
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     factor = 28433

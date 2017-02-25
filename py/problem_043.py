@@ -30,15 +30,22 @@ import itertools
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 START = 0 # default: 0
+
 END = 9 # default: 9
-DIGIT_INDICES = [[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10]]
-    # default: [[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10]]
-DIVISORS = [2,3,5,7,11,13,17] # default: [2,3,5,7,11,13,17]
+
+DIGIT_INDICES = [[2, 4], [3, 5], [4, 6], [5, 7], [6, 8], [7, 9], [8, 10]]
+# default: [[2, 4], [3, 5], [4, 6], [5, 7], [6, 8], [7, 9], [8, 10]]
+
+DIVISORS = [2, 3, 5, 7, 11, 13, 17] # default: [2, 3, 5, 7, 11, 13, 17]
+
 
 # SOLUTION ####################################################################
+
 
 # Number of divisors; must match length of DIGIT_INDICES
 divisor_count = len(DIVISORS)

@@ -23,15 +23,18 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 100 # default: 100
 
+
 # SOLUTION ####################################################################
 
+
 def solve():
-    n_sum = com.triangular(N)
-    return n_sum * n_sum - com.sum_of_squares(N)
+    return com.triangular(N)**2 - com.sum_of_squares(N)
 
 
 if __name__ == '__main__':

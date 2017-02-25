@@ -21,12 +21,17 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 INPUT_FILE = '../input/081.txt' # default: '../input/081.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     matrix = list(com.ints_from_file(INPUT_FILE, sep=','))
@@ -37,8 +42,8 @@ def solve():
         i = -1
         j = -diag
         while j < 0:
-            down_cost = matrix[i + 1][j] if i < -1 else com.INFINITY
-            right_cost = matrix[i][j + 1] if j < -1 else com.INFINITY
+            down_cost = matrix[i + 1][j] if i < -1 else INFINITY
+            right_cost = matrix[i][j + 1] if j < -1 else INFINITY
             matrix[i][j] += min(down_cost, right_cost)
             i -= 1
             j += 1
@@ -48,8 +53,8 @@ def solve():
         i = -diag
         j = -n
         while i >= -n:
-            down_cost = matrix[i + 1][j] if i < -1 else com.INFINITY
-            right_cost = matrix[i][j + 1] if j < -1 else com.INFINITY
+            down_cost = matrix[i + 1][j] if i < -1 else INFINITY
+            right_cost = matrix[i][j + 1] if j < -1 else INFINITY
             matrix[i][j] += min(down_cost, right_cost)
             i -= 1
             j += 1

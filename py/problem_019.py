@@ -24,58 +24,46 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import (
+    Day,
+    Month,
+    DAYS_IN_WEEK,
+    DAYS_IN_YEAR,
+    MONTH_DAY_COUNTS,
+    MONTHS_IN_YEAR)
 
 # PARAMETERS ##################################################################
 
-DAY_OF_WEEK = com.Day.SUNDAY # default: com.Day.SUNDAY
+
+DAY_OF_WEEK = Day.SUNDAY # default: Day.SUNDAY
 # TODO: parameterize date range
 
+
 # SOLUTION ####################################################################
-
-# Number of days in each month
-month_day_counts = [
-  31, # January
-  28, # February (non-leap year)
-  31, # March
-  30, # April
-  31, # May
-  30, # June
-  31, # July
-  31, # August
-  30, # September
-  31, # October
-  30, # November
-  31, # December
-]
-
-# Additional useful constants
-days_in_week = 7
-days_in_year = 365
-months_in_year = 12
 
 
 def solve():
     # advance day from Monday, 1 Jan 1900 to 1 Jan 1901
     start_year = 1900
-    day = com.Day.MONDAY
-    day = (day + days_in_year + com.is_leap_year(start_year)) % days_in_week
+    day = Day.MONDAY
+    day = (day + DAYS_IN_YEAR + com.is_leap_year(start_year)) % DAYS_IN_WEEK
 
     # count occurrences of DAY_OF_WEEK on the first of each month
     end_year = 2001
     first_day_count = 0
     for year in range(start_year + 1, end_year):
-        for month in range(com.Month.JANUARY, months_in_year):
+        for month in range(Month.JANUARY, MONTHS_IN_YEAR):
             # count the number of days in the current month
-            days_in_month = month_day_counts[month]
-            if month == com.Month.FEBRUARY:
+            days_in_month = MONTH_DAY_COUNTS[month]
+            if month == Month.FEBRUARY:
                 days_in_month += com.is_leap_year(year)
 
             # check if the first day of the month is Sunday
-            if day == com.Day.SUNDAY:
+            if day == Day.SUNDAY:
                 first_day_count += 1
 
             # advance day by one month
-            day = (day + days_in_month) % days_in_week
+            day = (day + days_in_month) % DAYS_IN_WEEK
 
     return first_day_count
 

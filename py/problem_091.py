@@ -17,13 +17,15 @@ formed?
 Author: Curtis Belmonte
 """
 
-import common as com
 
 # PARAMETERS ##################################################################
 
+
 MAX_COORD = 50 # default: 50
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # prepare all valid points in range

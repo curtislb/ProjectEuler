@@ -27,26 +27,30 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 28123 # default: 28123
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0
     abundant_nums = set()
     for n in range(1, min(LIMIT, 28123)):
         # check if n is the sum of any abundant number pairs seen so far
-        sum_of_abundant = False
+        is_abundant_sum = False
         for abundant_num in abundant_nums:
             diff = n - abundant_num
             if diff in abundant_nums:
-                sum_of_abundant = True
+                is_abundant_sum = True
                 break
         
         # if n is not the sum of two abundant numbers, add it to total
-        if not sum_of_abundant:
+        if not is_abundant_sum:
             total += n
         
         # check if n is an abundant number

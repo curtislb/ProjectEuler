@@ -21,11 +21,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 D = 2 # default: 2
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # compute minimum and maximum D-digit numbers
@@ -51,7 +55,7 @@ def solve():
                 
                 for j in range(D):
                     # check if digits can be canceled non-trivially
-                    if (numer_str[i] == denom_str[j] and numer_str[i] != '0'):
+                    if numer_str[i] == denom_str[j] and numer_str[i] != '0':
                         # cancel matching digits in numerator and denominator
                         canceled_numer = int(numer_str[:i] + numer_str[i + 1:])
                         canceled_denom = int(denom_str[:j] + denom_str[j + 1:])
@@ -63,7 +67,7 @@ def solve():
                         
                         # compare digit canceled fraction to reduced fraction
                         if (reduced_canceled_numer == reduced_numer
-                            and reduced_canceled_denom == reduced_denom):
+                                and reduced_canceled_denom == reduced_denom):
                             # fractions match; add fraction to product
                             product_numer *= reduced_numer
                             product_denom *= reduced_denom

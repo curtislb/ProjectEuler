@@ -19,12 +19,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 NUM_COUNT = 100 # default: 100
+
 DIGIT_COUNT = 100 # default: 100
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0

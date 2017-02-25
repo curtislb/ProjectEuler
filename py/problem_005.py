@@ -15,11 +15,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 MAX = 20 # default: 20
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     return com.lcm_all([num for num in range(2, MAX + 1)])

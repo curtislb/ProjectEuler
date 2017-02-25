@@ -16,11 +16,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 NUM_PERMS = 5 # default: 5
 
+
 # SOLUTION ####################################################################
+
 
 cube_digits = {}
 

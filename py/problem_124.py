@@ -33,13 +33,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 MAX_N = 10**5 # default: 10**5
 
 INDEX = 10**4 # default: 10**4
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     radicals = [(1, 1)]

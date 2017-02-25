@@ -21,13 +21,15 @@ the same way?
 Author: Curtis Belmonte
 """
 
-# import common as com
 
 # PARAMETERS ##################################################################
 
+
 N = 1001 # default: 1001
 
+
 # SOLUTION ####################################################################
+
 
 def spiral_diagonal_sum(layers):
     """Returns the sum of the diagonals of the number spiral with the given

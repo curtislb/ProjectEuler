@@ -32,11 +32,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 D = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # search for Fibonacci number containing D digits

@@ -21,11 +21,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LOWER_LIMIT = 40755 # default: 40755
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # generate the first triangle number above LOWER_LIMIT

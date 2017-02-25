@@ -25,23 +25,27 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 INPUT_FILE = '../input/102.txt' # default: '../input/102.txt'
 
 QUERY_POINT = (0, 0) # default: (0, 0)
 
+
 # SOLUTION ####################################################################
+
 
 def vector_sub(u, v):
     return com.vector_pair_op(u, v, lambda x,y: x - y)
 
 
-def same_side(p1, p2, A, B):
+def same_side(p1, p2, a, b):
     """Determines if points p1 and p2 are on the same side of segment AB."""
-    segment_AB = vector_sub(B, A)
-    cross1 = com.cross_product_3d(segment_AB, vector_sub(p1, A))
-    cross2 = com.cross_product_3d(segment_AB, vector_sub(p2, A))
+    segment_ab = vector_sub(b, a)
+    cross1 = com.cross_product_3d(segment_ab, vector_sub(p1, a))
+    cross2 = com.cross_product_3d(segment_ab, vector_sub(p2, a))
     return com.dot_product(cross1, cross2) >= 0
 
 
@@ -53,16 +57,14 @@ def solve():
         for line in f:
             # parse triangle vertex coordinates from line
             tokens = [int(t) for t in line.strip().split(',')]
-            A = (tokens[0], tokens[1], 0)
-            B = (tokens[2], tokens[3], 0)
-            C = (tokens[4], tokens[5], 0)
+            a = (tokens[0], tokens[1], 0)
+            b = (tokens[2], tokens[3], 0)
+            c = (tokens[4], tokens[5], 0)
 
             # check if query point on correct side of all segments
-            if (
-                same_side(point, A, B, C) and
-                same_side(point, B, C, A) and
-                same_side(point, C, A, B)
-            ):
+            if (same_side(point, a, b, c)
+                    and same_side(point, b, c, a)
+                    and same_side(point, c, a, b)):
                 count += 1
 
     return count

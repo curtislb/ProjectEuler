@@ -16,11 +16,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 # N/A
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # search for max value that could be written as powers of its digits

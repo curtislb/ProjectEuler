@@ -26,12 +26,17 @@ import math
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 MAX_N = 100 # default: 100
+
 MIN_VALUE = 1000000 # default: 1000000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     count = 0

@@ -19,11 +19,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 INPUT_FILE = '../input/079.txt' # default: '../input/079.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # keep track of all digits preceding other digits

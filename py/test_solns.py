@@ -7,11 +7,11 @@ Module for testing the correctness and runtime of problem solutions.
 Author: Curtis Belmonte
 """
 
-import argparse
 import importlib
 import sys
 import time
-
+from argparse import ArgumentParser
+from operator import itemgetter
 
 ANSWER_FILE = '../input/answers.txt'
 
@@ -30,13 +30,21 @@ def answers_from_file(answer_file):
 
 def main():
     # parse optional and positional arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-l', '--list-slow', action='store_true',
+    parser = ArgumentParser()
+    parser.add_argument(
+        '-l', '--list-slow',
+        action='store_true',
         help='show a summary list of slow solutions')
-    parser.add_argument('-s', '--skip', action='store_true',
+    parser.add_argument(
+        '-s', '--skip',
+        action='store_true',
         help='test all except the following problems')
-    parser.add_argument('problem_nums', metavar='prob_num', type=int,
-        nargs='*', help='problem number of a solution to be tested')
+    parser.add_argument(
+        'problem_nums',
+        metavar='prob_num',
+        type=int,
+        nargs='*',
+        help='problem number of a solution to be tested')
     args = parser.parse_args()
 
     answers = answers_from_file(ANSWER_FILE)
@@ -60,7 +68,8 @@ def main():
     pass_count = 0    
     for problem_num in problem_nums:
         if problem_num not in answers:
-            sys.stderr.write('Problem {0}: No answer\n'.format(problem_num))
+            sys.stderr.write(
+                'Problem {0}: No answer in input file\n'.format(problem_num))
             continue
 
         sys.stdout.write('Testing Problem {0}...'.format(problem_num))
@@ -68,12 +77,11 @@ def main():
 
         # import the problem module and ensure its solve function exists
         module_name = 'problem_' + problem_num
-        try:
-            module = importlib.import_module(module_name)
-            module.solve
-        except:
+        module = importlib.import_module(module_name)
+        if not hasattr(module, 'solve'):
             print('FAILED')
-            sys.stderr.write('Problem {0}: No solution\n'.format(problem_num))
+            sys.stderr.write(
+                'Problem {0}: No solve function defined\n'.format(problem_num))
             continue
 
         # run and time the problem solution
@@ -86,8 +94,7 @@ def main():
             sys.stderr.write('Problem {0}: {1}: {2}\n'.format(
                 problem_num,
                 type(e).__name__,
-                e
-            ))
+                e))
             continue
         
         # check if solution matches correct answer for the problem
@@ -104,19 +111,16 @@ def main():
         else:
             print('FAILED')
             sys.stderr.write(
-                'Problem {0}: Answer {1} != {2}\n'.format(
+                'Problem {0}: Expected {1}, but got {2}\n'.format(
                     problem_num,
-                    answer,
-                    answers[problem_num]
-                )
-            )
+                    answers[problem_num],
+                    answer))
 
     # print summary line with number of tests passed
     print('-' * 40)
     print('Solutions passed {0}/{1} tests'.format(
         pass_count,
-        len(problem_nums)
-    ))
+        len(problem_nums)))
 
     # print lists of slow solutions if enabled
     if args.list_slow:
@@ -127,13 +131,12 @@ def main():
         ]
         for i, slow_list in enumerate(slow_lists):
             if slow_list:
-                slow_list.sort(key=lambda x: x[1], reverse=True)
+                slow_list.sort(key=itemgetter(1), reverse=True)
                 print('\n{0}:'.format(slow_list_names[i]))
                 for prob_num, total_time in slow_list:
                     print('- Problem {0} ({1:6.3f} s)'.format(
                         prob_num,
-                        total_time
-                    ))
+                        total_time))
 
 
 if __name__ == '__main__':

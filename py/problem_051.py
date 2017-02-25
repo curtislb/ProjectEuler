@@ -21,11 +21,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 # N/A
 
+
 # SOLUTION ####################################################################
+
 
 # TODO: refactor to handle prime value families of any size
 FAMILY_SIZE = 8
@@ -91,14 +95,10 @@ def solve():
     for family in families:
         min_prime = family[0]
         digit_count = com.count_digits(min_prime)
-        same_num_digits = True
         for prime in family[1:]:
             if com.count_digits(prime) != digit_count:
-                same_num_digits = False
                 break
-            
-            if same_num_digits:
-                min_primes.append(min_prime)
+            min_primes.append(min_prime)
     
     return min(min_primes)
 

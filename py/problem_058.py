@@ -29,11 +29,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 MIN_FRACTION = 0.1 # default: 0.1
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     side = 1
@@ -47,7 +51,7 @@ def solve():
 
         # count primes along diagonals of spiral
         side_sub_1 = side - 1
-        for __ in range(4):
+        for _ in range(4):
             # each diagonal is (side - 1) greater than previous
             value += side_sub_1
 

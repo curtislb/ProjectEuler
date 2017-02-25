@@ -45,13 +45,17 @@ Author: Curtis Belmonte
 
 import copy
 
-import common as com
+from common import INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 INPUT_FILE = '../input/096.txt' # default: '../input/096.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def get_valid_digits(grid, i, j):
     """Returns a set of all digits that could be placed in cell (i, j) based on
@@ -88,7 +92,7 @@ def solve_puzzle(grid):
     puzzle_changed = True
     while puzzle_changed:
         puzzle_changed = False
-        best_count = com.INFINITY
+        best_count = INFINITY
         best_digits = None
         best_cell = None
         for i, row in enumerate(grid):

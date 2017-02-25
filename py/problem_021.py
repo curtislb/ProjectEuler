@@ -21,11 +21,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 10000 # default: 10000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0
@@ -35,7 +39,7 @@ def solve():
         n = com.sum_proper_divisors(m)
         
         # do m and n meet conditions of amicable pair with m < n < LIMIT
-        if m < n and n < LIMIT and com.sum_proper_divisors(n) == m:
+        if (m < n < LIMIT) and com.sum_proper_divisors(n) == m:
             total += m + n
     
     return total

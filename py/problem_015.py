@@ -14,11 +14,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 20 # default: 20
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # compute the value of (2*N)! / N! = (2*N) * (2*N - 1) * ... * (N + 1)

@@ -14,11 +14,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 10001 # default: 10001
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     return com.prime(N)

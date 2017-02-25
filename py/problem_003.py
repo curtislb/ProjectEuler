@@ -13,11 +13,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 600851475143 # default: 600851475143
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     return com.prime_factorization(N)[-1][0]

@@ -16,11 +16,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 MAX_VALUE = 100 # default: 100
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     max_sum = 0

@@ -23,11 +23,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 DIVISOR = 10**6 # Default: 10**6
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     partitions = [1, 1]

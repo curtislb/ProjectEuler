@@ -22,16 +22,21 @@ MIN_A ≤ a ≤ MAX_A and MIN_B ≤ b ≤ MAX_B?
 Author: Curtis Belmonte
 """
 
-# import common as com
 
 # PARAMETERS ##################################################################
 
+
 MIN_A = 2 # default: 2
+
 MAX_A = 100 # default: 100
+
 MIN_B = 2 # default: 2
+
 MAX_B = 100 # default: 100
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # try all combinations of a^b

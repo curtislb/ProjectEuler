@@ -23,12 +23,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 CONSEC = 4 # default: 4
+
 FACTORS = 4 # default: 4
 
+
 # SOLUTION ####################################################################
+
 
 # increment for max integer when generating primes
 prime_step = 1000

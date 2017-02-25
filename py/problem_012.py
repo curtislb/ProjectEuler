@@ -28,16 +28,21 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import memoized
+
 
 # PARAMETERS ##################################################################
 
+
 D = 500 # default: 500
+
 
 # SOLUTION ####################################################################
 
-@com.memoized
+
+@memoized
 def count_divisors(n):
-    """Memoized wrapper for the com.count_divisors function."""
+    """Memoized wrapper for the common.count_divisors function."""
     return com.count_divisors(n)
 
 

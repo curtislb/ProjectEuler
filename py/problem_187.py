@@ -18,11 +18,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 10**8 # default: 10**8
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # compute all possible prime factors

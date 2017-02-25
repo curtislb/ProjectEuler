@@ -23,13 +23,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 10**7 # default: 10**7
 
+
 # SOLUTION ####################################################################
 
-squares = [n*n for n in range(10)]
+
+squares = [n**2 for n in range(10)]
 
 chains_to_89 = {
     1: False,
@@ -43,7 +47,8 @@ def has_chain_to_89(n):
     if n in chains_to_89:
         return chains_to_89[n]
 
-    has_chain = has_chain_to_89(com.digit_function_sum(n, lambda x: squares[x]))
+    has_chain = has_chain_to_89(
+        com.digit_function_sum(n, lambda x: squares[x]))
     chains_to_89[n] = has_chain
     return has_chain
 

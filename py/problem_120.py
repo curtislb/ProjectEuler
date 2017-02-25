@@ -14,15 +14,17 @@ For MIN_A ≤ a ≤ MAX_A, find ∑ r_max.
 Author: Curtis Belmonte
 """
 
-import common as com
 
 # PARAMETERS ##################################################################
+
 
 MIN_A = 3 # default: 3
 
 MAX_A = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     total = 0
@@ -30,7 +32,7 @@ def solve():
     for a in range(MIN_A, MAX_A + 1):
         # for even a, r_max = a^2 - 2a
         if a % 2 == 0:
-            total += a**2 - 2*a
+            total += a**2 - 2 * a
         
         # for odd a, r_max = a^2 - a
         else:

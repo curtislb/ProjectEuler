@@ -43,42 +43,43 @@ form 16- and 17-digit strings. What is the maximum 16-digit string for a
 Author: Curtis Belmonte
 """
 
-import common as com
-
 import itertools
+
+from common import INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 # N/A
+
 
 # SOLUTION ####################################################################
 
+
 def solve():
-    best_int = -com.INFINITY
+    best_int = -INFINITY
 
     # check permutations with 6-10 on outer ring and 1-5 in inner ring
     for outer_ring in itertools.permutations(list(range(7, 11))):
         for inner_ring in itertools.permutations(list(range(1, 6))):
-                A = 6
-                B, C, D, E = outer_ring
+                a = 6
+                b, c, d, e = outer_ring
                 v, w, x, y, z = inner_ring
 
                 # check if permutation forms magic 5-gon
-                if (
-                    A + v + w ==
-                    B + w + x ==
-                    C + x + y ==
-                    D + y + z ==
-                    E + z + v
-                ):
+                if (a + v + w
+                        == b + w + x
+                        == c + x + y
+                        == d + y + z
+                        == e + z + v):
                     # construct 5-gon string from ints
                     ngon_string = ('{}' * 15).format(
-                        A, v, w,
-                        B, w, x,
-                        C, x, y,
-                        D, y, z,
-                        E, z, v
-                    )
+                        a, v, w,
+                        b, w, x,
+                        c, x, y,
+                        d, y, z,
+                        e, z, v)
 
                     # update largest 5-gon int as necessary
                     ngon_int = int(ngon_string)

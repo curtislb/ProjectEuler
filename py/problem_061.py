@@ -35,11 +35,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 # N/A
 
+
 # SOLUTION ####################################################################
+
 
 # A dict defined so that P[m](n) = P(m, n)
 P = {
@@ -47,8 +51,8 @@ P = {
     4: lambda n: n**2,
     5: com.pentagonal,
     6: com.hexagonal,
-    7: lambda n: n * (5*n - 3) // 2,
-    8: lambda n: n * (3*n - 2)
+    7: lambda n: n * (5 * n - 3) // 2,
+    8: lambda n: n * (3 * n - 2),
 }
 
 
@@ -57,45 +61,45 @@ def is_cyclic_6(num_list):
     return len(num_list) == 6 and num_list[-1][-2:] == num_list[0][:2]
 
 
-def find_cycle(P_strs, found, k_used):
+def find_cycle(p_strs, found, k_used):
     if is_cyclic_6(found):
         return found
     
     for k in range(5):
         if k not in k_used:
-            for Pk_str in P_strs[k]:
-                if Pk_str[:2] == found[-1][-2:]:
+            for pk_str in p_strs[k]:
+                if pk_str[:2] == found[-1][-2:]:
                     new_k_used = set(k_used)
                     new_k_used.add(k)
-                    cycle = find_cycle(P_strs, found + [Pk_str], new_k_used)
+                    cycle = find_cycle(p_strs, found + [pk_str], new_k_used)
                     if cycle is not None and is_cyclic_6(cycle):
                         return cycle
 
 
 def solve():
-    P_strs = [[] for n in range(6)]
+    p_strs = [[] for _ in range(6)]
 
     for k in range(3, 9):
         n = 1
-        Pk_max = 1
-        while Pk_max < 1000:
+        pk_max = 1
+        while pk_max < 1000:
             n += 1
-            Pk_max = P[k](n)
-        while Pk_max < 10000:
-            P_strs[k - 3].append(str(Pk_max))
+            pk_max = P[k](n)
+        while pk_max < 10000:
+            p_strs[k - 3].append(str(pk_max))
             n += 1
-            Pk_max = P[k](n)
+            pk_max = P[k](n)
 
     n = 0
     ans_list = None
-    while ans_list == None and n < len(P_strs[5]):
-        P_strs_copy = []
-        for Pk_strs in P_strs:
-            P_strs_copy.append(Pk_strs[:])
-        ans_list = find_cycle(P_strs_copy[:5][:], [P_strs[5][n]], set())
+    while ans_list is None and n < len(p_strs[5]):
+        p_strs_copy = []
+        for pk_strs in p_strs:
+            p_strs_copy.append(pk_strs[:])
+        ans_list = find_cycle(p_strs_copy[:5][:], [p_strs[5][n]], set())
         n += 1
 
-    return sum(int(P_str) for P_str in ans_list)
+    return sum(int(p_str) for p_str in ans_list)
 
 
 if __name__ == '__main__':

@@ -26,13 +26,15 @@ in its decimal fraction part.
 Author: Curtis Belmonte
 """
 
-# import common as com
 
 # PARAMETERS ##################################################################
 
+
 LIMIT = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def reciprocal_cycle_length(n):
     """Returns the length of the recurring cycle in the decimal fraction part

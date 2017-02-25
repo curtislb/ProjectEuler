@@ -21,26 +21,30 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import memoized
+
 
 # PARAMETERS ##################################################################
 
+
 INPUT_FILE = '../input/042.txt' # default: '../input/042.txt'
+
 
 # SOLUTION ####################################################################
 
-@com.memoized
+
+@memoized
 def word_value(word):
     """Returns the word value for word, computed as the sum of the alphabetical
     positions of each of its letters."""
-    if word == '':
-        return 0
-    return word_value(word[:-1]) + com.alpha_index_upper(word[-1])
+    return (0 if word == '' else
+            word_value(word[:-1]) + com.alpha_index_upper(word[-1]))
 
 
 def solve():
     # compute word values for all words in the input file
-    word_values = [word_value(word)
-                   for word in com.strings_from_file(INPUT_FILE)]
+    word_values = [word_value(word) for word in
+                   com.strings_from_file(INPUT_FILE)]
     max_word_value = max(word_values)
     
     # compute triangle numbers up to maximum word value
@@ -53,7 +57,7 @@ def solve():
         triangle_num = com.triangular(i)
     
     # count the number of word values that are triangle numbers
-    return sum((word_value in triangle_nums) for word_value in word_values)
+    return sum((word_val in triangle_nums) for word_val in word_values)
 
 
 if __name__ == '__main__':

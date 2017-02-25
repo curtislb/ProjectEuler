@@ -14,12 +14,17 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 RECT_TARGET = 2 * 10**6 # default: 2 * 10**6
 
+
 # SOLUTION ####################################################################
+
 
 def count_rectangles(m, n):
     """Returns the number of rectangles in an m by n rectangular grid."""
@@ -27,7 +32,7 @@ def count_rectangles(m, n):
 
 
 def solve():
-    best_diff = com.INFINITY
+    best_diff = INFINITY
     best_area = None
     upper_bound = com.int_sqrt(RECT_TARGET * 4)
     for m in range(1, upper_bound + 1):
@@ -38,7 +43,7 @@ def solve():
             diff = abs(RECT_TARGET - count_rectangles(m, n))
             if diff < best_diff:
                 best_diff = diff
-                best_area = m*n
+                best_area = m * n
 
     return best_area
 

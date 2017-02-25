@@ -17,11 +17,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 4000000 # default: 4000000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # sum every third (even) Fibonacci number

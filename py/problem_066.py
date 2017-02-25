@@ -32,14 +32,19 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import memoized, INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 MAX_D = 1000 # default: 1000
+
 
 # SOLUTION ####################################################################
 
-@com.memoized
+
+@memoized
 def partial_numerator(n, a0, block):
     """Computes the numerator of the partial quotient p_n/q_n for the continued
     fraction expansion sqrt(D) = [a0; (block)].
@@ -50,25 +55,25 @@ def partial_numerator(n, a0, block):
     if n == 0:
         return a0
     if n == 1:
-        return a0*(block[0]) + 1
+        return a0 * (block[0]) + 1
 
     # compute answer using recurrence relation
     period = len(block)
-    return (block[(n - 1) % period]*partial_numerator(n - 1, a0, block)
+    return (block[(n - 1) % period] * partial_numerator(n - 1, a0, block)
             + partial_numerator(n - 2, a0, block))
 
 
 def solve():
-    best_D = None
-    best_x = -com.INFINITY
+    best_d = None
+    best_x = -INFINITY
 
-    for D in range(2, MAX_D + 1):
+    for d in range(2, MAX_D + 1):
         # skip perfect square values
-        if com.is_square(D):
+        if com.is_square(d):
             continue
 
         # compute continued fraction expansion of sqrt(D)
-        a0, block = com.sqrt_fraction_expansion(D)
+        a0, block = com.sqrt_fraction_expansion(d)
         block = tuple(block)
         r = len(block) - 1
 
@@ -77,14 +82,14 @@ def solve():
         if r % 2 == 1:
             x = partial_numerator(r, a0, block)
         else:
-            x = partial_numerator(2*r + 1, a0, block)
+            x = partial_numerator(2 * r + 1, a0, block)
 
         # update best values of D and x as necessary
         if x > best_x:
-            best_D = D
+            best_d = d
             best_x = x
 
-    return best_D
+    return best_d
 
 
 if __name__ == '__main__':

@@ -14,19 +14,23 @@ For which value of p ≤ MAX_PERIMETER, is the number of solutions maximised?
 Author: Curtis Belmonte
 """
 
-import collections
+from collections import Counter
 
 import common as com
+from common import memoized
 
 # PARAMETERS ##################################################################
 
+
 MAX_PERIMETER = 1000 # default: 1000
+
 
 # SOLUTION ####################################################################
 
-@com.memoized
+
+@memoized
 def int_sqrt(num):
-    """Memoized wrapper for the com.int_sqrt function."""
+    """Memoized wrapper for the common.int_sqrt function."""
     return com.int_sqrt(num)
 
 
@@ -42,15 +46,15 @@ def solve():
         n_square = n * n
     
     # search for triplets of perfect squares that satisfy a^2 + b^2 = c^2
-    counts = collections.Counter()
+    counts = Counter()
     for a_square in squares:
         for b_square in squares:
             c_square = a_square + b_square
             if c_square in squares:
                 # compute the perimeter a + b + c
-                a = com.int_sqrt(a_square)
-                b = com.int_sqrt(b_square)
-                c = com.int_sqrt(c_square)
+                a = int_sqrt(a_square)
+                b = int_sqrt(b_square)
+                c = int_sqrt(c_square)
                 perimeter = a + b + c
                 
                 # if perimeter does not exceed max perimeter, increment count

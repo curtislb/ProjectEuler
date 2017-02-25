@@ -1,0 +1,14 @@
+# Specific directories
+.idea/
+cpp/Debug/
+py/__pycache__/
+
+# File patterns
+.cproject
+.project
+*.a
+*.o
+*.iml
+*.pyc
+*.pyo
+*~

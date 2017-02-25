@@ -18,12 +18,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 N = 1000000 # default: 1000000
-DIGITS = [0,1,2,3,4,5,6,7,8,9] # default: [0,1,2,3,4,5,6,7,8,9]
+
+DIGITS = list(range(10)) # default: list(range(10))
+
 
 # SOLUTION ####################################################################
+
 
 def solve():
     # adjust permutation number to be zero-indexed
@@ -42,7 +47,7 @@ def solve():
     
     # append the remaining digit and print the result
     permutation_digits.append(digits[0])
-    return int(''.join('%d' % d for d in permutation_digits))
+    return int(''.join(map(str, permutation_digits)))
 
 
 if __name__ == '__main__':

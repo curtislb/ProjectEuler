@@ -15,11 +15,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 6 # default: 6
 
+
 # SOLUTION ####################################################################
+
 
 def has_permuted_multiples(x):
     """Determines if all multiples of x up to Nx contain the same digits."""

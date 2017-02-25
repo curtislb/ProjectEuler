@@ -30,16 +30,20 @@ from fractions import Fraction
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 NUM_EXPANSIONS = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     frac = Fraction(1)
     count = 0
-    for __ in range(NUM_EXPANSIONS):
+    for _ in range(NUM_EXPANSIONS):
         frac = 1 + Fraction(1, 1 + frac)
         numer = frac.numerator
         denom = frac.denominator

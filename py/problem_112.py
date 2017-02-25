@@ -28,11 +28,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 BOUNCY_PERCENTAGE = 99 # default: 99
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     n = 1

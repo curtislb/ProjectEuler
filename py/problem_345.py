@@ -23,11 +23,15 @@ import copy
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 INPUT_FILE = '../input/345.txt' # default: '../input/345.txt'
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # read matrix from input file

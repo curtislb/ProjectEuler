@@ -13,11 +13,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 2000000 # default: 2000000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     return sum(com.primes_up_to(LIMIT - 1))

@@ -35,12 +35,17 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
 
+
 MAX_START = 10**6 # default: 10**6
+
 TARGET_LEN = 60 # default: 60
 
+
 # SOLUTION ####################################################################
+
 
 chain_lengths = {
     # factorions: n (-> n)

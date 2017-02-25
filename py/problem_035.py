@@ -17,11 +17,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 1000000 # default: 1000000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # search for circular primes from 2 to LIMIT - 1
@@ -51,4 +55,3 @@ def solve():
 
 if __name__ == '__main__':
     print(solve())
-    

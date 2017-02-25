@@ -20,12 +20,17 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 # N/A
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # generate pentagonal numbers up to threshold
@@ -39,7 +44,7 @@ def solve():
     pentagonal_set = set(pentagonal_list)
     
     # compute minimum difference of pentagonal numbers that satisfy conditions
-    min_diff = com.INFINITY
+    min_diff = INFINITY
     for m in range(1, pentagonal_count):
         for k in range(m + 1, pentagonal_count):
             # check if sum of P(m) and P(k) is pentagonal

@@ -20,11 +20,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 N = 5000 # default: 5000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     primes = list(com.primes_up_to(2 * N))

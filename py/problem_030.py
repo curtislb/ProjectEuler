@@ -23,11 +23,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 EXPONENT = 5 # default: 5
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # search for max value that could be written as powers of its digits

@@ -28,16 +28,20 @@ can exactly one integer sided right angle triangle be formed?
 Author: Curtis Belmonte
 """
 
+import math
+from collections import Counter
+
 import common as com
 
-import collections
-import math
 
 # PARAMETERS ##################################################################
 
+
 MAX_LENGTH = 1500000 # default: 1500000
 
+
 # SOLUTION ####################################################################
+
 
 def triple_length(m, n):
     """Returns the length of the triangle formed by the Pythagorean triple
@@ -47,7 +51,7 @@ def triple_length(m, n):
 
 def solve():
     # count lengths for all valid Pythagorean triples
-    length_counts = collections.Counter()
+    length_counts = Counter()
     max_m = int(math.sqrt(MAX_LENGTH / 2))
     for n in range(1, max_m):
         for m in range(n + 1, max_m + 1):

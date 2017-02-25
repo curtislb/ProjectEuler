@@ -22,12 +22,17 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 MAX_N = 10**7 # default: 10**7
 
+
 # SOLUTION ####################################################################
+
 
 def two_prime_phi(p1, p2):
     """Returns the totient of the product of two primes p1 and p2."""
@@ -36,7 +41,7 @@ def two_prime_phi(p1, p2):
 
 def solve():
     best_n = None
-    best_ratio = com.INFINITY
+    best_ratio = INFINITY
     primes = com.primes_up_to(MAX_N)
 
     for i, p1 in enumerate(primes):

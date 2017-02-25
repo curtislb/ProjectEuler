@@ -7,19 +7,21 @@ Common utility vars, functions, and classes for various Project Euler problems.
 Author: Curtis Belmonte
 """
 
-import collections
 import copy
-import functools
 import heapq
 import itertools
 import math
 import random
 import sys
 import threading
-
+from collections import defaultdict, deque
 from fractions import Fraction
+from functools import total_ordering
+from operator import itemgetter
+
 
 # PRIVATE VARIABLES ###########################################################
+
 
 # Currently computed factorial terms (in sorted order)
 _factorial_sequence = [1, 1]
@@ -30,7 +32,9 @@ _fibonacci_sequence = [1, 1]
 # Currently computed prime number terms (in sorted order)
 _prime_sequence = [2]
 
+
 # PRIVATE FUNCTIONS ###########################################################
+
 
 def _compute_chain_length(lengths, n, incr, is_valid, invalid_set, terms=None):
     """Recursive helper function for compute_chain_lengths that updates lengths
@@ -57,7 +61,12 @@ def _compute_chain_length(lengths, n, incr, is_valid, invalid_set, terms=None):
     # otherwise, continue building the current chain
     else:
         terms[n] = len(terms)
-        _compute_chain_length(lengths, incr(n), incr, is_valid, invalid_set,
+        _compute_chain_length(
+            lengths,
+            incr(n),
+            incr,
+            is_valid,
+            invalid_set,
             terms)
 
 
@@ -141,7 +150,7 @@ def _compute_primes_up_to(n):
         if sieve[i]:
             rho = i + prime_max + 1
             _prime_sequence.append(rho)
-            for j in range(rho*rho - prime_max - 1, sieve_size, rho):
+            for j in range(rho**2 - prime_max - 1, sieve_size, rho):
                 sieve[j] = False
 
 
@@ -178,18 +187,43 @@ def _try_bipartite_match(edge_matrix, i, col_marked, col_assignments):
 
             # check if column is unmatched or can be re-matched with new row
             if col_assignments[j] is None or _try_bipartite_match(
-                edge_matrix,
-                col_assignments[j],
-                col_marked,
-                col_assignments
-            ):
+                    edge_matrix,
+                    col_assignments[j],
+                    col_marked,
+                    col_assignments):
                 col_assignments[j] = i
                 return True
 
     # couldn't match row with any column
     return False
 
+
 # PUBLIC CONSTANTS ############################################################
+
+# Number of days in a week
+DAYS_IN_WEEK = 7
+
+# Number of days in a calendar year
+DAYS_IN_YEAR = 365
+
+# Number of days in each month
+MONTH_DAY_COUNTS = [
+  31, # January
+  28, # February (non-leap year)
+  31, # March
+  30, # April
+  31, # May
+  30, # June
+  31, # July
+  31, # August
+  30, # September
+  31, # October
+  30, # November
+  31, # December
+]
+
+# Number of months in a calendar year
+MONTHS_IN_YEAR = 12
 
 # Float representation of positive infinity
 INFINITY = float('inf')
@@ -225,30 +259,28 @@ NUMBER_WORDS = {
     90: 'ninety',
 }
 
+
 # PUBLIC DECORATORS ###########################################################
 
-class memoized(object):
+
+def memoized(f):
     """Decorator that caches the result of calling function with a particular
     set of arguments and returns this result for subsequent calls to function
     with the same arguments.
-    
-    Adapted from: https://wiki.python.org/moin/PythonDecoratorLibrary"""
-    
-    def __init__(self, function):
-        self.function = function
-        self.results = {}
-    
-    def __call__(self, *args):
-        # if result of running function on args has been cached, return it
-        if args in self.results:
-            return self.results[args]
-        
-        # evaluate function with args and store the result
-        result = self.function(*args)
-        self.results[args] = result
-        return result
+    """
+
+    memo = {}
+
+    def memo_func(*args):
+        if args not in memo:
+            memo[args] = f(*args)
+        return memo[args]
+
+    return memo_func
+
 
 # PUBLIC ENUMS ################################################################
+
 
 class Day:
     """Enum representing days of the week."""
@@ -275,10 +307,12 @@ class Month:
     OCTOBER = 9
     NOVEMBER = 10
     DECEMBER = 11
-    
+
+
 # PUBLIC CLASSES ##############################################################
 
-@functools.total_ordering
+
+@total_ordering
 class Card(object):
     """Class representing a standard playing card."""
     
@@ -297,7 +331,6 @@ class Card(object):
         QUEEN = 12
         KING = 13
         ACE = 14
-    
 
     class Suit:
         """Enum representing playing card suits."""
@@ -305,7 +338,6 @@ class Card(object):
         HEARTS = 1
         CLUBS = 2
         SPADES = 3
-    
 
     # dict mapping strings to suits
     _suit_map = {
@@ -332,7 +364,6 @@ class Card(object):
         'K': Face.KING,
         'A': Face.ACE,
     }
-    
 
     @staticmethod
     def _str_to_face(s):
@@ -341,7 +372,6 @@ class Card(object):
             return Card._face_map[s]
         else:
             raise ValueError('cannot convert %s to face' % s)
-    
 
     @staticmethod
     def _str_to_suit(s):
@@ -350,31 +380,25 @@ class Card(object):
             return Card._suit_map[s]
         else:
             raise ValueError('cannot convert %s to suit' % s)
-    
 
     def __init__(self, str_rep):
         self._str_rep = ''.join(str_rep.split()).upper()
         self.face = Card._str_to_face(self._str_rep[:-1])
         self.suit = Card._str_to_suit(self._str_rep[-1])
-        
 
     def __str__(self):
         return self._str_rep
-    
 
     def __repr__(self):
         return self.__str__()
-    
 
     def __eq__(self, other):
-        if not isinstance(other, type(self)):
-            return False
-        return self.face == other.face and self.suit == other.suit
-
+        return (isinstance(other, type(self)) and
+                self.face == other.face and
+                self.suit == other.suit)
 
     def __ne__(self, other):
         return not self.__eq__(other)
-    
 
     def __lt__(self, other):
         if self.face < other.face:
@@ -407,9 +431,9 @@ class GameBoard(object):
             return self.__str__()
 
         def __eq__(self, other):
-            if isinstance(other, self.__class__):
-                return self.type == other.type and self.number == other.number
-            return False
+            return (isinstance(other, self.__class__) and
+                    self.type == other.type and
+                    self.number == other.number)
 
         def __ne__(self, other):
             return not self.__eq__(other)
@@ -417,14 +441,11 @@ class GameBoard(object):
         def __hash__(self):
             return hash((self.type, self.number))
 
-
     def __init__(self, space_type_map, move_rules):
         self._space_list = GameBoard._make_space_list(space_type_map)
         self._move_probs = GameBoard._make_move_probs(
             move_rules,
-            self._space_list
-        )
-
+            self._space_list)
 
     @staticmethod
     def _make_space_list(space_type_map):
@@ -441,7 +462,6 @@ class GameBoard(object):
                 space_list[index] = GameBoard.Space(space_type, i + 1)
 
         return space_list
-
 
     @staticmethod
     def _make_move_probs(move_rules, space_list):
@@ -466,7 +486,7 @@ class GameBoard(object):
                 continue
             
             # convert rules to positions and assign probabilities to them
-            space_probs = collections.defaultdict(int)
+            space_probs = defaultdict(int)
             rule_probs = move_rules[space.type]
             total_prob = 0
             for rule, prob in rule_probs.items():
@@ -474,8 +494,7 @@ class GameBoard(object):
                     rule,
                     position,
                     space_list,
-                    space_map
-                )
+                    space_map)
                 space_probs[rule_dest] += prob
                 total_prob += prob
 
@@ -486,7 +505,6 @@ class GameBoard(object):
             move_probs.append(space_probs)
 
         return move_probs
-
 
     @staticmethod
     def _get_rule_dest(rule, position, space_list, space_map):
@@ -525,9 +543,7 @@ class GameBoard(object):
         # received invalid rule type
         raise ValueError('Rule {0} of type {1} is invalid'.format(
             rule,
-            type(rule)
-        ))
-
+            type(rule)))
 
     def move(self, start, spaces):
         """Simulates moving the given number of spaces forward from position
@@ -556,21 +572,17 @@ class Graph(object):
         self._node_count = 0
         self._edge_count = 0
 
-
     def num_nodes(self):
         """Returns the number of vertices in the graph."""
         return self._node_count
-
 
     def num_edges(self):
         """Returns the number of edges in the graph."""
         return self._edge_count
 
-
     def nodes(self):
         """Returns an iterable of the unique vertices in the graph."""
         return self._adj.keys()
-
 
     def add_node(self, label):
         """Adds a node with a given label to the graph."""
@@ -581,16 +593,13 @@ class Graph(object):
         self._adj[label] = {}
         self._node_count += 1
 
-
     def has_node(self, label):
         """Determines if the graph contains a vertex with the given label."""
         return label in self._adj
 
-
     def _assert_node(self, label):
         if label not in self._adj:
             raise ValueError('No node ' + str(label) + ' in graph')
-
 
     def add_edge(self, source, dest, weight=1):
         """Adds edge (source, dest) with specified weight to the graph."""
@@ -600,12 +609,10 @@ class Graph(object):
 
         if dest in self._adj[source]:
             raise ValueError(
-                'Edge ({}, {}) already in graph'.format(source, dest)
-            )
+                'Edge ({}, {}) already in graph'.format(source, dest))
 
         self._adj[source][dest] = weight
         self._edge_count += 1
-
 
     def has_edge(self, source, dest):
         """Determines if the graph contains an edge from source to dest."""
@@ -615,7 +622,6 @@ class Graph(object):
 
         return dest in self._adj[source]
 
-
     def update_edge(self, source, dest, weight):
         """Updates the weight of edge (source, dest) in the graph."""
 
@@ -624,11 +630,9 @@ class Graph(object):
 
         if dest not in self._adj[source]:
             raise ValueError(
-                'Edge ({}, {}) not in graph'.format(source, dest)
-            )
+                'Edge ({}, {}) not in graph'.format(source, dest))
 
         self._adj[source][dest] = weight
-
 
     def neighbors(self, label):
         """Returns an iterable of the vertices adjacent to the vertex with
@@ -637,7 +641,6 @@ class Graph(object):
         self._assert_node(label)
         
         return self._adj[label].keys()
-
 
     def edge_weight(self, source, dest):
         """Returns the weight of edge (source, dest) in the graph."""
@@ -649,7 +652,6 @@ class Graph(object):
             raise ValueError('No such edge ({}, {})'.format(source, dest))
 
         return self._adj[source][dest]
-
 
     def reverse(self):
         """Returns a copy of the graph with all edge directions reversed."""
@@ -667,7 +669,6 @@ class Graph(object):
 
         return rev_graph
 
-
     def postorder(self):
         """Returns a postorder traversal of all nodes in the graph."""
 
@@ -680,7 +681,6 @@ class Graph(object):
                 self._postorder_dfs(node, set(), visited, post)
 
         return post
-
 
     def _postorder_dfs(self, node, path, visited, post):
         """Helper function for postorder that runs DFS from a given node."""
@@ -699,7 +699,6 @@ class Graph(object):
 
         post.append(node)
 
-
     def bfs(self, source):
         """Runs breadth-first search from a source node in the graph.
 
@@ -713,7 +712,7 @@ class Graph(object):
         visited = {source}
 
         # queue of nodes to be visited in order
-        frontier = collections.deque()
+        frontier = deque()
         frontier.append(source)
 
         # visit each node in FIFO order, adding its neighbors
@@ -727,7 +726,6 @@ class Graph(object):
                     frontier.append(neighbor)
 
         return distance, previous
-
 
     def dijkstra(self, source):
         """Runs Djikstra's shortest path algorithm from a source node.
@@ -767,23 +765,19 @@ class Graph(object):
 class MinPQ(object):
     """Class representing a minimum priority queue that supports update-key.
 
-    Adapted from: https://docs.python.org/3/library/heapq.html#priority-queue-
-    implementation-notes"""
+    Adapted from: https://docs.python.org/3/library/heapq.html"""
 
     def __init__(self):
         self._heap = []
         self._entry_map = {}
         self._counter = itertools.count()
 
-
     def __len__(self):
         return len(self._entry_map)
-
 
     def is_empty(self):
         """Determines if the priority queue is empty."""
         return not self._entry_map
-
 
     def put(self, value, priority=0):
         """Inserts a value with priority into the queue, or updates the value's
@@ -796,7 +790,6 @@ class MinPQ(object):
         self._entry_map[value] = entry
         heapq.heappush(self._heap, entry)
 
-
     def delete(self, value):
         """Removes the given value from the priority queue."""
 
@@ -805,7 +798,6 @@ class MinPQ(object):
 
         entry = self._entry_map.pop(value)
         entry[-1] = None
-
 
     def pop_min(self):
         """Deletes and returns the minimum element in the priority queue."""
@@ -819,7 +811,9 @@ class MinPQ(object):
                 del self._entry_map[value]
                 return value
 
+
 # PUBLIC FUNCTIONS ############################################################
+
 
 def alpha_char_lower(index):
     """Returns the letter of the alphabet corresponding to index."""
@@ -958,9 +952,9 @@ def compute_chain_lengths(lengths, values, incr, is_valid=lambda x: True):
         _compute_chain_length(lengths, n, incr, is_valid, invalid_set)
 
 
-def concat_digits(digits, base=10):
+def concat_digits(digit_list, base=10):
     """Returns the integer that results from concatenating digits in order."""
-    return int(''.join([str(d) for d in digits]), base)
+    return int(''.join([str(d) for d in digit_list]), base)
 
 
 def concat_numbers(n, m):
@@ -981,7 +975,7 @@ def count_divisors(n):
     # compute product of one more than the powers of its prime factors
     divisor_count = 1
     factorization = prime_factorization(n)
-    for __, power in factorization:
+    for _, power in factorization:
         divisor_count *= power + 1
 
     return divisor_count
@@ -1002,29 +996,29 @@ def count_divisors_up_to(n):
     return divisor_counts
 
 
-def count_prime_factors(n, primes=None):
+def count_prime_factors(n, prime_nums=None):
     """Returns the number of distinct prime factors of the natural number n,
     using the given precomputed list of primes."""
     
     # generate list of primes up to n if none given
-    if primes is None:
-        primes = primes_up_to(n)
+    if prime_nums is None:
+        prime_nums = primes_up_to(n)
     
     # check if n is prime to avoid worst-case performance
-    if binary_search(primes, n) is not None:
+    if binary_search(prime_nums, n) is not None:
         factor_count = 1
     else:
         factor_count = 0
-        for prime in primes:
+        for prime_num in prime_nums:
             # have all prime factors of n been found?
             if n == 1:
                 break
             
             # if prime divides n, increment count and divide it out of n
-            if n % prime == 0:
+            if n % prime_num == 0:
                 factor_count += 1
-                while n % prime == 0:
-                    n /= prime
+                while n % prime_num == 0:
+                    n /= prime_num
         
     return factor_count
 
@@ -1037,7 +1031,7 @@ def cross_product_3d(p1, p2):
     prod_j = (p1[2] * p2[0]) - (p1[0] * p2[2])
     prod_k = (p1[0] * p2[1]) - (p1[1] * p2[0])
 
-    return (prod_i, prod_j, prod_k)
+    return prod_i, prod_j, prod_k
 
 
 def cumulative_partial_sum(nums, limit=INFINITY):
@@ -1046,7 +1040,7 @@ def cumulative_partial_sum(nums, limit=INFINITY):
 
     sums = []
     total = 0
-    terms = collections.deque()
+    terms = deque()
     for i, num in enumerate(nums):
         total += num
         terms.append(num)
@@ -1063,8 +1057,8 @@ def dice_probability(x, n, s):
     """Returns the probability of rolling a value of x with n s-sided dice."""
     
     outcomes = 0
-    for k in range((x - n)//s + 1):
-        outcomes += (-1)**k * choose(n, k) * choose(x - s*k - 1, n - 1)
+    for k in range((x - n) // s + 1):
+        outcomes += (-1)**k * choose(n, k) * choose(x - s * k - 1, n - 1)
     
     return Fraction(outcomes, s**n)
 
@@ -1203,7 +1197,7 @@ def get_digit(n, digit):
 
 def hexagonal(n):
     """Returns the nth hexagonal number."""
-    return n * (2*n - 1)
+    return n * (2 * n - 1)
 
 
 def int_log(x, base=math.e):
@@ -1249,7 +1243,7 @@ def inverse_index_map(values, distinct=True):
     If distinct is False, then items in values can be repeated, and each will
     be mapped to a list of its indices."""
 
-    inverse_map = {} if distinct else collections.defaultdict(list)
+    inverse_map = {} if distinct else defaultdict(list)
 
     if distinct:
         for i, value in enumerate(values):
@@ -1288,7 +1282,7 @@ def is_bouncy(n):
     while i < max_index:
         # if order is reversed, the number is bouncy
         if (increasing and n_digits[i] > n_digits[i + 1]
-            or not increasing and n_digits[i] < n_digits[i + 1]):
+                or not increasing and n_digits[i] < n_digits[i + 1]):
             return True
         i += 1
 
@@ -1409,7 +1403,7 @@ def is_square(n):
 
 def is_triangular(n):
     """Determines if the natural number n is a triangle number."""
-    return is_square(8*n + 1)
+    return is_square(8 * n + 1)
 
 
 def lcm(m, n):
@@ -1426,7 +1420,7 @@ def lcm_all(nums):
         factorization = prime_factorization(num)
         for factor, power in factorization:
             if (factor in max_powers and power > max_powers[factor]
-                or factor not in max_powers):
+                    or factor not in max_powers):
                 max_powers[factor] = power
         
     # return the product of prime factors raised to their highest powers
@@ -1517,7 +1511,7 @@ def make_spiral(layers, matrix=None, depth=0):
     
     # initialize the matrix that will hold the spiral
     if matrix is None:
-        matrix = [[1 for i in range(side)] for j in range(side)]
+        matrix = [[1 for _ in range(side)] for _ in range(side)]
     
     # base case: a spiral with one layer will contain the number 1
     if layers < 2:
@@ -1730,12 +1724,12 @@ def optimal_assignment(cost_matrix):
 
 def pandigital_string(first=0, last=9):
     """Returns a string with each of the digits from first to last in order."""
-    return ''.join('%d' % digit for digit in range(first, last + 1))
+    return ''.join(str(digit) for digit in range(first, last + 1))
 
 
 def pentagonal(n):
     """Returns the nth pentagonal number."""
-    return n * (3*n - 1) // 2
+    return n * (3 * n - 1) // 2
 
 
 def permute(n, k):
@@ -1817,9 +1811,9 @@ def quadratic_roots(a, b, c):
     each contain an imaginary part if no corresponding real solution exists."""
     
     axis = -b
-    delta = (b**2 - 4*a*c)**0.5
-    denom = 2*a
-    return (axis - delta)/denom, (axis + delta)/denom
+    delta = (b**2 - 4 * a * c)**0.5
+    denom = 2 * a
+    return (axis - delta) / denom, (axis + delta) / denom
 
 
 def radical(n):
@@ -1836,7 +1830,7 @@ def radical(n):
     return product
 
 
-def run_thread(function, stack_size=128*(10**6), recursion_limit=2**20):
+def run_thread(function, stack_size=128 * (10**6), recursion_limit=2**20):
     """Runs function in a new thread with stack size stack_size and maximum
     recursion depth recursion_limit."""
     
@@ -1855,8 +1849,8 @@ def sort_by(values, keys):
 
     Adapted from: http://stackoverflow.com/a/6618543"""
 
-    first = lambda vals: vals[0]
-    return [value for (key, value) in sorted(zip(keys, values), key=first)]
+    return [value for (_, value) in
+            sorted(zip(keys, values), key=itemgetter(1))]
 
 
 def sqrt_decimal_expansion(n, precision):
@@ -1873,43 +1867,41 @@ def sqrt_decimal_expansion(n, precision):
     expansion = []
     remainder = 0
     root_part = 0
-    f = lambda x: x*(20*root_part + x)
+
+    def f(x):
+        return x * (20 * root_part + x)
 
     # compute digits before decimal point
     for carry in n_digits:
-        c = remainder*100 + carry
+        a = 1
+        b = f(a)
+        c = remainder * 100 + carry
+        while b <= c:
+            a += 1
+            b = f(a)
 
-        x = 1
-        y = f(x)
-        while y <= c:
-            x += 1
-            y = f(x)
-
-        x -= 1
-        y = f(x)
-
-        remainder = c - y
-        root_part = root_part*10 + x
-        expansion.append(str(x))
+        a -= 1
+        b = f(a)
+        remainder = c - b
+        root_part = root_part * 10 + a
+        expansion.append(str(a))
 
     expansion.append('.')
 
     # compute digits after decimal point
-    for __ in range(precision):
-        c = remainder*100
+    for _ in range(precision):
+        a = 1
+        b = f(a)
+        c = remainder * 100
+        while b <= c:
+            a += 1
+            b = f(a)
 
-        x = 1
-        y = f(x)
-        while y <= c:
-            x += 1
-            y = f(x)
-
-        x -= 1
-        y = f(x)
-
-        remainder = c - y
-        root_part = root_part*10 + x
-        expansion.append(str(x))
+        a -= 1
+        b = f(a)
+        remainder = c - b
+        root_part = root_part * 10 + a
+        expansion.append(str(a))
 
     return ''.join(expansion)
 
@@ -1987,7 +1979,7 @@ def sum_divisors(n):
 
 def sum_of_squares(n):
     """Returns the sum of the squares of the first n natural numbers."""
-    return (2 * n**3 + 3 * n*n + n) // 6
+    return (2 * n**3 + 3 * n**2 + n) // 6
 
 
 def sum_proper_divisors(n):
@@ -2019,7 +2011,7 @@ def totients_up_to(n):
     sieve[0] = False
     sieve[1] = False
 
-    prime_factors = [[] for __ in range(n + 1)]
+    prime_factors = [[] for _ in range(n + 1)]
 
     # run sieve algorithm, keeping track of prime factors
     for curr_num in range(2, n + 1):

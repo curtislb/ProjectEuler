@@ -18,16 +18,21 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import memoized
+
 
 # PARAMETERS ##################################################################
 
+
 MAX_COUNT = 11 # default: 11
+
 
 # SOLUTION ####################################################################
 
-@com.memoized
+
+@memoized
 def is_prime(n):
-    """Memoized wrapper for the com.is_prime function."""
+    """Memoized wrapper for the common.is_prime function."""
     return com.is_prime(n)
     
 

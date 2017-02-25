@@ -21,11 +21,15 @@ Author: Curtis Belmonte
 
 import common as com
 
+
 # PARAMETERS ##################################################################
+
 
 LIMIT = 1000000 # default: 1000000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # TODO: find (provably) better lower bound on prime addend size

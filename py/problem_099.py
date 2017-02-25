@@ -16,19 +16,24 @@ each line, determine which line number has the greatest numerical value.
 Author: Curtis Belmonte
 """
 
-import common as com
-
 import math
+
+import common as com
+from common import INFINITY
+
 
 # PARAMETERS ##################################################################
 
+
 INPUT_FILE = '../input/099.txt' # default: '../input/099.txt'
+
 
 # SOLUTION ####################################################################
 
+
 def solve():
     max_line = None
-    max_value = -com.INFINITY
+    max_value = -INFINITY
     base_exp_pairs = com.ints_from_file(INPUT_FILE, sep=',')
 
     # compare exponent * log(base) for all pairs

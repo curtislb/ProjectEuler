@@ -18,20 +18,20 @@ Author: Curtis Belmonte
 """
 
 import math
-import sys
 
-# import common as com
 
 # PARAMETERS ##################################################################
 
+
 S = 1000 # default: 1000
 
+
 # SOLUTION ####################################################################
+
 
 def solve():
     # no triplet exists if S is not even
     if S % 2 != 0:
-        print('No such triplet')
         return None
 
     # let a = 2*m*n, b = m^2 - n^2, c = m^2 + n^2. Then, m^2 + m*n = S/2
