@@ -4,7 +4,7 @@
 
 Problem 36: Double-base palindromes
 
-The decimal number, 585 = 10010010012 (binary), is palindromic in both bases.
+The decimal number, 585 = 1001001001_2 (binary), is palindromic in both bases.
 
 Find the sum of all numbers, less than LIMIT, which are palindromic in base
 BASE_A and base BASE_B.
