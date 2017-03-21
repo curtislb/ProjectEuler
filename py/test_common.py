@@ -819,11 +819,7 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.inverse_index_map((3, 2, 1)), {3: 0, 2: 1, 1: 2})
         self.assertEqual(
             com.inverse_index_map('XYZ'),
-            {
-                'X': 0,
-                'Y': 1,
-                'Z': 2,
-            })
+            {'X': 0, 'Y': 1, 'Z': 2})
         self.assertEqual(
             com.inverse_index_map((1, 6, 1, 8, 0, 3, 3, 9, 8, 8), False),
             {0: [4], 1: [0, 2], 3: [5, 6], 6: [1], 8: [3, 8, 9], 9: [7]})
@@ -1118,6 +1114,106 @@ class TestCommonFunctions(unittest.TestCase):
                 [38, 17, 16, 15, 14, 13, 30],
                 [37, 36, 35, 34, 33, 32, 31],
             ])
+        self.assertEqual(
+            com.make_spiral(5),
+            [
+                [73, 74, 75, 76, 77, 78, 79, 80, 81],
+                [72, 43, 44, 45, 46, 47, 48, 49, 50],
+                [71, 42, 21, 22, 23, 24, 25, 26, 51],
+                [70, 41, 20,  7,  8,  9, 10, 27, 52],
+                [69, 40, 19,  6,  1,  2, 11, 28, 53],
+                [68, 39, 18,  5,  4,  3, 12, 29, 54],
+                [67, 38, 17, 16, 15, 14, 13, 30, 55],
+                [66, 37, 36, 35, 34, 33, 32, 31, 56],
+                [65, 64, 63, 62, 61, 60, 59, 58, 57]
+            ])
+
+    def test_max_bipartite_match(self):
+        self.assertCountEqual(com.max_bipartite_matching([[False]]), [])
+        self.assertCountEqual(com.max_bipartite_matching([[True]]), [(0, 0)])
+        self.assertCountEqual(
+            com.max_bipartite_matching([
+                [True, False],
+                [False, True]]),
+            [(0, 0), (1, 1)])
+        self.assertEqual(
+            len(com.max_bipartite_matching([
+                [False, False],
+                [True,  True]])),
+            1)
+        self.assertEqual(
+            len(com.max_bipartite_matching([
+                [False, True],
+                [False, True]])),
+            1)
+        self.assertCountEqual(
+            com.max_bipartite_matching([
+                [True,  False, False],
+                [False, False, True],
+                [False, True,  False]]),
+            [(0, 0), (1, 2), (2, 1)])
+        self.assertEqual(
+            len(com.max_bipartite_matching([
+                [True,  False, True, False, False],
+                [False, False, True, False, False],
+                [False, True,  True, True,  False],
+                [False, False, True, False, False],
+                [False, True,  True, False, True]])),
+            4)
+        self.assertCountEqual(
+            com.max_bipartite_matching([
+                [True,  False, False, False, False],
+                [True,  False, True,  False, False],
+                [False, True,  False, True,  False],
+                [False, False, True,  False, True],
+                [False, True,  False, False, True]]),
+            [(0, 0), (1, 2), (2, 3), (3, 4), (4, 1)])
+        self.assertEqual(
+            len(com.max_bipartite_matching([
+                [False, True,  True,  False, False, False],
+                [True,  False, False, True,  False, False],
+                [False, False, True,  False, False, False],
+                [False, False, True,  True,  False, False],
+                [False, False, False, False, False, False],
+                [False, False, False, False, False, True]])),
+            5)
+
+    def test_max_triangle_path(self):
+        self.assertEqual(com.max_triangle_path([[1]]), 1)
+        self.assertEqual(com.max_triangle_path([[2]]), 2)
+        self.assertEqual(com.max_triangle_path([[-5]]), -5)
+        self.assertEqual(com.max_triangle_path([[1], [2, 3]]), 4)
+        self.assertEqual(com.max_triangle_path([[1], [2, -3]]), 3)
+        self.assertEqual(com.max_triangle_path([[1], [3, 2]]), 4)
+        self.assertEqual(
+            com.max_triangle_path([
+                [3],
+                [7, 4],
+                [2, 4, 6],
+                [8, 5, 9, 3]]),
+            23)
+        self.assertEqual(
+            com.max_triangle_path([
+                [-5],
+                [-8, 69],
+                [-83, 46, 44],
+                [7, -68, -47, 97],
+                [-81, -64, -43, 13, -25],
+                [21, 31, -30, 7, -28, 56]]),
+            236)
+        self.assertEqual(
+            com.max_triangle_path([
+                [72],
+                [16, -188],
+                [-348, -886, 702],
+                [784, -522, 80, -453],
+                [26, -850, 232, 444, 664],
+                [-344, 80, -634, 960, -354, -736],
+                [750, 5, -213, 343, 233, -955, -141],
+                [349, -427, -492, -534, -450, -28, 498, -716],
+                [589, -75, -428, 826, -180, 210, -36, -807, -874],
+                [158, 509, 828, 45, -699, -33, 55, -242, -730, 634]]),
+            2750)
 
 # MAIN ########################################################################
 
