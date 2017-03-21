@@ -1040,6 +1040,84 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertFalse(com.is_triangular(884921416))
         self.assertFalse(com.is_triangular(884921417))
 
+    def test_lcm(self):
+        self.assertEqual(com.lcm(1, 1), 1)
+        self.assertEqual(com.lcm(1, 2), 2)
+        self.assertEqual(com.lcm(2, 1), 2)
+        self.assertEqual(com.lcm(2, 3), 6)
+        self.assertEqual(com.lcm(3, 2), 6)
+        self.assertEqual(com.lcm(2, 4), 4)
+        self.assertEqual(com.lcm(3, 4), 12)
+        self.assertEqual(com.lcm(6, 4), 12)
+        self.assertEqual(com.lcm(6, 21), 42)
+        self.assertEqual(com.lcm(18, 12), 36)
+        self.assertEqual(com.lcm(15, 35), 105)
+        self.assertEqual(com.lcm(55250154, 21071889), 20608307442)
+
+    def test_lcm_all(self):
+        self.assertEqual(com.lcm_all([1]), 1)
+        self.assertEqual(com.lcm_all((1, 1)), 1)
+        self.assertEqual(com.lcm_all([1, 1, 1]), 1)
+        self.assertEqual(com.lcm_all({1, 2}), 2)
+        self.assertEqual(com.lcm_all([3, 4]), 12)
+        self.assertEqual(com.lcm_all((35, 15)), 105)
+        self.assertEqual(com.lcm_all([55250154, 21071889]), 20608307442)
+        self.assertEqual(com.lcm_all([2, 1, 1]), 2)
+        self.assertEqual(com.lcm_all(range(1, 4)), 6)
+        self.assertEqual(com.lcm_all({2, 64, 8}), 64)
+        self.assertEqual(com.lcm_all((8, 9, 7)), 504)
+        self.assertEqual(com.lcm_all([4, 7, 2, 5, 3]), 420)
+        self.assertEqual(
+            com.lcm_all([540330, 424130, 465962, 357896]),
+            4871660667720)
+
+    def test_make_palindrome(self):
+        self.assertEqual(com.make_palindrome(1), 11)
+        self.assertEqual(com.make_palindrome(1, base=2), 0b11)
+        self.assertEqual(com.make_palindrome(1, odd_length=True), 1)
+        self.assertEqual(com.make_palindrome(1, base=2, odd_length=True), 1)
+        self.assertEqual(com.make_palindrome(25), 2552)
+        self.assertEqual(com.make_palindrome(0o31, base=8), 0o3113)
+        self.assertEqual(com.make_palindrome(25, odd_length=True), 252)
+        self.assertEqual(
+            com.make_palindrome(0o31, base=8, odd_length=True),
+            0o313)
+        self.assertEqual(com.make_palindrome(1347), 13477431)
+        self.assertEqual(com.make_palindrome(0x543, base=16), 0x543345)
+        self.assertEqual(com.make_palindrome(1347, odd_length=True), 1347431)
+        self.assertEqual(
+            com.make_palindrome(0x543, base=16, odd_length=True),
+            0x54345)
+
+    def test_make_spiral(self):
+        self.assertEqual(com.make_spiral(1), [[1]])
+        self.assertEqual(
+            com.make_spiral(2),
+            [
+                [7, 8, 9],
+                [6, 1, 2],
+                [5, 4, 3],
+            ])
+        self.assertEqual(
+            com.make_spiral(3),
+            [
+                [21, 22, 23, 24, 25],
+                [20,  7,  8,  9, 10],
+                [19,  6,  1,  2, 11],
+                [18,  5,  4,  3, 12],
+                [17, 16, 15, 14, 13],
+            ])
+        self.assertEqual(
+            com.make_spiral(4),
+            [
+                [43, 44, 45, 46, 47, 48, 49],
+                [42, 21, 22, 23, 24, 25, 26],
+                [41, 20,  7,  8,  9, 10, 27],
+                [40, 19,  6,  1,  2, 11, 28],
+                [39, 18,  5,  4,  3, 12, 29],
+                [38, 17, 16, 15, 14, 13, 30],
+                [37, 36, 35, 34, 33, 32, 31],
+            ])
 
 # MAIN ########################################################################
 

@@ -12,8 +12,6 @@ import heapq
 import itertools
 import math
 import random
-import sys
-import threading
 from collections import defaultdict, deque
 from fractions import Fraction
 from functools import total_ordering
@@ -862,26 +860,26 @@ def arithmetic_series(a, n, d=1):
     return n * (2 * a + (n - 1) * d) // 2
 
 
-def binary_search(sorted_list, item, lo=0, hi=None):
+def binary_search(sorted_list, item, _lo=0, _hi=None):
     """Returns the index position of item in the sorted list sorted_list or
     None if item is not found in sorted_list."""
     
     # if hi has not been initialized, set it to end of sorted_list
-    if hi is None:
-        hi = len(sorted_list)
+    if _hi is None:
+        _hi = len(sorted_list)
     
     # base case: no elements left to search
-    if lo >= hi:
+    if _lo >= _hi:
         return None
     
     # check the middle element in list, then recurse if necessary
-    mid = (lo + hi) // 2
+    mid = (_lo + _hi) // 2
     if item < sorted_list[mid]:
         # item must be in first half of list or not at all
-        return binary_search(sorted_list, item, lo, mid)
+        return binary_search(sorted_list, item, _lo, mid)
     elif item > sorted_list[mid]:
         # item must be in second half of list or not at all
-        return binary_search(sorted_list, item, mid + 1, hi)
+        return binary_search(sorted_list, item, mid + 1, _hi)
     else:
         # item found at middle position in list
         return mid
@@ -1430,55 +1428,7 @@ def lcm_all(nums):
     return product
 
 
-def loop_indices(depth, function, start, stop=None, disjoint=False):
-    """Simulates a nested index loop with a specified number of levels.
-
-    The step size is 1 for each index, and the range is [start, stop).
-
-    depth      the number of loop levels to simulate
-    function   a function to perform some operation given a list of indices
-    start      the min value (inclusive) for each index
-    stop       the max value (exclusive) for each index, or [0, start) if None
-    disjoint   if True, loop indices will be disjoint (in sorted order)
-    """
-
-    # set range to 0:start if stop not specified
-    if stop is None:
-        start, stop = 0, start
-
-    # don't run function if loops would not execute
-    if start >= stop or disjoint and start + depth - 1 >= stop:
-        return
-
-    # set initial index values
-    indices = []
-    for i in range(depth):
-        init_index = start + i if disjoint else start
-        indices.append(init_index)
-
-    while indices[0] < stop:
-        # execute the function for the given set of indices
-        function(indices)
-
-        # update all index values
-        indices[-1] += 1
-        while indices[-1] >= stop:
-            # search for deepest index that can be incremented
-            i = depth - 1
-            while i > 0 and indices[i] >= stop - 1:
-                i -= 1
-
-            # if outermost index reaches stop, then return
-            if indices[0] >= stop:
-                return
-
-            # set new start values for deeper indices
-            indices[i] += 1
-            for j in range(i + 1, depth):
-                indices[j] = indices[j - 1] + 1 if disjoint else start
-
-
-def make_palindrome(n, base, odd_length=False):
+def make_palindrome(n, base=10, odd_length=False):
     """Returns a palindrome in the given base formed from the natural number n.
     
     If the odd_length flag is set to True, the generated palindrome will have
@@ -1502,7 +1452,7 @@ def make_palindrome(n, base, odd_length=False):
     return palindrome
 
 
-def make_spiral(layers, matrix=None, depth=0):
+def make_spiral(layers, _matrix=None, _depth=0):
     """Returns a spiral with the given number of layers formed by starting with
     1 in the center and moving to the right in a clockwise direction."""
     
@@ -1510,38 +1460,38 @@ def make_spiral(layers, matrix=None, depth=0):
     side = layers * 2 - 1
     
     # initialize the matrix that will hold the spiral
-    if matrix is None:
-        matrix = [[1 for _ in range(side)] for _ in range(side)]
+    if _matrix is None:
+        _matrix = [[1 for _ in range(side)] for _ in range(side)]
     
     # base case: a spiral with one layer will contain the number 1
     if layers < 2:
-        return matrix
+        return _matrix
     
     side_min_1 = side - 1
     value = side * side
     
     # fill the top row of the spiral
     for i in range(side_min_1):
-        matrix[depth][-1 - depth - i] = value
+        _matrix[_depth][-1 - _depth - i] = value
         value -= 1
     
     # fill the left column of the spiral
     for i in range(side_min_1):
-        matrix[depth + i][depth] = value
+        _matrix[_depth + i][_depth] = value
         value -= 1
     
     # fill the bottom row of the spiral
     for i in range(side_min_1):
-        matrix[-1 - depth][depth + i] = value
+        _matrix[-1 - _depth][_depth + i] = value
         value -= 1
     
     # fill the right column of the spiral
     for i in range(side_min_1):
-        matrix[-1 - depth - i][-1 - depth] = value
+        _matrix[-1 - _depth - i][-1 - _depth] = value
         value -= 1
     
     # recurse to fill the inside of the spiral
-    return make_spiral(layers - 1, matrix, depth + 1)
+    return make_spiral(layers - 1, _matrix, _depth + 1)
 
 
 def max_bipartite_matching(edge_matrix):
@@ -1828,20 +1778,6 @@ def radical(n):
         product *= p
 
     return product
-
-
-def run_thread(function, stack_size=128 * (10**6), recursion_limit=2**20):
-    """Runs function in a new thread with stack size stack_size and maximum
-    recursion depth recursion_limit."""
-    
-    # set stack size and maximum recursion depth of the thread
-    threading.stack_size(stack_size)
-    sys.setrecursionlimit(recursion_limit)
-    
-    # run the thread
-    thread = threading.Thread(target=function)
-    thread.start()
-    thread.join()
 
 
 def sort_by(values, keys):
