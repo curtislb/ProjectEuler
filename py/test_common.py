@@ -24,7 +24,7 @@ class TestGraphMethods(unittest.TestCase):
 
     def test_nodes(self):
         self.assertEqual(self.graph.num_nodes(), 0)
-        self.assertCountEqual(self.graph.nodes(), [])
+        self.assertEqual(len(self.graph.nodes()), 0)
         self.assertFalse(self.graph.has_node('node_1'))
         self.assertFalse(self.graph.has_node('node_2'))
 
@@ -422,9 +422,16 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.choose(3, 1), 3)
         self.assertEqual(com.choose(3, 2), 3)
         self.assertEqual(com.choose(3, 3), 1)
-        self.assertEqual(com.choose(8, 4), 70)
+        self.assertEqual(com.choose(4, 0), 1)
+        self.assertEqual(com.choose(4, 1), 4)
+        self.assertEqual(com.choose(4, 2), 6)
+        self.assertEqual(com.choose(4, 3), 4)
+        self.assertEqual(com.choose(4, 4), 1)
         self.assertEqual(com.choose(12, 5), 792)
-        self.assertEqual(com.choose(27, 18), 4686825)
+        self.assertEqual(com.choose(84, 26), 3496176570135581124912)
+        self.assertEqual(
+            com.choose(309, 254),
+            41885714195904323564014555767112516232542200976007970465503616)
 
     def test_collatz_step(self):
         self.assertEqual(com.collatz_step(1), 4)
@@ -625,20 +632,8 @@ class TestCommonFunctions(unittest.TestCase):
             [123, 132, 213, 231, 312, 321])
         self.assertCountEqual(
             com.digit_permutations(1337),
-            [
-                1337,
-                1373,
-                1733,
-                3137,
-                3173,
-                3317,
-                3371,
-                3713,
-                3731,
-                7133,
-                7313,
-                7331,
-            ])
+            [1337, 1373, 1733, 3137, 3173, 3317, 3371, 3713, 3731, 7133, 7313,
+             7331])
 
     def test_digit_rotations(self):
         self.assertCountEqual(com.digit_rotations(1), [1])
@@ -749,11 +744,9 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.get_digit(201709364, 7), 3)
 
     def test_hexagonal(self):
-        self.assertEqual(com.hexagonal(1), 1)
-        self.assertEqual(com.hexagonal(2), 6)
-        self.assertEqual(com.hexagonal(3), 15)
-        self.assertEqual(com.hexagonal(4), 28)
-        self.assertEqual(com.hexagonal(5), 45)
+        hex_nums = [0, 1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325]
+        for i, n in enumerate(hex_nums):
+            self.assertEqual(com.hexagonal(i), n)
         self.assertEqual(com.hexagonal(42), 3486)
         self.assertEqual(com.hexagonal(6438), 82889250)
 
@@ -1128,8 +1121,8 @@ class TestCommonFunctions(unittest.TestCase):
                 [65, 64, 63, 62, 61, 60, 59, 58, 57]
             ])
 
-    def test_max_bipartite_match(self):
-        self.assertCountEqual(com.max_bipartite_matching([[False]]), [])
+    def test_max_bipartite_matching(self):
+        self.assertEqual(len(com.max_bipartite_matching([[False]])), 0)
         self.assertCountEqual(com.max_bipartite_matching([[True]]), [(0, 0)])
         self.assertCountEqual(
             com.max_bipartite_matching([
@@ -1146,6 +1139,11 @@ class TestCommonFunctions(unittest.TestCase):
                 [False, True],
                 [False, True]])),
             1)
+        self.assertCountEqual(
+            com.max_bipartite_matching([
+                [False, True],
+                [True,  True]]),
+            [(0, 1), (1, 0)])
         self.assertCountEqual(
             com.max_bipartite_matching([
                 [True,  False, False],
@@ -1179,12 +1177,14 @@ class TestCommonFunctions(unittest.TestCase):
             5)
 
     def test_max_triangle_path(self):
+        self.assertEqual(com.max_triangle_path([[0]]), 0)
         self.assertEqual(com.max_triangle_path([[1]]), 1)
         self.assertEqual(com.max_triangle_path([[2]]), 2)
         self.assertEqual(com.max_triangle_path([[-5]]), -5)
         self.assertEqual(com.max_triangle_path([[1], [2, 3]]), 4)
         self.assertEqual(com.max_triangle_path([[1], [2, -3]]), 3)
         self.assertEqual(com.max_triangle_path([[1], [3, 2]]), 4)
+        self.assertEqual(com.max_triangle_path([[1], [0, 2]]), 3)
         self.assertEqual(
             com.max_triangle_path([
                 [3],
@@ -1196,11 +1196,11 @@ class TestCommonFunctions(unittest.TestCase):
             com.max_triangle_path([
                 [-5],
                 [-8, 69],
-                [-83, 46, 44],
-                [7, -68, -47, 97],
+                [44, 46, -83],
+                [7, 0, -47, 97],
                 [-81, -64, -43, 13, -25],
                 [21, 31, -30, 7, -28, 56]]),
-            236)
+            109)
         self.assertEqual(
             com.max_triangle_path([
                 [72],
@@ -1208,12 +1208,318 @@ class TestCommonFunctions(unittest.TestCase):
                 [-348, -886, 702],
                 [784, -522, 80, -453],
                 [26, -850, 232, 444, 664],
-                [-344, 80, -634, 960, -354, -736],
-                [750, 5, -213, 343, 233, -955, -141],
+                [-344, 80, -634, 0, -354, -736],
+                [750, 0, -213, 343, 233, -955, -141],
                 [349, -427, -492, -534, -450, -28, 498, -716],
                 [589, -75, -428, 826, -180, 210, -36, -807, -874],
                 [158, 509, 828, 45, -699, -33, 55, -242, -730, 634]]),
-            2750)
+            2403)
+
+    def test_minimum_line_cover(self):
+        self.assertEqual(len(com.minimum_line_cover([[1]])), 0)
+        self.assertEqual(len(com.minimum_line_cover([[0]])), 1)
+        self.assertEqual(len(com.minimum_line_cover([[-1, 0]])), 1)
+        self.assertCountEqual(com.minimum_line_cover([[0, 0]]), [(False, 0)])
+        self.assertCountEqual(com.minimum_line_cover([[0], [0]]), [(True, 0)])
+        self.assertCountEqual(
+            com.minimum_line_cover([[0, 0, 0]]),
+            [(False, 0)])
+        self.assertCountEqual(
+            com.minimum_line_cover([[0], [0], [0]]),
+            [(True, 0)])
+        self.assertEqual(len(com.minimum_line_cover([[0, 1], [2, 3]])), 1)
+        self.assertEqual(len(com.minimum_line_cover([[5, 7], [4, 0]])), 1)
+        self.assertCountEqual(
+            com.minimum_line_cover([[0, 0], [-2, 6]]),
+            [(False, 0)])
+        self.assertCountEqual(
+            com.minimum_line_cover([[-3, 0], [12, 0]]),
+            [(True, 1)])
+        self.assertEqual(len(com.minimum_line_cover([[8, 0], [0, 0]])), 2)
+        self.assertCountEqual(
+            com.minimum_line_cover([
+                [1, 2, 0],
+                [3, 4, 0],
+                [0, 0, 0]]),
+            [(False, 2), (True, 2)])
+        self.assertEqual(
+            len(com.minimum_line_cover([
+                [0, 0, 0],
+                [9, 2, 0],
+                [4, 0, 6],
+                [0, 3, 1]])),
+            3)
+        self.assertEqual(
+            len(com.minimum_line_cover([
+                [0, 4, 2, 2],
+                [7, 6, 4, 0],
+                [0, 5, 3, 5],
+                [4, 3, 0, 0],
+                [0, 0, 0, 0]])),
+            4)
+        self.assertEqual(
+            len(com.minimum_line_cover([
+                [0, 4, 2, 2, 3],
+                [7, 6, 4, 0, 1],
+                [0, 5, 3, 5, 7],
+                [4, 3, 0, 0, 2],
+                [0, 0, 0, 0, 0]])),
+            4)
+        self.assertEqual(
+            len(com.minimum_line_cover([
+                [0, 4, 2, 2, 3, 9],
+                [7, 6, 4, 0, 1, -1],
+                [0, 5, 3, 5, 7, 8],
+                [4, 3, 0, 0, 2, 11],
+                [0, 0, 0, 0, 0, 0]])),
+            4)
+        self.assertEqual(
+            len(com.minimum_line_cover([
+                [0, 3, 0, 2, 2],
+                [7, 5, 4, 0, 0],
+                [0, 4, 3, 5, 6],
+                [4, 2, 0, 0, 1],
+                [1, 0, 1, 1, 0]])),
+            5)
+        self.assertEqual(
+            len(com.minimum_line_cover([
+                [0, 1, 0, 1, 1],
+                [1, 1, 0, 1, 1],
+                [1, 0, 0, 0, 1],
+                [1, 1, 0, 1, 1],
+                [1, 0, 0, 1, 0]])),
+            4)
+        self.assertCountEqual(
+            com.minimum_line_cover([
+                [0, 1, 0, 1, 1],
+                [0, 1, 0, 1, 1],
+                [1, 1, 0, 1, 0],
+                [1, 1, 0, 1, 1],
+                [1, 1, 0, 1, 0]]),
+            [(True, 0), (True, 2), (True, 4)])
+        self.assertEqual(
+            len(com.minimum_line_cover([
+                [5, 1, 2, 6, 7, 4, 3, 6, 4, 7],
+                [2, 2, 0, 0, 1, 0, 3, 0, 4, 3],
+                [6, 4, 2, 1, 1, 2, 0, 6, 6, 1],
+                [4, 0, 2, 4, 4, 4, 4, 0, 2, 0],
+                [2, 2, 4, 6, 2, 7, 1, 2, 5, 4],
+                [3, 1, 4, 3, 2, 0, 6, 5, 5, 1],
+                [2, 3, 6, 4, 0, 1, 6, 2, 2, 2],
+                [1, 3, 1, 0, 0, 0, 1, 5, 1, 2]])),
+            6)
+
+    def test_mod_mutliply(self):
+        self.assertEqual(com.mod_multiply(1, 1, 1), 0)
+        self.assertEqual(com.mod_multiply(1, 2, 1), 0)
+        self.assertEqual(com.mod_multiply(1, 2, 2), 0)
+        self.assertEqual(com.mod_multiply(1, 2, 3), 2)
+        self.assertEqual(com.mod_multiply(2, 1, 3), 2)
+        self.assertEqual(com.mod_multiply(2, 3, 4), 2)
+        self.assertEqual(com.mod_multiply(3, 3, 4), 1)
+        self.assertEqual(com.mod_multiply(63, 52, 47), 33)
+        self.assertEqual(com.mod_multiply(5052, 8658, 3010), 1906)
+        self.assertEqual(com.mod_multiply(86**95, 64**28, 38**8), 261051428608)
+        self.assertEqual(
+            com.mod_multiply(8177**4018, 9470**1990, 27**29),
+            24247430663168320345760575144348378592065)
+
+    def test_next_multiple(self):
+        self.assertEqual(com.next_multiple(1, 0), 0)
+        self.assertEqual(com.next_multiple(1, 1), 1)
+        self.assertEqual(com.next_multiple(1, 2), 2)
+        self.assertEqual(com.next_multiple(2, 1), 2)
+        self.assertEqual(com.next_multiple(2, 2), 2)
+        self.assertEqual(com.next_multiple(2, 3), 4)
+        self.assertEqual(com.next_multiple(3, 2), 3)
+        self.assertEqual(com.next_multiple(7, 365), 371)
+        self.assertEqual(com.next_multiple(365, 42), 365)
+        self.assertEqual(com.next_multiple(73, 820), 876)
+        self.assertEqual(com.next_multiple(264, 5133), 5280)
+        self.assertEqual(com.next_multiple(6376, 913259), 918144)
+        self.assertEqual(com.next_multiple(9448487, 589545477), 595254681)
+
+    def test_optimal_assignment(self):
+        self.assertCountEqual(com.optimal_assignment([[0]]), [(0, 0)])
+        self.assertCountEqual(com.optimal_assignment([[1]]), [(0, 0)])
+        self.assertCountEqual(com.optimal_assignment([[-2]]), [(0, 0)])
+        self.assertCountEqual(
+            com.optimal_assignment([[1, 2], [3, 5]]),
+            [(0, 1), (1, 0)])
+        self.assertCountEqual(
+            com.optimal_assignment([[-1, -2], [-3, -5]]),
+            [(0, 0), (1, 1)])
+        self.assertCountEqual(
+            com.optimal_assignment([[-1, 2], [-3, 4]]),
+            [(0, 1), (1, 0)])
+        self.assertCountEqual(
+            com.optimal_assignment([
+                [1, 6, 4],
+                [8, 7, 9],
+                [9, 0, 5]]),
+            [(0, 0), (1, 2), (2, 1)])
+        self.assertCountEqual(
+            com.optimal_assignment([
+                [52, 78, 91, 63, 14],
+                [78, 45, 67, 43, 12],
+                [85, 84, 43, 45, 36],
+                [37, 60, 52, 54, 67],
+                [48, 86, 23, 58, 99]]),
+            [(0, 4), (1, 1), (2, 3), (3, 0), (4, 2)])
+        self.assertCountEqual(
+            com.optimal_assignment([
+                [990, 621, 440, 679, 366, 961,  62, 609, 325, 188],
+                [408, 172,  52,   0, 901, 168, 525, 705,  68,  25],
+                [761, 187, 835, 508, 310, 216, 218, 351, 166, 263],
+                [712,  78, 879, 530, 451, 564,   2,  49, 423, 394],
+                [725, 558, 862, 243, 325, 509, 542, 448, 800, 760],
+                [893, 341, 126, 547, 184, 199, 479, 282, 419, 508],
+                [619, 297, 193, 182, 706, 558, 621, 393, 883, 922],
+                [594, 192, 770, 523,  87, 295, 367, 744, 146, 700],
+                [491, 386, 719,  14, 360, 673, 579, 413, 546, 427],
+                [730, 392, 968, 587, 177, 291, 743,  63, 329, 717]]),
+            [(0, 6), (1, 9), (2, 8), (3, 1), (4, 3), (5, 5), (6, 2), (7, 4),
+             (8, 0), (9, 7)])
+
+    def test_pandigital_string(self):
+        self.assertEqual(com.pandigital_string(), '0123456789')
+        self.assertEqual(com.pandigital_string(first=0), '0123456789')
+        self.assertEqual(com.pandigital_string(first=3), '3456789')
+        self.assertEqual(com.pandigital_string(first=9), '9')
+        self.assertEqual(com.pandigital_string(last=0), '0')
+        self.assertEqual(com.pandigital_string(last=4), '01234')
+        self.assertEqual(com.pandigital_string(last=9), '0123456789')
+        self.assertEqual(com.pandigital_string(first=0, last=9), '0123456789')
+        self.assertEqual(com.pandigital_string(first=5, last=9), '56789')
+        self.assertEqual(com.pandigital_string(first=0, last=8), '012345678')
+        self.assertEqual(com.pandigital_string(first=2, last=6), '23456')
+
+    def test_pentagonal(self):
+        pent_nums = [0, 1, 5, 12, 22, 35, 51, 70, 92, 117, 145, 176, 210, 247]
+        for i, n in enumerate(pent_nums):
+            self.assertEqual(com.pentagonal(i), n)
+        self.assertEqual(com.pentagonal(53), 4187)
+        self.assertEqual(com.pentagonal(8952), 120202980)
+
+    def test_permute(self):
+        self.assertEqual(com.permute(0, 0), 1)
+        self.assertEqual(com.permute(0, 1), 0)
+        self.assertEqual(com.permute(1, 0), 1)
+        self.assertEqual(com.permute(1, 1), 1)
+        self.assertEqual(com.permute(2, 0), 1)
+        self.assertEqual(com.permute(2, 1), 2)
+        self.assertEqual(com.permute(2, 2), 2)
+        self.assertEqual(com.permute(2, 3), 0)
+        self.assertEqual(com.permute(3, 0), 1)
+        self.assertEqual(com.permute(3, 1), 3)
+        self.assertEqual(com.permute(3, 2), 6)
+        self.assertEqual(com.permute(3, 3), 6)
+        self.assertEqual(com.permute(3, 4), 0)
+        self.assertEqual(com.permute(4, 0), 1)
+        self.assertEqual(com.permute(4, 1), 4)
+        self.assertEqual(com.permute(4, 2), 12)
+        self.assertEqual(com.permute(4, 3), 24)
+        self.assertEqual(com.permute(4, 4), 24)
+        self.assertEqual(com.permute(4, 5), 0)
+        self.assertEqual(com.permute(12, 8), 19958400)
+        self.assertEqual(com.permute(39, 11), 66902793897139200)
+        self.assertEqual(
+            com.permute(54, 37),
+            649007187504351968469560171550257336096944816128000000000)
+
+    def test_prime_factorization(self):
+        self.assertEqual(com.prime_factorization(2), [[2, 1]])
+        self.assertEqual(com.prime_factorization(3), [[3, 1]])
+        self.assertEqual(com.prime_factorization(4), [[2, 2]])
+        self.assertEqual(com.prime_factorization(5), [[5, 1]])
+        self.assertEqual(com.prime_factorization(6), [[2, 1], [3, 1]])
+        self.assertEqual(com.prime_factorization(12), [[2, 2], [3, 1]])
+        self.assertEqual(com.prime_factorization(2903), [[2903, 1]])
+        self.assertEqual(
+            com.prime_factorization(61740),
+            [[2, 2], [3, 2], [5, 1], [7, 3]])
+        self.assertEqual(
+            com.prime_factorization(4928693),
+            [[7, 1], [11, 3], [23, 2]])
+        self.assertEqual(
+            com.prime_factorization(169165232),
+            [[2, 4], [17, 1], [313, 1], [1987, 1]])
+        self.assertEqual(
+            com.prime_factorization(74435892358158),
+            [[2, 1], [3, 3], [29, 1], [3049, 2], [5113, 1]])
+
+    def test_prime(self):
+        p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53]
+        for i, n in enumerate(p_nums):
+            self.assertEqual(com.prime(i + 1), n)
+        self.assertEqual(com.prime(74), 373)
+        self.assertEqual(com.prime(225), 1427)
+        self.assertEqual(com.prime(538), 3881)
+
+    def test_primes(self):
+        p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+                  59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113]
+        for i in range(1, len(p_nums) + 1):
+            self.assertCountEqual(com.primes(i), p_nums[:i])
+        self.assertEqual(com.primes(168)[-1], 997)
+
+    def test_primes_up_to(self):
+        p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+                  59, 61, 67, 71, 73, 79, 83, 89, 97]
+        for n in range(2, 100):
+            self.assertCountEqual(
+                com.primes_up_to(n),
+                filter(lambda x: x <= n, p_nums))
+        self.assertEqual(len(com.primes_up_to(1000)), 168)
+
+    def test_quadratic_roots(self):
+        roots = sorted(com.quadratic_roots(1, 0, -1))
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], -1)
+        self.assertAlmostEqual(roots[1], 1)
+
+        roots = sorted(com.quadratic_roots(1, -1, -1))
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], -0.61803399)
+        self.assertAlmostEqual(roots[1], 1.61803399)
+
+        roots = sorted(com.quadratic_roots(1, 3, -4))
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], -4)
+        self.assertAlmostEqual(roots[1], 1)
+
+        roots = sorted(com.quadratic_roots(2, 4, -4))
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], -2.7320508)
+        self.assertAlmostEqual(roots[1], 0.7320508)
+
+        roots = sorted(com.quadratic_roots(2, -4, -3))
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], -0.58113883)
+        self.assertAlmostEqual(roots[1], 2.58113883)
+
+        roots = sorted(com.quadratic_roots(-27, 643, -11))
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], 0.01711962)
+        self.assertAlmostEqual(roots[1], 23.7976952)
+
+        roots = sorted(com.quadratic_roots(1, 0, 1), key=(lambda x: x.imag))
+        self.assertEqual(len(roots), 2)
+        self.assertTrue(isinstance(roots[0], complex))
+        self.assertTrue(isinstance(roots[1], complex))
+        self.assertAlmostEqual(roots[0].real, 0)
+        self.assertAlmostEqual(roots[0].imag, -1)
+        self.assertAlmostEqual(roots[1].real, 0)
+        self.assertAlmostEqual(roots[1].imag, 1)
+
+        roots = sorted(com.quadratic_roots(24, 41, 35), key=(lambda x: x.imag))
+        self.assertEqual(len(roots), 2)
+        self.assertTrue(isinstance(roots[0], complex))
+        self.assertTrue(isinstance(roots[1], complex))
+        self.assertAlmostEqual(roots[0].real, -0.85416667)
+        self.assertAlmostEqual(roots[0].imag, -0.85365839)
+        self.assertAlmostEqual(roots[1].real, -0.85416667)
+        self.assertAlmostEqual(roots[1].imag, 0.85365839)
 
 # MAIN ########################################################################
 

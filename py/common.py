@@ -1563,8 +1563,9 @@ def minimum_line_cover(matrix):
         row_assignments[i] = j
 
     # mark all unassigned rows
+    m = len(matrix[0])
     row_marked = [False] * n
-    col_marked = [False] * n
+    col_marked = [False] * m
     new_marked_rows = []
     for i, assigned_col in enumerate(row_assignments):
         if assigned_col is None:
@@ -1574,7 +1575,7 @@ def minimum_line_cover(matrix):
     while new_marked_rows:
         # mark all unmarked columns with zeros in newly marked rows
         for i in new_marked_rows:
-            for j in range(n):
+            for j in range(m):
                 if not col_marked[j] and matrix[i][j] == 0:
                     col_marked[j] = True
 
@@ -1608,18 +1609,17 @@ def next_multiple(n, min_val):
 
 
 def optimal_assignment(cost_matrix):
-    """Assigns each row to a column of cost_matrix so that the sum of the
-    cost values in the assigned positions is minimized.
+    """Assigns each row to a column of the square matrix cost_matrix so that
+    the sum of the cost values in the assigned positions is minimized.
 
     Returns a list of matrix coordinates in the format (row, col).
     """
-
-    n = len(cost_matrix)
 
     # make a deep copy so we don't change the input matrix
     cost_matrix = copy.deepcopy(cost_matrix)
 
     # Step 1: subtract the minimum element from each row
+    n = len(cost_matrix)
     for i, row in enumerate(cost_matrix):
         min_value = min(row)
         for j in range(n):
