@@ -17,6 +17,7 @@ Author: Curtis Belmonte
 """
 
 import common as com
+from common import memoized
 
 
 # PARAMETERS ##################################################################
@@ -28,28 +29,11 @@ NUM_PRIMES = 5 # default: 5
 # SOLUTION ####################################################################
 
 
-pair_concats = {}
-
-
+@memoized
 def concats_prime(n, m):
     """Determines if n and m can concatenate in either order to form primes."""
-
-    # ensure that n <= m
-    if n > m:
-        n, m = m, n
-
-    pair = (n, m)
-
-    # use memoized boolean value if possible
-    if pair in pair_concats:
-        return pair_concats[pair]
-
-    # compute and memoize result
-    else:
-        pair_prime = (com.is_prime(com.concat_numbers(n, m)) and com.is_prime(
-            com.concat_numbers(m, n)))
-        pair_concats[pair] = pair_prime
-        return pair_prime
+    return (com.is_prime(com.concat_numbers(n, m)) and
+            com.is_prime(com.concat_numbers(m, n)))
 
 
 def find_prime_sets(primes, prev_prime_sets=None):
@@ -75,7 +59,12 @@ def find_prime_sets(primes, prev_prime_sets=None):
             # check if new prime concatenates with all prev primes
             all_prime = True
             for prev_prime in prev_prime_set:
-                if not concats_prime(prev_prime, prime):
+                # ensure that p1 <= p2 for memoization
+                p1, p2 = prev_prime, prime
+                if p1 > p2:
+                    p1, p2 = p2, p1
+
+                if not concats_prime(p1, p2):
                     all_prime = False
                     break
 
@@ -105,8 +94,7 @@ def solve():
 
     # find minimum sum of prime sets
     prime_sets = list(one_prime_sets) + list(two_prime_sets)
-    sorted_sets = com.sort_by(prime_sets, [sum(ps) for ps in prime_sets])
-    return sum(sorted_sets[0])
+    return min(map(sum, prime_sets))
 
 
 if __name__ == '__main__':
