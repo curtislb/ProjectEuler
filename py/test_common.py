@@ -525,12 +525,9 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.count_digits(63184285379), 11)
 
     def test_count_divisors(self):
-        self.assertEqual(com.count_divisors(1), 1)
-        self.assertEqual(com.count_divisors(2), 2)
-        self.assertEqual(com.count_divisors(3), 2)
-        self.assertEqual(com.count_divisors(4), 3)
-        self.assertEqual(com.count_divisors(12), 6)
-        self.assertEqual(com.count_divisors(126), 12)
+        div_cts = [1, 2, 2, 3, 2, 4, 2, 4, 3, 4, 2, 6, 2, 4, 4, 5, 2, 6, 2, 6]
+        for i, n in enumerate(div_cts):
+            self.assertEqual(com.count_divisors(i + 1), n)
         self.assertEqual(com.count_divisors(4200), 48)
         self.assertEqual(com.count_divisors(15485863), 2)
 
@@ -541,8 +538,9 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertEqual(com.count_divisors_up_to(3), [0, 1, 2, 2])
         self.assertEqual(com.count_divisors_up_to(4), [0, 1, 2, 2, 3])
         self.assertEqual(
-            com.count_divisors_up_to(21),
-            [0, 1, 2, 2, 3, 2, 4, 2, 4, 3, 4, 2, 6, 2, 4, 4, 5, 2, 6, 2, 6, 4])
+            com.count_divisors_up_to(43),
+            [0, 1, 2, 2, 3, 2, 4, 2, 4, 3, 4, 2, 6, 2, 4, 4, 5, 2, 6, 2, 6, 4,
+             4, 2, 8, 3, 4, 4, 6, 2, 8, 2, 6, 4, 4, 4, 9, 2, 4, 4, 8, 2, 8, 2])
 
     def test_count_prime_factors(self):
         self.assertEqual(com.count_prime_factors(1), 0)
@@ -713,15 +711,17 @@ class TestCommonFunctions(unittest.TestCase):
 
     def test_flatten_matrix(self):
         self.assertEqual(com.flatten_matrix([[]]), [])
-        self.assertEqual(com.flatten_matrix([[]], True), [])
+        self.assertEqual(com.flatten_matrix([[]], keep_indices=True), [])
         self.assertEqual(com.flatten_matrix([[1]]), [1])
-        self.assertEqual(com.flatten_matrix([[1]], True), [(1, 0, 0)])
+        self.assertEqual(
+            com.flatten_matrix([[1]], keep_indices=True),
+            [(1, 0, 0)])
         self.assertEqual(com.flatten_matrix([[4, 3], [2, 1]]), [4, 3, 2, 1])
         self.assertEqual(
-            com.flatten_matrix([['4', 3], [2, '1']], True),
+            com.flatten_matrix([['4', 3], [2, '1']], keep_indices=True),
             [('4', 0, 0), (3, 0, 1), (2, 1, 0), ('1', 1, 1)])
         self.assertEqual(
-            com.flatten_matrix([[1, 2], [3], [4, 5, 6]], True),
+            com.flatten_matrix([[1, 2], [3], [4, 5, 6]], keep_indices=True),
             [(1, 0, 0), (2, 0, 1), (3, 1, 0), (4, 2, 0), (5, 2, 1), (6, 2, 2)])
 
     def test_gcd(self):
@@ -1520,6 +1520,162 @@ class TestCommonFunctions(unittest.TestCase):
         self.assertAlmostEqual(roots[0].imag, -0.85365839)
         self.assertAlmostEqual(roots[1].real, -0.85416667)
         self.assertAlmostEqual(roots[1].imag, 0.85365839)
+
+    def test_radical(self):
+        rads = [1, 2, 3, 2, 5, 6, 7, 2, 3, 10, 11, 6, 13, 14, 15, 2, 17, 6, 19]
+        for i, n in enumerate(rads):
+            self.assertEqual(com.radical(i + 1), n)
+        self.assertEqual(com.radical(1391500), 2530)
+        self.assertEqual(com.radical(21902926704), 73996374)
+
+    def test_sqrt_decimal_expansion(self):
+        self.assertEqual(com.sqrt_decimal_expansion(1, 0), '1.')
+        self.assertEqual(com.sqrt_decimal_expansion(1, 1), '1.0')
+        self.assertEqual(com.sqrt_decimal_expansion(1, 14), '1.00000000000000')
+        self.assertEqual(com.sqrt_decimal_expansion(2, 0), '1.')
+        self.assertEqual(com.sqrt_decimal_expansion(2, 1), '1.4')
+        self.assertEqual(com.sqrt_decimal_expansion(2, 3), '1.414')
+        self.assertEqual(com.sqrt_decimal_expansion(2, 14), '1.41421356237309')
+        self.assertEqual(com.sqrt_decimal_expansion(64, 5), '8.00000')
+        self.assertEqual(com.sqrt_decimal_expansion(152, 4), '12.3288')
+        self.assertEqual(com.sqrt_decimal_expansion(2039, 6), '45.155287')
+        self.assertEqual(
+            com.sqrt_decimal_expansion(9734956, 53),
+            '3120.08910129182048011564795491798243946307377557996188108')
+
+    def test_sqrt_fraction_expansion(self):
+        self.assertEqual(com.sqrt_fraction_expansion(2), (1, [2]))
+        self.assertEqual(com.sqrt_fraction_expansion(3), (1, [1, 2]))
+        self.assertEqual(com.sqrt_fraction_expansion(5), (2, [4]))
+        self.assertEqual(com.sqrt_fraction_expansion(6), (2, [2, 4]))
+        self.assertEqual(com.sqrt_fraction_expansion(7), (2, [1, 1, 1, 4]))
+        self.assertEqual(com.sqrt_fraction_expansion(8), (2, [1, 4]))
+        self.assertEqual(com.sqrt_fraction_expansion(10), (3, [6]))
+        self.assertEqual(com.sqrt_fraction_expansion(11), (3, [3, 6]))
+        self.assertEqual(com.sqrt_fraction_expansion(12), (3, [2, 6]))
+        self.assertEqual(com.sqrt_fraction_expansion(13), (3, [1, 1, 1, 1, 6]))
+        self.assertEqual(com.sqrt_fraction_expansion(23), (4, [1, 3, 1, 8]))
+        self.assertEqual(
+            com.sqrt_fraction_expansion(688),
+            (26, [4, 2, 1, 5, 7, 3, 7, 5, 1, 2, 4, 52]))
+
+    def test_sum_digits(self):
+        self.assertEqual(com.sum_digits(1), 1)
+        self.assertEqual(com.sum_digits(2), 2)
+        self.assertEqual(com.sum_digits(10), 1)
+        self.assertEqual(com.sum_digits(13), 4)
+        self.assertEqual(com.sum_digits(209), 11)
+        self.assertEqual(com.sum_digits(1337), 14)
+        self.assertEqual(com.sum_digits(609278806205509), 67)
+        self.assertEqual(
+            com.sum_digits(9987223242228759440094102307791387034898),
+            182)
+
+    def test_sum_keep_digits(self):
+        self.assertEqual(com.sum_keep_digits(1, 2), 3)
+        self.assertEqual(com.sum_keep_digits(1, 2, d=1), 3)
+        self.assertEqual(com.sum_keep_digits(1, 2, d=2), 3)
+        self.assertEqual(com.sum_keep_digits(1, 2, d=100), 3)
+        self.assertEqual(com.sum_keep_digits(7, 3), 10)
+        self.assertEqual(com.sum_keep_digits(7, 3, d=1), 0)
+        self.assertEqual(com.sum_keep_digits(7, 3, d=2), 10)
+        self.assertEqual(com.sum_keep_digits(7, 3, d=3), 10)
+        self.assertEqual(com.sum_keep_digits(80, 175), 255)
+        self.assertEqual(com.sum_keep_digits(80, 175, d=1), 5)
+        self.assertEqual(com.sum_keep_digits(80, 175, d=2), 55)
+        self.assertEqual(com.sum_keep_digits(80, 175, d=3), 255)
+        self.assertEqual(com.sum_keep_digits(80, 175, d=4), 255)
+        self.assertEqual(com.sum_keep_digits(9008577767, 2942448238, d=1), 5)
+        self.assertEqual(com.sum_keep_digits(9008577767, 2942448238, d=3), 5)
+        self.assertEqual(
+            com.sum_keep_digits(9008577767, 2942448238, d=6),
+            26005)
+        self.assertEqual(
+            com.sum_keep_digits(9008577767, 2942448238, d=7),
+            1026005)
+        self.assertEqual(
+            com.sum_keep_digits(9008577767, 2942448238, d=10),
+            1951026005)
+        self.assertEqual(
+            com.sum_keep_digits(9008577767, 2942448238, d=11),
+            11951026005)
+        self.assertEqual(
+            com.sum_keep_digits(9008577767, 2942448238, d=552),
+            11951026005)
+        self.assertEqual(
+            com.sum_keep_digits(9008577767, 2942448238),
+            11951026005)
+
+    def test_sum_divisors(self):
+        div_sums = [1, 3, 4, 7, 6, 12, 8, 15, 13, 18, 12, 28, 14, 24, 24, 31]
+        for i, n in enumerate(div_sums):
+            self.assertEqual(com.sum_divisors(i + 1), n)
+        self.assertEqual(com.sum_divisors(892), 1568)
+        self.assertEqual(com.sum_divisors(81468), 215488)
+        self.assertEqual(com.sum_divisors(1485436710), 3774758112)
+
+    def test_sum_of_squares(self):
+        self.assertEqual(com.sum_of_squares(1), 1)
+        self.assertEqual(com.sum_of_squares(2), 5)
+        self.assertEqual(com.sum_of_squares(3), 14)
+        self.assertEqual(com.sum_of_squares(4), 30)
+        self.assertEqual(com.sum_of_squares(5), 55)
+        self.assertEqual(com.sum_of_squares(6), 91)
+        self.assertEqual(com.sum_of_squares(7), 140)
+        self.assertEqual(com.sum_of_squares(401), 21574201)
+        self.assertEqual(com.sum_of_squares(34594), 13800661997045)
+
+    def test_sum_proper_divisors(self):
+        div_sums = [0, 1, 1, 3, 1, 6, 1, 7, 4, 8, 1, 16, 1, 10, 9, 15, 1, 21]
+        for i, n in enumerate(div_sums):
+            self.assertEqual(com.sum_proper_divisors(i + 1), n)
+        self.assertEqual(com.sum_proper_divisors(900), 1921)
+        self.assertEqual(com.sum_proper_divisors(36582), 54810)
+        self.assertEqual(com.sum_proper_divisors(9145116791), 203174473)
+
+    def test_totient(self):
+        tots = [1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4, 12, 6, 8, 8, 16, 6, 18, 8]
+        for i, n in enumerate(tots):
+            self.assertEqual(com.totient(i + 2), n)
+        self.assertEqual(com.totient(2, prime_factors=[2]), 1)
+        self.assertEqual(com.totient(3, prime_factors=[3]), 2)
+        self.assertEqual(com.totient(4, prime_factors=[2]), 2)
+        self.assertEqual(com.totient(5, prime_factors=[5]), 4)
+        self.assertEqual(com.totient(6, prime_factors=[2, 3]), 2)
+        self.assertEqual(com.totient(7, prime_factors=[7]), 6)
+        self.assertEqual(com.totient(68), 32)
+        self.assertEqual(com.totient(68, [2, 17]), 32)
+        self.assertEqual(com.totient(876, prime_factors=[2, 3, 73]), 288)
+        self.assertEqual(com.totient(876), 288)
+        self.assertEqual(com.totient(58758), 16776)
+        self.assertEqual(
+            com.totient(58758, prime_factors=[2, 3, 7, 1399]),
+            16776)
+        self.assertEqual(
+            com.totient(19614162799, prime_factors=[7, 11, 31, 24097]),
+            14790124800)
+        self.assertEqual(com.totient(19614162799), 14790124800)
+
+    def test_totients_up_to(self):
+        self.assertEqual(com.totients_up_to(2), [1])
+        self.assertEqual(com.totients_up_to(3), [1, 2])
+        self.assertEqual(com.totients_up_to(4), [1, 2, 2])
+        self.assertEqual(com.totients_up_to(5), [1, 2, 2, 4])
+        self.assertEqual(com.totients_up_to(6), [1, 2, 2, 4, 2])
+        self.assertEqual(com.totients_up_to(7), [1, 2, 2, 4, 2, 6])
+        self.assertEqual(
+            com.totients_up_to(38),
+            [1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4, 12, 6, 8, 8, 16, 6, 18, 8, 12,
+             10, 22, 8, 20, 12, 18, 12, 28, 8, 30, 16, 20, 16, 24, 12, 36, 18])
+
+    def test_triangular(self):
+        tri_nums = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120]
+        for i, n in enumerate(tri_nums):
+            self.assertEqual(com.triangular(i + 1), n)
+        self.assertEqual(com.triangular(292), 42778)
+        self.assertEqual(com.triangular(38483), 740489886)
+        self.assertEqual(com.triangular(4946666), 12234754731111)
+
 
 # MAIN ########################################################################
 

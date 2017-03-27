@@ -55,10 +55,10 @@ def solve():
     for i in range(n):
         for j in range(n):
             node = (i, j)
-            com.try_add_edge(graph, matrix, node, i - 1, j) # above
-            com.try_add_edge(graph, matrix, node, i + 1, j) # below
-            com.try_add_edge(graph, matrix, node, i, j - 1) # left
-            com.try_add_edge(graph, matrix, node, i, j + 1) # right
+            com.try_add_matrix_edge(graph, matrix, node, i - 1, j) # above
+            com.try_add_matrix_edge(graph, matrix, node, i + 1, j) # below
+            com.try_add_matrix_edge(graph, matrix, node, i, j - 1) # left
+            com.try_add_matrix_edge(graph, matrix, node, i, j + 1) # right
 
     distance, _ = graph.dijkstra(start_node)
     goal_node = (n - 1, n - 1)

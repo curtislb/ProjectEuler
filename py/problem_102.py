@@ -38,7 +38,8 @@ QUERY_POINT = (0, 0) # default: (0, 0)
 
 
 def vector_sub(u, v):
-    return com.vector_pair_op(u, v, lambda x,y: x - y)
+    """Returns the difference (u - v) of vectors u and v of equal length."""
+    return [i - j for i, j in zip(u, v)]
 
 
 def same_side(p1, p2, a, b):

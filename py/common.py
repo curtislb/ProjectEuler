@@ -10,12 +10,12 @@ Author: Curtis Belmonte
 import copy
 import heapq
 import itertools
+import operator
 import math
 import random
 from collections import defaultdict, deque
 from fractions import Fraction
-from functools import total_ordering
-from operator import itemgetter
+from functools import reduce, total_ordering
 
 
 # PRIVATE VARIABLES ###########################################################
@@ -261,17 +261,17 @@ NUMBER_WORDS = {
 # PUBLIC DECORATORS ###########################################################
 
 
-def memoized(f):
-    """Decorator that caches the result of calling function with a particular
-    set of arguments and returns this result for subsequent calls to function
-    with the same arguments.
+def memoized(func):
+    """Decorator that caches the result of calling func with a particular set
+    of arguments and returns this result for subsequent calls to function with
+    the same arguments.
     """
 
     memo = {}
 
     def memo_func(*args):
         if args not in memo:
-            memo[args] = f(*args)
+            memo[args] = func(*args)
         return memo[args]
 
     return memo_func
@@ -848,10 +848,7 @@ def argmin(values):
 def arithmetic_product(a, n, d=1):
     """Returns the product of the arithmetic sequence with first term a, number
     of terms n, and difference between terms d."""
-    product = 1
-    for i in range(a, a + n * d, d):
-        product *= i
-    return product
+    return reduce(operator.mul, range(a, a + n * d, d), 1)
 
 
 def arithmetic_series(a, n, d=1):
@@ -958,7 +955,6 @@ def concat_digits(digit_list, base=10):
 def concat_numbers(n, m):
     """Returns the number that results from concatenating the natural numbers
     n and m, in that order."""
-
     return int(str(n) + str(m))
 
 
@@ -969,7 +965,7 @@ def count_digits(n):
 
 def count_divisors(n):
     """Returns the number of divisors of the natural number n."""
-    
+
     # compute product of one more than the powers of its prime factors
     divisor_count = 1
     factorization = prime_factorization(n)
@@ -1770,23 +1766,10 @@ def radical(n):
     """Returns the product of the distinct prime factors of n."""
 
     # find the distinct prime factors of n
-    factors = [factor[0] for factor in prime_factorization(n)]
+    factors = [factor for (factor, _) in prime_factorization(n)]
 
     # multiply factors to find their product
-    product = 1
-    for p in factors:
-        product *= p
-
-    return product
-
-
-def sort_by(values, keys):
-    """Returns a copy of values sorted by their corresponding keys.
-
-    Adapted from: http://stackoverflow.com/a/6618543"""
-
-    return [value for (_, value) in
-            sorted(zip(keys, values), key=itemgetter(1))]
+    return reduce(operator.mul, factors, 1)
 
 
 def sqrt_decimal_expansion(n, precision):
@@ -1799,6 +1782,7 @@ def sqrt_decimal_expansion(n, precision):
     while n > 0:
         n, mod = divmod(n, 100)
         n_digits.append(mod)
+    n_digits.reverse()
 
     expansion = []
     remainder = 0
@@ -1844,7 +1828,7 @@ def sqrt_decimal_expansion(n, precision):
 
 def sqrt_fraction_expansion(n):
     """Returns the terms in the continued fraction expansion of the square root
-    of the natural number n, in the format (a0, a1..ar)."""
+    of the non-square natural number n, in the format (a0, a1..ar)."""
 
     # perform the first expansion step
     sqrt_n = math.sqrt(n)
@@ -1875,9 +1859,9 @@ def sqrt_fraction_expansion(n):
 
 
 def strings_from_file(input_file, sep=','):
-    """Returns a list of sep-separated strings read from input_file."""
+    """Returns a list of sep-separated quoted strings read from input_file."""
     with open(input_file) as f:
-        return [string.strip('"\'') for string in f.read().split(sep)]
+        return [string.strip('"') for string in f.read().split(sep)]
 
 
 def sum_digits(n):
@@ -1890,13 +1874,13 @@ def sum_digits(n):
 
 
 def sum_keep_digits(m, n, d=None):
-    """Returns the last d digits of the sum of m and n. If d is None, returns
-    the entire sum."""
-    result = m + n
+    """Returns the last d decimal digits of the sum of m and n. If d is None,
+    returns the entire sum."""
     if d is None:
-        return result
+        return m + n
     else:
-        return result % 10**d
+        mod = 10**d
+        return ((m % mod) + (n % mod)) % mod
 
 
 def sum_divisors(n):
@@ -1924,11 +1908,11 @@ def sum_proper_divisors(n):
 
 
 def totient(n, prime_factors=None):
-    """Returns the number of integers 0 < i < n relatively prime to n."""
+    """Returns the number of integers between 0 and n relatively prime to n."""
     
     # determine prime factors of n if not provided
     if prime_factors is None:
-        prime_factors = [factor[0] for factor in prime_factorization(n)]
+        prime_factors = [factor for (factor, _) in prime_factorization(n)]
     
     # calculate totient using Euler's product formula
     numer = n
@@ -1943,6 +1927,7 @@ def totient(n, prime_factors=None):
 def totients_up_to(n):
     """Returns the values of Euler's totient function for integers 2 to n."""
 
+    # initialize sieve of Eratosthenes up to n
     sieve = [True] * (n + 1)
     sieve[0] = False
     sieve[1] = False
@@ -1971,14 +1956,8 @@ def triangular(n):
     return n * (n + 1) // 2
 
 
-def try_add_edge(graph, matrix, node, row, col):
+def try_add_matrix_edge(graph, matrix, node, row, col):
     """Adds edge from node to (row, col) in graph if a valid matrix index."""
     n = len(matrix)
     if 0 <= row < n and 0 <= col < n:
         graph.add_edge(node, (row, col), matrix[row][col])
-
-
-def vector_pair_op(u, v, operation):
-    """Returns the vector that results from applying the pairwise function
-    operation to each pair of corresponding components in vectors u and v."""
-    return tuple([operation(i, j) for i, j in zip(u, v)])
