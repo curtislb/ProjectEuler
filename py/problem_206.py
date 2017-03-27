@@ -23,7 +23,7 @@ import math
 square_form = '1_2_3_4_5_6_7_8_9_0'
 
 # the list of digits in the concealed square, in reverse order
-rev_form_digits = [None if c == '_' else int(c) for c in square_form[::-1]]
+rev_form_digits = [(None if c == '_' else int(c)) for c in square_form[::-1]]
 
 
 def is_match(n):

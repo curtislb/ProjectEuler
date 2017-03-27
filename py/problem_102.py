@@ -57,10 +57,10 @@ def solve():
     with open(INPUT_FILE) as f:
         for line in f:
             # parse triangle vertex coordinates from line
-            tokens = [int(t) for t in line.strip().split(',')]
-            a = (tokens[0], tokens[1], 0)
-            b = (tokens[2], tokens[3], 0)
-            c = (tokens[4], tokens[5], 0)
+            tokens = map(int, line.strip().split(','))
+            a = (next(tokens), next(tokens), 0)
+            b = (next(tokens), next(tokens), 0)
+            c = (next(tokens), next(tokens), 0)
 
             # check if query point on correct side of all segments
             if (same_side(point, a, b, c)

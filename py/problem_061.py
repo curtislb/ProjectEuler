@@ -99,7 +99,7 @@ def solve():
         ans_list = find_cycle(p_strs_copy[:5][:], [p_strs[5][n]], set())
         n += 1
 
-    return sum(int(p_str) for p_str in ans_list)
+    return sum(map(int, ans_list))
 
 
 if __name__ == '__main__':

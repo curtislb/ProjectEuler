@@ -451,7 +451,7 @@ class GameBoard(object):
         to their positions on the board."""
 
         # allocate the list of spaces
-        num_spaces = sum(len(indices) for indices in space_type_map.values())
+        num_spaces = sum(map(len, space_type_map.values()))
         space_list = [None] * num_spaces
 
         # create spaces and assign them to their board positions
@@ -949,7 +949,7 @@ def compute_chain_lengths(lengths, values, incr, is_valid=lambda x: True):
 
 def concat_digits(digit_list, base=10):
     """Returns the integer that results from concatenating digits in order."""
-    return int(''.join([str(d) for d in digit_list]), base)
+    return int(''.join(map(str, digit_list)), base)
 
 
 def concat_numbers(n, m):
@@ -1228,7 +1228,7 @@ def ints_from_file(input_file, sep=' '):
     """Returns a list of rows of integer numbers read from input_file."""
     with open(input_file) as f:
         for line in f:
-            yield [int(num) for num in line.rstrip().split(sep)]
+            yield [int(token) for token in line.rstrip().split(sep)]
 
 
 def inverse_index_map(values, distinct=True):
@@ -1670,7 +1670,7 @@ def optimal_assignment(cost_matrix):
 
 def pandigital_string(first=0, last=9):
     """Returns a string with each of the digits from first to last in order."""
-    return ''.join(str(digit) for digit in range(first, last + 1))
+    return ''.join(map(str, range(first, last + 1)))
 
 
 def pentagonal(n):

@@ -39,8 +39,8 @@ MAX_ELEMENT = 10**6 # default: 10**6
 
 def solve():
     # calculate all proper divisor sums in range
-    divisor_sums = [0 if n < 2 else com.sum_proper_divisors(n) for n in
-                    range(MAX_ELEMENT + 1)]
+    divisor_sums = [0 if n < 2 else com.sum_proper_divisors(n)
+                    for n in range(MAX_ELEMENT + 1)]
 
     chain_lengths = {}
     values = range(2, MAX_ELEMENT + 1)

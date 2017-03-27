@@ -41,7 +41,7 @@ def solve():
         # compute decimal expansion of sqrt(n) to necessary precision
         root = com.sqrt_decimal_expansion(n, DIGIT_COUNT)
         root = root.replace('.', '')
-        total += sum([int(digit) for digit in root[:DIGIT_COUNT]])
+        total += sum(map(int, root[:DIGIT_COUNT]))
 
     return total
 

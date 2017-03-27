@@ -60,7 +60,7 @@ def solve():
 
     # create the encrypted message from the file
     byte_vals = next(com.ints_from_file(INPUT_FILE, sep=','))
-    encrypted = ''.join(chr(byte) for byte in byte_vals)
+    encrypted = ''.join(map(chr, byte_vals))
 
     # try each possible key and look for target sequence in message
     for i in range(1, 27):
@@ -75,7 +75,7 @@ def solve():
                 # decrypt message with key and check for target sequence
                 decrypted = decrypt_message(encrypted, key)
                 if target_seq in decrypted:
-                    return sum([ord(char) for char in decrypted])
+                    return sum(map(ord, decrypted))
 
 
 if __name__ == '__main__':
