@@ -19,7 +19,8 @@ be written as the sum of consecutive squares.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -34,15 +35,15 @@ N = 10**8 # default: 10**8
 def solve():
     # find max value for which sum of squares is less than N
     k_max = 2
-    while com.sum_of_squares(k_max) < N:
+    while seqs.sum_of_squares(k_max) < N:
         k_max += 1
 
     # construct sums of squares and check for palindromes
     palindromes = set()
     for k in range(2, k_max):
         n = k
-        sum_to_k = com.triangular(k - 1)
-        sum_squares_to_k = com.sum_of_squares(k - 1)
+        sum_to_k = seqs.triangular(k - 1)
+        sum_squares_to_k = seqs.sum_of_squares(k - 1)
         while True:
             square_sum = (k * n**2) - (2 * n * sum_to_k) + sum_squares_to_k
             
@@ -50,7 +51,7 @@ def solve():
             if square_sum >= N:
                 break
             
-            if com.is_palindrome(square_sum):
+            if digs.is_palindrome(square_sum):
                 palindromes.add(square_sum)
             
             n += 1

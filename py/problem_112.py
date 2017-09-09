@@ -26,7 +26,7 @@ BOUNCY_PERCENTAGE%.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -46,7 +46,7 @@ def solve():
     # find first number for which ratio is exactly BOUNCY_PERCENTAGE%
     while adjusted_count != adjusted_total:
         n += 1
-        if com.is_bouncy(n):
+        if digs.is_bouncy(n):
             adjusted_count += 100
         adjusted_total += BOUNCY_PERCENTAGE
 

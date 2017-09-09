@@ -14,10 +14,10 @@ For which value of p ≤ MAX_PERIMETER, is the number of solutions maximised?
 Author: Curtis Belmonte
 """
 
-from collections import Counter
+import collections
 
-import common as com
-from common import memoized
+import common.arithmetic as arith
+import common.utility as util
 
 # PARAMETERS ##################################################################
 
@@ -28,10 +28,10 @@ MAX_PERIMETER = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-@memoized
+@util.memoized
 def int_sqrt(num):
-    """Memoized wrapper for the common.int_sqrt function."""
-    return com.int_sqrt(num)
+    """Memoized wrapper for the int_sqrt function."""
+    return arith.int_sqrt(num)
 
 
 def solve():
@@ -46,7 +46,7 @@ def solve():
         n_square = n * n
     
     # search for triplets of perfect squares that satisfy a^2 + b^2 = c^2
-    counts = Counter()
+    counts = collections.Counter()
     for a_square in squares:
         for b_square in squares:
             c_square = a_square + b_square

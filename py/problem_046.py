@@ -22,7 +22,8 @@ and FACTOR times a square?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -43,16 +44,16 @@ def solve():
         n += 2
         
         # skip number if it is not composite
-        if com.is_prime(n):
+        if prime.is_prime(n):
             continue
         
         # check if the given number is a counterexample
         is_counterexample = True
-        primes = com.primes_up_to(n)
-        for prime in primes:
+        primes = prime.primes_up_to(n)
+        for p in primes:
             # test property for each prime
-            diff = n - prime
-            if diff % FACTOR == 0 and com.is_square(diff // FACTOR):
+            diff = n - p
+            if diff % FACTOR == 0 and seqs.is_square(diff // FACTOR):
                 is_counterexample = False
                 break
         

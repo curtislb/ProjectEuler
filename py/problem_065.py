@@ -45,7 +45,7 @@ Author: Curtis Belmonte
 
 from fractions import Fraction
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -71,7 +71,7 @@ def e_convergent(n, i=1):
 
 def solve():
     convergent = e_convergent(NUM_CONVERGENT)
-    return com.sum_digits(convergent.numerator)
+    return digs.sum_digits(convergent.numerator)
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ Author: Curtis Belmonte
 
 import math
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -35,7 +35,7 @@ LIMIT = 5 * 10**7 # default: 5 * 10**7
 
 def solve():
     # precompute all primes up to the square root of LIMIT
-    primes = com.primes_up_to(int(math.sqrt(LIMIT)) + 1)
+    primes = prime.primes_up_to(int(math.sqrt(LIMIT)) + 1)
     
     # store all squares, cubes, and fourth powers of primes
     prime_squares = []

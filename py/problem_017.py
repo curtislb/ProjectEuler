@@ -18,7 +18,8 @@ British usage.
 Author: Curtis Belmonte
 """
 
-from common import memoized, NUMBER_WORDS
+import common.alphabet as alpha
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -31,7 +32,7 @@ MAX_NUMBER = 1000 # default: 1000
 
 # letter counts for unique numbers
 num_letters = {0: 0}
-for number, word in NUMBER_WORDS.items():
+for number, word in alpha.NUMBER_WORDS.items():
     num_letters[number] = len(word)
 
 # letter counts for relevant powers of 10
@@ -42,7 +43,7 @@ pow10_letters = {
 }
 
 
-@memoized
+@util.memoized
 def count_letters(n):
     """Returns the number of letters in the written representation of the
     natural number n (in compliance with British usage)."""

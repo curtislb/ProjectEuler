@@ -18,8 +18,8 @@ determine the number of blue discs that the box would contain.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import memoized
+import common.arithmetic as arith
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -31,7 +31,7 @@ MIN_DISCS = 10**12 # default: 10**12
 # SOLUTION ####################################################################
 
 
-@memoized
+@util.memoized
 def b(n):
     """Returns the nth natural number solution for b in the Diophantine
     equation 2b*(b-1) = a*(a-1)."""
@@ -43,7 +43,7 @@ def b(n):
 def total_discs(blue_discs):
     """Returns the number of discs in total for a valid arrangement with the
     given number of blue discs."""
-    return com.quadratic_roots(1, -1, -2 * blue_discs * (blue_discs - 1))[1]
+    return arith.quadratic_roots(1, -1, -2 * blue_discs * (blue_discs - 1))[1]
 
 
 def solve():

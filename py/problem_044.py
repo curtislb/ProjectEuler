@@ -19,8 +19,7 @@ of D?
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import INFINITY
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -38,13 +37,13 @@ def solve():
     pentagonal_count = 3000
     pentagonal_list = []
     for n in range(pentagonal_count):
-        pentagonal_list.append(com.pentagonal(n))
+        pentagonal_list.append(seqs.pentagonal(n))
         
     # add pentagonal numbers to set for fast lookup
     pentagonal_set = set(pentagonal_list)
     
     # compute minimum difference of pentagonal numbers that satisfy conditions
-    min_diff = INFINITY
+    min_diff = float('inf')
     for m in range(1, pentagonal_count):
         for k in range(m + 1, pentagonal_count):
             # check if sum of P(m) and P(k) is pentagonal

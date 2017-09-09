@@ -23,19 +23,12 @@ century (1 Jan 1901 to 31 Dec 2000)?
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import (
-    Day,
-    Month,
-    DAYS_IN_WEEK,
-    DAYS_IN_YEAR,
-    MONTH_DAY_COUNTS,
-    MONTHS_IN_YEAR)
+import common.calendar as cal
 
 # PARAMETERS ##################################################################
 
 
-DAY_OF_WEEK = Day.SUNDAY # default: Day.SUNDAY
+DAY_OF_WEEK = cal.Day.SUNDAY # default: cal.Day.SUNDAY
 # TODO: parameterize date range
 
 
@@ -45,25 +38,25 @@ DAY_OF_WEEK = Day.SUNDAY # default: Day.SUNDAY
 def solve():
     # advance day from Monday, 1 Jan 1900 to 1 Jan 1901
     start_year = 1900
-    day = Day.MONDAY
-    day = (day + DAYS_IN_YEAR + com.is_leap_year(start_year)) % DAYS_IN_WEEK
+    day = ((cal.Day.MONDAY + cal.DAYS_IN_YEAR + cal.is_leap_year(start_year))
+           % cal.DAYS_IN_WEEK)
 
     # count occurrences of DAY_OF_WEEK on the first of each month
     end_year = 2001
     first_day_count = 0
     for year in range(start_year + 1, end_year):
-        for month in range(Month.JANUARY, MONTHS_IN_YEAR):
+        for month in range(cal.Month.JANUARY, cal.MONTHS_IN_YEAR):
             # count the number of days in the current month
-            days_in_month = MONTH_DAY_COUNTS[month]
-            if month == Month.FEBRUARY:
-                days_in_month += com.is_leap_year(year)
+            days_in_month = cal.MONTH_DAY_COUNTS[month]
+            if month == cal.Month.FEBRUARY:
+                days_in_month += cal.is_leap_year(year)
 
             # check if the first day of the month is Sunday
-            if day == Day.SUNDAY:
+            if day == cal.Day.SUNDAY:
                 first_day_count += 1
 
             # advance day by one month
-            day = (day + days_in_month) % DAYS_IN_WEEK
+            day = (day + days_in_month) % cal.DAYS_IN_WEEK
 
     return first_day_count
 

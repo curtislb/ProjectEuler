@@ -16,8 +16,9 @@ concatenate to produce another prime.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import memoized
+import common.digits as digs
+import common.primes as prime
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -29,11 +30,11 @@ NUM_PRIMES = 5 # default: 5
 # SOLUTION ####################################################################
 
 
-@memoized
+@util.memoized
 def concats_prime(n, m):
     """Determines if n and m can concatenate in either order to form primes."""
-    return (com.is_prime(com.concat_numbers(n, m)) and
-            com.is_prime(com.concat_numbers(m, n)))
+    return (prime.is_prime(digs.concat_numbers(n, m)) and
+            prime.is_prime(digs.concat_numbers(m, n)))
 
 
 def find_prime_sets(primes, prev_prime_sets=None):
@@ -41,26 +42,26 @@ def find_prime_sets(primes, prev_prime_sets=None):
 
     # first iteration, return each prime in individual set
     if prev_prime_sets is None:
-        return set((prime,) for prime in primes)
+        return set((p,) for p in primes)
 
     # find prime sets with size one greater than previous
     prime_sets = set()
-    for prime in primes:
-        for prev_prime_set in prev_prime_sets:
+    for p in primes:
+        for prev_set in prev_prime_sets:
             # don't duplicate primes in a set
-            if prime in prev_prime_set:
+            if p in prev_set:
                 continue
 
             # don't duplicate sets of the same primes
-            prime_set = tuple(sorted(prev_prime_set + (prime,)))
+            prime_set = tuple(sorted(prev_set + (p,)))
             if prime_set in prime_sets:
                 continue
 
             # check if new prime concatenates with all prev primes
             all_prime = True
-            for prev_prime in prev_prime_set:
+            for prev_p in prev_set:
                 # ensure that p1 <= p2 for memoization
-                p1, p2 = prev_prime, prime
+                p1, p2 = prev_p, p
                 if p1 > p2:
                     p1, p2 = p2, p1
 
@@ -79,11 +80,11 @@ def solve():
     # divide primes into those with remainders 1 and 2 mod 3
     one_primes = [3]
     two_primes = [3]
-    for prime in com.primes_up_to(10000)[2:]:
-        if prime % 3 == 1:
-            one_primes.append(prime)
+    for p in prime.primes_up_to(10000)[2:]:
+        if p % 3 == 1:
+            one_primes.append(p)
         else:
-            two_primes.append(prime)
+            two_primes.append(p)
 
     # look for prime pair sets within 1-primes and 2-primes
     one_prime_sets = None

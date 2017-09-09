@@ -17,7 +17,8 @@ sequence?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.arrays as arrs
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -31,7 +32,7 @@ import common as com
 
 def solve():
     # generate all four-digit primes
-    primes = set(filter((lambda x: x > 999), com.primes_up_to(9999)))
+    primes = set(filter((lambda x: x > 999), prime.primes_up_to(9999)))
     
     # remove sequence from problem description
     primes.remove(1487)
@@ -44,12 +45,12 @@ def solve():
         perms = []
         
         # find all permutations of first prime in primes
-        for prime in primes:
+        for p in primes:
             if first is None:
-                first = str(prime)
-                perms.append(prime)
-            elif com.is_permutation(first, str(prime)):
-                perms.append(prime)
+                first = str(p)
+                perms.append(p)
+            elif arrs.is_permutation(first, str(p)):
+                perms.append(p)
         
         # check if any three prime permutations form arithmetic sequence
         if len(perms) > 2:

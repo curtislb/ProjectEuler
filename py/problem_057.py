@@ -28,7 +28,7 @@ Author: Curtis Belmonte
 
 from fractions import Fraction
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -47,7 +47,7 @@ def solve():
         frac = 1 + Fraction(1, 1 + frac)
         numer = frac.numerator
         denom = frac.denominator
-        if com.count_digits(numer) > com.count_digits(denom):
+        if digs.count_digits(numer) > digs.count_digits(denom):
             count += 1
     return count
 

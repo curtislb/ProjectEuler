@@ -21,7 +21,7 @@ How many starting numbers below LIMIT will arrive at 89?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -48,7 +48,7 @@ def has_chain_to_89(n):
         return chains_to_89[n]
 
     has_chain = has_chain_to_89(
-        com.digit_function_sum(n, lambda x: squares[x]))
+        digs.digit_function_sum(n, lambda x: squares[x]))
     chains_to_89[n] = has_chain
     return has_chain
 

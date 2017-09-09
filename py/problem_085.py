@@ -13,8 +13,7 @@ rectangles, find the area of the grid with the nearest solution.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import INFINITY
+import common.arithmetic as arith
 
 
 # PARAMETERS ##################################################################
@@ -32,9 +31,9 @@ def count_rectangles(m, n):
 
 
 def solve():
-    best_diff = INFINITY
+    best_diff = float('inf')
     best_area = None
-    upper_bound = com.int_sqrt(RECT_TARGET * 4)
+    upper_bound = arith.int_sqrt(RECT_TARGET * 4)
     for m in range(1, upper_bound + 1):
         for n in range(1, upper_bound + 1):
             if m * n > upper_bound:

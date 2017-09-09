@@ -19,7 +19,7 @@ integers?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.combinatorics as comb
 
 
 # PARAMETERS ##################################################################
@@ -32,7 +32,7 @@ N = 100 # default: 100
 
 
 def solve():
-    return com.combination_sums(N, list(range(1, N)))
+    return comb.combination_sums(N, list(range(1, N)))
 
 
 if __name__ == '__main__':

@@ -33,7 +33,8 @@ TARGET_LEN non-repeating terms?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.combinatorics as comb
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -75,7 +76,7 @@ def get_chain_length(n):
     if n in chain_lengths:
         return chain_lengths[n]
 
-    length = 1 + get_chain_length(com.digit_function_sum(n, com.factorial))
+    length = 1 + get_chain_length(digs.digit_function_sum(n, comb.factorial))
     chain_lengths[n] = length
     return length
 

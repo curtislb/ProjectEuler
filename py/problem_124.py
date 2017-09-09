@@ -31,7 +31,7 @@ If rad(n) is sorted for 1 ≤ n ≤ MAX_N, find E(INDEX).
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -48,7 +48,7 @@ INDEX = 10**4 # default: 10**4
 def solve():
     radicals = [(1, 1)]
     for n in range(2, MAX_N + 1):
-        radicals.append((com.radical(n), n))
+        radicals.append((divs.radical(n), n))
     return sorted(radicals)[INDEX - 1][1]
 
 

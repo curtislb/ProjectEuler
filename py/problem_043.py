@@ -28,11 +28,10 @@ Author: Curtis Belmonte
 
 import itertools
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
-
 
 START = 0 # default: 0
 
@@ -69,7 +68,7 @@ def concats_divisible_by_divisors(num_string):
 
 
 def solve():
-    pandigit_string = com.pandigital_string(START, END)
+    pandigit_string = digs.pandigital_string(START, END)
     
     # check if each pandigital number satisfies the problem conditions
     total = 0

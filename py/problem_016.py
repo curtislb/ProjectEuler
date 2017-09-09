@@ -11,7 +11,7 @@ What is the sum of the digits of the number BASE^EXPONENT?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -26,7 +26,7 @@ EXPONENT = 1000 # default: 1000
 
 
 def solve():
-    return com.sum_digits(BASE**EXPONENT)
+    return digs.sum_digits(BASE**EXPONENT)
 
 
 if __name__ == '__main__':

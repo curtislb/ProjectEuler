@@ -11,7 +11,7 @@ Find the sum of all the primes below LIMIT.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -24,7 +24,7 @@ LIMIT = 2000000 # default: 2000000
 
 
 def solve():
-    return sum(com.primes_up_to(LIMIT - 1))
+    return sum(prime.primes_up_to(LIMIT - 1))
 
 
 if __name__ == '__main__':

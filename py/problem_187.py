@@ -16,7 +16,7 @@ distinct, prime factors?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -30,7 +30,7 @@ LIMIT = 10**8 # default: 10**8
 
 def solve():
     # compute all possible prime factors
-    primes = com.primes_up_to((LIMIT - 1) // 2)
+    primes = prime.primes_up_to((LIMIT - 1) // 2)
     num_primes = len(primes)
 
     # count all pairs of factors whose product is less than LIMIT

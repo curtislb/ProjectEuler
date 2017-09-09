@@ -25,7 +25,8 @@ Author: Curtis Belmonte
 
 import itertools
 
-import common as com
+import common.arrays as arrs
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -39,7 +40,7 @@ import common as com
 
 def solve():
     max_num = 0
-    pandigit_string = com.pandigital_string(1)
+    pandigit_string = digs.pandigital_string(1)
     
     # try all starting numbers with up to 4 digits
     for num_digits in range(1, 5):
@@ -61,7 +62,7 @@ def solve():
                 continue
             
             # check if concatenated products are 1 to 9 pandigital
-            if com.is_permutation(product_str, pandigit_string):
+            if arrs.is_permutation(product_str, pandigit_string):
                 num = int(product_str)
                 
                 # set new maximum pandigital number if necessart

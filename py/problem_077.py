@@ -18,7 +18,8 @@ different ways?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.combinatorics as comb
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -31,9 +32,9 @@ N = 5000 # default: 5000
 
 
 def solve():
-    primes = list(com.primes_up_to(2 * N))
+    primes = list(prime.primes_up_to(2 * N))
     n = 2
-    while com.combination_sums(n, primes) <= N:
+    while comb.combination_sums(n, primes) <= N:
         n += 1
     return n
 

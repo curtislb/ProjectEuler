@@ -21,7 +21,7 @@ numbers and the square of the sum.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -34,7 +34,7 @@ N = 100 # default: 100
 
 
 def solve():
-    return com.triangular(N)**2 - com.sum_of_squares(N)
+    return seqs.triangular(N)**2 - seqs.sum_of_squares(N)
 
 
 if __name__ == '__main__':

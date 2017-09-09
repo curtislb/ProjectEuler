@@ -19,7 +19,7 @@ Evaluate the sum of all the amicable numbers under LIMIT.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -36,10 +36,10 @@ def solve():
     
     # search for amicable pairs (m, n) below LIMIT
     for m in range(2, LIMIT):
-        n = com.sum_proper_divisors(m)
+        n = divs.sum_proper_divisors(m)
         
         # do m and n meet conditions of amicable pair with m < n < LIMIT
-        if (m < n < LIMIT) and com.sum_proper_divisors(n) == m:
+        if (m < n < LIMIT) and divs.sum_proper_divisors(n) == m:
             total += m + n
     
     return total

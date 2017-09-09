@@ -24,7 +24,7 @@ Author: Curtis Belmonte
 
 import math
 
-import common as com
+import common.combinatorics as comb
 
 
 # PARAMETERS ##################################################################
@@ -45,7 +45,7 @@ def solve():
         # find first r for which nCr is greater than MIN_VALUE
         r = 1
         while r <= n // 2:
-            if com.choose(n, r) > MIN_VALUE:
+            if comb.choose(n, r) > MIN_VALUE:
                 break
             r += 1
 

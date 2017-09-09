@@ -7,7 +7,7 @@ Problem 54: Poker hands
 In the card game poker, a hand consists of five cards and are ranked, from
 lowest to highest, in the following way:
 
-    High Card: Highest value card.
+    High game.Card: Highest value card.
     One Pair: Two cards of the same value.
     Two Pairs: Two different pairs.
     Three of a Kind: Three cards of the same value.
@@ -59,7 +59,7 @@ How many hands does Player 1 win?
 Author: Curtis Belmonte
 """
 
-from common import Card
+import common.games as game
 
 
 # PARAMETERS ##################################################################
@@ -108,13 +108,13 @@ class Rank(object):
                 and hand[1].suit == hand[2].suit
                 and hand[2].suit == hand[3].suit
                 and hand[3].suit == hand[4].suit):
-            if (hand[0].face == Card.Face.TEN
-                    and hand[1].face == Card.Face.JACK
-                    and hand[2].face == Card.Face.QUEEN
-                    and hand[3].face == Card.Face.KING
-                    and hand[4].face == Card.Face.ACE):
+            if (hand[0].face == game.Card.Face.TEN
+                    and hand[1].face == game.Card.Face.JACK
+                    and hand[2].face == game.Card.Face.QUEEN
+                    and hand[3].face == game.Card.Face.KING
+                    and hand[4].face == game.Card.Face.ACE):
                 self.type = Rank.Type.ROYAL_FLUSH
-                self.value = Card.Face.ACE
+                self.value = game.Card.Face.ACE
             elif (hand[0].face + 1 == hand[1].face
                   and hand[1].face + 1 == hand[2].face
                   and hand[2].face + 1 == hand[3].face
@@ -176,7 +176,7 @@ def solve():
     hands = []
     with open(INPUT_FILE) as f:
         for line in f:
-            cards = [Card(s) for s in line.split()]
+            cards = [game.Card(s) for s in line.split()]
             hands.append((sorted(cards[:5]), sorted(cards[5:])))
     
     # count total number of wins for player 1

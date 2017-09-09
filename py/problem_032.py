@@ -20,8 +20,8 @@ include it once in your sum.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import memoized
+import common.arrays as arrs
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -34,23 +34,15 @@ MAX_DIGIT = 9 # default: 9
 
 
 # A 1 to MAX_DIGIT pandigital string
-pandigit_string = com.pandigital_string(1, MAX_DIGIT)
+pandigit_string = digs.pandigital_string(1, MAX_DIGIT)
 
 
-@memoized
-def count_digits(n):
-    """Memoized wrapper for the common.count_digits function."""
-    return com.count_digits(n)
-
-
-@memoized
 def max_multiplicand(digit_count):
     """Returns the maximum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
     return int(pandigit_string[digit_count::-1])
 
 
-@memoized
 def min_multiplicand(digit_count):
     """Returns the minimum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
@@ -67,8 +59,8 @@ def solve():
             max_a = max_multiplicand(a_digits)
             min_b = min_multiplicand(b_digits)
             max_b = max_multiplicand(b_digits)
-            min_digits = count_digits(min_a * min_b)
-            max_digits = count_digits(max_a * max_b)
+            min_digits = digs.count_digits(min_a * min_b)
+            max_digits = digs.count_digits(max_a * max_b)
             
             # check if target digit count is within min and max product range
             target_digits = MAX_DIGIT - a_digits - b_digits
@@ -93,7 +85,7 @@ def solve():
                 if product not in products:
                     # check if product is pandigital with its multiplicands
                     digit_string = str(a) + str(b) + str(product)
-                    if com.is_permutation(digit_string, pandigit_string):
+                    if arrs.is_permutation(digit_string, pandigit_string):
                         products.add(product)
                         total += product
     

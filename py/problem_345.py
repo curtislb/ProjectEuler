@@ -21,7 +21,8 @@ Author: Curtis Belmonte
 
 import copy
 
-import common as com
+import common.fileio as fio
+import common.matrices as mat
 
 
 # PARAMETERS ##################################################################
@@ -35,7 +36,7 @@ INPUT_FILE = '../input/345.txt' # default: '../input/345.txt'
 
 def solve():
     # read matrix from input file
-    matrix = list(com.ints_from_file(INPUT_FILE))
+    matrix = list(fio.ints_from_file(INPUT_FILE))
 
     # build cost matrix by subtracting each entry from max entry
     cost_matrix = copy.deepcopy(matrix)
@@ -45,7 +46,7 @@ def solve():
             cost_matrix[i][j] = max_value - value
 
     # find optimal assignment in cost matrix
-    assignment = com.optimal_assignment(cost_matrix)
+    assignment = mat.optimal_assignment(cost_matrix)
 
     # sum values in original matrix that correspond with assignment
     return sum([matrix[i][j] for i, j in assignment])

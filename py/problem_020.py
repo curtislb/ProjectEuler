@@ -14,8 +14,8 @@ Find the sum of the digits in the number N!
 Author: Curtis Belmonte
 """
 
-import common as com
-
+import common.combinatorics as comb
+import common.digits as digs
 
 # PARAMETERS ##################################################################
 
@@ -27,7 +27,7 @@ N = 100 # default: 100
 
 
 def solve():
-    return com.sum_digits(com.factorial(N))
+    return digs.sum_digits(comb.factorial(N))
 
 
 if __name__ == '__main__':

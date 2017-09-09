@@ -16,7 +16,7 @@ What is the Nth lexicographic permutation of the digits DIGITS?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.combinatorics as comb
 
 
 # PARAMETERS ##################################################################
@@ -41,7 +41,7 @@ def solve():
     digit_count = len(DIGITS)
     permutation_digits = []
     for i in range(1, digit_count):
-        digit, n = divmod(n, com.factorial(digit_count - i))
+        digit, n = divmod(n, comb.factorial(digit_count - i))
         permutation_digits.append(digits[digit])
         del digits[digit]
     

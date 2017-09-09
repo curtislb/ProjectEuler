@@ -27,7 +27,7 @@ Find the value of n ≤ MAX_N for which n/φ(n) is a maximum.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -40,14 +40,14 @@ MAX_N = 10**6 # default: 10**6
 
 
 def solve():
-    primes = com.primes_up_to(MAX_N // 2)
+    primes = prime.primes_up_to(MAX_N // 2)
     product = 1
-    for prime in primes:
-        new_product = product * prime
+    for p in primes:
+        new_product = product * p
         if new_product > MAX_N:
             return product
         else:
-            product *= prime
+            product *= p
 
 
 if __name__ == '__main__':

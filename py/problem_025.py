@@ -30,7 +30,8 @@ What is the first term in the Fibonacci sequence to contain D digits?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -45,10 +46,10 @@ D = 1000 # default: 1000
 def solve():
     # search for Fibonacci number containing D digits
     n = 0
-    fib_num = com.fibonacci(n)
-    while com.count_digits(fib_num) < D:
+    fib_num = seqs.fibonacci(n)
+    while digs.count_digits(fib_num) < D:
         n += 1
-        fib_num = com.fibonacci(n)
+        fib_num = seqs.fibonacci(n)
     
     # shift Fibonacci index so F(0) = 1, F(1) = 1 -> F(1) = 1, F(2) = 1
     return n + 1

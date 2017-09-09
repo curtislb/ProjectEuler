@@ -13,7 +13,9 @@ What is the largest n-digit pandigital prime that exists?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.arrays as arrs
+import common.digits as digs
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -26,26 +28,26 @@ import common as com
 
 
 # Array of 1 to n pandigital numbers for n from 2 to 7
-pandigit_strings = [com.pandigital_string(1, n) for n in range(2, 8)]
+pandigit_strings = [digs.pandigital_string(1, n) for n in range(2, 8)]
 
 
 def solve():
     # compute primes up to maximum possible pandigital number
     # note: 1 to 8 or 9 pandigital numbers cannot be prime (divisible by 3)
-    primes = com.primes_up_to(7654321)
+    prime_nums = prime.primes_up_to(7654321)
     
     # check if each prime is 1 to n pandigital in decreasing order
     i = -1
-    prime = primes[i]
-    digit_count = com.count_digits(prime)
-    while not com.is_permutation(str(prime), pandigit_strings[digit_count-2]):
+    p = prime_nums[i]
+    digit_count = digs.count_digits(p)
+    while not arrs.is_permutation(str(p), pandigit_strings[digit_count-2]):
         # advance to next largest prime number
         i -= 1
-        prime = primes[i]
-        digit_count = com.count_digits(prime)
+        p = prime_nums[i]
+        digit_count = digs.count_digits(p)
     
     # print largest prime that satisfies the conditions
-    return primes[i]
+    return prime_nums[i]
 
 
 if __name__ == '__main__':

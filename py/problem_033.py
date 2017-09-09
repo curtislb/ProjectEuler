@@ -19,7 +19,7 @@ value of the denominator.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -42,7 +42,7 @@ def solve():
     for numerator in range(min_value, max_value):
         for denominator in range(numerator + 1, max_value + 1):
             # compute the properly reduced numerator and denominator
-            gcd = com.gcd(numerator, denominator)
+            gcd = divs.gcd(numerator, denominator)
             reduced_numer = numerator // gcd
             reduced_denom = denominator // gcd
             
@@ -61,7 +61,7 @@ def solve():
                         canceled_denom = int(denom_str[:j] + denom_str[j + 1:])
                         
                         # compute reduced value of digit canceled fraction
-                        gcd = com.gcd(canceled_numer, canceled_denom)
+                        gcd = divs.gcd(canceled_numer, canceled_denom)
                         reduced_canceled_numer = canceled_numer // gcd
                         reduced_canceled_denom = canceled_denom // gcd
                         
@@ -79,7 +79,7 @@ def solve():
                     break
     
     # print the reduced denominator of product
-    return product_denom // com.gcd(product_numer, product_denom)
+    return product_denom // divs.gcd(product_numer, product_denom)
 
 
 if __name__ == '__main__':

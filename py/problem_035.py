@@ -15,7 +15,8 @@ How many circular primes are there below LIMIT?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -35,14 +36,14 @@ def solve():
         # check if the digit rotations of n have already been seen
         if n not in tested_rotations:
             # mark all digit rotations of n as seen
-            rotations = com.digit_rotations(n)
+            rotations = digs.digit_rotations(n)
             for rotation in rotations:
                 tested_rotations.add(rotation)
             
             # check if all digit rotations of n are prime
             all_rotations_prime = True
             for rotation in rotations:
-                if not com.is_prime(rotation):
+                if not prime.is_prime(rotation):
                     all_rotations_prime = False
                     break
             

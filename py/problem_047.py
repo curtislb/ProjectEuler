@@ -21,7 +21,7 @@ factors. What is the first of these numbers?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -42,7 +42,7 @@ prime_step = 1000
 def solve():
     # precompute fixed range of prime numbers
     max_prime = prime_step
-    primes = com.primes_up_to(max_prime)
+    primes = prime.primes_up_to(max_prime)
     
     n = 2
     consec_count = 0
@@ -50,10 +50,10 @@ def solve():
         # generate more prime numbers as needed
         if n > max_prime:
             max_prime += prime_step
-            primes = com.primes_up_to(max_prime)
+            primes = prime.primes_up_to(max_prime)
         
         # increment consecutive count if n has correct number of prime factors
-        if com.count_prime_factors(n, primes) == FACTORS:
+        if prime.count_prime_factors(n, primes) == FACTORS:
             consec_count += 1
         else:
             consec_count = 0

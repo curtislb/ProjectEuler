@@ -45,8 +45,6 @@ Author: Curtis Belmonte
 
 import copy
 
-from common import INFINITY
-
 
 # PARAMETERS ##################################################################
 
@@ -90,9 +88,11 @@ def solve_puzzle(grid):
 
     # deterministically fill in puzzle grid as much as possible
     puzzle_changed = True
+    best_digits = None
+    best_cell = None
     while puzzle_changed:
         puzzle_changed = False
-        best_count = INFINITY
+        best_count = float('inf')
         best_digits = None
         best_cell = None
         for i, row in enumerate(grid):

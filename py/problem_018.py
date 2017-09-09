@@ -25,7 +25,8 @@ clever method!
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.fileio as fio
+import common.matrices as mat
 
 
 # PARAMETERS ##################################################################
@@ -38,8 +39,8 @@ INPUT_FILE = '../input/018.txt' # default: '../input/018.txt'
 
 
 def solve():
-    triangle = list(com.ints_from_file(INPUT_FILE))
-    return com.max_triangle_path(triangle)
+    triangle = list(fio.ints_from_file(INPUT_FILE))
+    return mat.max_triangle_path(triangle)
 
 
 if __name__ == '__main__':

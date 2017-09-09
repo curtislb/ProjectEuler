@@ -32,7 +32,8 @@ decrypt the message and find the sum of the ASCII values in the original text.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.alphabet as alpha
+import common.fileio as fio
 
 
 # PARAMETERS ##################################################################
@@ -59,7 +60,7 @@ def solve():
     target_seq = ' the '
 
     # create the encrypted message from the file
-    byte_vals = next(com.ints_from_file(INPUT_FILE, sep=','))
+    byte_vals = next(fio.ints_from_file(INPUT_FILE, sep=','))
     encrypted = ''.join(map(chr, byte_vals))
 
     # try each possible key and look for target sequence in message
@@ -67,9 +68,9 @@ def solve():
         for j in range(1, 27):
             for k in range(1, 27):
                 key = ''.join([
-                    com.alpha_char_lower(i),
-                    com.alpha_char_lower(j),
-                    com.alpha_char_lower(k),
+                    alpha.alpha_char_lower(i),
+                    alpha.alpha_char_lower(j),
+                    alpha.alpha_char_lower(k),
                 ])
 
                 # decrypt message with key and check for target sequence

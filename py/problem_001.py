@@ -12,7 +12,8 @@ Find the sum of all the multiples of M or N below LIMIT.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.divisors as divs
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -30,13 +31,13 @@ LIMIT = 1000 # default: 1000
 
 def sum_divisible_by(n):
     """Returns the sum of natural numbers below LIMIT divisible by n."""
-    return com.arithmetic_series(n, (LIMIT - 1) // n, n)
+    return seqs.arithmetic_series(n, (LIMIT - 1) // n, n)
 
 
 def solve():
     m_sum = sum_divisible_by(M)
     n_sum = sum_divisible_by(N)
-    lcm_sum = sum_divisible_by(com.lcm(M, N))
+    lcm_sum = sum_divisible_by(divs.lcm(M, N))
     return m_sum + n_sum - lcm_sum
 
 

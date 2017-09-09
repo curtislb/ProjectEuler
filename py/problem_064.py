@@ -53,7 +53,8 @@ How many continued fractions for N ≤ MAX_N have an odd period?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.expansion as expan
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -70,11 +71,11 @@ def solve():
 
     for n in range(MAX_N + 1):
         # skip perfect square values
-        if com.is_square(n):
+        if seqs.is_square(n):
             continue
 
         # compute continued fraction expansion of sqrt(n)
-        _, block = com.sqrt_fraction_expansion(n)
+        _, block = expan.sqrt_fraction_expansion(n)
         
         # increment count if expansion has odd period
         period = len(block)

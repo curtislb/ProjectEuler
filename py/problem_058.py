@@ -27,7 +27,7 @@ diagonals first falls below MIN_FRACTION?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -57,7 +57,7 @@ def solve():
 
             # increment number of diagonal values and primes as necessary
             diag_count += 1
-            if com.is_prime(value):
+            if prime.is_prime(value):
                 prime_count += 1
 
             prime_frac = prime_count / diag_count

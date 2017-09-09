@@ -81,8 +81,8 @@ Author: Curtis Belmonte
 from collections import Counter
 from fractions import Fraction
 
-import common as com
-from common import GameBoard
+import common.games as game
+import common.probability as prob
 
 # PARAMETERS ##################################################################
 
@@ -141,20 +141,20 @@ move_rules = {
 
 def solve():
     # set up the game board
-    board = GameBoard(space_type_map, move_rules)
+    board = game.GameBoard(space_type_map, move_rules)
 
     # precompute possible roll values and their probabilities
     roll_values = []
     roll_probs = []
     for roll in range(NUM_DICE, NUM_DICE * NUM_SIDES + 1):
         roll_values.append(roll)
-        roll_probs.append(com.dice_probability(roll, NUM_DICE, NUM_SIDES))
+        roll_probs.append(prob.dice_probability(roll, NUM_DICE, NUM_SIDES))
     
     # simulate many moves, keeping track of most popular spaces
     counts = Counter()
     position = 0
     for _ in range(10**5):
-        roll = com.choose_weighted_random(roll_values, roll_probs)
+        roll = prob.choose_weighted_random(roll_values, roll_probs)
         position = board.move(position, roll)
         counts[position] += 1
 

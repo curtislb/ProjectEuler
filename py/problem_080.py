@@ -17,7 +17,8 @@ the first DIGIT_COUNT decimal digits for all the irrational square roots.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.expansion as expan
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -35,11 +36,11 @@ def solve():
     total = 0
     for n in range(2, NUM_COUNT + 1):
         # skip perfect square values
-        if com.is_square(n):
+        if seqs.is_square(n):
             continue
 
         # compute decimal expansion of sqrt(n) to necessary precision
-        root = com.sqrt_decimal_expansion(n, DIGIT_COUNT)
+        root = expan.sqrt_decimal_expansion(n, DIGIT_COUNT)
         root = root.replace('.', '')
         total += sum(map(int, root[:DIGIT_COUNT]))
 

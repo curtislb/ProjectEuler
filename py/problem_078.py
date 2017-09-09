@@ -21,7 +21,7 @@ Find the least value of n for which p(n) is divisible by DIVISOR.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -41,12 +41,12 @@ def solve():
         # compute the recurrence p(n) = p(n - 1) + p(n - 2) - p(n - 5) - ...
         p = 0
         k = 1
-        penta = com.pentagonal(k)
+        penta = seqs.pentagonal(k)
         while penta <= n:
             sign = int((-1)**(k - 1))
             p += sign * partitions[n - penta]
             k = -k if k > 0 else -k + 1
-            penta = com.pentagonal(k)
+            penta = seqs.pentagonal(k)
 
         if p % DIVISOR == 0:
             return n

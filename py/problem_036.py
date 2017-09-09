@@ -15,7 +15,7 @@ leading zeros.)
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -36,27 +36,27 @@ def solve():
     
     # generate all even-length palindromes in BASE_A below LIMIT
     n = 1
-    palindrome = com.make_palindrome(n, BASE_A)
+    palindrome = digs.make_palindrome(n, BASE_A)
     while palindrome < LIMIT:
         # check if palindrome is also a palindrome in BASE_B
-        if com.is_palindrome(palindrome, BASE_B):
+        if digs.is_palindrome(palindrome, BASE_B):
             total += palindrome
         
         # generate next even-length palindrome in BASE_A
         n += 1
-        palindrome = com.make_palindrome(n, BASE_A)
+        palindrome = digs.make_palindrome(n, BASE_A)
     
     # generate all odd-length palindromes in BASE_A below LIMIT
     n = 1
-    palindrome = com.make_palindrome(n, BASE_A, odd_length = True)
+    palindrome = digs.make_palindrome(n, BASE_A, odd_length=True)
     while palindrome < LIMIT:
         # check if palindrome is also a palindrome in BASE_B
-        if com.is_palindrome(palindrome, BASE_B):
+        if digs.is_palindrome(palindrome, BASE_B):
             total += palindrome
         
         # generate next odd-length palindrome in BASE_A
         n += 1
-        palindrome = com.make_palindrome(n, BASE_A, odd_length = True)
+        palindrome = digs.make_palindrome(n, BASE_A, odd_length=True)
     
     return total
 

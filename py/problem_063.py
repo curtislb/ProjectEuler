@@ -12,7 +12,7 @@ How many n-digit positive integers exist which are also an nth power?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -30,13 +30,13 @@ def solve():
     for n in range(2, n_max + 1):
         b = 2
         bn = b**n
-        bn_digits = com.count_digits(bn)
+        bn_digits = digs.count_digits(bn)
         while bn_digits <= n:
             if bn_digits == n:
                 ans_set.add(bn)
             b += 1
             bn = b**n
-            bn_digits = com.count_digits(bn)
+            bn_digits = digs.count_digits(bn)
     return len(ans_set)
 
 

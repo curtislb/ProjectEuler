@@ -23,7 +23,7 @@ contains the point QUERY_POINT.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.matrices as mat
 
 
 # PARAMETERS ##################################################################
@@ -45,9 +45,9 @@ def vector_sub(u, v):
 def same_side(p1, p2, a, b):
     """Determines if points p1 and p2 are on the same side of segment AB."""
     segment_ab = vector_sub(b, a)
-    cross1 = com.cross_product_3d(segment_ab, vector_sub(p1, a))
-    cross2 = com.cross_product_3d(segment_ab, vector_sub(p2, a))
-    return com.dot_product(cross1, cross2) >= 0
+    cross1 = mat.cross_product_3d(segment_ab, vector_sub(p1, a))
+    cross2 = mat.cross_product_3d(segment_ab, vector_sub(p2, a))
+    return mat.dot_product(cross1, cross2) >= 0
 
 
 def solve():

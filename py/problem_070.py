@@ -21,8 +21,8 @@ the ratio n/φ(n) produces a minimum.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import INFINITY
+import common.arrays as arrs
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -41,8 +41,8 @@ def two_prime_phi(p1, p2):
 
 def solve():
     best_n = None
-    best_ratio = INFINITY
-    primes = com.primes_up_to(MAX_N)
+    best_ratio = float('inf')
+    primes = prime.primes_up_to(MAX_N)
 
     for i, p1 in enumerate(primes):
         # cut off if all remaining products exceed MAX_N
@@ -57,7 +57,7 @@ def solve():
 
             # check if totient is a permutation and compare ratio
             phi = two_prime_phi(p1, p2)
-            if com.is_permutation(str(n), str(phi)):
+            if arrs.is_permutation(str(n), str(phi)):
                 ratio = n / phi
                 if ratio < best_ratio:
                     best_n = n

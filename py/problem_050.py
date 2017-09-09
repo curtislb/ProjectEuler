@@ -19,7 +19,7 @@ primes?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -33,7 +33,7 @@ LIMIT = 1000000 # default: 1000000
 
 def solve():
     # TODO: find (provably) better lower bound on prime addend size
-    primes = com.primes_up_to(max(1000, LIMIT // 10))
+    primes = prime.primes_up_to(max(1000, LIMIT // 10))
     num_primes = len(primes)
     
     # create matrix with primes along diagonal
@@ -61,7 +61,7 @@ def solve():
                 break
             
             # check if sum meets criteria and is better than best so far
-            if com.is_prime(dyna_sums[i][j]):
+            if prime.is_prime(dyna_sums[i][j]):
                 consec = j - i + 1
                 if consec > max_consec:
                     max_consec = consec

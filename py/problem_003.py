@@ -11,7 +11,7 @@ What is the largest prime factor of the number N?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -24,7 +24,7 @@ N = 600851475143 # default: 600851475143
 
 
 def solve():
-    return com.prime_factorization(N)[-1][0]
+    return prime.prime_factorization(N)[-1][0]
 
 
 if __name__ == '__main__':

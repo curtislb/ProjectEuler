@@ -13,7 +13,7 @@ same digits.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -27,9 +27,9 @@ N = 6 # default: 6
 
 def has_permuted_multiples(x):
     """Determines if all multiples of x up to Nx contain the same digits."""
-    x_digits = com.digit_counts(x)
+    x_digits = digs.digit_counts(x)
     for n in range(2, N + 1):
-        if com.digit_counts(n * x) != x_digits:
+        if digs.digit_counts(n * x) != x_digits:
             return False
     return True
 

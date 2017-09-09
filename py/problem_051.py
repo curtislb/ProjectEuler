@@ -19,7 +19,8 @@ adjacent digits) with the same digit, is part of an 8 prime value family.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -55,7 +56,7 @@ def solve():
                         else:
                             num += digit_repl * 10**d
                     
-                    if com.is_prime(num):
+                    if prime.is_prime(num):
                         count += 1
                         family.append(num)
                         
@@ -83,7 +84,7 @@ def solve():
                                 else:
                                     num += digit_repl * 10**d
                             
-                            if com.is_prime(num):
+                            if prime.is_prime(num):
                                 count += 1
                                 family.append(num)
                                 
@@ -94,9 +95,9 @@ def solve():
     min_primes = []                            
     for family in families:
         min_prime = family[0]
-        digit_count = com.count_digits(min_prime)
-        for prime in family[1:]:
-            if com.count_digits(prime) != digit_count:
+        digit_count = digs.count_digits(min_prime)
+        for p in family[1:]:
+            if digs.count_digits(p) != digit_count:
                 break
             min_primes.append(min_prime)
     

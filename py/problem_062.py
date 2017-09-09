@@ -14,7 +14,7 @@ are cube.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -33,7 +33,7 @@ def solve():
     n = 1
     cube = n**3
     while True:
-        digits = tuple(com.digit_counts(cube))
+        digits = tuple(digs.digit_counts(cube))
         if digits not in cube_digits:
             cube_digits[digits] = [cube]
         else:

@@ -17,7 +17,7 @@ Author: Curtis Belmonte
 
 from fractions import Fraction
 
-import common as com
+import common.combinatorics as comb
 
 
 # PARAMETERS ##################################################################
@@ -34,8 +34,8 @@ NUM_DRAWS = 20 # default: 20
 
 
 def solve():
-    a = com.choose(NUM_BALLS - (NUM_BALLS // NUM_COLORS), NUM_DRAWS)
-    b = com.choose(NUM_BALLS, NUM_DRAWS)
+    a = comb.choose(NUM_BALLS - (NUM_BALLS // NUM_COLORS), NUM_DRAWS)
+    b = comb.choose(NUM_BALLS, NUM_DRAWS)
     expected_value = NUM_COLORS * (1 - Fraction(a, b))
     return int('{0:.9f}'.format(float(expected_value)).replace('.', ''))
 

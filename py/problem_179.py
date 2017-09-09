@@ -11,7 +11,7 @@ number of positive divisors. For example, 14 has the positive divisors 1, 2, 7,
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -24,7 +24,7 @@ LIMIT = 10**7 # default: 10**7
 
 
 def solve():
-    divisor_counts = com.count_divisors_up_to(LIMIT)
+    divisor_counts = divs.count_divisors_up_to(LIMIT)
     
     # check consecutive numbers for equal divisor counts
     count = 0

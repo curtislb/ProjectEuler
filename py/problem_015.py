@@ -12,7 +12,7 @@ How many such routes are there through an N × N grid?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.combinatorics as comb
 
 
 # PARAMETERS ##################################################################
@@ -31,7 +31,7 @@ def solve():
         product *= i
     
     # divide the numerator by N! to account for all duplicate moves
-    return product // com.factorial(N)
+    return product // comb.factorial(N)
 
 
 if __name__ == '__main__':

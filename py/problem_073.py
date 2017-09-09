@@ -23,7 +23,7 @@ Author: Curtis Belmonte
 
 from fractions import Fraction
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -52,7 +52,7 @@ def solve():
         min_n = int(float(MIN_FRAC * d)) + 1
         max_n = int(float(MAX_FRAC * d))
         for n in range(min_n, max_n + 1):
-            if com.is_coprime_pair(n, d):
+            if divs.is_coprime_pair(n, d):
                 total += 1
 
     return total

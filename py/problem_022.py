@@ -20,7 +20,8 @@ Author: Curtis Belmonte
 
 import heapq
 
-import common as com
+import common.alphabet as alpha
+import common.fileio as fio
 
 
 # PARAMETERS ##################################################################
@@ -34,13 +35,13 @@ INPUT_FILE = '../input/022.txt' # default: '../input/022.txt'
 
 def name_score(name, position):
     """Returns the score for name in position when sorted alphabetically."""
-    score = sum(map(com.alpha_index_upper, name))
+    score = sum(map(alpha.alpha_index_upper, name))
     return position * score
 
 
 def solve():
     # heap sort names from input file
-    names = com.strings_from_file(INPUT_FILE)
+    names = fio.strings_from_file(INPUT_FILE)
     heapq.heapify(names)
     
     # sum up the name scores for all names in alphabetical order

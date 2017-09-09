@@ -12,7 +12,7 @@ Find the largest palindrome made from the product of two D-digit numbers.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -39,7 +39,7 @@ def solve():
                 break
 
             # check if i * j is a palindrome
-            if com.is_palindrome(product):
+            if digs.is_palindrome(product):
                 max_product = product
                 break
 

@@ -21,7 +21,7 @@ d ≤ MAX_D?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -34,7 +34,7 @@ MAX_D = 10**6 # default: 10**6
 
 
 def solve():
-    return sum(com.totients_up_to(MAX_D))
+    return sum(divs.totients_up_to(MAX_D))
 
 
 if __name__ == '__main__':

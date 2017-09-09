@@ -15,7 +15,7 @@ LIMIT, find the sum of the even-valued terms.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -35,7 +35,7 @@ def solve():
     while fib_num <= LIMIT:
         total += fib_num
         i += 3
-        fib_num = com.fibonacci(i)
+        fib_num = seqs.fibonacci(i)
 
     return total
 

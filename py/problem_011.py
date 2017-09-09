@@ -36,11 +36,10 @@ down, left, right, or diagonally) in the grid contained in the file INPUT_FILE?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.fileio as fio
 
 
 # PARAMETERS ##################################################################
-
 
 N = 4 # default: 4
 
@@ -52,7 +51,7 @@ INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 
 def solve():
     # read the matrix from the input file
-    matrix = list(com.ints_from_file(INPUT_FILE))
+    matrix = list(fio.ints_from_file(INPUT_FILE))
     num_rows = len(matrix)
     num_cols = len(matrix[0])
 

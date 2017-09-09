@@ -7,11 +7,14 @@ Module for testing the correctness and runtime of problem solutions.
 Author: Curtis Belmonte
 """
 
+import argparse
 import importlib
+import operator
+import os
 import sys
 import time
-from argparse import ArgumentParser
-from operator import itemgetter
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__))))
 
 ANSWER_FILE = '../input/answers.txt'
 
@@ -30,7 +33,7 @@ def answers_from_file(answer_file):
 
 def main():
     # parse optional and positional arguments
-    parser = ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument(
         '-l', '--list-slow',
         action='store_true',
@@ -77,8 +80,8 @@ def main():
 
         # import the problem module and ensure its solve function exists
         module_name = 'problem_' + problem_num
-        module = importlib.import_module(module_name)
-        if not hasattr(module, 'solve'):
+        modu = importlib.import_module(module_name)
+        if not hasattr(modu, 'solve'):
             print('FAILED')
             sys.stderr.write(
                 'Problem {0}: No solve function defined\n'.format(problem_num))
@@ -87,7 +90,7 @@ def main():
         # run and time the problem solution
         try:
             start = time.time()
-            answer = module.solve()
+            answer = modu.solve()
             total_time = time.time() - start
         except Exception as e:
             print('FAILED')
@@ -131,7 +134,7 @@ def main():
         ]
         for i, slow_list in enumerate(slow_lists):
             if slow_list:
-                slow_list.sort(key=itemgetter(1), reverse=True)
+                slow_list.sort(key=operator.itemgetter(1), reverse=True)
                 print('\n{0}:'.format(slow_list_names[i]))
                 for prob_num, total_time in slow_list:
                     print('- Problem {0} ({1:6.3f} s)'.format(

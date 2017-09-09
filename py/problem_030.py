@@ -21,7 +21,7 @@ powers of their digits.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -45,7 +45,7 @@ def solve():
     # check all numbers below max value with at least two digits
     total = 0
     for n in range(10, max_value):
-        if com.digit_function_sum(n, lambda x: x**EXPONENT) == n:
+        if digs.digit_function_sum(n, lambda x: x**EXPONENT) == n:
             total += n
     
     return total

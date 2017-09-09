@@ -20,7 +20,7 @@ interesting properties:
 1. The set is cyclic, in that the last two digits of each number is the first 
 two digits of the next number (including the last number with the first).
 
-2. Each polygonal type: triangle (P(3,127) = 8128), square (P(4, 91) = 8281),
+2. Each polygonal type: triangle (P(3, 127) = 8128), square (P(4, 91) = 8281),
 and pentagonal (P(5, 44) = 2882), is represented by a different number in the
 set.
 
@@ -33,7 +33,7 @@ octagonal, is represented by a different number in the set.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -47,10 +47,10 @@ import common as com
 
 # A dict defined so that P[m](n) = P(m, n)
 P = {
-    3: com.triangular,
+    3: seqs.triangular,
     4: lambda n: n**2,
-    5: com.pentagonal,
-    6: com.hexagonal,
+    5: seqs.pentagonal,
+    6: seqs.hexagonal,
     7: lambda n: n * (5 * n - 3) // 2,
     8: lambda n: n * (3 * n - 2),
 }

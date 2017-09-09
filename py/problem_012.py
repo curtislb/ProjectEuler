@@ -27,8 +27,9 @@ What is the value of the first triangle number to have over D divisors?
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import memoized
+import common.divisors as divs
+import common.sequences as seqs
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -40,10 +41,10 @@ D = 500 # default: 500
 # SOLUTION ####################################################################
 
 
-@memoized
+@util.memoized
 def count_divisors(n):
     """Memoized wrapper for the common.count_divisors function."""
-    return com.count_divisors(n)
+    return divs.count_divisors(n)
 
 
 def count_triangle_divisors(n):
@@ -62,7 +63,7 @@ def solve():
     n = 1
     while count_triangle_divisors(n) < D:
         n += 1
-    return com.triangular(n)
+    return seqs.triangular(n)
 
 
 if __name__ == '__main__':

@@ -12,3 +12,4 @@ py/__pycache__/
 *.pyc
 *.pyo
 *~
+!/py/test_solns.py

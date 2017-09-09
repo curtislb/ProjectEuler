@@ -45,8 +45,6 @@ Author: Curtis Belmonte
 
 import itertools
 
-from common import INFINITY
-
 
 # PARAMETERS ##################################################################
 
@@ -58,7 +56,7 @@ from common import INFINITY
 
 
 def solve():
-    best_int = -INFINITY
+    best_int = -float('inf')
 
     # check permutations with 6-10 on outer ring and 1-5 in inner ring
     for outer_ring in itertools.permutations(list(range(7, 11))):
@@ -87,6 +85,7 @@ def solve():
                         best_int = ngon_int
 
     return best_int
+
 
 if __name__ == '__main__':
     print(solve())

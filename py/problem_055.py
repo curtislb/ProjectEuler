@@ -31,7 +31,7 @@ How many Lychrel numbers are there below LIMIT?
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -50,7 +50,7 @@ def solve():
     for n in range(10, LIMIT):
         for _ in range(MAX_ITER):
             n += int(str(n)[::-1])
-            if com.is_palindrome(n):
+            if digs.is_palindrome(n):
                 break
         else:
             count += 1

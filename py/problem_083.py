@@ -21,8 +21,8 @@ down.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import Graph
+import common.fileio as fio
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -35,11 +35,11 @@ INPUT_FILE = '../input/083.txt' # default: '../input/083.txt'
 
 
 def solve():
-    matrix = list(com.ints_from_file(INPUT_FILE, sep=','))
+    matrix = list(fio.ints_from_file(INPUT_FILE, sep=','))
     n = len(matrix)
     
     # create graph with virtual start nodes
-    graph = Graph()
+    graph = util.Graph()
     start_node = (-1, -1)
     graph.add_node(start_node)
 
@@ -55,10 +55,10 @@ def solve():
     for i in range(n):
         for j in range(n):
             node = (i, j)
-            com.try_add_matrix_edge(graph, matrix, node, i - 1, j) # above
-            com.try_add_matrix_edge(graph, matrix, node, i + 1, j) # below
-            com.try_add_matrix_edge(graph, matrix, node, i, j - 1) # left
-            com.try_add_matrix_edge(graph, matrix, node, i, j + 1) # right
+            graph.try_add_matrix_edge(matrix, node, i - 1, j) # above
+            graph.try_add_matrix_edge(matrix, node, i + 1, j) # below
+            graph.try_add_matrix_edge(matrix, node, i, j - 1) # left
+            graph.try_add_matrix_edge(matrix, node, i, j + 1) # right
 
     distance, _ = graph.dijkstra(start_node)
     goal_node = (n - 1, n - 1)

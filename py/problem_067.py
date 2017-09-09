@@ -25,7 +25,8 @@ billion years to check them all. There is an efficient algorithm to solve it.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.fileio as fio
+import common.matrices as mat
 
 
 # PARAMETERS ##################################################################
@@ -38,8 +39,8 @@ INPUT_FILE = '../input/067.txt' # default: '../input/067.txt'
 
 
 def solve():
-    triangle = list(com.ints_from_file(INPUT_FILE))
-    return com.max_triangle_path(triangle)
+    triangle = list(fio.ints_from_file(INPUT_FILE))
+    return mat.max_triangle_path(triangle)
 
 
 if __name__ == '__main__':

@@ -19,7 +19,7 @@ pentagonal and hexagonal.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -40,8 +40,8 @@ def solve():
         n += 1
     
     # check if each subsequent triangle number is hexagonal and pentagonal
-    while (not com.is_hexagonal(tri_num) or
-           not com.is_pentagonal(tri_num)):
+    while (not seqs.is_hexagonal(tri_num) or
+           not seqs.is_pentagonal(tri_num)):
         tri_num += n
         n += 1
     

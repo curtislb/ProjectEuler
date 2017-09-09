@@ -17,7 +17,7 @@ Find the last NUM_DIGITS digits of this prime number.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.arithmetic as arith
 
 
 # PARAMETERS ##################################################################
@@ -41,7 +41,7 @@ def solve():
         new_exponent = exponent - period
 
     # calculate product, keeping only relevant digits
-    mod_product = com.mod_multiply(factor, 2**exponent, 10**NUM_DIGITS)
+    mod_product = arith.mod_multiply(factor, 2**exponent, 10**NUM_DIGITS)
     return mod_product + 1
 
 

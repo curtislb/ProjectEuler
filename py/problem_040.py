@@ -19,7 +19,7 @@ following expression.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -39,14 +39,14 @@ def solve():
     number = 1
     while power_10 <= MAX_POWER_10:
         # step forward to number that contains next necessary digit
-        digit_count = com.count_digits(number)
+        digit_count = digs.count_digits(number)
         while position < power_10 - digit_count + 1:
-            digit_count = com.count_digits(number)
+            digit_count = digs.count_digits(number)
             position += digit_count
             number += 1
         
         # get necessary digit from current number
-        product *= com.get_digit(number, power_10 - position + 1)
+        product *= digs.get_digit(number, power_10 - position + 1)
         
         # advance count to next necessary digit index
         power_10 *= 10

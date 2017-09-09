@@ -20,8 +20,10 @@ are triangle words?
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import memoized
+import common.alphabet as alpha
+import common.fileio as fio
+import common.sequences as seqs
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -33,28 +35,28 @@ INPUT_FILE = '../input/042.txt' # default: '../input/042.txt'
 # SOLUTION ####################################################################
 
 
-@memoized
+@util.memoized
 def word_value(word):
     """Returns the word value for word, computed as the sum of the alphabetical
     positions of each of its letters."""
     return (0 if word == '' else
-            word_value(word[:-1]) + com.alpha_index_upper(word[-1]))
+            word_value(word[:-1]) + alpha.alpha_index_upper(word[-1]))
 
 
 def solve():
     # compute word values for all words in the input file
     word_values = [word_value(word) for word in
-                   com.strings_from_file(INPUT_FILE)]
+                   fio.strings_from_file(INPUT_FILE)]
     max_word_value = max(word_values)
     
     # compute triangle numbers up to maximum word value
     triangle_nums = set()
     i = 0
-    triangle_num = com.triangular(i)
+    triangle_num = seqs.triangular(i)
     while triangle_num <= max_word_value:
         triangle_nums.add(triangle_num)
         i += 1
-        triangle_num = com.triangular(i)
+        triangle_num = seqs.triangular(i)
     
     # count the number of word values that are triangle numbers
     return sum((word_val in triangle_nums) for word_val in word_values)

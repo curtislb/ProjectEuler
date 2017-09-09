@@ -30,8 +30,8 @@ starting with n = START_N.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import memoized
+import common.primes as prime
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -47,10 +47,10 @@ START_N = 0 # default: 0
 # SOLUTION ####################################################################
 
 
-@memoized
+@util.memoized
 def is_prime(n):
-    """Memoized wrapper for the common.is_prime function."""
-    return com.is_prime(n)
+    """Memoized wrapper for the is_prime function."""
+    return prime.is_prime(n)
 
 
 def solve():

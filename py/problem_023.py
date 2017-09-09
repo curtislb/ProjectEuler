@@ -25,7 +25,7 @@ as the sum of two abundant numbers.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -54,7 +54,7 @@ def solve():
             total += n
         
         # check if n is an abundant number
-        if com.sum_proper_divisors(n) > n:
+        if divs.sum_proper_divisors(n) > n:
             abundant_nums.add(n)
     
     return total

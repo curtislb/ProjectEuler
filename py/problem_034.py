@@ -14,7 +14,8 @@ Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.combinatorics as comb
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -28,7 +29,7 @@ import common as com
 
 def solve():
     # search for max value that could be written as powers of its digits
-    max_digit_factorial = com.factorial(9)
+    max_digit_factorial = comb.factorial(9)
     max_value = 99
     max_sum = max_digit_factorial * 2
     while max_value <= max_sum:
@@ -38,7 +39,7 @@ def solve():
     # check all numbers below max value with at least two digits
     total = 0
     for n in range(10, max_value):
-        if com.digit_function_sum(n, com.factorial) == n:
+        if digs.digit_function_sum(n, comb.factorial) == n:
             total += n
     
     return total

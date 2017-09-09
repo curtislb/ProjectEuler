@@ -31,7 +31,7 @@ Author: Curtis Belmonte
 import math
 from collections import Counter
 
-import common as com
+import common.divisors as divs
 
 
 # PARAMETERS ##################################################################
@@ -56,7 +56,7 @@ def solve():
     for n in range(1, max_m):
         for m in range(n + 1, max_m + 1):
             # check if Pythagorean triple is primitive
-            if (m - n) % 2 == 1 and com.is_coprime_pair(m, n):
+            if (m - n) % 2 == 1 and divs.is_coprime_pair(m, n):
                 # count length of primitive triple and all multiples
                 length = triple_length(m, n)
                 for k_length in range(length, MAX_LENGTH + 1, length):

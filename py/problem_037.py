@@ -17,8 +17,8 @@ NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 Author: Curtis Belmonte
 """
 
-import common as com
-from common import memoized
+import common.digits as digs
+import common.primes as prime
 
 
 # PARAMETERS ##################################################################
@@ -28,12 +28,6 @@ MAX_COUNT = 11 # default: 11
 
 
 # SOLUTION ####################################################################
-
-
-@memoized
-def is_prime(n):
-    """Memoized wrapper for the common.is_prime function."""
-    return com.is_prime(n)
     
 
 def solve():
@@ -48,25 +42,25 @@ def solve():
         n = m + 2
         
         # check if m itself is prime before testing truncations
-        if is_prime(m):
+        if prime.is_prime(m):
             # check if m is a right truncatable prime
             right_trunc_prime = True
-            for truncation in com.digit_truncations_right(m):
+            for truncation in digs.digit_truncations_right(m):
                 if truncation == m:
                     continue
 
-                if not is_prime(truncation):
+                if not prime.is_prime(truncation):
                     right_trunc_prime = False
                     break
             
             # if necessary, check if m is also a left truncatable prime
             if right_trunc_prime:
                 left_trunc_prime = True
-                for truncation in com.digit_truncations_left(m):
+                for truncation in digs.digit_truncations_left(m):
                     if truncation == m:
                         continue
 
-                    if not is_prime(truncation):
+                    if not prime.is_prime(truncation):
                         left_trunc_prime = False
                         break
                 
@@ -76,25 +70,25 @@ def solve():
                     total += m
         
         # check if n itself is prime before testing truncations
-        if is_prime(n):
+        if prime.is_prime(n):
             # check if n is a right truncatable prime
             right_trunc_prime = True
-            for truncation in com.digit_truncations_right(n):
+            for truncation in digs.digit_truncations_right(n):
                 if truncation == n:
                     continue
 
-                if not is_prime(truncation):
+                if not prime.is_prime(truncation):
                     right_trunc_prime = False
                     break
             
             # if necessary, check if n is also a left truncatable prime
             if right_trunc_prime:
                 left_trunc_prime = True
-                for truncation in com.digit_truncations_left(n):
+                for truncation in digs.digit_truncations_left(n):
                     if truncation == n:
                         continue
 
-                    if not is_prime(truncation):
+                    if not prime.is_prime(truncation):
                         left_trunc_prime = False
                         break
                 

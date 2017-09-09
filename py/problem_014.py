@@ -24,7 +24,7 @@ NOTE: Once the chain starts the terms are allowed to go above LIMIT.
 Author: Curtis Belmonte
 """
 
-import common as com
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -52,7 +52,7 @@ def collatz_length(n):
         # compute next step in sequence
         else:
             length += 1
-            m = com.collatz_step(m)
+            m = seqs.collatz_step(m)
 
     # memoize answer and return
     collatz_lengths[n] = length
