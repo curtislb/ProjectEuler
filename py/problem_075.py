@@ -28,8 +28,9 @@ can exactly one integer sided right angle triangle be formed?
 Author: Curtis Belmonte
 """
 
+import collections
 import math
-from collections import Counter
+from typing import *
 
 import common.divisors as divs
 
@@ -43,15 +44,15 @@ MAX_LENGTH = 1500000 # default: 1500000
 # SOLUTION ####################################################################
 
 
-def triple_length(m, n):
+def triple_length(m: int, n: int) -> int:
     """Returns the length of the triangle formed by the Pythagorean triple
     (m^2 - n^2, 2mn, m^2 + n^2)."""
     return 2 * m * (m + n)
 
 
-def solve():
+def solve() -> int:
     # count lengths for all valid Pythagorean triples
-    length_counts = Counter()
+    length_counts = collections.Counter() # type: Counter[int]
     max_m = int(math.sqrt(MAX_LENGTH / 2))
     for n in range(1, max_m):
         for m in range(n + 1, max_m + 1):

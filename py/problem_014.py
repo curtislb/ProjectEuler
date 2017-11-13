@@ -24,6 +24,8 @@ NOTE: Once the chain starts the terms are allowed to go above LIMIT.
 Author: Curtis Belmonte
 """
 
+from typing import Dict
+
 import common.sequences as seqs
 
 
@@ -36,10 +38,10 @@ LIMIT = 1000000 # default: 1000000
 # SOLUTION ####################################################################
 
 
-collatz_lengths = {}
+collatz_lengths = {} # type: Dict[int, int]
 
 
-def collatz_length(n):
+def collatz_length(n: int) -> int:
     """Returns the length of the Collatz sequence, starting from n."""
     m = n
     length = 0
@@ -59,7 +61,7 @@ def collatz_length(n):
     return length
 
 
-def solve():
+def solve() -> int:
     best_num = 0
     best_length = 0
     for n in range(2, LIMIT):

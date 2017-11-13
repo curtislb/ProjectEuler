@@ -46,7 +46,7 @@ INPUT_FILE = '../input/008.txt' # default: '../input/008.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     with open(INPUT_FILE) as f:
         # read number from input file
         num_str = ''.join(line.rstrip() for line in f)

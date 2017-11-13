@@ -18,6 +18,7 @@ Author: Curtis Belmonte
 """
 
 import math
+from typing import Optional
 
 
 # PARAMETERS ##################################################################
@@ -29,14 +30,14 @@ S = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> Optional[int]:
     # no triplet exists if S is not even
     if S % 2 != 0:
         return None
 
     # let a = 2*m*n, b = m^2 - n^2, c = m^2 + n^2. Then, m^2 + m*n = S/2
     s_div_2 = S / 2
-    m_limit = math.ceil(math.sqrt(s_div_2))
+    m_limit = int(math.ceil(math.sqrt(s_div_2)))
 
     # search for m and n under conditions m > n and m % 2 != n % 2
     for m in range(2, m_limit):
@@ -48,6 +49,9 @@ def solve():
                     m_sq = m * m
                     n_sq = n * n
                     return (2 * m * n) * (m_sq - n_sq) * (m_sq + n_sq)
+
+    # no triplet found
+    return None
 
 
 if __name__ == '__main__':

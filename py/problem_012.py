@@ -29,7 +29,7 @@ Author: Curtis Belmonte
 
 import common.divisors as divs
 import common.sequences as seqs
-import common.utility as util
+from common.utility import memoized
 
 
 # PARAMETERS ##################################################################
@@ -41,13 +41,13 @@ D = 500 # default: 500
 # SOLUTION ####################################################################
 
 
-@util.memoized
-def count_divisors(n):
+@memoized
+def count_divisors(n: int) -> int:
     """Memoized wrapper for the common.count_divisors function."""
     return divs.count_divisors(n)
 
 
-def count_triangle_divisors(n):
+def count_triangle_divisors(n: int) -> int:
     """Returns the number of divisors of the nth triangle number."""
     
     # because n and n + 1 are necessarily co-prime, sum their divisor counts
@@ -59,7 +59,7 @@ def count_triangle_divisors(n):
         return count_divisors(n) * count_divisors((n + 1) // 2)
     
 
-def solve():
+def solve() -> int:
     n = 1
     while count_triangle_divisors(n) < D:
         n += 1

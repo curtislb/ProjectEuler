@@ -30,7 +30,7 @@ MAX_COUNT = 11 # default: 11
 # SOLUTION ####################################################################
     
 
-def solve():
+def solve() -> int:
     total = 0
     
     # search for truncatable primes until MAX_COUNT are found

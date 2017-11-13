@@ -20,6 +20,8 @@ include it once in your sum.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.arrays as arrs
 import common.digits as digs
 
@@ -37,21 +39,21 @@ MAX_DIGIT = 9 # default: 9
 pandigit_string = digs.pandigital_string(1, MAX_DIGIT)
 
 
-def max_multiplicand(digit_count):
+def max_multiplicand(digit_count: int) -> int:
     """Returns the maximum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
     return int(pandigit_string[digit_count::-1])
 
 
-def min_multiplicand(digit_count):
+def min_multiplicand(digit_count: int) -> int:
     """Returns the minimum possible multiplicand with digit_count digits that
     could satisfy the problem conditions."""
     return int(pandigit_string[:digit_count])
 
 
-def solve():
+def solve() -> int:
     # determine possible numbers of digits for multiplicands a and b, a <= b
-    candidates = []
+    candidates = [] # type: List[Tuple[int, int]]
     for a_digits in range(1, MAX_DIGIT + 1):
         for b_digits in range(a_digits, MAX_DIGIT + 1):
             # compute min and max products of a and b
@@ -69,7 +71,7 @@ def solve():
     
     # search for products that are 1 to n pandigital with their multiplicands
     total = 0
-    products = set()
+    products = set() # type: Set[int]
     for a_digits, b_digits in candidates:
         # compute min and max values of a and b
         min_a = min_multiplicand(a_digits)

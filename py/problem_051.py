@@ -19,6 +19,8 @@ adjacent digits) with the same digit, is part of an 8 prime value family.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.digits as digs
 import common.primes as prime
 
@@ -36,8 +38,8 @@ import common.primes as prime
 FAMILY_SIZE = 8
 
 
-def solve():
-    families = set()
+def solve() -> int:
+    families = set() # type: Set[Sequence[int]]
     
     # test 5-digit numbers
     for i in range(1, 5):
@@ -92,11 +94,11 @@ def solve():
                                     families.add(tuple(sorted(family)))
     
     # find min prime that satisfies problem requirements
-    min_primes = []                            
-    for family in families:
-        min_prime = family[0]
+    min_primes = []
+    for fam in families:
+        min_prime = fam[0]
         digit_count = digs.count_digits(min_prime)
-        for p in family[1:]:
+        for p in fam[1:]:
             if digs.count_digits(p) != digit_count:
                 break
             min_primes.append(min_prime)

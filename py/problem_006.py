@@ -33,7 +33,7 @@ N = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return seqs.triangular(N)**2 - seqs.sum_of_squares(N)
 
 

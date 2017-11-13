@@ -8,11 +8,12 @@ Author: Curtis Belmonte
 """
 
 import math
+from typing import *
 
 import common.divisors as divs
 
 
-def sqrt_decimal_expansion(n, precision):
+def sqrt_decimal_expansion(n: int, precision: int) -> str:
     """Returns the square root of the natural number n to arbitrary precision.
 
     Result is a string with precision digits following the decimal point."""
@@ -28,7 +29,7 @@ def sqrt_decimal_expansion(n, precision):
     remainder = 0
     root_part = 0
 
-    def f(x):
+    def f(x: int) -> int:
         return x * (20 * root_part + x)
 
     # compute digits before decimal point
@@ -66,7 +67,7 @@ def sqrt_decimal_expansion(n, precision):
     return ''.join(expansion)
 
 
-def sqrt_fraction_expansion(n):
+def sqrt_fraction_expansion(n: int) -> Tuple[int, Sequence[int]]:
     """Returns the terms in the continued fraction expansion of the square root
     of the non-square natural number n, in the format (a0, a1..ar)."""
 

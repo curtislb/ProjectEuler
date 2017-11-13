@@ -33,7 +33,7 @@ DIVISOR = 10**6 # Default: 10**6
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     partitions = [1, 1]
     n = 2
 

@@ -24,7 +24,7 @@ N = 20 # default: 20
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # compute the value of (2*N)! / N! = (2*N) * (2*N - 1) * ... * (N + 1)
     product = 1
     for i in range(N + 1, 2 * N + 1):

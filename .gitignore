@@ -2,6 +2,7 @@
 .idea/
 cpp/Debug/
 py/__pycache__/
+py/.mypy_cache/
 
 # File patterns
 .cproject
@@ -12,4 +13,3 @@ py/__pycache__/
 *.pyc
 *.pyo
 *~
-!/py/test_solns.py

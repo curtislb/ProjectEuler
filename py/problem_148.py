@@ -40,7 +40,7 @@ ROW_COUNT = 10**9 # default: 10**9
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # count number of entries up to nearest power of PRIME
     log_p = int(math.log(ROW_COUNT, PRIME))
     tri_p = seqs.triangular(PRIME)

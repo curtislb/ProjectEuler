@@ -31,7 +31,7 @@ import common.primes as prime
 pandigit_strings = [digs.pandigital_string(1, n) for n in range(2, 8)]
 
 
-def solve():
+def solve() -> int:
     # compute primes up to maximum possible pandigital number
     # note: 1 to 8 or 9 pandigital numbers cannot be prime (divisible by 3)
     prime_nums = prime.primes_up_to(7654321)

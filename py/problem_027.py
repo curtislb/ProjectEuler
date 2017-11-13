@@ -31,7 +31,7 @@ Author: Curtis Belmonte
 """
 
 import common.primes as prime
-import common.utility as util
+from common.utility import memoized
 
 
 # PARAMETERS ##################################################################
@@ -47,13 +47,13 @@ START_N = 0 # default: 0
 # SOLUTION ####################################################################
 
 
-@util.memoized
-def is_prime(n):
+@memoized
+def is_prime(n: int) -> bool:
     """Memoized wrapper for the is_prime function."""
     return prime.is_prime(n)
 
 
-def solve():
+def solve() -> int:
     # search for best a and b from -MAX + 1 to MAX - 1
     best_product = None
     best_streak = -1

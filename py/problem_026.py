@@ -26,6 +26,8 @@ in its decimal fraction part.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 
 # PARAMETERS ##################################################################
 
@@ -36,12 +38,13 @@ LIMIT = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def reciprocal_cycle_length(n):
+def reciprocal_cycle_length(n: int) -> int:
     """Returns the length of the recurring cycle in the decimal fraction part
-    of 1/n for some natural number n."""
+    of 1/n for some natural number n.
+    """
     
     # perform long division for 1/n
-    remainders = {}
+    remainders = {} # type: Dict[int, int]
     dividend = 1
     digit_count = 0
     while dividend != 0:
@@ -61,7 +64,7 @@ def reciprocal_cycle_length(n):
     return 0
 
 
-def solve():
+def solve() -> int:
     # search for d with longest reciprocal cycle 
     max_d = 0
     max_length = -1

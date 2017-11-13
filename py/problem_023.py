@@ -25,6 +25,8 @@ as the sum of two abundant numbers.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.divisors as divs
 
 
@@ -37,9 +39,9 @@ LIMIT = 28123 # default: 28123
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
-    abundant_nums = set()
+    abundant_nums = set() # type: Set[int]
     for n in range(1, min(LIMIT, 28123)):
         # check if n is the sum of any abundant number pairs seen so far
         is_abundant_sum = False

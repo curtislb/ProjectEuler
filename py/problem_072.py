@@ -33,7 +33,7 @@ MAX_D = 10**6 # default: 10**6
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return sum(divs.totients_up_to(MAX_D))
 
 

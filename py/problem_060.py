@@ -16,9 +16,11 @@ concatenate to produce another prime.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.digits as digs
 import common.primes as prime
-import common.utility as util
+from common.utility import memoized
 
 
 # PARAMETERS ##################################################################
@@ -30,14 +32,18 @@ NUM_PRIMES = 5 # default: 5
 # SOLUTION ####################################################################
 
 
-@util.memoized
-def concats_prime(n, m):
+@memoized
+def concats_prime(n: int, m: int) -> bool:
     """Determines if n and m can concatenate in either order to form primes."""
     return (prime.is_prime(digs.concat_numbers(n, m)) and
             prime.is_prime(digs.concat_numbers(m, n)))
 
 
-def find_prime_sets(primes, prev_prime_sets=None):
+def find_prime_sets(
+        primes: Sequence[int],
+        prev_prime_sets: Optional[Set[Sequence[int]]] = None)\
+        -> Set[Sequence[int]]:
+
     """Incrementally builds prime sets from prev_prime_sets, using primes."""
 
     # first iteration, return each prime in individual set
@@ -45,7 +51,7 @@ def find_prime_sets(primes, prev_prime_sets=None):
         return set((p,) for p in primes)
 
     # find prime sets with size one greater than previous
-    prime_sets = set()
+    prime_sets = set() # type: Set[Sequence[int]]
     for p in primes:
         for prev_set in prev_prime_sets:
             # don't duplicate primes in a set
@@ -53,7 +59,7 @@ def find_prime_sets(primes, prev_prime_sets=None):
                 continue
 
             # don't duplicate sets of the same primes
-            prime_set = tuple(sorted(prev_set + (p,)))
+            prime_set = tuple(sorted(tuple(prev_set) + (p,)))
             if prime_set in prime_sets:
                 continue
 
@@ -76,7 +82,7 @@ def find_prime_sets(primes, prev_prime_sets=None):
     return prime_sets
 
 
-def solve():
+def solve() -> int:
     # divide primes into those with remainders 1 and 2 mod 3
     one_primes = [3]
     two_primes = [3]
@@ -95,7 +101,8 @@ def solve():
 
     # find minimum sum of prime sets
     prime_sets = list(one_prime_sets) + list(two_prime_sets)
-    return min(map(sum, prime_sets))
+    prime_set_sums = map(sum, prime_sets) # type: Iterator[int]
+    return min(prime_set_sums)
 
 
 if __name__ == '__main__':

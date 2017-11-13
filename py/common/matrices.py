@@ -8,9 +8,12 @@ Author: Curtis Belmonte
 """
 
 import copy
+from typing import *
+
+from common.types import Coord, IntMatrix, T, TMatrix
 
 
-def _try_assign_zeros(matrix):
+def _try_assign_zeros(matrix: IntMatrix) -> Sequence[Coord]:
     """Returns a list of all unambiguous (row, col) assignments for zero values
     in matrix, such that no row or column is repeated."""
 
@@ -23,13 +26,18 @@ def _try_assign_zeros(matrix):
     return max_bipartite_matching(edge_matrix)
 
 
-def _try_bipartite_match(edge_matrix, i, col_marked, col_assignments):
+def _try_bipartite_match(
+        edge_matrix: IntMatrix,
+        i: int,
+        col_marked: List[bool],
+        col_assignments: List[Optional[int]]) -> bool:
+
     """Attempts to match the given row i to a column in edge_matrix.
 
     edge_matrix      A boolean matrix indicating edges between rows and columns
     i                The given row to attempt to match with a free column
     col_marked       List of marked, or visited, columns for this row
-    col_assignments  Array of current row assignments for each column, if any
+    col_assignments  List of current row assignments for each column, if any
 
     Returns True if row was successfully matched, or False otherwise.
     """
@@ -54,7 +62,10 @@ def _try_bipartite_match(edge_matrix, i, col_marked, col_assignments):
     return False
 
 
-def cross_product_3d(p1, p2):
+def cross_product_3d(
+        p1: Sequence[float],
+        p2: Sequence[float]) -> Tuple[float, float, float]:
+
     """Returns the cross product p1 x p2 of 3-dimensional points p1 and p2."""
 
     # compute determinant of cross product matrix
@@ -65,12 +76,12 @@ def cross_product_3d(p1, p2):
     return prod_i, prod_j, prod_k
 
 
-def dot_product(u, v):
+def dot_product(u: Iterable[float], v: Iterable[float]) -> float:
     """Returns the dot product of vectors u and v."""
     return sum(i * j for i, j in zip(u, v))
 
 
-def flatten_matrix(matrix, keep_indices=False):
+def flatten_matrix(matrix: TMatrix, keep_indices: bool = False) -> Sequence[T]:
     """Returns a list of the elements in matrix in row-major order. If
     keep_indices is set to True, also returns the indices of each element."""
 
@@ -83,7 +94,11 @@ def flatten_matrix(matrix, keep_indices=False):
     return flat_matrix
 
 
-def make_spiral(layers, _matrix=None, _depth=0):
+def make_spiral(
+        layers: int,
+        _matrix: Optional[IntMatrix] = None,
+        _depth: int = 0) -> IntMatrix:
+
     """Returns a spiral with the given number of layers formed by starting with
     1 in the center and moving to the right in a clockwise direction."""
 
@@ -125,7 +140,7 @@ def make_spiral(layers, _matrix=None, _depth=0):
     return make_spiral(layers - 1, _matrix, _depth + 1)
 
 
-def max_bipartite_matching(edge_matrix):
+def max_bipartite_matching(edge_matrix: IntMatrix) -> Sequence[Coord]:
     """Returns the list of edges in the maximum matching of a bipartite graph.
 
     The argument edge_matrix is a boolean matrix mapping vertices in partition
@@ -140,7 +155,7 @@ def max_bipartite_matching(edge_matrix):
     m = len(edge_matrix[0]) # number of columns
 
     # try to assign each row to a column
-    col_assignments = [None] * m
+    col_assignments = [None] * m # type: List[Optional[int]]
     for i in range(n):
         col_marked = [False] * m
         _try_bipartite_match(edge_matrix, i, col_marked, col_assignments)
@@ -149,7 +164,7 @@ def max_bipartite_matching(edge_matrix):
     return [(i, j) for j, i in enumerate(col_assignments) if i is not None]
 
 
-def max_triangle_path(triangle):
+def max_triangle_path(triangle: IntMatrix) -> int:
     """Returns the maximal sum of numbers from top to bottom in triangle."""
 
     num_rows = len(triangle)
@@ -171,7 +186,7 @@ def max_triangle_path(triangle):
     return max(triangle[-1])
 
 
-def minimum_line_cover(matrix):
+def minimum_line_cover(matrix: IntMatrix) -> Sequence[Tuple[bool, int]]:
     """Returns a list of the fewest lines needed to cover all zeros in matrix.
 
     Lines are given in the format (is_vertical, i), where is_vertical is a
@@ -189,7 +204,7 @@ def minimum_line_cover(matrix):
         return [(False, i) for i in range(n)]
 
     # convert to row assignment array
-    row_assignments = [None] * n
+    row_assignments = [None] * n # type: List[Optional[int]]
     for i, j in assignments:
         row_assignments[i] = j
 
@@ -229,7 +244,7 @@ def minimum_line_cover(matrix):
     return lines
 
 
-def optimal_assignment(cost_matrix):
+def optimal_assignment(cost_matrix: IntMatrix) -> Sequence[Coord]:
     """Assigns each row to a column of the square matrix cost_matrix so that
     the sum of the cost values in the assigned positions is minimized.
 
@@ -242,7 +257,7 @@ def optimal_assignment(cost_matrix):
     # Step 1: subtract the minimum element from each row
     n = len(cost_matrix)
     for i, row in enumerate(cost_matrix):
-        min_value = min(row)
+        min_value = min(row) # type: Optional[int]
         for j in range(n):
             cost_matrix[i][j] -= min_value
 
@@ -268,14 +283,14 @@ def optimal_assignment(cost_matrix):
                 covered_rows.add(index)
 
         # search for min uncovered value
-        min_value = float('inf')
+        min_value = None
         for i, row in enumerate(cost_matrix):
             if i in covered_rows:
                 continue
             for j, value in enumerate(row):
                 if j in covered_cols:
                     continue
-                if value < min_value:
+                if min_value is None or value < min_value:
                     min_value = value
 
         # subtract and add min value to matrix entries as needed

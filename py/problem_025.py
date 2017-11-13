@@ -43,7 +43,7 @@ D = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # search for Fibonacci number containing D digits
     n = 0
     fib_num = seqs.fibonacci(n)

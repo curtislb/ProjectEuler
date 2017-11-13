@@ -8,26 +8,27 @@ Author: Curtis Belmonte
 """
 
 import itertools
+from typing import *
 
 
-def concat_digits(digit_list, base=10):
+def concat_digits(digit_list: Iterable[int], base: int = 10) -> int:
     """Returns the integer that results from concatenating digits in order."""
     return int(''.join(map(str, digit_list)), base)
 
 
-def concat_numbers(n, m):
+def concat_numbers(n: int, m: int) -> int:
     """Returns the number that results from concatenating the natural numbers
     n and m, in that order."""
     return int(str(n) + str(m))
 
 
-def count_digits(n):
+def count_digits(n: int) -> int:
     """Returns the number of digits of the natural number n."""
     return len(str(n))
 
 
-def digit_counts(n):
-    """Returns a list with the count of each decimal digit in the natural
+def digit_counts(n: int) -> Sequence[int]:
+    """Returns a sequence with the count of each decimal digit in the natural
     number n."""
 
     counts = [0] * 10
@@ -38,7 +39,7 @@ def digit_counts(n):
     return counts
 
 
-def digit_function_sum(n, func):
+def digit_function_sum(n: int, func: Callable[[int], int]) -> int:
     """Returns the sum of the results of applying function to each of the
     digits of the natural number n."""
 
@@ -50,7 +51,7 @@ def digit_function_sum(n, func):
     return total
 
 
-def digit_permutations(n):
+def digit_permutations(n: int) -> Set[int]:
     """Returns all unique digit permutations of the natural number n,
     excluding permutations with leading zeros."""
 
@@ -62,7 +63,7 @@ def digit_permutations(n):
     return perms
 
 
-def digit_rotations(n):
+def digit_rotations(n: int) -> Set[int]:
     """Returns all unique digit rotations of the natural number n."""
 
     n_str = str(n)
@@ -73,7 +74,7 @@ def digit_rotations(n):
     return rotations
 
 
-def digit_truncations_left(n):
+def digit_truncations_left(n: int) -> Set[int]:
     """Returns all unique left-to-right digit truncations of the natural number
     n."""
 
@@ -91,21 +92,21 @@ def digit_truncations_left(n):
     return truncations
 
 
-def digit_truncations_right(n):
+def digit_truncations_right(n: int) -> Set[int]:
     """Returns all right-to-left digit truncations of the natural number n."""
 
-    truncations = []
+    truncations = set()
 
     # remove each rightmost digit from n
     while n != 0:
-        truncations.append(n)
+        truncations.add(n)
         n //= 10
 
     return truncations
 
 
-def digits(n, base=10):
-    """Returns a list of the digits of the natural number n."""
+def digits(n: int, base: int = 10) -> Sequence[int]:
+    """Returns the digits of the natural number n as a sequence."""
 
     digit_list = []
 
@@ -116,12 +117,17 @@ def digits(n, base=10):
     return digit_list[::-1]
 
 
-def get_digit(n, digit):
+def get_digit(n: int, digit: int) -> int:
     """Returns the given decimal digit of the natural number n."""
     return int(str(n)[digit - 1])
 
 
-def int_to_base(n, base, numerals='0123456789abcdefghijklmnopqrstuvwxyz'):
+def int_to_base(
+        n: int,
+        base: int,
+        numerals: Sequence[str] = '0123456789abcdefghijklmnopqrstuvwxyz')\
+        -> str:
+
     """Returns the string representation of the natural number n in the given
     base using the given set of numerals.
 
@@ -136,7 +142,7 @@ def int_to_base(n, base, numerals='0123456789abcdefghijklmnopqrstuvwxyz'):
     return int_to_base(div, base, numerals).lstrip(numerals[0]) + numerals[mod]
 
 
-def is_bouncy(n):
+def is_bouncy(n: int) -> bool:
     """Determines if the natural number n is a bouncy number.
 
     A number is bouncy iff its digits are in neither non-decreasing or
@@ -171,7 +177,7 @@ def is_bouncy(n):
     return False
 
 
-def is_palindrome(n, base=10):
+def is_palindrome(n: int, base: int = 10) -> bool:
     """Determines if the natural number n is a palindrome in the given base."""
 
     # create a copy of n and number to hold its reversed value
@@ -187,7 +193,7 @@ def is_palindrome(n, base=10):
     return n == reverse_n
 
 
-def make_palindrome(n, base=10, odd_length=False):
+def make_palindrome(n: int, base: int = 10, odd_length: bool = False) -> int:
     """Returns a palindrome in the given base formed from the natural number n.
 
     If the odd_length flag is set to True, the generated palindrome will have
@@ -211,12 +217,12 @@ def make_palindrome(n, base=10, odd_length=False):
     return palindrome
 
 
-def pandigital_string(first=0, last=9):
+def pandigital_string(first: int = 0, last: int = 9) -> str:
     """Returns a string with each of the digits from first to last in order."""
     return ''.join(map(str, range(first, last + 1)))
 
 
-def sum_digits(n):
+def sum_digits(n: int) -> int:
     """Returns the sum of the decimal digits of the natural number n."""
     digit_sum = 0
     while n != 0:
@@ -225,7 +231,7 @@ def sum_digits(n):
     return digit_sum
 
 
-def sum_keep_digits(m, n, d=None):
+def sum_keep_digits(m: int, n: int, d: Optional[int] = None) -> int:
     """Returns the last d decimal digits of the sum of m and n. If d is None,
     returns the entire sum."""
     if d is None:

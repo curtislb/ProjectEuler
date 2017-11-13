@@ -17,6 +17,8 @@ sequence?
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.arrays as arrs
 import common.primes as prime
 
@@ -30,7 +32,7 @@ import common.primes as prime
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> Optional[int]:
     # generate all four-digit primes
     primes = set(filter((lambda x: x > 999), prime.primes_up_to(9999)))
     
@@ -42,7 +44,7 @@ def solve():
     # test all permutation groups in primes
     while len(primes) > 2:
         first = None
-        perms = []
+        perms = [] # type: List[int]
         
         # find all permutations of first prime in primes
         for p in primes:
@@ -65,6 +67,9 @@ def solve():
         # remove permutation group from primes
         for n in perms:
             primes.remove(n)
+
+    # failed to find solution
+    return None
 
 
 if __name__ == '__main__':

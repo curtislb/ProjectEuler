@@ -25,7 +25,7 @@ EXPONENT = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return digs.sum_digits(BASE**EXPONENT)
 
 

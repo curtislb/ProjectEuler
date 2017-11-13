@@ -44,6 +44,9 @@ Author: Curtis Belmonte
 """
 
 import copy
+from typing import *
+
+from common.types import IntMatrix
 
 
 # PARAMETERS ##################################################################
@@ -55,9 +58,10 @@ INPUT_FILE = '../input/096.txt' # default: '../input/096.txt'
 # SOLUTION ####################################################################
 
 
-def get_valid_digits(grid, i, j):
+def get_valid_digits(grid: IntMatrix, i: int, j: int) -> Set[int]:
     """Returns a set of all digits that could be placed in cell (i, j) based on
-    the current configuration of grid."""
+    the current configuration of grid.
+    """
 
     digits = set(range(1, 10))
 
@@ -83,7 +87,7 @@ def get_valid_digits(grid, i, j):
     return digits
 
 
-def solve_puzzle(grid):
+def solve_puzzle(grid: IntMatrix) -> Optional[IntMatrix]:
     """Solves the puzzle represented by grid and returns the solution grid."""
 
     # deterministically fill in puzzle grid as much as possible
@@ -102,7 +106,7 @@ def solve_puzzle(grid):
                     valid_count = len(digits)
                     if valid_count == 0:
                         # no possible solutions
-                        return False
+                        return None
                     elif valid_count == 1:
                         # only one valid digit; fill it in
                         grid[i][j] = list(digits)[0]
@@ -128,10 +132,10 @@ def solve_puzzle(grid):
                 return solved
     
     # no possible solutions
-    return False
+    return None
 
 
-def solve():
+def solve() -> int:
     # read intial puzzle grids from input file
     grids = []
     with open(INPUT_FILE) as f:
@@ -147,8 +151,9 @@ def solve():
     # solve each puzzle and sum top-left values
     total = 0
     for grid in grids:
-        solved = solve_puzzle(grid)
-        total += int(''.join(map(str, solved[0][:3])))
+        solution = solve_puzzle(grid)
+        solved_grid = solution if solution is not None else grid
+        total += int(''.join(map(str, solved_grid[0][:3])))
 
     return total
 

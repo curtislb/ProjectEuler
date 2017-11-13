@@ -40,7 +40,7 @@ NUM_EXPANSIONS = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     frac = Fraction(1)
     count = 0
     for _ in range(NUM_EXPANSIONS):

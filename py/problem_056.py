@@ -26,7 +26,7 @@ MAX_VALUE = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     max_sum = 0
     for a in range(2, MAX_VALUE):
         for b in range(2, MAX_VALUE):

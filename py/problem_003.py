@@ -23,7 +23,7 @@ N = 600851475143 # default: 600851475143
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return prime.prime_factorization(N)[-1][0]
 
 

@@ -27,7 +27,7 @@ MAX_COORD = 50 # default: 50
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # prepare all valid points in range
     points = []
     for x in range(MAX_COORD + 1):

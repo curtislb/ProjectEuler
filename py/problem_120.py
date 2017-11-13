@@ -26,7 +26,7 @@ MAX_A = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
     
     for a in range(MIN_A, MAX_A + 1):

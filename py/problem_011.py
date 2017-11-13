@@ -49,7 +49,7 @@ INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # read the matrix from the input file
     matrix = list(fio.ints_from_file(INPUT_FILE))
     num_rows = len(matrix)

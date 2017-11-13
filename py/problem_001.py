@@ -29,12 +29,12 @@ LIMIT = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def sum_divisible_by(n):
+def sum_divisible_by(n: int) -> int:
     """Returns the sum of natural numbers below LIMIT divisible by n."""
     return seqs.arithmetic_series(n, (LIMIT - 1) // n, n)
 
 
-def solve():
+def solve() -> int:
     m_sum = sum_divisible_by(M)
     n_sum = sum_divisible_by(N)
     lcm_sum = sum_divisible_by(divs.lcm(M, N))

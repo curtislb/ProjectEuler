@@ -31,7 +31,7 @@ LIMIT = 10000 # default: 10000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
     
     # search for amicable pairs (m, n) below LIMIT

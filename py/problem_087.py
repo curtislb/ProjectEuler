@@ -33,7 +33,7 @@ LIMIT = 5 * 10**7 # default: 5 * 10**7
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # precompute all primes up to the square root of LIMIT
     primes = prime.primes_up_to(int(math.sqrt(LIMIT)) + 1)
     

@@ -21,6 +21,8 @@ the ratio n/φ(n) produces a minimum.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.arrays as arrs
 import common.primes as prime
 
@@ -34,12 +36,12 @@ MAX_N = 10**7 # default: 10**7
 # SOLUTION ####################################################################
 
 
-def two_prime_phi(p1, p2):
+def two_prime_phi(p1: int, p2: int) -> int:
     """Returns the totient of the product of two primes p1 and p2."""
     return (p1 - 1) * (p2 - 1)
 
 
-def solve():
+def solve() -> Optional[int]:
     best_n = None
     best_ratio = float('inf')
     primes = prime.primes_up_to(MAX_N)

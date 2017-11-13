@@ -78,11 +78,13 @@ find the six-digit modal string.
 Author: Curtis Belmonte
 """
 
-from collections import Counter
+import collections
 from fractions import Fraction
+from typing import *
 
-import common.games as game
 import common.probability as prob
+from common.games import GameBoard
+from common.types import Real
 
 # PARAMETERS ##################################################################
 
@@ -114,7 +116,7 @@ space_type_map = {
     'G2J': [30],
     'G': [31, 32, 34],
     'H': [37, 39],
-}
+} # type: GameBoard.SpaceTypeMap
 
 # All special move rules for different space types
 move_rules = {
@@ -136,24 +138,24 @@ move_rules = {
         'U': Fraction(1, 16),
         -3: Fraction(1, 16),
     },
-}
+} # type: GameBoard.MoveRules
 
 
-def solve():
+def solve() -> int:
     # set up the game board
-    board = game.GameBoard(space_type_map, move_rules)
+    board = GameBoard(space_type_map, move_rules)
 
     # precompute possible roll values and their probabilities
-    roll_values = []
-    roll_probs = []
+    roll_values = [] # type: List[int]
+    roll_probs = [] # type: List[Real]
     for roll in range(NUM_DICE, NUM_DICE * NUM_SIDES + 1):
         roll_values.append(roll)
         roll_probs.append(prob.dice_probability(roll, NUM_DICE, NUM_SIDES))
     
     # simulate many moves, keeping track of most popular spaces
-    counts = Counter()
+    counts = collections.Counter() # type: Counter[int]
     position = 0
-    for _ in range(10**5):
+    for _ in range(2 * 10**5):
         roll = prob.choose_weighted_random(roll_values, roll_probs)
         position = board.move(position, roll)
         counts[position] += 1

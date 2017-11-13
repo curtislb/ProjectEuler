@@ -55,8 +55,8 @@ import itertools
 # SOLUTION ####################################################################
 
 
-def solve():
-    best_int = -float('inf')
+def solve() -> int:
+    best_int = None
 
     # check permutations with 6-10 on outer ring and 1-5 in inner ring
     for outer_ring in itertools.permutations(list(range(7, 11))):
@@ -81,7 +81,7 @@ def solve():
 
                     # update largest 5-gon int as necessary
                     ngon_int = int(ngon_string)
-                    if ngon_int > best_int:
+                    if best_int is None or ngon_int > best_int:
                         best_int = ngon_int
 
     return best_int

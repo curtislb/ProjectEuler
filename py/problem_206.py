@@ -26,7 +26,7 @@ square_form = '1_2_3_4_5_6_7_8_9_0'
 rev_form_digits = [(None if c == '_' else int(c)) for c in square_form[::-1]]
 
 
-def is_match(n):
+def is_match(n: int) -> bool:
     """Determines if the integer n has the correct concealed square form."""
 
     for form_digit in rev_form_digits:
@@ -47,7 +47,7 @@ def is_match(n):
     return True
 
 
-def solve():
+def solve() -> int:
     # begin searching for numbers ending in 30 or 70 above the min square root
     n = int(math.sqrt(int(square_form.replace('_', '0'))))
     while n % 100 not in (30, 70):

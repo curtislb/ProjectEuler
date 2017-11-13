@@ -35,7 +35,7 @@ FACTOR = 2 # default: 2
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     n = 7
     answer = -1
     

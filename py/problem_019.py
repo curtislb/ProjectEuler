@@ -17,46 +17,48 @@ for yourself.
 - A leap year occurs on any year evenly divisible by 4, but not on a century
   unless it is divisible by 400.
   
-How many DAY_OF_WEEKs fell on the first of the month during the twentieth
-century (1 Jan 1901 to 31 Dec 2000)?
+How many DAY_OF_WEEKs fell on the first of the month from 1 Jan 1901 up until
+(but excluding) the start of END_YEAR?
 
 Author: Curtis Belmonte
 """
 
 import common.calendar as cal
+from common.calendar import Day, Month
 
 # PARAMETERS ##################################################################
 
+DAY_OF_WEEK = Day.SUNDAY # default: Day.SUNDAY
 
-DAY_OF_WEEK = cal.Day.SUNDAY # default: cal.Day.SUNDAY
-# TODO: parameterize date range
-
+END_YEAR = 2001 # default: 2001
 
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # advance day from Monday, 1 Jan 1900 to 1 Jan 1901
     start_year = 1900
-    day = ((cal.Day.MONDAY + cal.DAYS_IN_YEAR + cal.is_leap_year(start_year))
-           % cal.DAYS_IN_WEEK)
+    leap_days = 1 if cal.is_leap_year(start_year) else 0
+    num_days = Day.MONDAY.value + cal.DAYS_IN_YEAR + leap_days
+    day = Day(num_days % cal.DAYS_IN_WEEK)
 
     # count occurrences of DAY_OF_WEEK on the first of each month
-    end_year = 2001
     first_day_count = 0
-    for year in range(start_year + 1, end_year):
-        for month in range(cal.Month.JANUARY, cal.MONTHS_IN_YEAR):
+    for year in range(start_year + 1, END_YEAR):
+        for month_value in range(Month.JANUARY.value, cal.MONTHS_IN_YEAR):
+            month = Month(month_value)
+
             # count the number of days in the current month
             days_in_month = cal.MONTH_DAY_COUNTS[month]
-            if month == cal.Month.FEBRUARY:
+            if month == Month.FEBRUARY:
                 days_in_month += cal.is_leap_year(year)
 
             # check if the first day of the month is Sunday
-            if day == cal.Day.SUNDAY:
+            if day == Day.SUNDAY:
                 first_day_count += 1
 
             # advance day by one month
-            day = (day + days_in_month) % cal.DAYS_IN_WEEK
+            day = Day((day.value + days_in_month) % cal.DAYS_IN_WEEK)
 
     return first_day_count
 

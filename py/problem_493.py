@@ -33,7 +33,7 @@ NUM_DRAWS = 20 # default: 20
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     a = comb.choose(NUM_BALLS - (NUM_BALLS // NUM_COLORS), NUM_DRAWS)
     b = comb.choose(NUM_BALLS, NUM_DRAWS)
     expected_value = NUM_COLORS * (1 - Fraction(a, b))

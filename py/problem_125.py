@@ -32,7 +32,7 @@ N = 10**8 # default: 10**8
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # find max value for which sum of squares is less than N
     k_max = 2
     while seqs.sum_of_squares(k_max) < N:

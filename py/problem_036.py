@@ -31,7 +31,7 @@ BASE_B = 2 # default: 2
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
     
     # generate all even-length palindromes in BASE_A below LIMIT

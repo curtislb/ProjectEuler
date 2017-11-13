@@ -25,6 +25,8 @@ exceeding MAX_ELEMENT.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.divisors as divs
 import common.sequences as seqs
 
@@ -38,22 +40,22 @@ MAX_ELEMENT = 10**6 # default: 10**6
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # calculate all proper divisor sums in range
     divisor_sums = [0 if n < 2 else divs.sum_proper_divisors(n)
                     for n in range(MAX_ELEMENT + 1)]
 
-    chain_lengths = {}
+    chain_lengths = {} # type: Dict[int, int]
     values = range(2, MAX_ELEMENT + 1)
 
-    def incr(n):
+    def step(n: int) -> int:
         return divisor_sums[n]
 
-    def is_valid(n):
+    def is_valid(n: int) -> bool:
         return n <= MAX_ELEMENT
 
     # compute all chain lengths for terms in range
-    seqs.compute_chain_lengths(chain_lengths, values, incr, is_valid)
+    seqs.compute_chain_lengths(chain_lengths, values, step, is_valid)
 
     # find minimum member of max length chain
     max_length = max(chain_lengths.values())

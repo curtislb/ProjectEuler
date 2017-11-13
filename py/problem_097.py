@@ -29,7 +29,7 @@ NUM_DIGITS = 10 # default: 10
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     factor = 28433
     exponent = 7830457
 

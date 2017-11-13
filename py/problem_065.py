@@ -57,7 +57,7 @@ NUM_CONVERGENT = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def e_convergent(n, i=1):
+def e_convergent(n: int, i: int = 1) -> Fraction:
     if i == 1:
         addend = 2
     elif i % 3 == 0:
@@ -65,11 +65,11 @@ def e_convergent(n, i=1):
     else:
         addend = 1
 
-    return (addend if i == n else
+    return (Fraction(addend, 1) if i == n else
             addend + Fraction(1, e_convergent(n, i + 1)))
 
 
-def solve():
+def solve() -> int:
     convergent = e_convergent(NUM_CONVERGENT)
     return digs.sum_digits(convergent.numerator)
 

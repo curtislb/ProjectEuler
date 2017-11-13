@@ -23,7 +23,7 @@ Author: Curtis Belmonte
 import common.alphabet as alpha
 import common.fileio as fio
 import common.sequences as seqs
-import common.utility as util
+from common.utility import memoized
 
 
 # PARAMETERS ##################################################################
@@ -35,15 +35,16 @@ INPUT_FILE = '../input/042.txt' # default: '../input/042.txt'
 # SOLUTION ####################################################################
 
 
-@util.memoized
-def word_value(word):
+@memoized
+def word_value(word: str) -> int:
     """Returns the word value for word, computed as the sum of the alphabetical
-    positions of each of its letters."""
+    positions of each of its letters.
+    """
     return (0 if word == '' else
             word_value(word[:-1]) + alpha.alpha_index_upper(word[-1]))
 
 
-def solve():
+def solve() -> int:
     # compute word values for all words in the input file
     word_values = [word_value(word) for word in
                    fio.strings_from_file(INPUT_FILE)]

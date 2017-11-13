@@ -25,7 +25,7 @@ MAX = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
     for n in range(1, MAX + 1):
         total = digs.sum_keep_digits(total, n**n, D)

@@ -7,7 +7,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import divisors as divs
+import common.divisors as divs
 
 
 class TestDivisors(unittest.TestCase):

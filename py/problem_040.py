@@ -31,7 +31,7 @@ MAX_POWER_10 = 1000000 # default: 1000000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # search for and multiply all necessary digits
     product = 1
     power_10 = 1

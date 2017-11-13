@@ -41,7 +41,7 @@ chains_to_89 = {
 }
 
 
-def has_chain_to_89(n):
+def has_chain_to_89(n: int) -> bool:
     """Determines if the square digit chain from n will arrive at 89."""
 
     if n in chains_to_89:
@@ -53,7 +53,7 @@ def has_chain_to_89(n):
     return has_chain
 
 
-def solve():
+def solve() -> int:
     total = 0
     for n in range(1, LIMIT):
         if has_chain_to_89(n):

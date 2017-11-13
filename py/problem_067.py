@@ -38,7 +38,7 @@ INPUT_FILE = '../input/067.txt' # default: '../input/067.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     triangle = list(fio.ints_from_file(INPUT_FILE))
     return mat.max_triangle_path(triangle)
 

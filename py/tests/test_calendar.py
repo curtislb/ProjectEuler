@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import calendar as cal
+import common.calendar as cal
 
 
 class TestCalendar(unittest.TestCase):

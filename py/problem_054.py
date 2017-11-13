@@ -7,7 +7,7 @@ Problem 54: Poker hands
 In the card game poker, a hand consists of five cards and are ranked, from
 lowest to highest, in the following way:
 
-    High game.Card: Highest value card.
+    High Card: Highest value card.
     One Pair: Two cards of the same value.
     Two Pairs: Two different pairs.
     Three of a Kind: Three cards of the same value.
@@ -59,7 +59,10 @@ How many hands does Player 1 win?
 Author: Curtis Belmonte
 """
 
-import common.games as game
+from enum import Enum
+from typing import *
+
+from common.games import Card
 
 
 # PARAMETERS ##################################################################
@@ -71,9 +74,9 @@ INPUT_FILE = '../input/054.txt' # default: '../input/054.txt
 # SOLUTION ####################################################################
 
 
-def count_faces(cards):
+def count_faces(cards: Sequence[Card]) -> Mapping[Card.Face, int]:
     """Returns a dictionary of occurrences of each face value in cards."""
-    counts = {}
+    counts = {} # type: Dict[Card.Face, int]
     for card in cards:
         if card.face not in counts:
             counts[card.face] = 1
@@ -85,7 +88,7 @@ def count_faces(cards):
 class Rank(object):
     """Class representing the rank and rank value of a poker hand."""
     
-    class Type:
+    class Type(Enum):
         """Enum representing different types of poker hand ranks."""
         HIGH_CARD = 0
         ONE_PAIR = 1
@@ -98,9 +101,9 @@ class Rank(object):
         STRAIGHT_FLUSH = 8
         ROYAL_FLUSH = 9
     
-    def __init__(self, hand):
+    def __init__(self, hand: Sequence[Card]) -> None:
         # initialize type and value with dummy values
-        self.type = -1
+        self.type = None
         self.value = -1
         
         # check for flush or straight hand
@@ -108,75 +111,81 @@ class Rank(object):
                 and hand[1].suit == hand[2].suit
                 and hand[2].suit == hand[3].suit
                 and hand[3].suit == hand[4].suit):
-            if (hand[0].face == game.Card.Face.TEN
-                    and hand[1].face == game.Card.Face.JACK
-                    and hand[2].face == game.Card.Face.QUEEN
-                    and hand[3].face == game.Card.Face.KING
-                    and hand[4].face == game.Card.Face.ACE):
+            if (hand[0].face == Card.Face.TEN
+                    and hand[1].face == Card.Face.JACK
+                    and hand[2].face == Card.Face.QUEEN
+                    and hand[3].face == Card.Face.KING
+                    and hand[4].face == Card.Face.ACE):
                 self.type = Rank.Type.ROYAL_FLUSH
-                self.value = game.Card.Face.ACE
-            elif (hand[0].face + 1 == hand[1].face
-                  and hand[1].face + 1 == hand[2].face
-                  and hand[2].face + 1 == hand[3].face
-                  and hand[3].face + 1 == hand[4].face):
+                self.value = Card.Face.ACE.value
+            elif (Card.Face(hand[0].face.value + 1) == hand[1].face
+                  and Card.Face(hand[1].face.value + 1) == hand[2].face
+                  and Card.Face(hand[2].face.value + 1) == hand[3].face
+                  and Card.Face(hand[3].face.value + 1) == hand[4].face):
                 self.type = Rank.Type.STRAIGHT_FLUSH
-                self.value = hand[4].face
+                self.value = hand[4].face.value
             else:
                 self.type = Rank.Type.FLUSH
-                self.value = hand[4].face
-        elif (hand[0].face + 1 == hand[1].face
-              and hand[1].face + 1 == hand[2].face
-              and hand[2].face + 1 == hand[3].face
-              and hand[3].face + 1 == hand[4].face):
-            self._update(Rank.Type.STRAIGHT, hand[4].face)
+                self.value = hand[4].face.value
+        elif (Card.Face(hand[0].face.value + 1) == hand[1].face
+              and Card.Face(hand[1].face.value + 1) == hand[2].face
+              and Card.Face(hand[2].face.value + 1) == hand[3].face
+              and Card.Face(hand[3].face.value + 1) == hand[4].face):
+            self._update(Rank.Type.STRAIGHT, hand[4].face.value)
             
-        counts = count_faces(hand)
-        two_of = None
-        three_of = None
+        counts = count_faces(hand) # type: Mapping[Card.Face, int]
+        two_of = None # type: Optional[Card.Face]
+        three_of = None # type: Optional[Card.Face]
         
         # check for pairs, three-of-a-kind, and four-of-a-kind card groups
-        for face in counts:
+        for face in counts.keys():
             if counts[face] == 4:
-                self._update(Rank.Type.FOUR_KIND, face)
+                self._update(Rank.Type.FOUR_KIND, face.value)
                 break
             elif counts[face] == 3:
                 if two_of is not None:
-                    self._update(Rank.Type.FULL_HOUSE, face * 16 + two_of)
+                    self._update(
+                        Rank.Type.FULL_HOUSE,
+                        face.value * 16 + two_of.value)
                     break
                 else:
                     three_of = face
             elif counts[face] == 2:
                 if three_of is not None:
-                    self._update(Rank.Type.FULL_HOUSE, three_of * 16 + face)
+                    self._update(
+                        Rank.Type.FULL_HOUSE,
+                        three_of.value * 16 + face.value)
                     break
                 elif two_of is not None:
-                    self._update(Rank.Type.TWO_PAIRS,
-                                 max(face, two_of) * 16 + min(face, two_of))
+                    self._update(
+                        Rank.Type.TWO_PAIRS,
+                        max(face.value, two_of.value) * 16
+                        + min(face.value, two_of.value))
                     break
                 else:
                     two_of = face
         
         # check for three of a kind and one pair, otherwise use highest card
         if three_of is not None:
-            self._update(Rank.Type.THREE_KIND, three_of)
+            self._update(Rank.Type.THREE_KIND, three_of.value)
         elif two_of is not None:
-            self._update(Rank.Type.ONE_PAIR, two_of)
+            self._update(Rank.Type.ONE_PAIR, two_of.value)
         else:
-            self._update(Rank.Type.HIGH_CARD, hand[4].face)
+            self._update(Rank.Type.HIGH_CARD, hand[4].face.value)
 
-    def _update(self, new_type, value):
+    def _update(self, new_type: Type, value: int) -> None:
         """Updates type and value of this rank if new_type is superior."""
-        if new_type > self.type:
+        if self.type is None or new_type.value > self.type.value:
             self.type = new_type
             self.value = value
 
 
-def solve():
+def solve() -> int:
     # read (and sort) all hands from input file
     hands = []
     with open(INPUT_FILE) as f:
         for line in f:
-            cards = [game.Card(s) for s in line.split()]
+            cards = [Card(s) for s in line.split()]
             hands.append((sorted(cards[:5]), sorted(cards[5:])))
     
     # count total number of wins for player 1
@@ -184,10 +193,10 @@ def solve():
     for hand in hands:
         rank_1 = Rank(hand[0])
         rank_2 = Rank(hand[1])
-        if rank_1.type > rank_2.type:
+        if rank_1.type.value > rank_2.type.value:
             # player 1 has a higher ranked hand than player 2
             wins += 1
-        elif rank_1.type == rank_2.type:
+        elif rank_1.type.value == rank_2.type.value:
             # ranks are tied
             if rank_1.value > rank_2.value:
                 # player 1 has a higher rank value than player 2
@@ -195,11 +204,11 @@ def solve():
             elif rank_1.value == rank_2.value:
                 # rank values are tied
                 for i in range(4, -1, -1):
-                    if hand[0][i].face > hand[1][i].face:
+                    if hand[0][i].face.value > hand[1][i].face.value:
                         # player 1 has a higher card at position i
                         wins += 1
                         break
-                    elif hand[0][i].face < hand[1][i].face:
+                    elif hand[0][i].face.value < hand[1][i].face.value:
                         # player 2 has a higher card at position i
                         break
     

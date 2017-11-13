@@ -66,7 +66,7 @@ MAX_N = 10000 # default: 10000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     count = 0
 
     for n in range(MAX_N + 1):

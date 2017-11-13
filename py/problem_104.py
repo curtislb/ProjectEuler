@@ -39,13 +39,13 @@ digit_mod = 10**D
 pandigit_string = digs.pandigital_string(1, D)
 
 
-def is_end_pandigital(n):
+def is_end_pandigital(n: int) -> bool:
     """Determines if the first and last D digits of n are 1 to D pandigital."""
-    if arrs.is_permutation(str(n % digit_mod), pandigit_string):
-        return arrs.is_permutation(str(n)[:9], pandigit_string)
+    return (arrs.is_permutation(str(n % digit_mod), pandigit_string)
+            and arrs.is_permutation(str(n)[:9], pandigit_string))
 
 
-def solve():
+def solve() -> int:
     k = 2750 # TODO: less arbitrary lower bound?
     fib_num = seqs.fibonacci(k)
     while not is_end_pandigital(fib_num):

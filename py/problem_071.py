@@ -22,6 +22,8 @@ TARGET_FRAC.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 from fractions import Fraction
 
 
@@ -36,11 +38,14 @@ TARGET_FRAC = Fraction(3, 7) # default: Fraction(3, 7)
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> Optional[int]:
     for d in range(MAX_DENOM, TARGET_FRAC.denominator - 1, -1):
         if d % TARGET_FRAC.denominator == 0:
             n = TARGET_FRAC.numerator * (d // TARGET_FRAC.denominator)
             return Fraction(n - 1, d).numerator
+
+    # target fraction not found
+    return None
 
 
 if __name__ == '__main__':

@@ -19,6 +19,8 @@ of D?
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.sequences as seqs
 
 
@@ -31,11 +33,11 @@ import common.sequences as seqs
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> Optional[int]:
     # generate pentagonal numbers up to threshold
     # TODO: remove need for arbitrary threshold
     pentagonal_count = 3000
-    pentagonal_list = []
+    pentagonal_list = [] # type: List[int]
     for n in range(pentagonal_count):
         pentagonal_list.append(seqs.pentagonal(n))
         
@@ -43,14 +45,15 @@ def solve():
     pentagonal_set = set(pentagonal_list)
     
     # compute minimum difference of pentagonal numbers that satisfy conditions
-    min_diff = float('inf')
+    min_diff = None
     for m in range(1, pentagonal_count):
         for k in range(m + 1, pentagonal_count):
             # check if sum of P(m) and P(k) is pentagonal
             if pentagonal_list[k] + pentagonal_list[m] in pentagonal_set:
                 # check if difference of P(m) and P(k) is pentagonal
                 diff = pentagonal_list[k] - pentagonal_list[m]
-                if diff in pentagonal_set and diff < min_diff:
+                if diff in pentagonal_set and (
+                        min_diff is None or diff < min_diff):
                     min_diff = diff
     
     return min_diff

@@ -23,7 +23,7 @@ LIMIT = 2000000 # default: 2000000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return sum(prime.primes_up_to(LIMIT - 1))
 
 

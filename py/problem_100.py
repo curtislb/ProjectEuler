@@ -18,8 +18,10 @@ determine the number of blue discs that the box would contain.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.arithmetic as arith
-import common.utility as util
+from common.utility import memoized
 
 
 # PARAMETERS ##################################################################
@@ -31,27 +33,33 @@ MIN_DISCS = 10**12 # default: 10**12
 # SOLUTION ####################################################################
 
 
-@util.memoized
-def b(n):
+@memoized
+def b(n: int) -> int:
     """Returns the nth natural number solution for b in the Diophantine
-    equation 2b*(b-1) = a*(a-1)."""
+    equation 2b*(b-1) = a*(a-1).
+    """
     return (1 if n == 1 else
             3 if n == 2 else
             6 * b(n - 1) - b(n - 2) - 2)
 
 
-def total_discs(blue_discs):
+def total_discs(blue_discs: int) -> Optional[float]:
     """Returns the number of discs in total for a valid arrangement with the
-    given number of blue discs."""
-    return arith.quadratic_roots(1, -1, -2 * blue_discs * (blue_discs - 1))[1]
+    given number of blue discs.
+    """
+    root = arith.quadratic_roots(1, -1, -2 * blue_discs * (blue_discs - 1))[1]
+    if isinstance(root, float):
+        return root
+    else:
+        return None
 
 
-def solve():
+def solve() -> int:
     # search for first b in 2b*(b-1) = t*(t-1), such that t > MIN_DISCS
     n = 1
     blue = b(n)
     total = total_discs(blue)
-    while total <= MIN_DISCS:
+    while total is not None and total <= MIN_DISCS:
         n += 1
         blue = b(n)
         total = total_discs(blue)

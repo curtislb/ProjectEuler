@@ -9,11 +9,12 @@ Author: Curtis Belmonte
 
 import functools
 import operator
+from typing import *
 
 import common.primes as prime
 
 
-def count_divisors(n):
+def count_divisors(n: int) -> int:
     """Returns the number of divisors of the natural number n."""
 
     # compute product of one more than the powers of its prime factors
@@ -25,8 +26,8 @@ def count_divisors(n):
     return divisor_count
 
 
-def count_divisors_up_to(n):
-    """Returns a list of divisor counts for integers 0 to n, inclusive."""
+def count_divisors_up_to(n: int) -> Sequence[int]:
+    """Returns a sequence of divisor counts for integers 0 to n, inclusive."""
 
     # set counts for 1..n to 1
     divisor_counts = [1] * (n + 1)
@@ -40,27 +41,27 @@ def count_divisors_up_to(n):
     return divisor_counts
 
 
-def gcd(m, n):
+def gcd(m: int, n: int) -> int:
     """Returns the greatest common divisor of the natural numbers m and n."""
     while n != 0:
         m, n = n, m % n
     return m
 
 
-def is_coprime_pair(n, m):
+def is_coprime_pair(n: int, m: int) -> int:
     """Determines if the natural numbers n and m are relatively prime."""
     return gcd(n, m) == 1
 
 
-def lcm(m, n):
+def lcm(m: int, n: int) -> int:
     """Returns the least common multiple of the natural numbers m and n."""
     return m * n // gcd(m, n)
 
 
-def lcm_all(nums):
+def lcm_all(nums: Iterable[int]) -> int:
     """Returns the least common multiple of all natural numbers in nums."""
 
-    max_powers = {}
+    max_powers = {} # type: Dict[int, int]
     for num in nums:
         # compute powers of unique prime factors of the current number
         factorization = prime.prime_factorization(num)
@@ -76,7 +77,7 @@ def lcm_all(nums):
     return product
 
 
-def radical(n):
+def radical(n: int) -> int:
     """Returns the product of the distinct prime factors of n."""
 
     # find the distinct prime factors of n
@@ -86,7 +87,7 @@ def radical(n):
     return functools.reduce(operator.mul, factors, 1)
 
 
-def sum_divisors(n):
+def sum_divisors(n: int) -> int:
     """Returns the sum of the divisors of the natural number n."""
 
     factorization = prime.prime_factorization(n)
@@ -100,12 +101,12 @@ def sum_divisors(n):
     return product
 
 
-def sum_proper_divisors(n):
+def sum_proper_divisors(n: int) -> int:
     """Returns the sum of the proper divisors of the natural number n."""
     return sum_divisors(n) - n
 
 
-def totient(n, prime_factors=None):
+def totient(n: int, prime_factors: Optional[Iterable[int]] = None) -> int:
     """Returns the number of integers between 0 and n relatively prime to n."""
 
     # determine prime factors of n if not provided
@@ -123,7 +124,7 @@ def totient(n, prime_factors=None):
     return numer // denom
 
 
-def totients_up_to(n):
+def totients_up_to(n: int) -> Sequence[int]:
     """Returns the values of Euler's totient function for integers 2 to n."""
 
     # initialize sieve of Eratosthenes up to n
@@ -131,7 +132,7 @@ def totients_up_to(n):
     sieve[0] = False
     sieve[1] = False
 
-    prime_factors = [[] for _ in range(n + 1)]
+    prime_factors = [[] for _ in range(n + 1)] # type: List[List[int]]
 
     # run sieve algorithm, keeping track of prime factors
     for curr_num in range(2, n + 1):

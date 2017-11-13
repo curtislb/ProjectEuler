@@ -22,7 +22,7 @@ Author: Curtis Belmonte
 """
 
 import common.fileio as fio
-import common.utility as util
+from common.utility import Graph
 
 
 # PARAMETERS ##################################################################
@@ -34,12 +34,12 @@ INPUT_FILE = '../input/083.txt' # default: '../input/083.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     matrix = list(fio.ints_from_file(INPUT_FILE, sep=','))
     n = len(matrix)
     
     # create graph with virtual start nodes
-    graph = util.Graph()
+    graph = Graph()
     start_node = (-1, -1)
     graph.add_node(start_node)
 
@@ -62,7 +62,7 @@ def solve():
 
     distance, _ = graph.dijkstra(start_node)
     goal_node = (n - 1, n - 1)
-    return distance[goal_node]
+    return int(distance[goal_node])
 
 
 if __name__ == '__main__':

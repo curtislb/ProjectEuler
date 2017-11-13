@@ -30,7 +30,7 @@ INPUT_FILE = '../input/099.txt' # default: '../input/099.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     max_line = None
     max_value = -float('inf')
     base_exp_pairs = fio.ints_from_file(INPUT_FILE, sep=',')

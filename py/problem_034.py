@@ -27,7 +27,7 @@ import common.digits as digs
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # search for max value that could be written as powers of its digits
     max_digit_factorial = comb.factorial(9)
     max_value = 99

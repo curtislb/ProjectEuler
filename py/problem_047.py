@@ -39,7 +39,7 @@ FACTORS = 4 # default: 4
 prime_step = 1000
 
 
-def solve():
+def solve() -> int:
     # precompute fixed range of prime numbers
     max_prime = prime_step
     primes = prime.primes_up_to(max_prime)

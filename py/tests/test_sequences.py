@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import sequences as seqs
+import common.sequences as seqs
 
 
 class TestSequences(unittest.TestCase):
@@ -46,16 +46,16 @@ class TestSequences(unittest.TestCase):
         lengths = {}
         values = [0] + list(range(3, 9))
 
-        def incr(x):
+        def step(x: int) -> int:
             return (2 if x == 0 else
                     4 if x == 3 else
                     6 if x == 5 else
                     x - 1)
 
-        def is_valid(x):
+        def is_valid(x: int) -> bool:
             return x != 6
 
-        seqs.compute_chain_lengths(lengths, values, incr, is_valid)
+        seqs.compute_chain_lengths(lengths, values, step, is_valid)
 
         self.assertEqual(lengths[0], 3)
         self.assertEqual(lengths[1], 3)

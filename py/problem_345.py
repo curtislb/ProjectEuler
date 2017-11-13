@@ -34,7 +34,7 @@ INPUT_FILE = '../input/345.txt' # default: '../input/345.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # read matrix from input file
     matrix = list(fio.ints_from_file(INPUT_FILE))
 

@@ -31,9 +31,11 @@ value of x is obtained.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.expansion as expan
 import common.sequences as seqs
-import common.utility as util
+from common.utility import memoized
 
 
 # PARAMETERS ##################################################################
@@ -45,8 +47,8 @@ MAX_D = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-@util.memoized
-def partial_numerator(n, a0, block):
+@memoized
+def partial_numerator(n: int, a0: int, block: Sequence[int]) -> int:
     """Computes the numerator of the partial quotient p_n/q_n for the continued
     fraction expansion sqrt(D) = [a0; (block)].
 
@@ -64,7 +66,7 @@ def partial_numerator(n, a0, block):
             + partial_numerator(n - 2, a0, block))
 
 
-def solve():
+def solve() -> int:
     best_d = None
     best_x = -float('inf')
 

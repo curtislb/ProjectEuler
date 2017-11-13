@@ -17,6 +17,8 @@ so as to determine the shortest possible secret passcode of unknown length.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.digits as digs
 import common.fileio as fio
 
@@ -30,9 +32,9 @@ INPUT_FILE = '../input/079.txt' # default: '../input/079.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # keep track of all digits preceding other digits
-    pre_digits = {}
+    pre_digits = {} # type: Dict[int, Set[int]]
     attempts = fio.ints_from_file(INPUT_FILE)
     for attempt in attempts:
         digits = digs.digits(attempt[0])
@@ -46,7 +48,7 @@ def solve():
                 pre_digits[digit].add(digits[j])
 
     # sort digits by how many other digits precede them
-    ordering = list(pre_digits.items())
+    ordering = list(pre_digits.items()) # type: List[Tuple[int, Set[int]]]
     ordering.sort(key=(lambda x: len(x[1])))
     digits = [order[0] for order in ordering]
 

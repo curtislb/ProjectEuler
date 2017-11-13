@@ -30,7 +30,7 @@ DIGITS = list(range(10)) # default: list(range(10))
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # adjust permutation number to be zero-indexed
     n = N - 1
     

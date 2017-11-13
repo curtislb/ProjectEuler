@@ -33,6 +33,8 @@ octagonal, is represented by a different number in the set.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.sequences as seqs
 
 
@@ -56,12 +58,14 @@ P = {
 }
 
 
-def is_cyclic_6(num_list):
-    """Determines if num_list is cyclic and contains 6 numbers."""
+def is_cyclic_6(num_list: Sequence[str]) -> bool:
+    """Determines if num_list is cyclic and contains 6 values."""
     return len(num_list) == 6 and num_list[-1][-2:] == num_list[0][:2]
 
 
-def find_cycle(p_strs, found, k_used):
+def find_cycle(p_strs: List[List[str]], found: List[str], k_used: Set[int])\
+        -> Optional[Sequence[str]]:
+
     if is_cyclic_6(found):
         return found
     
@@ -75,9 +79,12 @@ def find_cycle(p_strs, found, k_used):
                     if cycle is not None and is_cyclic_6(cycle):
                         return cycle
 
+    # failed to find a valid cycle
+    return None
 
-def solve():
-    p_strs = [[] for _ in range(6)]
+
+def solve() -> int:
+    p_strs = [[] for _ in range(6)] # type: List[List[str]]
 
     for k in range(3, 9):
         n = 1

@@ -26,7 +26,7 @@ N = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return digs.sum_digits(comb.factorial(N))
 
 

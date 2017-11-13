@@ -22,7 +22,7 @@ INPUT_FILE = '../input/013.txt' # default: '../input/013.txt'
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
     with open(INPUT_FILE) as f:
         for line in f:

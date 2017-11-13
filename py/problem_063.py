@@ -24,7 +24,7 @@ import common.digits as digs
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     n_max = 21
     ans_set = set(range(1, 10))
     for n in range(2, n_max + 1):

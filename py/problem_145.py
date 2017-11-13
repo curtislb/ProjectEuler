@@ -26,7 +26,7 @@ DIGIT_LIMIT = 9 # default: 9
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     count = 0
     for digits in range(2, DIGIT_LIMIT):
         if digits % 2 == 0:

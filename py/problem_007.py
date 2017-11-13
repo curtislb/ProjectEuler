@@ -24,7 +24,7 @@ N = 10001 # default: 10001
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return prime.prime(N)
 
 

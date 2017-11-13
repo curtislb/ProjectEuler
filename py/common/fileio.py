@@ -7,15 +7,17 @@
 Author: Curtis Belmonte
 """
 
+from typing import *
 
-def ints_from_file(input_file, sep=' '):
+
+def ints_from_file(input_file: str, sep: str = ' ') -> Iterator[List[int]]:
     """Returns a list of rows of integer numbers read from input_file."""
     with open(input_file) as f:
         for line in f:
             yield [int(token) for token in line.rstrip().split(sep)]
 
 
-def strings_from_file(input_file, sep=','):
-    """Returns a list of sep-separated quoted strings read from input_file."""
+def strings_from_file(input_file: str, sep: str = ',') -> List[str]:
+    """Returns a sequence of sep-separated strings read from input_file."""
     with open(input_file) as f:
-        return [string.strip('"') for string in f.read().split(sep)]
+        return [s.strip('"') for s in f.read().split(sep)]

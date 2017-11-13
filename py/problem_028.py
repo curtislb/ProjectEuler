@@ -31,9 +31,10 @@ N = 1001 # default: 1001
 # SOLUTION ####################################################################
 
 
-def spiral_diagonal_sum(layers):
+def spiral_diagonal_sum(layers: int) -> int:
     """Returns the sum of the diagonals of the number spiral with the given
-    number of layers."""
+    number of layers.
+    """
     
     # base case: spiral with 1 layer has a diagonal sum of 1
     if layers < 2:
@@ -46,7 +47,7 @@ def spiral_diagonal_sum(layers):
     return side_squared * 4 - (side - 1) * 6 + spiral_diagonal_sum(layers - 1)
 
 
-def solve():
+def solve() -> int:
     return spiral_diagonal_sum((N + 1) // 2)
 
 

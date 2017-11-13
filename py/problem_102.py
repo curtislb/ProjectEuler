@@ -23,6 +23,8 @@ contains the point QUERY_POINT.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.matrices as mat
 
 
@@ -37,20 +39,26 @@ QUERY_POINT = (0, 0) # default: (0, 0)
 # SOLUTION ####################################################################
 
 
-def vector_sub(u, v):
+def vector_sub(u: Sequence[int], v: Sequence[int]) -> Sequence[int]:
     """Returns the difference (u - v) of vectors u and v of equal length."""
     return [i - j for i, j in zip(u, v)]
 
 
-def same_side(p1, p2, a, b):
+def same_side(
+        p1: Sequence[int],
+        p2: Sequence[int],
+        a: Sequence[int],
+        b: Sequence[int]) -> bool:
+
     """Determines if points p1 and p2 are on the same side of segment AB."""
+
     segment_ab = vector_sub(b, a)
     cross1 = mat.cross_product_3d(segment_ab, vector_sub(p1, a))
     cross2 = mat.cross_product_3d(segment_ab, vector_sub(p2, a))
     return mat.dot_product(cross1, cross2) >= 0
 
 
-def solve():
+def solve() -> int:
     count = 0
     point = QUERY_POINT + (0,)
 

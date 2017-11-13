@@ -39,7 +39,7 @@ MIN_FRACTION = 0.1 # default: 0.1
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     side = 1
     value = 1
     diag_count = 0

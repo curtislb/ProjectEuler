@@ -7,34 +7,10 @@
 Author: Curtis Belmonte
 """
 
-
-# Number of days in a week
-DAYS_IN_WEEK = 7
-
-# Number of days in a calendar year
-DAYS_IN_YEAR = 365
-
-# Number of days in each month
-MONTH_DAY_COUNTS = [
-  31, # January
-  28, # February (non-leap year)
-  31, # March
-  30, # April
-  31, # May
-  30, # June
-  31, # July
-  31, # August
-  30, # September
-  31, # October
-  30, # November
-  31, # December
-]
-
-# Number of months in a calendar year
-MONTHS_IN_YEAR = 12
+from enum import Enum
 
 
-class Day:
+class Day(Enum):
     """Enum representing days of the week."""
     SUNDAY = 0
     MONDAY = 1
@@ -45,7 +21,7 @@ class Day:
     SATURDAY = 6
 
 
-class Month:
+class Month(Enum):
     """Enum representing months of the year."""
     JANUARY = 0
     FEBRUARY = 1
@@ -61,7 +37,33 @@ class Month:
     DECEMBER = 11
 
 
-def is_leap_year(year):
+# Number of days in a week
+DAYS_IN_WEEK = 7
+
+# Number of days in a calendar year
+DAYS_IN_YEAR = 365
+
+# Number of days in each month
+MONTH_DAY_COUNTS = {
+  Month.JANUARY: 31,
+  Month.FEBRUARY: 28, # (non-leap year)
+  Month.MARCH: 31,
+  Month.APRIL: 30,
+  Month.MAY: 31,
+  Month.JUNE: 30,
+  Month.JULY: 31,
+  Month.AUGUST: 31,
+  Month.SEPTEMBER: 30,
+  Month.OCTOBER: 31,
+  Month.NOVEMBER: 30,
+  Month.DECEMBER: 31,
+}
+
+# Number of months in a calendar year
+MONTHS_IN_YEAR = 12
+
+
+def is_leap_year(year: int) -> bool:
     """Determines if year (given in years A.D.) is a leap year."""
     if year % 100 != 0:
         # year is not a century; it is a leap year if divisible by 4

@@ -50,9 +50,10 @@ DIVISORS = [2, 3, 5, 7, 11, 13, 17] # default: [2, 3, 5, 7, 11, 13, 17]
 divisor_count = len(DIVISORS)
 
 
-def concats_divisible_by_divisors(num_string):
+def concats_divisible_by_divisors(num_string: str) -> bool:
     """Determines if the pandigital number with decimal string representation
-    num_string satisfies the problem conditions."""
+    num_string satisfies the problem conditions.
+    """
     
     # check if all concatenated numbers are divisible by divisors in DIVISORS
     for i in range(divisor_count):
@@ -67,7 +68,7 @@ def concats_divisible_by_divisors(num_string):
     return True
 
 
-def solve():
+def solve() -> int:
     pandigit_string = digs.pandigital_string(START, END)
     
     # check if each pandigital number satisfies the problem conditions

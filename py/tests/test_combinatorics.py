@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import combinatorics as comb
+import common.combinatorics as comb
 
 
 class TestCombinatorics(unittest.TestCase):

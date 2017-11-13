@@ -38,7 +38,7 @@ import common.digits as digs
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     max_num = 0
     pandigit_string = digs.pandigital_string(1)
     

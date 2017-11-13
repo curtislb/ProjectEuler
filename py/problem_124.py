@@ -45,7 +45,7 @@ INDEX = 10**4 # default: 10**4
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     radicals = [(1, 1)]
     for n in range(2, MAX_N + 1):
         radicals.append((divs.radical(n), n))

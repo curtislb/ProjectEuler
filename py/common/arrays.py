@@ -7,10 +7,13 @@
 Author: Curtis Belmonte
 """
 
-import collections
+from collections import defaultdict, deque
+from typing import *
+
+from common.types import Comparable, T
 
 
-def argmax(values):
+def argmax(values: Sequence[Comparable]) -> int:
     """Returns the first index of the maximum value in values."""
     max_index = 0
     max_value = values[0]
@@ -21,7 +24,7 @@ def argmax(values):
     return max_index
 
 
-def argmin(values):
+def argmin(values: Sequence[Comparable]) -> int:
     """Returns the first index of the minimum value in values."""
     min_index = 0
     min_value = values[0]
@@ -32,7 +35,12 @@ def argmin(values):
     return min_index
 
 
-def binary_search(sorted_list, item, _lo=0, _hi=None):
+def binary_search(
+        sorted_list: Sequence[Comparable],
+        item: Comparable,
+        _lo: int = 0,
+        _hi: Optional[int] = None) -> Optional[int]:
+
     """Returns the index position of item in the sorted list sorted_list or
     None if item is not found in sorted_list."""
 
@@ -57,13 +65,16 @@ def binary_search(sorted_list, item, _lo=0, _hi=None):
         return mid
 
 
-def cumulative_partial_sum(nums, limit=float('inf')):
-    """Returns a list of cumulative sums of the numbers in nums, keeping the
-    sum of only the previous limit elements."""
+def cumulative_partial_sum(
+        nums: Sequence[float],
+        limit: float = float('inf')) -> Sequence[float]:
 
-    sums = []
-    total = 0
-    terms = collections.deque()
+    """Returns a sequence of cumulative sums of the numbers in nums, keeping
+    the sum of only the previous limit elements."""
+
+    sums = [] # type: List[float]
+    terms = deque() # type: Deque[float]
+    total = 0 # type: float
     for i, num in enumerate(nums):
         total += num
         terms.append(num)
@@ -76,25 +87,35 @@ def cumulative_partial_sum(nums, limit=float('inf')):
     return sums
 
 
-def inverse_index_map(values, distinct=True):
-    """Returns a map from each item in values to its index.
+def inverse_index_map(values: Sequence[T]) -> Mapping[T, int]:
+    """Returns a map from each item in values to its unique index.
 
-    If distinct is False, then items in values can be repeated, and each will
-    be mapped to a list of its indices."""
+    Items in values must be distinct. If values may contain duplicates, use
+    inverse_index_map_nd.
+    """
 
-    inverse_map = {} if distinct else collections.defaultdict(list)
-
-    if distinct:
-        for i, value in enumerate(values):
-            inverse_map[value] = i
-    else:
-        for i, value in enumerate(values):
-            inverse_map[value].append(i)
+    inverse_map = {} # type: Dict[T, int]
+    for i, value in enumerate(values):
+        inverse_map[value] = i
 
     return inverse_map
 
 
-def is_permutation(iter_a, iter_b, compare_counts=False):
+def inverse_index_map_nd(values: Sequence[T]) -> Mapping[T, Sequence[int]]:
+    """Returns a map from each item in values to a sequence of its indices."""
+
+    inverse_map = defaultdict(list) # type: Dict[T, List[int]]
+    for i, value in enumerate(values):
+        inverse_map[value].append(i)
+
+    return inverse_map
+
+
+def is_permutation(
+        iter_a: Iterable[T],
+        iter_b: Iterable[T],
+        compare_counts: bool = False) -> bool:
+
     """Determines if iterables iter_a, iter_b are permutations of each other.
 
     If iter_a and iter_b have the same length, then the compare_counts flag
@@ -104,21 +125,19 @@ def is_permutation(iter_a, iter_b, compare_counts=False):
     """
 
     # convert iterables to lists if necessary
-    if not hasattr(iter_a, 'count'):
-        iter_a = list(iter_a)
-    if not hasattr(iter_b, 'count'):
-        iter_b = list(iter_b)
+    list_a = iter_a if isinstance(iter_a, list) else list(iter_a) # type: List
+    list_b = iter_b if isinstance(iter_b, list) else list(iter_b) # type: List
 
     # if lengths of a and b are different, they cannot be permutations
-    if len(iter_a) != len(iter_b):
+    if len(list_a) != len(list_b):
         return False
 
     if compare_counts:
         # check if a and b contain the same numbers of the same items
-        for item in set(iter_a):
-            if iter_a.count(item) != iter_b.count(item):
+        for item in set(list_a):
+            if list_a.count(item) != list_b.count(item):
                 return False
         return True
     else:
         # check if a and b are equal when sorted
-        return sorted(iter_a) == sorted(iter_b)
+        return sorted(list_a) == sorted(list_b)

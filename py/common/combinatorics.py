@@ -7,6 +7,8 @@
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.sequences as seqs
 
 
@@ -14,7 +16,7 @@ import common.sequences as seqs
 _factorial_sequence = [1, 1]
 
 
-def _compute_factorial(n):
+def _compute_factorial(n: int) -> None:
     """Precomputes and stores the factorial terms up to n!."""
 
     fact_count = len(_factorial_sequence)
@@ -30,15 +32,16 @@ def _compute_factorial(n):
         _factorial_sequence.append(product)
 
 
-def choose(n, k):
+def choose(n: int, k: int) -> int:
     """Returns the number of ways to choose k objects from a group of n."""
     return permute(n, k) // factorial(k)
 
 
-def combination_sums(total, terms):
+def combination_sums(total: int, terms: Sequence[int]) -> int:
     """Returns the number of unique combinations of terms that sum to total.
 
-    Both total and each term in terms must be a natural number."""
+    Both total and each term in terms must be a natural number.
+    """
 
     if total <= 0:
         raise ValueError("Argument 'total' must be a natural number")
@@ -58,13 +61,13 @@ def combination_sums(total, terms):
     return combos[total]
 
 
-def factorial(n):
+def factorial(n: int) -> int:
     """Returns the value of n! = n * (n - 1) * ... * 1."""
     _compute_factorial(n)
     return _factorial_sequence[n]
 
 
-def permute(n, k):
+def permute(n: int, k: int) -> int:
     """Returns the number of permutations of k objects from a group of n."""
 
     # if faster, compute n! and (n - k)! and return their quotient

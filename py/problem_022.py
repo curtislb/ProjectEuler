@@ -33,13 +33,13 @@ INPUT_FILE = '../input/022.txt' # default: '../input/022.txt'
 # SOLUTION ####################################################################
 
 
-def name_score(name, position):
+def name_score(name: str, position: int) -> int:
     """Returns the score for name in position when sorted alphabetically."""
     score = sum(map(alpha.alpha_index_upper, name))
     return position * score
 
 
-def solve():
+def solve() -> int:
     # heap sort names from input file
     names = fio.strings_from_file(INPUT_FILE)
     heapq.heapify(names)

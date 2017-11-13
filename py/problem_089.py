@@ -56,7 +56,7 @@ numeral_values = {
 }
 
 
-def numeral_to_int(numeral):
+def numeral_to_int(numeral: str) -> int:
     """Returns the integer value represented by the given Roman numeral."""
     i = 0
     numeral_len = len(numeral)
@@ -77,7 +77,7 @@ def numeral_to_int(numeral):
     return total
 
 
-def int_to_numeral(n):
+def int_to_numeral(n: int) -> str:
     """Returns the minimal Roman numeral representation of the integer n."""
 
     numerals = []
@@ -137,7 +137,7 @@ def int_to_numeral(n):
     return ''.join(numerals)
 
 
-def solve():
+def solve() -> int:
     chars_saved = 0
     with open(INPUT_FILE) as f:
         for line in f:

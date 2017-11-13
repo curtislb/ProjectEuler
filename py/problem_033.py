@@ -31,7 +31,7 @@ D = 2 # default: 2
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # compute minimum and maximum D-digit numbers
     min_value = 10**(D - 1)
     max_value = 10**D - 1

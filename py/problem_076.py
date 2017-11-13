@@ -31,7 +31,7 @@ N = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return comb.combination_sums(N, list(range(1, N)))
 
 

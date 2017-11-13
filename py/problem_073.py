@@ -39,7 +39,7 @@ MAX_D = 12000 # default: 12000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
 
     # skip denominators for which all fractions are out of range

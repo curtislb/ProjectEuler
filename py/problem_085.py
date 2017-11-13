@@ -13,6 +13,8 @@ rectangles, find the area of the grid with the nearest solution.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.arithmetic as arith
 
 
@@ -25,12 +27,12 @@ RECT_TARGET = 2 * 10**6 # default: 2 * 10**6
 # SOLUTION ####################################################################
 
 
-def count_rectangles(m, n):
+def count_rectangles(m: int, n: int) -> int:
     """Returns the number of rectangles in an m by n rectangular grid."""
     return m * (m + 1) * n * (n + 1) // 4
 
 
-def solve():
+def solve() -> Optional[int]:
     best_diff = float('inf')
     best_area = None
     upper_bound = arith.int_sqrt(RECT_TARGET * 4)

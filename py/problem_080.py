@@ -32,7 +32,7 @@ DIGIT_COUNT = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 0
     for n in range(2, NUM_COUNT + 1):
         # skip perfect square values

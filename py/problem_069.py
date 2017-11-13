@@ -39,7 +39,7 @@ MAX_N = 10**6 # default: 10**6
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     primes = prime.primes_up_to(MAX_N // 2)
     product = 1
     for p in primes:
@@ -48,6 +48,7 @@ def solve():
             return product
         else:
             product *= p
+    return product
 
 
 if __name__ == '__main__':

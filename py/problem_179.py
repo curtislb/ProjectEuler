@@ -23,7 +23,7 @@ LIMIT = 10**7 # default: 10**7
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     divisor_counts = divs.count_divisors_up_to(LIMIT)
     
     # check consecutive numbers for equal divisor counts

@@ -22,6 +22,8 @@ MIN_A ≤ a ≤ MAX_A and MIN_B ≤ b ≤ MAX_B?
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 
 # PARAMETERS ##################################################################
 
@@ -38,9 +40,9 @@ MAX_B = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # try all combinations of a^b
-    terms = set()
+    terms = set() # type: Set[int]
     term_count = 0
     for a in range(MIN_A, MAX_A + 1):
         for b in range(MIN_B, MAX_B + 1):

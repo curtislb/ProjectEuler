@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import expansion as expan
+import common.expansion as expan
 
 
 class TestExpansion(unittest.TestCase):

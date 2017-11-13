@@ -19,6 +19,8 @@ primes?
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.primes as prime
 
 
@@ -31,13 +33,13 @@ LIMIT = 1000000 # default: 1000000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # TODO: find (provably) better lower bound on prime addend size
     primes = prime.primes_up_to(max(1000, LIMIT // 10))
     num_primes = len(primes)
     
     # create matrix with primes along diagonal
-    dyna_sums = [None] * num_primes
+    dyna_sums = [None] * num_primes # type: List[Optional[List[int]]]
     for i in range(num_primes):
         dyna_sums[i] = [0] * num_primes
         dyna_sums[i][i] = primes[i]

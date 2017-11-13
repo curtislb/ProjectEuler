@@ -45,7 +45,7 @@ MAX_ITER = 50 # default: 50
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     count = 0
     for n in range(10, LIMIT):
         for _ in range(MAX_ITER):

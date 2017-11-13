@@ -24,7 +24,7 @@ D = 3 # default: 3
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # calculate max and min D-digit numbers
     max_factor = 10**D - 1
     min_factor = 10**(D - 1)

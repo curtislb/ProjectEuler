@@ -10,16 +10,15 @@ Author: Curtis Belmonte
 import argparse
 import importlib
 import operator
-import os
 import sys
 import time
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__))))
+import traceback
+from typing import *
 
 ANSWER_FILE = '../input/answers.txt'
 
 
-def answers_from_file(answer_file):
+def answers_from_file(answer_file: str) -> Mapping[str, int]:
     """Loads problem answers from a file and returns them as a dictionary."""
     answers = {}
     with open(answer_file) as f:
@@ -31,25 +30,7 @@ def answers_from_file(answer_file):
     return answers
 
 
-def main():
-    # parse optional and positional arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '-l', '--list-slow',
-        action='store_true',
-        help='show a summary list of slow solutions')
-    parser.add_argument(
-        '-s', '--skip',
-        action='store_true',
-        help='test all except the following problems')
-    parser.add_argument(
-        'problem_nums',
-        metavar='prob_num',
-        type=int,
-        nargs='*',
-        help='problem number of a solution to be tested')
-    args = parser.parse_args()
-
+def main(args: Any) -> None:
     answers = answers_from_file(ANSWER_FILE)
 
     # determine the problem numbers to be tested
@@ -94,10 +75,10 @@ def main():
             total_time = time.time() - start
         except Exception as e:
             print('FAILED')
-            sys.stderr.write('Problem {0}: {1}: {2}\n'.format(
-                problem_num,
-                type(e).__name__,
-                e))
+            sys.stderr.write(
+                'Problem {0}: Failed with {1}\n'.format(
+                    problem_num, type(e).__name__))
+            traceback.print_exc(file=sys.stderr)
             continue
         
         # check if solution matches correct answer for the problem
@@ -143,4 +124,19 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-l', '--list-slow',
+        action='store_true',
+        help='show a summary list of slow solutions')
+    parser.add_argument(
+        '-s', '--skip',
+        action='store_true',
+        help='test all except the following problems')
+    parser.add_argument(
+        'problem_nums',
+        metavar='prob_num',
+        type=int,
+        nargs='*',
+        help='problem number of a solution to be tested')
+    main(parser.parse_args())

@@ -15,9 +15,10 @@ Author: Curtis Belmonte
 """
 
 import collections
+from typing import *
 
 import common.arithmetic as arith
-import common.utility as util
+from common.utility import memoized
 
 # PARAMETERS ##################################################################
 
@@ -28,15 +29,15 @@ MAX_PERIMETER = 1000 # default: 1000
 # SOLUTION ####################################################################
 
 
-@util.memoized
-def int_sqrt(num):
+@memoized
+def int_sqrt(num: int) -> int:
     """Memoized wrapper for the int_sqrt function."""
     return arith.int_sqrt(num)
 
 
-def solve():
+def solve() -> int:
     # precompute perfect squares up to half the max perimeter squared
-    squares = set()
+    squares = set() # type: Set[int]
     n = 0
     n_square = n * n
     max_square = (MAX_PERIMETER // 2)**2
@@ -46,7 +47,7 @@ def solve():
         n_square = n * n
     
     # search for triplets of perfect squares that satisfy a^2 + b^2 = c^2
-    counts = collections.Counter()
+    counts = collections.Counter() # type: Counter[int]
     for a_square in squares:
         for b_square in squares:
             c_square = a_square + b_square

@@ -38,7 +38,7 @@ BOUNCY_PERCENTAGE = 99 # default: 99
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     n = 1
     adjusted_count = 0 # 100 * (bouncy numbers)
     adjusted_total = BOUNCY_PERCENTAGE # BOUNCY_PERCENTAGE * (total numbers)

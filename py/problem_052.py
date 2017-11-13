@@ -25,7 +25,7 @@ N = 6 # default: 6
 # SOLUTION ####################################################################
 
 
-def has_permuted_multiples(x):
+def has_permuted_multiples(x: int) -> bool:
     """Determines if all multiples of x up to Nx contain the same digits."""
     x_digits = digs.digit_counts(x)
     for n in range(2, N + 1):
@@ -34,7 +34,7 @@ def has_permuted_multiples(x):
     return True
 
 
-def solve():
+def solve() -> int:
     x = 125874
     while not has_permuted_multiples(x):
         x += 1

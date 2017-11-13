@@ -33,7 +33,7 @@ EXPONENT = 5 # default: 5
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # search for max value that could be written as powers of its digits
     max_digit_power = 9**EXPONENT
     max_value = 99

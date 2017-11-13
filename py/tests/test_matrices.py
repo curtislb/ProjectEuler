@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import matrices as mat
+import common.matrices as mat
 
 
 class TestMatrices(unittest.TestCase):

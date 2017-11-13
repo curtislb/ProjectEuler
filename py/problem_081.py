@@ -20,6 +20,9 @@ matrix, from the left column to the right column.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
+import common.arithmetic as arith
 import common.fileio as fio
 
 
@@ -31,9 +34,10 @@ INPUT_FILE = '../input/081.txt' # default: '../input/081.txt'
 
 # SOLUTION ####################################################################
 
-
-def solve():
-    matrix = list(fio.ints_from_file(INPUT_FILE, sep=','))
+def solve() -> Optional[int]:
+    matrix = list(
+        fio.ints_from_file(
+            INPUT_FILE, sep=',')) # type: List[List[Optional[int]]]
     n = len(matrix[0])
     
     # dynamically update costs along diagonals from bottom-right to middle
@@ -41,9 +45,9 @@ def solve():
         i = -1
         j = -diag
         while j < 0:
-            down_cost = matrix[i + 1][j] if i < -1 else float('inf')
-            right_cost = matrix[i][j + 1] if j < -1 else float('inf')
-            matrix[i][j] += min(down_cost, right_cost)
+            down_cost = matrix[i + 1][j] if i < -1 else None
+            right_cost = matrix[i][j + 1] if j < -1 else None
+            matrix[i][j] += arith.min_present(down_cost, right_cost)
             i -= 1
             j += 1
 
@@ -52,9 +56,9 @@ def solve():
         i = -diag
         j = -n
         while i >= -n:
-            down_cost = matrix[i + 1][j] if i < -1 else float('inf')
-            right_cost = matrix[i][j + 1] if j < -1 else float('inf')
-            matrix[i][j] += min(down_cost, right_cost)
+            down_cost = matrix[i + 1][j] if i < -1 else None
+            right_cost = matrix[i][j + 1] if j < -1 else None
+            matrix[i][j] += arith.min_present(down_cost, right_cost)
             i -= 1
             j += 1
 

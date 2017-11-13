@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import primes as prime
+import common.primes as prime
 
 
 class TestPrimes(unittest.TestCase):

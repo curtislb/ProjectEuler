@@ -31,7 +31,7 @@ LOWER_LIMIT = 40755 # default: 40755
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # generate the first triangle number above LOWER_LIMIT
     tri_num = 0
     n = 1

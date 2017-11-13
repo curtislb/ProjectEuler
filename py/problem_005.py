@@ -25,7 +25,7 @@ MAX = 20 # default: 20
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     return divs.lcm_all([num for num in range(2, MAX + 1)])
 
 

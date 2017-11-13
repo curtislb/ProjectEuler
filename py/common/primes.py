@@ -8,6 +8,7 @@ Author: Curtis Belmonte
 """
 
 import math
+from typing import *
 
 import common.arrays as arrs
 import common.sequences as seqs
@@ -17,7 +18,7 @@ import common.sequences as seqs
 _prime_sequence = [2]
 
 
-def _compute_primes(n):
+def _compute_primes(n: int) -> None:
     """Precomputes and stores at least the first n prime numbers."""
     
     prime_count = len(_prime_sequence)
@@ -39,7 +40,7 @@ def _compute_primes(n):
         i += increment
 
 
-def _compute_primes_up_to(n):
+def _compute_primes_up_to(n: int) -> None:
     """Precomputes and stores the prime numbers up to n."""
 
     # have the numbers up to n already been computed?
@@ -68,10 +69,10 @@ def _compute_primes_up_to(n):
                 sieve[j] = False
 
 
-# PUBLIC FUNCTIONS ############################################################
+def count_prime_factors(
+        n: int,
+        prime_nums: Optional[Sequence[int]] = None) -> int:
 
-
-def count_prime_factors(n, prime_nums=None):
     """Returns the number of distinct prime factors of the natural number n,
     using the given precomputed list of primes."""
 
@@ -93,12 +94,12 @@ def count_prime_factors(n, prime_nums=None):
             if n % prime_num == 0:
                 factor_count += 1
                 while n % prime_num == 0:
-                    n /= prime_num
+                    n //= prime_num
 
     return factor_count
 
 
-def is_prime(n):
+def is_prime(n: int) -> bool:
     """Determines if the natural number n is prime."""
 
     # simple test for small n: 2 and 3 are prime, but 1 is not
@@ -117,7 +118,7 @@ def is_prime(n):
     return True
 
 
-def prime_factorization(n):
+def prime_factorization(n: int) -> Sequence[Sequence[int]]:
     """Computes the prime factorization of the natural number n.
     
     Returns a list of base-exponent pairs containing each prime factor and
@@ -147,19 +148,19 @@ def prime_factorization(n):
     return factorization
 
 
-def prime(n):
+def prime(n: int) -> int:
     """Returns the nth prime number."""
     _compute_primes(n)
     return _prime_sequence[n - 1]
 
 
-def primes(n):
+def primes(n: int) -> Sequence[int]:
     """Returns the first n prime numbers in sorted order."""
     _compute_primes(n)
     return _prime_sequence[:n]
 
 
-def primes_up_to(n):
+def primes_up_to(n: int) -> Sequence[int]:
     """Returns the prime numbers up to p in sorted order."""
 
     _compute_primes_up_to(n)

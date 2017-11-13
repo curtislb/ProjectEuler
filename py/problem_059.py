@@ -32,6 +32,8 @@ decrypt the message and find the sum of the ASCII values in the original text.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.alphabet as alpha
 import common.fileio as fio
 
@@ -45,9 +47,9 @@ INPUT_FILE = '../input/059.txt' # default: '../input/059.txt'
 # SOLUTION ####################################################################
 
 
-def decrypt_message(message, key):
+def decrypt_message(message: str, key: str) -> str:
     """Returns the result of XOR decrypting message with the given key."""
-    decrypted = []
+    decrypted = [] # type: List[str]
     key_len = len(key)
     for i, byte in enumerate(message):
         decrypted_char = chr(ord(byte) ^ ord(key[i % key_len]))
@@ -55,7 +57,7 @@ def decrypt_message(message, key):
     return ''.join(decrypted)
 
 
-def solve():
+def solve() -> Optional[int]:
     # sequence that should occur if the message is properly decrypted
     target_seq = ' the '
 
@@ -77,6 +79,9 @@ def solve():
                 decrypted = decrypt_message(encrypted, key)
                 if target_seq in decrypted:
                     return sum(map(ord, decrypted))
+
+    # target sequence not found
+    return None
 
 
 if __name__ == '__main__':

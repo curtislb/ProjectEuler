@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import alphabet as alpha
+import common.alphabet as alpha
 
 
 class TestWords(unittest.TestCase):

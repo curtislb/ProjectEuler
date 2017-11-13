@@ -29,7 +29,7 @@ N = 10**12 # default: 10**12
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     total = 1
     repunits = {1}
     for k in range(3, int(math.ceil(math.log(N, 2)))):

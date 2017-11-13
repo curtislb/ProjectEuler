@@ -28,7 +28,7 @@ LIMIT = 10**8 # default: 10**8
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # compute all possible prime factors
     primes = prime.primes_up_to((LIMIT - 1) // 2)
     num_primes = len(primes)

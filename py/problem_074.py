@@ -70,7 +70,7 @@ chain_lengths = {
 }
 
 
-def get_chain_length(n):
+def get_chain_length(n: int) -> int:
     """Returns the length of the digit factorial chain starting with n."""
 
     if n in chain_lengths:
@@ -81,7 +81,7 @@ def get_chain_length(n):
     return length
 
 
-def solve():
+def solve() -> int:
     # compute all chain lengths
     for n in range(3, MAX_START + 1):
         if n not in chain_lengths:

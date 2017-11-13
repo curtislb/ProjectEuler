@@ -38,7 +38,7 @@ MIN_VALUE = 1000000 # default: 1000000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     count = 0
 
     for n in range(2, MAX_N + 1):

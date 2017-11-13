@@ -19,7 +19,7 @@ Author: Curtis Belmonte
 """
 
 import common.alphabet as alpha
-import common.utility as util
+from common.utility import memoized
 
 
 # PARAMETERS ##################################################################
@@ -40,11 +40,13 @@ pow10_letters = {
     100: len('hundred'),
     1000: len('thousand'),
     10**6: len('million'),
+    10**9: len('billion'),
+    10**12: len('trillion'),
 }
 
 
-@util.memoized
-def count_letters(n):
+@memoized
+def count_letters(n: int) -> int:
     """Returns the number of letters in the written representation of the
     natural number n (in compliance with British usage)."""
 
@@ -76,7 +78,7 @@ def count_letters(n):
     return count
 
 
-def solve():
+def solve() -> int:
     total = 0
     for n in range(1, MAX_NUMBER + 1):
         total += count_letters(n)

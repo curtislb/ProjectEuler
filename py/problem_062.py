@@ -14,6 +14,8 @@ are cube.
 Author: Curtis Belmonte
 """
 
+from typing import *
+
 import common.digits as digs
 
 
@@ -26,10 +28,10 @@ NUM_PERMS = 5 # default: 5
 # SOLUTION ####################################################################
 
 
-cube_digits = {}
+cube_digits = {} # type: Dict[Sequence[int], List[int]]
 
 
-def solve():
+def solve() -> int:
     n = 1
     cube = n**3
     while True:

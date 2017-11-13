@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import arrays as arrs
+import common.arrays as arrs
 
 
 class TestArrays(unittest.TestCase):
@@ -64,31 +64,25 @@ class TestArrays(unittest.TestCase):
         
     def test_inverse_index_map(self):
         self.assertEqual(arrs.inverse_index_map([]), {})
-        self.assertEqual(arrs.inverse_index_map('', False), {})
         self.assertEqual(arrs.inverse_index_map([2]), {2: 0})
-        self.assertEqual(arrs.inverse_index_map([1], False), {1: [0]})
-        self.assertEqual(arrs.inverse_index_map([3, 3], False), {3: [0, 1]})
         self.assertEqual(arrs.inverse_index_map('a'), {'a': 0})
         self.assertEqual(arrs.inverse_index_map((3, 2, 1)), {3: 0, 2: 1, 1: 2})
         self.assertEqual(
-            arrs.inverse_index_map('XYZ'),
-            {'X': 0, 'Y': 1, 'Z': 2})
+            arrs.inverse_index_map('XYZ'), {'X': 0, 'Y': 1, 'Z': 2})
         self.assertEqual(
-            arrs.inverse_index_map((1, 6, 1, 8, 0, 3, 3, 9, 8, 8), False),
+            arrs.inverse_index_map('randomz'),
+            {'r': 0, 'a': 1, 'n': 2, 'd': 3, 'o': 4, 'm': 5, 'z': 6})
+
+    def test_inverse_index_map_nd(self):
+        self.assertEqual(arrs.inverse_index_map_nd(''), {})
+        self.assertEqual(arrs.inverse_index_map_nd('z'), {'z': [0]})
+        self.assertEqual(arrs.inverse_index_map_nd([1]), {1: [0]})
+        self.assertEqual(arrs.inverse_index_map_nd([3, 3]), {3: [0, 1]})
+        self.assertEqual(
+            arrs.inverse_index_map_nd('ABBA'), {'A': [0, 3], 'B': [1, 2]})
+        self.assertEqual(
+            arrs.inverse_index_map_nd((1, 6, 1, 8, 0, 3, 3, 9, 8, 8)),
             {0: [4], 1: [0, 2], 3: [5, 6], 6: [1], 8: [3, 8, 9], 9: [7]})
-        self.assertEqual(
-            arrs.inverse_index_map('randomize'),
-            {
-                'r': 0,
-                'a': 1,
-                'n': 2,
-                'd': 3,
-                'o': 4,
-                'm': 5,
-                'i': 6,
-                'z': 7,
-                'e': 8,
-            })
         
     def test_is_permutation(self):
         for cmp in (False, True):

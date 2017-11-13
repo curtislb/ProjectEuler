@@ -9,16 +9,16 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import utility as util
+from common.utility import Graph, MinPQ
 
 
 class TestGraph(unittest.TestCase):
     def setUp(self):
-        self.graph = util.Graph()
+        self.graph = Graph()
 
     def test_nodes(self):
         self.assertEqual(self.graph.num_nodes(), 0)
-        self.assertEqual(len(self.graph.nodes()), 0)
+        self.assertCountEqual(self.graph.nodes(), [])
         self.assertFalse(self.graph.has_node('node_1'))
         self.assertFalse(self.graph.has_node('node_2'))
 
@@ -247,7 +247,7 @@ class TestGraph(unittest.TestCase):
 
 class TestMinPQ(unittest.TestCase):
     def setUp(self):
-        self.min_pq = util.MinPQ()
+        self.min_pq = MinPQ()
 
     def test_empty(self):
         self.assertEqual(len(self.min_pq), 0)

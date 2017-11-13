@@ -27,7 +27,7 @@ LIMIT = 4000000 # default: 4000000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     # sum every third (even) Fibonacci number
     i = -1
     fib_num = 0

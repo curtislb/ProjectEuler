@@ -9,7 +9,7 @@ Author: Curtis Belmonte
 
 import unittest
 
-from .context import digits as digs
+import common.digits as digs
 
 
 class TestDigits(unittest.TestCase):

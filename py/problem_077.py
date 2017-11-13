@@ -31,7 +31,7 @@ N = 5000 # default: 5000
 # SOLUTION ####################################################################
 
 
-def solve():
+def solve() -> int:
     primes = list(prime.primes_up_to(2 * N))
     n = 2
     while comb.combination_sums(n, primes) <= N:

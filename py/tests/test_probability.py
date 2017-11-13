@@ -10,7 +10,7 @@ Author: Curtis Belmonte
 import fractions
 import unittest
 
-from .context import probability as prob
+import common.probability as prob
 
 
 class MyTestCase(unittest.TestCase):
