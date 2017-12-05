@@ -21,9 +21,9 @@ NOTE: This is a much more difficult version of Problem 18. It is not possible
 to try every route to solve this problem, as there are 2^99 altogether! If you
 could check one trillion (10^12) routes every second it would take over twenty
 billion years to check them all. There is an efficient algorithm to solve it. 
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.fileio as fio
 import common.matrices as mat

@@ -15,9 +15,9 @@ Sum of the matrix below equals 3315 ( = 863 + 383 + 343 + 959 + 767):
     (767) 473  103  699  303
 
 Find the Matrix Sum of the matrix contained in the file INPUT_FILE.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import copy
 

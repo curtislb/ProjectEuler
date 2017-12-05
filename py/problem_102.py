@@ -19,9 +19,9 @@ does not.
 Using INPUT_FILE, a text file containing the co-ordinates of one thousand
 "random" triangles, find the number of triangles for which the interior
 contains the point QUERY_POINT.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

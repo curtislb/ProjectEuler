@@ -13,9 +13,9 @@ Find the sum of the first MAX_COUNT of the only eleven primes that are both
 truncatable from left to right and right to left.
 
 NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.digits as digs
 import common.primes as prime

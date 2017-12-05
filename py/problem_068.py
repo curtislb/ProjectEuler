@@ -39,9 +39,9 @@ string for a 3-gon ring is 432621513.
 Using the numbers 1 to 10, and depending on arrangements, it is possible to
 form 16- and 17-digit strings. What is the maximum 16-digit string for a
 "magic" 5-gon ring?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import itertools
 

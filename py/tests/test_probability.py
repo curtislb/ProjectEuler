@@ -2,10 +2,10 @@
 
 """test_probability.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'probability' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import fractions
 import unittest

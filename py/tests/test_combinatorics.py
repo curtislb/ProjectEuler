@@ -2,10 +2,10 @@
 
 """test_combinatorics.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'combinatorics' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

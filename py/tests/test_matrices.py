@@ -2,10 +2,10 @@
 
 """test_matrices.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'matrices' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

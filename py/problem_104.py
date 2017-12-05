@@ -16,9 +16,9 @@ pandigital.
 
 Given that F(k) is the first Fibonacci number for which the first D digits AND
 the last D digits are 1 to D pandigital, find k.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.arrays as arrs
 import common.digits as digs

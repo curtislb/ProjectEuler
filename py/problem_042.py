@@ -16,9 +16,9 @@ is a triangle number then we shall call the word a triangle word.
 
 Using INPUT_FILE, a text file containing many common English words, how many
 are triangle words?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.alphabet as alpha
 import common.fileio as fio

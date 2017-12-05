@@ -1,9 +1,9 @@
 """test_divisors.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'divisors' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

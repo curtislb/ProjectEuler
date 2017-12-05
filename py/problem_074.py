@@ -29,9 +29,9 @@ non-repeating chain with a starting number below one million is sixty terms.
 
 How many chains, with a starting number below MAX_START, contain exactly
 TARGET_LEN non-repeating terms?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.combinatorics as comb
 import common.digits as digs

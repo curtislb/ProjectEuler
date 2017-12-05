@@ -2,10 +2,10 @@
 
 """arrays.py
 
-
-
-Author: Curtis Belmonte
+Functions for operating on lists and related sequences.
 """
+
+__author__ = 'Curtis Belmonte'
 
 from collections import defaultdict, deque
 from typing import *

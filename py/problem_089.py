@@ -31,9 +31,9 @@ form.
 
 Note: You can assume that all the Roman numerals in the file contain no more
 than four consecutive identical units.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 
 # PARAMETERS ##################################################################

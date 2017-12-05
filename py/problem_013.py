@@ -6,9 +6,9 @@ Problem 13: Large sum
 
 Work out the first D digits of the sum of the numbers contained in the file
 INPUT_FILE (all of which have the same number of digits).
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 
 # PARAMETERS ##################################################################

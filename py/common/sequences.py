@@ -2,10 +2,10 @@
 
 """sequences.py
 
-
-
-Author: Curtis Belmonte
+Functions for producing and operating on numerical sequences.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import functools
 import operator

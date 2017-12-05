@@ -13,9 +13,9 @@ first one hundred decimal digits is 475.
 
 For the first NUM_COUNT natural numbers, find the total of the digital sums of
 the first DIGIT_COUNT decimal digits for all the irrational square roots.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.expansion as expan
 import common.sequences as seqs

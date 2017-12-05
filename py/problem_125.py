@@ -15,9 +15,9 @@ the squares of positive integers.
 
 Find the sum of all the numbers less than N that are both palindromic and can
 be written as the sum of consecutive squares.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.digits as digs
 import common.sequences as seqs

@@ -15,9 +15,9 @@ smallest prime with this property.
 
 Find the smallest prime which, by replacing part of the number (not necessarily
 adjacent digits) with the same digit, is part of an 8 prime value family.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

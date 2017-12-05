@@ -2,10 +2,10 @@
 
 """games.py
 
-
-
-Author: Curtis Belmonte
+Classes and functions for simulating games such as cards and board games.
 """
+
+__author__ = 'Curtis Belmonte'
 
 from collections import defaultdict
 from enum import Enum

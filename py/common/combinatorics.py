@@ -2,10 +2,10 @@
 
 """combinatorics.py
 
-
-
-Author: Curtis Belmonte
+Functions relating to combinatoric or counting applications.
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

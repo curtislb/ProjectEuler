@@ -15,9 +15,9 @@ that can be expressed in such a way:
 
 How many numbers below LIMIT can be expressed as the sum of a prime square,
 prime cube, and prime fourth power?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import math
 

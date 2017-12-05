@@ -2,10 +2,10 @@
 
 """test_alphabet.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'alphabet' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

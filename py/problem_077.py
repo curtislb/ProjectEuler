@@ -14,9 +14,9 @@ It is possible to write ten as the sum of primes in exactly five different ways:
 
 What is the first value which can be written as the sum of primes in over N
 different ways?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.combinatorics as comb
 import common.primes as prime

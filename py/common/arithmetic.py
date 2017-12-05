@@ -2,10 +2,10 @@
 
 """arithmetic.py
 
-
-
-Author: Curtis Belmonte
+Functions for performing common arithmetic operations.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import math
 from typing import *

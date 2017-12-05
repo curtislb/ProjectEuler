@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-"""words.py
+"""alphabet.py
 
-
-
-Author: Curtis Belmonte
+Constants and functions relating to the English alphabet.
 """
+
+__author__ = 'Curtis Belmonte'
 
 
 # Mapping from natural numbers to their English word equivalents

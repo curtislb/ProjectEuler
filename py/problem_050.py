@@ -15,9 +15,9 @@ The longest sum of consecutive primes below 1000 that adds to a prime, contains
 
 Which prime, below LIMIT, can be written as the sum of the most consecutive
 primes?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

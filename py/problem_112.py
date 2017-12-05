@@ -22,9 +22,9 @@ reach 21780 the proportion of bouncy numbers is equal to 90%.
 
 Find the least number for which the proportion of bouncy numbers is exactly
 BOUNCY_PERCENTAGE%.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.digits as digs
 

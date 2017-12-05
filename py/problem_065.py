@@ -39,9 +39,9 @@ The sum of digits in the numerator of the 10th convergent is 1+4+5+7=17.
 
 Find the sum of digits in the numerator of the NUM_CONVERGENTth convergent of
 the continued fraction for e.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from fractions import Fraction
 

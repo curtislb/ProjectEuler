@@ -23,9 +23,9 @@ prime to nine, φ(9)=6.
 It can be seen that n=6 produces a maximum n/φ(n) for n ≤ 10.
 
 Find the value of n ≤ MAX_N for which n/φ(n) is a maximum.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.primes as prime
 

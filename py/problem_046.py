@@ -18,9 +18,9 @@ It turns out that the conjecture was false.
 
 What is the smallest odd composite that cannot be written as the sum of a prime
 and FACTOR times a square?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.primes as prime
 import common.sequences as seqs

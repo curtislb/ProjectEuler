@@ -13,9 +13,9 @@ formed when each co-ordinate lies between 0 and 2 inclusive; that is,
 
 Given that 0 ≤ x1, y1, x2, y2 ≤ MAX_COORD, how many right triangles can be
 formed?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 
 # PARAMETERS ##################################################################

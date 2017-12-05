@@ -11,9 +11,9 @@ BASE_A and base BASE_B.
 
 (Please note that the palindromic number, in either base, may not include
 leading zeros.)
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.digits as digs
 

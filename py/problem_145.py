@@ -12,9 +12,9 @@ reversible. Leading zeroes are not allowed in either n or reverse(n).
 There are 120 reversible numbers below one-thousand.
 
 How many reversible numbers are there below 10**DIGIT_LIMIT?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 
 # PARAMETERS ##################################################################

@@ -2,10 +2,10 @@
 
 """divisors.py
 
-
-
-Author: Curtis Belmonte
+Functions for determining and operating on the divisors of natural numbers.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import functools
 import operator

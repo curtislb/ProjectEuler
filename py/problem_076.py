@@ -15,9 +15,9 @@ It is possible to write five as a sum in exactly six different ways:
 
 How many different ways can N be written as a sum of at least two positive
 integers?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.combinatorics as comb
 

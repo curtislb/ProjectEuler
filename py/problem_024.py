@@ -12,9 +12,9 @@ lexicographic permutations of 0, 1 and 2 are:
     012   021   102   120   201   210
 
 What is the Nth lexicographic permutation of the digits DIGITS?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.combinatorics as comb
 

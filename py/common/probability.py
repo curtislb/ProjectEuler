@@ -2,10 +2,10 @@
 
 """probability.py
 
-
-
-Author: Curtis Belmonte
+Functions for making random choices and computing probabilities.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import random
 from fractions import Fraction

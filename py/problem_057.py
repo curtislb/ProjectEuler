@@ -22,9 +22,9 @@ numerator exceeds the number of digits in the denominator.
 
 In the first NUM_EXPANSIONS expansions, how many fractions contain a numerator
 with more digits than denominator?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from fractions import Fraction
 

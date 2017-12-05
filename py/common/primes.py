@@ -2,10 +2,10 @@
 
 """primes.py
 
-
-
-Author: Curtis Belmonte
+Functions for finding and identifying prime numbers.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import math
 from typing import *

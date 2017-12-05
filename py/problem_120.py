@@ -10,9 +10,9 @@ For example, if a = 7 and n = 3, then r = 42: 6^3 + 8^3 = 728 ≡ 42 mod 49. And
 as n varies, so too will r, but for a = 7 it turns out that r_max = 42.
 
 For MIN_A ≤ a ≤ MAX_A, find ∑ r_max.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 
 # PARAMETERS ##################################################################

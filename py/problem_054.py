@@ -55,9 +55,9 @@ all hands are valid (no invalid characters or repeated cards), each player's
 hand is in no specific order, and in each hand there is a clear winner.
 
 How many hands does Player 1 win?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from enum import Enum
 from typing import *

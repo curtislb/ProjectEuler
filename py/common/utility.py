@@ -2,10 +2,10 @@
 
 """utility.py
 
-
-
-Author: Curtis Belmonte
+Various common utility classes and decorators.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import heapq
 import itertools

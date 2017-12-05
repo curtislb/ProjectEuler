@@ -17,9 +17,9 @@ It can be seen that there are 3 fractions between 1/3 and 1/2.
 
 How many fractions lie between MIN_FRAC and MAX_FRAC in the sorted set of
 reduced proper fractions for d ≤ MAX_D?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from fractions import Fraction
 

@@ -32,9 +32,9 @@ The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 
 What is the greatest product of N adjacent numbers in the same direction (up,
 down, left, right, or diagonally) in the grid contained in the file INPUT_FILE?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.fileio as fio
 

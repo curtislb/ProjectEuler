@@ -17,9 +17,9 @@ The first three consecutive numbers to have three distinct prime factors are:
 
 Find the first CONSEC consecutive integers to have FACTORS distinct prime
 factors. What is the first of these numbers?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.primes as prime
 

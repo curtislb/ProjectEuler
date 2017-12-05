@@ -18,9 +18,9 @@ It is not until n = 23, that a value exceeds one-million: 23C10 = 1144066.
 
 How many, not necessarily distinct, values of nCr, for 1 ≤ n ≤ MAX_N, are
 greater than MIN_VALUE?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import math
 

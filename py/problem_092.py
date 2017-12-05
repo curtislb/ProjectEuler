@@ -17,9 +17,9 @@ loop. What is most amazing is that EVERY starting number will eventually arrive
 at 1 or 89.
 
 How many starting numbers below LIMIT will arrive at 89?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.digits as digs
 

@@ -27,9 +27,9 @@ Surprisingly, there are palindromic numbers that are themselves Lychrel numbers;
 the first example is 4994.
 
 How many Lychrel numbers are there below LIMIT?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.digits as digs
 

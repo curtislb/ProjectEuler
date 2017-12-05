@@ -2,10 +2,10 @@
 
 """test_digits.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'digits' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

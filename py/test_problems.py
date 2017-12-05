@@ -3,9 +3,9 @@
 """test_solns.py
 
 Module for testing the correctness and runtime of problem solutions.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import argparse
 import importlib

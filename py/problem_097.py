@@ -13,9 +13,9 @@ However, in 2004 there was found a massive non-Mersenne prime which contains
 2,357,207 digits: 28433 × 2^7830457 + 1.
 
 Find the last NUM_DIGITS digits of this prime number.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.arithmetic as arith
 

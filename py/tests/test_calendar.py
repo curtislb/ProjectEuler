@@ -2,10 +2,10 @@
 
 """test_calendar.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'calendar' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

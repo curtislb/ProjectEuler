@@ -15,9 +15,9 @@ It can be verified that T(285) = P(165) = H(143) = 40755.
 
 Find the smallest triangle number greater than LOWER_LIMIT that is also
 pentagonal and hexagonal.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.sequences as seqs
 

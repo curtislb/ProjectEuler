@@ -12,9 +12,9 @@ difficult, as both numbers contain over three million digits.
 
 Using INPUT_FILE, a text file containing lines with a base/exponent pair on
 each line, determine which line number has the greatest numerical value.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import math
 

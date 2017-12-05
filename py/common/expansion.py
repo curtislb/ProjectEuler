@@ -2,10 +2,10 @@
 
 """expansion.py
 
-
-
-Author: Curtis Belmonte
+Functions for producing expanded representations of real numbers.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import math
 from typing import *

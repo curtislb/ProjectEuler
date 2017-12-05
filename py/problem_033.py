@@ -15,9 +15,9 @@ value, and containing D digits in the numerator and denominator.
 
 If the product of these fractions is given in its lowest common terms, find the
 value of the denominator.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.divisors as divs
 

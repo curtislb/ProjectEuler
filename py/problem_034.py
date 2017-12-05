@@ -10,9 +10,9 @@ Find the sum of all numbers which are equal to the sum of the factorial of
 their digits.
 
 Note: as 1! = 1 and 2! = 2 are not sums they are not included.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.combinatorics as comb
 import common.digits as digs

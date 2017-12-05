@@ -2,10 +2,10 @@
 
 """calendar.py
 
-
-
-Author: Curtis Belmonte
+Constants and functions for working with calendar dates.
 """
+
+__author__ = 'Curtis Belmonte'
 
 from enum import Enum
 

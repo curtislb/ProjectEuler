@@ -10,9 +10,9 @@ which has exactly three permutations of its digits which are also cube.
 
 Find the smallest cube for which exactly NUM_PERMS permutations of its digits
 are cube.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

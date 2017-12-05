@@ -28,9 +28,9 @@ Your task has been made easy, as the encryption key consists of three lower
 case characters. Using INPUT_FILE, a file containing the encrypted ASCII codes,
 and the knowledge that the plain text must contain common English words,
 decrypt the message and find the sum of the ASCII values in the original text.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

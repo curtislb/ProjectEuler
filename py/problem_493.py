@@ -11,9 +11,9 @@ What is the expected number of distinct colors in NUM_DRAWS randomly picked
 balls?
 
 Give your answer with PRECISION digits after the decimal point.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from fractions import Fraction
 

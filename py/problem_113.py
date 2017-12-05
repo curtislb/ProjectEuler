@@ -18,9 +18,9 @@ there are only 12951 numbers below one-million that are not bouncy and only
 277032 non-bouncy numbers below 10^10.
 
 How many numbers below 10^MAX_DIGITS are not bouncy?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from common.types import IntMatrix
 

@@ -2,10 +2,10 @@
 
 """fileio.py
 
-
-
-Author: Curtis Belmonte
+Functions for reading values from and writing to system files.
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

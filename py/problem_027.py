@@ -26,9 +26,9 @@ Considering quadratics of the form:
 Find the product of the coefficients, a and b, for the quadratic expression
 that produces the maximum number of primes for consecutive values of n,
 starting with n = START_N.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.primes as prime
 from common.utility import memoized

@@ -17,9 +17,9 @@ It can be seen that there are 21 elements in this set.
 
 How many elements would be contained in the set of reduced proper fractions for
 d ≤ MAX_D?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.divisors as divs
 

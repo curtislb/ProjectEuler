@@ -19,9 +19,9 @@ for yourself.
   
 How many DAY_OF_WEEKs fell on the first of the month from 1 Jan 1901 up until
 (but excluding) the start of END_YEAR?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.calendar as cal
 from common.calendar import Day, Month

@@ -14,10 +14,9 @@ thirty-five red discs.
 
 By finding the first arrangement to contain over MIN_DISCS discs in total,
 determine the number of blue discs that the box would contain.
-
-Author: Curtis Belmonte
 """
 
+__author__ = 'Curtis Belmonte'
 from typing import *
 
 import common.arithmetic as arith

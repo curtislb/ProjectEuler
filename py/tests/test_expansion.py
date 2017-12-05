@@ -2,10 +2,10 @@
 
 """test_expansion.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'expansion' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

@@ -15,9 +15,9 @@ If d(n) represents the nth digit of the fractional part, find the value of the
 following expression.
 
     d(1) × d(10) × d(100) × ... × d(MAX_POWER_10)
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.digits as digs
 

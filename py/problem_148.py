@@ -20,9 +20,9 @@ the 5050 entries are not divisible by 7.
 
 Find the number of entries which are not divisible by PRIME in the first
 ROW_COUNT rows of Pascal's triangle.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import math
 

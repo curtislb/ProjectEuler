@@ -49,9 +49,9 @@ are:
 Exactly four continued fractions, for N ≤ 13, have an odd period.
 
 How many continued fractions for N ≤ MAX_N have an odd period?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.expansion as expan
 import common.sequences as seqs

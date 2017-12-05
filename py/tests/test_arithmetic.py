@@ -2,10 +2,10 @@
 
 """test_arithmetic.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'arithmetic' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

@@ -39,9 +39,9 @@ difficulty, but all with unique solutions.
 By solving all puzzles find the sum of the 3-digit numbers found in the top
 left corner of each solution grid; for example, 483 is the 3-digit number found
 in the top left corner of the solution grid above.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import copy
 from typing import *

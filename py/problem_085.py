@@ -9,9 +9,9 @@ contains eighteen rectangles.
 
 Although there exists no rectangular grid that contains exactly RECT_TARGET
 rectangles, find the area of the grid with the nearest solution.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

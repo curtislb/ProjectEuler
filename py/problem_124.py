@@ -27,9 +27,9 @@ Let E(k) be the kth element in the sorted n column; for example, E(4) = 8 and
 E(6) = 9.
 
 If rad(n) is sorted for 1 ≤ n ≤ MAX_N, find E(INDEX).
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.divisors as divs
 

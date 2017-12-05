@@ -2,10 +2,10 @@
 
 """test_arrays.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'arrays' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

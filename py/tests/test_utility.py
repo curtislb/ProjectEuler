@@ -2,10 +2,10 @@
 
 """test_utility.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'utility' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

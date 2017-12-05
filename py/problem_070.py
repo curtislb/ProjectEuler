@@ -17,9 +17,9 @@ of 79180.
 
 Find the value of n, 1 < n < MAX_N, for which φ(n) is a permutation of n and
 the ratio n/φ(n) produces a minimum.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

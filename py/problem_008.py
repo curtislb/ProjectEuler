@@ -30,9 +30,9 @@ product are 9 × 9 × 8 × 9 = 5832.
 
 Find the N adjacent digits in the number contained in the file INPUT_FILE that
 have the greatest product. What is the value of this product?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 
 # PARAMETERS ##################################################################

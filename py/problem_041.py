@@ -9,9 +9,9 @@ digits 1 to n exactly once. For example, 2143 is a 4-digit pandigital and is
 also prime.
 
 What is the largest n-digit pandigital prime that exists?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.arrays as arrs
 import common.digits as digs

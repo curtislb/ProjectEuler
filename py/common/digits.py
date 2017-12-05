@@ -2,10 +2,10 @@
 
 """digits.py
 
-
-
-Author: Curtis Belmonte
+Functions for manipulating and operating on numerical digits.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import itertools
 from typing import *
@@ -19,7 +19,7 @@ def concat_digits(digit_list: Iterable[int], base: int = 10) -> int:
 def concat_numbers(n: int, m: int) -> int:
     """Returns the number that results from concatenating the natural numbers
     n and m, in that order."""
-    return int(str(n) + str(m))
+    return int('{0:d}{1:d}'.format(n, m))
 
 
 def count_digits(n: int) -> int:

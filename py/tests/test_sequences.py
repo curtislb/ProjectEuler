@@ -2,10 +2,10 @@
 
 """test_sequences.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'sequences' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

@@ -1,9 +1,9 @@
 """types.py
 
-
-
-Author: Curtis Belmonte
+Custom type definitions for function and variable type-checking.
 """
+
+__author__ = 'Curtis Belmonte'
 
 from abc import ABCMeta, abstractmethod
 from fractions import Fraction

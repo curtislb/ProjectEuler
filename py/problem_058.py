@@ -23,9 +23,9 @@ If one complete new layer is wrapped around the spiral above, a square spiral
 with side length 9 will be formed. If this process is continued, what is the
 side length of the square spiral for which the ratio of primes along both
 diagonals first falls below MIN_FRACTION?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.primes as prime
 

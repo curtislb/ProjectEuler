@@ -17,9 +17,9 @@ OO   O   O   O
 O   O   O   O   O
 
 Find the least value of n for which p(n) is divisible by DIVISOR.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.sequences as seqs
 

@@ -12,9 +12,9 @@ property.
 
 Find the lowest sum for a set of NUM_PRIMES primes for which any two primes
 concatenate to produce another prime.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

@@ -2,10 +2,10 @@
 
 """matrices.py
 
-
-
-Author: Curtis Belmonte
+Functions for operating on numerical vectors and matrices.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import copy
 from typing import *

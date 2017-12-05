@@ -16,9 +16,9 @@ down, and right, is indicated by parentheses; the sum is equal to 994.
 
 Find the minimal path sum in INPUT_FILE, a text file containing a square
 matrix, from the left column to the right column.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.fileio as fio
 from common.utility import Graph

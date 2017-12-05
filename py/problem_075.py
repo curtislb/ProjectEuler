@@ -24,9 +24,9 @@ three different integer sided right angle triangles.
 
 Given that L is the length of the wire, for how many values of L ≤ MAX_LENGTH
 can exactly one integer sided right angle triangle be formed?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import collections
 import math

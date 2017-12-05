@@ -12,9 +12,9 @@ distinct, prime factors: 4, 6, 9, 10, 14, 15, 21, 22, 25, 26.
 
 How many composite integers, n < LIMIT, have precisely two, not necessarily
 distinct, prime factors?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.primes as prime
 

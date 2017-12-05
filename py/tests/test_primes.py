@@ -2,10 +2,10 @@
 
 """test_primes.py
 
-
-
-Author: Curtis Belmonte
+Unit test for the 'primes' common module.
 """
+
+__author__ = 'Curtis Belmonte'
 
 import unittest
 

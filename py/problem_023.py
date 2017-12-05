@@ -21,9 +21,9 @@ this limit.
 
 Find the sum of all the positive integers below LIMIT which cannot be written
 as the sum of two abundant numbers.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

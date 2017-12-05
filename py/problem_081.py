@@ -16,9 +16,9 @@ and is equal to 2427.
 
 Find the minimal path sum in INPUT_FILE, a text file containing a square
 matrix, from the left column to the right column.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

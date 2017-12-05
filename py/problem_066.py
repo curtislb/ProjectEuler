@@ -27,9 +27,9 @@ obtained when D=5.
 
 Find the value of D ≤ MAX_D in minimal solutions of x for which the largest
 value of x is obtained.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import *
 

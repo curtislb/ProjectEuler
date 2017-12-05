@@ -9,9 +9,9 @@ to 10 without any remainder.
 
 What is the smallest positive number that is evenly divisible by all of the
 numbers from 1 to MAX?
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import common.divisors as divs
 

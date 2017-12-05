@@ -20,9 +20,9 @@ that all starting numbers finish at 1.
 Which starting number, under LIMIT, produces the longest chain?
 
 NOTE: Once the chain starts the terms are allowed to go above LIMIT.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 from typing import Dict
 

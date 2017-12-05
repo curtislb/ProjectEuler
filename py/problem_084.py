@@ -74,9 +74,9 @@ string: 102400.
 
 If, instead of using two 6-sided dice, NUM_DICE NUM_SIDES-sided dice are used,
 find the six-digit modal string.
-
-Author: Curtis Belmonte
 """
+
+__author__ = 'Curtis Belmonte'
 
 import collections
 from fractions import Fraction
