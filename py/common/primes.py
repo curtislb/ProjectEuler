@@ -8,7 +8,7 @@ Functions for finding and identifying prime numbers.
 __author__ = 'Curtis Belmonte'
 
 import math
-from typing import *
+from typing import Optional, Sequence
 
 import common.arrays as arrs
 import common.sequences as seqs

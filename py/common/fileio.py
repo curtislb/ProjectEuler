@@ -7,7 +7,7 @@ Functions for reading values from and writing to system files.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Iterator, List
 
 
 def ints_from_file(input_file: str, sep: str = ' ') -> Iterator[List[int]]:

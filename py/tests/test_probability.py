@@ -14,7 +14,7 @@ import common.probability as prob
 
 
 class MyTestCase(unittest.TestCase):
-    def test_dice_probability(self):
+    def test_dice_probability(self) -> None:
         self.assertEqual(prob.dice_probability(1, 1, 1), 1)
         self.assertEqual(prob.dice_probability(0, 1, 1), 0)
         self.assertEqual(prob.dice_probability(2, 1, 1), 0)

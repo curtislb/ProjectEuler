@@ -7,7 +7,7 @@ Functions relating to combinatoric or counting applications.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Sequence
 
 import common.sequences as seqs
 

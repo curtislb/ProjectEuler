@@ -7,7 +7,7 @@ __author__ = 'Curtis Belmonte'
 
 from abc import ABCMeta, abstractmethod
 from fractions import Fraction
-from typing import *
+from typing import Any, List, Optional, Sequence, Tuple, TypeVar, Union
 
 
 # Generic type variables

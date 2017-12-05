@@ -13,12 +13,12 @@ import common.alphabet as alpha
 
 
 class TestWords(unittest.TestCase):
-    def test_alpha_char_lower(self):
+    def test_alpha_char_lower(self) -> None:
         self.assertEqual(alpha.alpha_char_lower(1), 'a')
         self.assertEqual(alpha.alpha_char_lower(9), 'i')
         self.assertEqual(alpha.alpha_char_lower(26), 'z')
 
-    def test_alpha_index_upper(self):
+    def test_alpha_index_upper(self) -> None:
         self.assertEqual(alpha.alpha_index_upper('A'), 1)
         self.assertEqual(alpha.alpha_index_upper('Q'), 17)
         self.assertEqual(alpha.alpha_index_upper('Z'), 26)

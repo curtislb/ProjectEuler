@@ -8,7 +8,7 @@ Functions for performing common arithmetic operations.
 __author__ = 'Curtis Belmonte'
 
 import math
-from typing import *
+from typing import Optional, Tuple, Union
 
 
 def int_log(x: float, base: float = math.e) -> int:

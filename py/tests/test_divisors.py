@@ -11,14 +11,14 @@ import common.divisors as divs
 
 
 class TestDivisors(unittest.TestCase):
-    def test_count_divisors(self):
+    def test_count_divisors(self) -> None:
         div_cts = [1, 2, 2, 3, 2, 4, 2, 4, 3, 4, 2, 6, 2, 4, 4, 5, 2, 6, 2, 6]
         for i, n in enumerate(div_cts):
             self.assertEqual(divs.count_divisors(i + 1), n)
         self.assertEqual(divs.count_divisors(4200), 48)
         self.assertEqual(divs.count_divisors(15485863), 2)
 
-    def test_count_divisors_up_to(self):
+    def test_count_divisors_up_to(self) -> None:
         self.assertEqual(divs.count_divisors_up_to(0), [0])
         self.assertEqual(divs.count_divisors_up_to(1), [0, 1])
         self.assertEqual(divs.count_divisors_up_to(2), [0, 1, 2])
@@ -29,7 +29,7 @@ class TestDivisors(unittest.TestCase):
             [0, 1, 2, 2, 3, 2, 4, 2, 4, 3, 4, 2, 6, 2, 4, 4, 5, 2, 6, 2, 6, 4,
              4, 2, 8, 3, 4, 4, 6, 2, 8, 2, 6, 4, 4, 4, 9, 2, 4, 4, 8, 2, 8, 2])
 
-    def test_gcd(self):
+    def test_gcd(self) -> None:
         self.assertEqual(divs.gcd(2, 1), 1)
         self.assertEqual(divs.gcd(2, 3), 1)
         self.assertEqual(divs.gcd(2, 2), 2)
@@ -40,7 +40,7 @@ class TestDivisors(unittest.TestCase):
         self.assertEqual(divs.gcd(30, 105), 15)
         self.assertEqual(divs.gcd(452713601, 662853843), 3581)
 
-    def test_is_coprime_pair(self):
+    def test_is_coprime_pair(self) -> None:
         self.assertTrue(divs.is_coprime_pair(2, 1))
         self.assertTrue(divs.is_coprime_pair(3, 1))
         self.assertFalse(divs.is_coprime_pair(2, 2))
@@ -54,7 +54,7 @@ class TestDivisors(unittest.TestCase):
         self.assertTrue(divs.is_coprime_pair(94753, 22416))
         self.assertFalse(divs.is_coprime_pair(94755, 22416))
 
-    def test_lcm(self):
+    def test_lcm(self) -> None:
         self.assertEqual(divs.lcm(1, 1), 1)
         self.assertEqual(divs.lcm(1, 2), 2)
         self.assertEqual(divs.lcm(2, 1), 2)
@@ -68,7 +68,7 @@ class TestDivisors(unittest.TestCase):
         self.assertEqual(divs.lcm(15, 35), 105)
         self.assertEqual(divs.lcm(55250154, 21071889), 20608307442)
 
-    def test_lcm_all(self):
+    def test_lcm_all(self) -> None:
         self.assertEqual(divs.lcm_all([1]), 1)
         self.assertEqual(divs.lcm_all((1, 1)), 1)
         self.assertEqual(divs.lcm_all([1, 1, 1]), 1)
@@ -85,14 +85,14 @@ class TestDivisors(unittest.TestCase):
             divs.lcm_all([540330, 424130, 465962, 357896]),
             4871660667720)
         
-    def test_radical(self):
+    def test_radical(self) -> None:
         rads = [1, 2, 3, 2, 5, 6, 7, 2, 3, 10, 11, 6, 13, 14, 15, 2, 17, 6, 19]
         for i, n in enumerate(rads):
             self.assertEqual(divs.radical(i + 1), n)
         self.assertEqual(divs.radical(1391500), 2530)
         self.assertEqual(divs.radical(21902926704), 73996374)
         
-    def test_sum_divisors(self):
+    def test_sum_divisors(self) -> None:
         div_sums = [1, 3, 4, 7, 6, 12, 8, 15, 13, 18, 12, 28, 14, 24, 24, 31]
         for i, n in enumerate(div_sums):
             self.assertEqual(divs.sum_divisors(i + 1), n)
@@ -100,7 +100,7 @@ class TestDivisors(unittest.TestCase):
         self.assertEqual(divs.sum_divisors(81468), 215488)
         self.assertEqual(divs.sum_divisors(1485436710), 3774758112)
         
-    def test_sum_proper_divisors(self):
+    def test_sum_proper_divisors(self) -> None:
         div_sums = [0, 1, 1, 3, 1, 6, 1, 7, 4, 8, 1, 16, 1, 10, 9, 15, 1, 21]
         for i, n in enumerate(div_sums):
             self.assertEqual(divs.sum_proper_divisors(i + 1), n)
@@ -108,7 +108,7 @@ class TestDivisors(unittest.TestCase):
         self.assertEqual(divs.sum_proper_divisors(36582), 54810)
         self.assertEqual(divs.sum_proper_divisors(9145116791), 203174473)
         
-    def test_totient(self):
+    def test_totient(self) -> None:
         tots = [1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4, 12, 6, 8, 8, 16, 6, 18, 8]
         for i, n in enumerate(tots):
             self.assertEqual(divs.totient(i + 2), n)
@@ -131,7 +131,7 @@ class TestDivisors(unittest.TestCase):
             14790124800)
         self.assertEqual(divs.totient(19614162799), 14790124800)
 
-    def test_totients_up_to(self):
+    def test_totients_up_to(self) -> None:
         self.assertEqual(divs.totients_up_to(2), [1])
         self.assertEqual(divs.totients_up_to(3), [1, 2])
         self.assertEqual(divs.totients_up_to(4), [1, 2, 2])

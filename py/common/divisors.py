@@ -9,7 +9,7 @@ __author__ = 'Curtis Belmonte'
 
 import functools
 import operator
-from typing import *
+from typing import Dict, Iterable, List, Optional, Sequence
 
 import common.primes as prime
 

@@ -9,7 +9,7 @@ __author__ = 'Curtis Belmonte'
 
 import random
 from fractions import Fraction
-from typing import *
+from typing import Sequence
 
 import common.combinatorics as comb
 from common.types import Real, T

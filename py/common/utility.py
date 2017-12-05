@@ -10,7 +10,18 @@ __author__ = 'Curtis Belmonte'
 import heapq
 import itertools
 from collections import deque
-from typing import *
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Iterable,
+    List,
+    Mapping,
+    Sequence,
+    Set,
+    Tuple,
+    Type,
+)
 
 from common.types import Comparable, IntMatrix
 
@@ -173,7 +184,7 @@ class Graph(object):
         visited = {source} # type: Set[object]
 
         # queue of nodes to be visited in order
-        frontier = deque() # type: Deque[object]
+        frontier = deque() # type: deque
         frontier.append(source)
 
         # visit each node in FIFO order, adding its neighbors

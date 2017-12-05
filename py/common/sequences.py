@@ -8,9 +8,9 @@ Functions for producing and operating on numerical sequences.
 __author__ = 'Curtis Belmonte'
 
 import functools
-import operator
 import math
-from typing import *
+import operator
+from typing import Callable, Dict, Iterable, Optional, Set
 
 import common.arithmetic as arith
 

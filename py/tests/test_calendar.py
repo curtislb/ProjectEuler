@@ -13,7 +13,7 @@ import common.calendar as cal
 
 
 class TestCalendar(unittest.TestCase):
-    def test_is_leap_year(self):
+    def test_is_leap_year(self) -> None:
         self.assertFalse(cal.is_leap_year(1))
         self.assertTrue(cal.is_leap_year(4))
         self.assertTrue(cal.is_leap_year(40))

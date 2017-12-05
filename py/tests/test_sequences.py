@@ -8,12 +8,13 @@ Unit test for the 'sequences' common module.
 __author__ = 'Curtis Belmonte'
 
 import unittest
+from typing import Dict
 
 import common.sequences as seqs
 
 
 class TestSequences(unittest.TestCase):
-    def test_arithmetic_product(self):
+    def test_arithmetic_product(self) -> None:
         self.assertEqual(seqs.arithmetic_product(3, 1), 3)
         self.assertEqual(seqs.arithmetic_product(3, 1, 1), 3)
         self.assertEqual(seqs.arithmetic_product(3, 1, 2), 3)
@@ -22,7 +23,7 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(seqs.arithmetic_product(13, 6, -3), -7280)
         self.assertEqual(seqs.arithmetic_product(-2, 6, 3), -7280)
 
-    def test_arithmetic_series(self):
+    def test_arithmetic_series(self) -> None:
         self.assertEqual(seqs.arithmetic_series(4, 1), 4)
         self.assertEqual(seqs.arithmetic_series(4, 1, 1), 4)
         self.assertEqual(seqs.arithmetic_series(4, 1, 2), 4)
@@ -31,7 +32,7 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(seqs.arithmetic_series(7, 8, -3), -28)
         self.assertEqual(seqs.arithmetic_series(-14, 8, 3), -28)
 
-    def test_collatz_step(self):
+    def test_collatz_step(self) -> None:
         self.assertEqual(seqs.collatz_step(1), 4)
         self.assertEqual(seqs.collatz_step(2), 1)
         self.assertEqual(seqs.collatz_step(4), 2)
@@ -42,8 +43,8 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(seqs.collatz_step(1337), 4012)
         self.assertEqual(seqs.collatz_step(2048), 1024)
 
-    def test_compute_chain_lengths(self):
-        lengths = {}
+    def test_compute_chain_lengths(self) -> None:
+        lengths = {} # type: Dict[int, int]
         values = [0] + list(range(3, 9))
 
         def step(x: int) -> int:
@@ -67,7 +68,7 @@ class TestSequences(unittest.TestCase):
         self.assertFalse(7 in lengths)
         self.assertFalse(8 in lengths)
 
-    def test_fibonacci(self):
+    def test_fibonacci(self) -> None:
         self.assertEqual(seqs.fibonacci(0), 1)
         self.assertEqual(seqs.fibonacci(1), 1)
         self.assertEqual(seqs.fibonacci(2), 2)
@@ -79,14 +80,14 @@ class TestSequences(unittest.TestCase):
             seqs.fibonacci(273),
             818706854228831001753880637535093596811413714795418360007)
 
-    def test_hexagonal(self):
+    def test_hexagonal(self) -> None:
         hex_nums = [0, 1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325]
         for i, n in enumerate(hex_nums):
             self.assertEqual(seqs.hexagonal(i), n)
         self.assertEqual(seqs.hexagonal(42), 3486)
         self.assertEqual(seqs.hexagonal(6438), 82889250)
 
-    def test_is_hexagonal(self):
+    def test_is_hexagonal(self) -> None:
         hex_nums = {1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325}
         for n in range(1, 350):
             self.assertEqual(seqs.is_hexagonal(n), n in hex_nums)
@@ -94,7 +95,7 @@ class TestSequences(unittest.TestCase):
         self.assertTrue(seqs.is_hexagonal(971530876953))
         self.assertFalse(seqs.is_hexagonal(971530876954))
 
-    def test_is_pentagonal(self):
+    def test_is_pentagonal(self) -> None:
         pent_nums = {1, 5, 12, 22, 35, 51, 70, 92, 117, 145, 176, 210, 247}
         for n in range(1, 250):
             self.assertEqual(seqs.is_pentagonal(n), n in pent_nums)
@@ -102,7 +103,7 @@ class TestSequences(unittest.TestCase):
         self.assertTrue(seqs.is_pentagonal(728648331957))
         self.assertFalse(seqs.is_pentagonal(728648331958))
 
-    def test_is_power(self):
+    def test_is_power(self) -> None:
         self.assertTrue(seqs.is_power(1, 305))
         self.assertTrue(seqs.is_power(2, 1))
         self.assertTrue(seqs.is_power(3, 1))
@@ -140,7 +141,7 @@ class TestSequences(unittest.TestCase):
         self.assertFalse(seqs.is_power(96889010408, 13))
         self.assertFalse(seqs.is_power(96889010407, 7))
 
-    def test_is_square(self):
+    def test_is_square(self) -> None:
         squares = set([n**2 for n in range(1, 32)])
         for n in range(1, 1000):
             self.assertEqual(seqs.is_power(n, 2), n in squares)
@@ -150,7 +151,7 @@ class TestSequences(unittest.TestCase):
         self.assertFalse(seqs.is_square(1769800762))
         self.assertFalse(seqs.is_square(1769800763))
 
-    def test_is_triangular(self):
+    def test_is_triangular(self) -> None:
         tri_nums = {1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120}
         for n in range(1, 125):
             self.assertEqual(seqs.is_triangular(n), n in tri_nums)
@@ -160,7 +161,7 @@ class TestSequences(unittest.TestCase):
         self.assertFalse(seqs.is_triangular(884921416))
         self.assertFalse(seqs.is_triangular(884921417))
 
-    def test_next_multiple(self):
+    def test_next_multiple(self) -> None:
         self.assertEqual(seqs.next_multiple(1, 0), 0)
         self.assertEqual(seqs.next_multiple(1, 1), 1)
         self.assertEqual(seqs.next_multiple(1, 2), 2)
@@ -175,14 +176,14 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(seqs.next_multiple(6376, 913259), 918144)
         self.assertEqual(seqs.next_multiple(9448487, 589545477), 595254681)
 
-    def test_pentagonal(self):
+    def test_pentagonal(self) -> None:
         pent_nums = [0, 1, 5, 12, 22, 35, 51, 70, 92, 117, 145, 176, 210, 247]
         for i, n in enumerate(pent_nums):
             self.assertEqual(seqs.pentagonal(i), n)
         self.assertEqual(seqs.pentagonal(53), 4187)
         self.assertEqual(seqs.pentagonal(8952), 120202980)
 
-    def test_sum_of_squares(self):
+    def test_sum_of_squares(self) -> None:
         self.assertEqual(seqs.sum_of_squares(1), 1)
         self.assertEqual(seqs.sum_of_squares(2), 5)
         self.assertEqual(seqs.sum_of_squares(3), 14)
@@ -193,7 +194,7 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(seqs.sum_of_squares(401), 21574201)
         self.assertEqual(seqs.sum_of_squares(34594), 13800661997045)
 
-    def test_triangular(self):
+    def test_triangular(self) -> None:
         tri_nums = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120]
         for i, n in enumerate(tri_nums):
             self.assertEqual(seqs.triangular(i + 1), n)

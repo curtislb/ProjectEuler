@@ -8,7 +8,7 @@ Functions for operating on numerical vectors and matrices.
 __author__ = 'Curtis Belmonte'
 
 import copy
-from typing import *
+from typing import Iterable, List, Optional, Sequence, Tuple
 
 from common.types import Coord, IntMatrix, T, TMatrix
 

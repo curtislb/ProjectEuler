@@ -13,7 +13,7 @@ import common.expansion as expan
 
 
 class TestExpansion(unittest.TestCase):
-    def test_sqrt_decimal_expansion(self):
+    def test_sqrt_decimal_expansion(self) -> None:
         self.assertEqual(expan.sqrt_decimal_expansion(1, 0), '1.')
         self.assertEqual(expan.sqrt_decimal_expansion(1, 1), '1.0')
         self.assertEqual(expan.sqrt_decimal_expansion(1, 12), '1.000000000000')
@@ -28,7 +28,7 @@ class TestExpansion(unittest.TestCase):
             expan.sqrt_decimal_expansion(9734956, 53),
             '3120.08910129182048011564795491798243946307377557996188108')
 
-    def test_sqrt_fraction_expansion(self):
+    def test_sqrt_fraction_expansion(self) -> None:
         self.assertEqual(expan.sqrt_fraction_expansion(2), (1, [2]))
         self.assertEqual(expan.sqrt_fraction_expansion(3), (1, [1, 2]))
         self.assertEqual(expan.sqrt_fraction_expansion(5), (2, [4]))

@@ -8,7 +8,7 @@ Functions for operating on lists and related sequences.
 __author__ = 'Curtis Belmonte'
 
 from collections import defaultdict, deque
-from typing import *
+from typing import Dict, Iterable, List, Mapping, Optional, Sequence
 
 from common.types import Comparable, T
 
@@ -73,7 +73,7 @@ def cumulative_partial_sum(
     the sum of only the previous limit elements."""
 
     sums = [] # type: List[float]
-    terms = deque() # type: Deque[float]
+    terms = deque() # type: deque
     total = 0 # type: float
     for i, num in enumerate(nums):
         total += num

@@ -13,7 +13,7 @@ import common.combinatorics as comb
 
 
 class TestCombinatorics(unittest.TestCase):
-    def test_choose(self):
+    def test_choose(self) -> None:
         self.assertEqual(comb.choose(0, 0), 1)
         self.assertEqual(comb.choose(1, 0), 1)
         self.assertEqual(comb.choose(1, 1), 1)
@@ -35,7 +35,7 @@ class TestCombinatorics(unittest.TestCase):
             comb.choose(309, 254),
             41885714195904323564014555767112516232542200976007970465503616)
     
-    def test_combination_sums(self):
+    def test_combination_sums(self) -> None:
         with self.assertRaises(ValueError):
             comb.combination_sums(1, [1, 0, 2])
         with self.assertRaises(ValueError):
@@ -61,7 +61,7 @@ class TestCombinatorics(unittest.TestCase):
             comb.combination_sums(500, [1, 5, 10, 25, 50, 100, 200, 500]),
             111023)
         
-    def test_factorial(self):
+    def test_factorial(self) -> None:
         self.assertEqual(comb.factorial(0), 1)
         self.assertEqual(comb.factorial(1), 1)
         self.assertEqual(comb.factorial(2), 2)
@@ -72,7 +72,7 @@ class TestCombinatorics(unittest.TestCase):
             comb.factorial(45),
             119622220865480194561963161495657715064383733760000000000)
         
-    def test_permute(self):
+    def test_permute(self) -> None:
         self.assertEqual(comb.permute(0, 0), 1)
         self.assertEqual(comb.permute(0, 1), 0)
         self.assertEqual(comb.permute(1, 0), 1)

@@ -16,7 +16,7 @@ class TestGraph(unittest.TestCase):
     def setUp(self):
         self.graph = Graph()
 
-    def test_nodes(self):
+    def test_nodes(self) -> None:
         self.assertEqual(self.graph.num_nodes(), 0)
         self.assertCountEqual(self.graph.nodes(), [])
         self.assertFalse(self.graph.has_node('node_1'))
@@ -40,7 +40,7 @@ class TestGraph(unittest.TestCase):
         self.assertTrue(self.graph.has_node('node_1'))
         self.assertTrue(self.graph.has_node('node_2'))
 
-    def test_edges(self):
+    def test_edges(self) -> None:
         self.graph.add_node(0)
         self.graph.add_node(1)
         self.assertEqual(self.graph.num_edges(), 0)
@@ -78,7 +78,7 @@ class TestGraph(unittest.TestCase):
         self.assertFalse(self.graph.has_edge(0, 0))
         self.assertTrue(self.graph.has_edge(1, 1))
 
-    def test_neighbors(self):
+    def test_neighbors(self) -> None:
         for i in range(6):
             self.graph.add_node(i)
         self.graph.add_edge(0, 0)
@@ -99,7 +99,7 @@ class TestGraph(unittest.TestCase):
         self.assertCountEqual(self.graph.neighbors(4), [5])
         self.assertCountEqual(self.graph.neighbors(5), [3, 4])
 
-    def test_reverse(self):
+    def test_reverse(self) -> None:
         for i in range(4):
             self.graph.add_node(i)
         self.graph.add_edge(0, 0)
@@ -129,7 +129,7 @@ class TestGraph(unittest.TestCase):
         self.assertTrue(self.graph.has_edge(3, 0))
         self.assertTrue(self.graph.has_edge(3, 1))
 
-    def test_postorder(self):
+    def test_postorder(self) -> None:
         for i in range(5):
             self.graph.add_node(i)
         self.graph.add_edge(0, 1)
@@ -182,7 +182,7 @@ class TestGraph(unittest.TestCase):
         seen.add(node)
         self._verify_reverse_path(prev, source, prev[node], dist, seen)
 
-    def test_bfs(self):
+    def test_bfs(self) -> None:
         for i in range(8):
             self.graph.add_node(i)
         self.graph.add_edge(0, 1)
@@ -215,7 +215,7 @@ class TestGraph(unittest.TestCase):
         for node in prev:
             self._verify_reverse_path(prev, 5, node)
 
-    def test_dijkstra(self):
+    def test_dijkstra(self) -> None:
         labels = ['P', 'Q', 'R', 'S', 'T', 'U']
         for label in labels:
             self.graph.add_node(label)
@@ -249,11 +249,11 @@ class TestMinPQ(unittest.TestCase):
     def setUp(self):
         self.min_pq = MinPQ()
 
-    def test_empty(self):
+    def test_empty(self) -> None:
         self.assertEqual(len(self.min_pq), 0)
         self.assertTrue(self.min_pq.is_empty())
 
-    def test_put(self):
+    def test_put(self) -> None:
         self.min_pq.put('val_1')
         self.assertEqual(len(self.min_pq), 1)
         self.assertFalse(self.min_pq.is_empty())
@@ -270,7 +270,7 @@ class TestMinPQ(unittest.TestCase):
         self.assertEqual(len(self.min_pq), 2)
         self.assertFalse(self.min_pq.is_empty())
 
-    def test_delete(self):
+    def test_delete(self) -> None:
         for i in range(1, 4):
             self.min_pq.put(i)
         self.assertEqual(len(self.min_pq), 3)
@@ -291,7 +291,7 @@ class TestMinPQ(unittest.TestCase):
         self.assertEqual(len(self.min_pq), 0)
         self.assertTrue(self.min_pq.is_empty())
 
-    def test_pop_min(self):
+    def test_pop_min(self) -> None:
         with self.assertRaises(KeyError):
             self.min_pq.pop_min()
 

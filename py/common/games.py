@@ -10,7 +10,7 @@ __author__ = 'Curtis Belmonte'
 from collections import defaultdict
 from enum import Enum
 from functools import total_ordering
-from typing import *
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 import common.arrays as arrs
 import common.probability as prob

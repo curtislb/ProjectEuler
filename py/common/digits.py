@@ -8,10 +8,10 @@ Functions for manipulating and operating on numerical digits.
 __author__ = 'Curtis Belmonte'
 
 import itertools
-from typing import *
+from typing import Callable, Iterable, Optional, Sequence, Set, Union
 
 
-def concat_digits(digit_list: Iterable[int], base: int = 10) -> int:
+def concat_digits(digit_list: Iterable[Union[int, str]], base: int = 10) -> int:
     """Returns the integer that results from concatenating digits in order."""
     return int(''.join(map(str, digit_list)), base)
 

@@ -8,7 +8,7 @@ Functions for producing expanded representations of real numbers.
 __author__ = 'Curtis Belmonte'
 
 import math
-from typing import *
+from typing import Sequence, Tuple
 
 import common.divisors as divs
 

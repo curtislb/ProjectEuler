@@ -13,7 +13,7 @@ import common.primes as prime
 
 
 class TestPrimes(unittest.TestCase):
-    def test_count_prime_factors(self):
+    def test_count_prime_factors(self) -> None:
         self.assertEqual(prime.count_prime_factors(1), 0)
         self.assertEqual(prime.count_prime_factors(1, []), 0)
         self.assertEqual(prime.count_prime_factors(2), 1)
@@ -34,7 +34,7 @@ class TestPrimes(unittest.TestCase):
         self.assertEqual(prime.count_prime_factors(1327), 1)
         self.assertEqual(prime.count_prime_factors(4200), 4)
         
-    def test_is_prime(self):
+    def test_is_prime(self) -> None:
         primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53}
         for n in range(2, 59):
             self.assertEqual(prime.is_prime(n), n in primes)
@@ -49,7 +49,7 @@ class TestPrimes(unittest.TestCase):
         self.assertTrue(prime.is_prime(2147483647))
         self.assertFalse(prime.is_prime(4294967295))
         
-    def test_prime_factorization(self):
+    def test_prime_factorization(self) -> None:
         self.assertEqual(prime.prime_factorization(2), [[2, 1]])
         self.assertEqual(prime.prime_factorization(3), [[3, 1]])
         self.assertEqual(prime.prime_factorization(4), [[2, 2]])
@@ -70,7 +70,7 @@ class TestPrimes(unittest.TestCase):
             prime.prime_factorization(74435892358158),
             [[2, 1], [3, 3], [29, 1], [3049, 2], [5113, 1]])
         
-    def test_prime(self):
+    def test_prime(self) -> None:
         p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53]
         for i, n in enumerate(p_nums):
             self.assertEqual(prime.prime(i + 1), n)
@@ -78,14 +78,14 @@ class TestPrimes(unittest.TestCase):
         self.assertEqual(prime.prime(225), 1427)
         self.assertEqual(prime.prime(538), 3881)
 
-    def test_primes(self):
+    def test_primes(self) -> None:
         p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
                   59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113]
         for i in range(1, len(p_nums) + 1):
             self.assertCountEqual(prime.primes(i), p_nums[:i])
         self.assertEqual(prime.primes(168)[-1], 997)
 
-    def test_primes_up_to(self):
+    def test_primes_up_to(self) -> None:
         p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
                   59, 61, 67, 71, 73, 79, 83, 89, 97]
         for n in range(2, 100):
