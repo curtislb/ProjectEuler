@@ -13,9 +13,13 @@ import operator
 import sys
 import time
 import traceback
-from typing import Any, Mapping
+from typing import Any, List, Mapping, Tuple
 
+# The file from which problem answers will be read
 ANSWER_FILE = '../input/answers.txt'
+
+# Threshold values used to organize slow solutions
+SLOW_GROUP_SECS = [1, 10, 60]
 
 
 def answers_from_file(answer_file: str) -> Mapping[str, int]:
@@ -37,17 +41,16 @@ def main(args: Any) -> None:
     if len(args.problem_nums) == 0:
         problem_nums = sorted(answers.keys())
     elif args.skip:
-        problem_nums = set(answers.keys())
+        prob_num_set = set(answers.keys())
         for num in args.problem_nums:
-            problem_nums.remove('{0:03d}'.format(num))
-        problem_nums = sorted(list(problem_nums))
+            prob_num_set.remove('{0:03d}'.format(num))
+        problem_nums = sorted(list(prob_num_set))
     else:
         problem_nums = ['{0:03d}'.format(num) for num in args.problem_nums]
     
     # initialize lists of slow solutions if enabled
     if args.list_slow:
-        slow_lists = [[], [], []]
-        slow_cutoff_secs = [1, 10, 60]
+        slow_lists = [[], [], []] # type: List[List[Tuple[str, float]]]
 
     pass_count = 0    
     for problem_num in problem_nums:
@@ -71,7 +74,7 @@ def main(args: Any) -> None:
         # run and time the problem solution
         try:
             start = time.time()
-            answer = modu.solve()
+            answer = modu.solve() # type: ignore
             total_time = time.time() - start
         except Exception as e:
             print('FAILED')
@@ -89,7 +92,7 @@ def main(args: Any) -> None:
             # add solution to slow list if necessary
             if args.list_slow:
                 for i in range(-1, -len(slow_lists) - 1, -1):
-                    if total_time > slow_cutoff_secs[i]:
+                    if total_time > SLOW_GROUP_SECS[i]:
                         slow_lists[i].append((problem_num, total_time))
                         break
         else:
@@ -109,9 +112,9 @@ def main(args: Any) -> None:
     # print lists of slow solutions if enabled
     if args.list_slow:
         slow_list_names = [
-            'Slow-ish solutions (>{0} s)'.format(slow_cutoff_secs[0]),
-            'Slow solutions (>{0} s)'.format(slow_cutoff_secs[1]),
-            'Too slow solutions (>{0} s)'.format(slow_cutoff_secs[2]),
+            'Slow-ish solutions (>{0} s)'.format(SLOW_GROUP_SECS[0]),
+            'Slow solutions (>{0} s)'.format(SLOW_GROUP_SECS[1]),
+            'Too slow solutions (>{0} s)'.format(SLOW_GROUP_SECS[2]),
         ]
         for i, slow_list in enumerate(slow_lists):
             if slow_list:
