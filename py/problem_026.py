@@ -26,7 +26,7 @@ in its decimal fraction part.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Dict
 
 
 # PARAMETERS ##################################################################

@@ -20,7 +20,7 @@ include it once in your sum.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import List, Set, Tuple
 
 import common.arrays as arrs
 import common.digits as digs

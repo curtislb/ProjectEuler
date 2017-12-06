@@ -25,7 +25,7 @@ as the sum of two abundant numbers.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Set
 
 import common.divisors as divs
 

@@ -25,7 +25,7 @@ exceeding MAX_ELEMENT.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Dict
 
 import common.divisors as divs
 import common.sequences as seqs

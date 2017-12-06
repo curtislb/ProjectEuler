@@ -17,7 +17,7 @@ sequence?
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import List, Optional
 
 import common.arrays as arrs
 import common.primes as prime

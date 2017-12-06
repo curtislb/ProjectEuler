@@ -19,7 +19,7 @@ adjacent digits) with the same digit, is part of an 8 prime value family.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Sequence, Set
 
 import common.digits as digs
 import common.primes as prime

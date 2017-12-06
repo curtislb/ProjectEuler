@@ -13,7 +13,7 @@ rectangles, find the area of the grid with the nearest solution.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Optional
 
 import common.arithmetic as arith
 

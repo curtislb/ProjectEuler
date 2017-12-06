@@ -17,7 +17,8 @@ determine the number of blue discs that the box would contain.
 """
 
 __author__ = 'Curtis Belmonte'
-from typing import *
+
+from typing import Optional
 
 import common.arithmetic as arith
 from common.utility import memoized

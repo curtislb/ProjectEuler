@@ -23,7 +23,7 @@ contains the point QUERY_POINT.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Sequence
 
 import common.matrices as mat
 

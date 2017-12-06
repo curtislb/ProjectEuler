@@ -60,7 +60,7 @@ How many hands does Player 1 win?
 __author__ = 'Curtis Belmonte'
 
 from enum import Enum
-from typing import *
+from typing import Dict, Mapping, Optional, Sequence
 
 from common.games import Card
 
@@ -144,6 +144,7 @@ class Rank(object):
                 break
             elif counts[face] == 3:
                 if two_of is not None:
+                    # noinspection PyTypeChecker
                     self._update(
                         Rank.Type.FULL_HOUSE,
                         face.value * 16 + two_of.value)
@@ -152,11 +153,13 @@ class Rank(object):
                     three_of = face
             elif counts[face] == 2:
                 if three_of is not None:
+                    # noinspection PyTypeChecker
                     self._update(
                         Rank.Type.FULL_HOUSE,
                         three_of.value * 16 + face.value)
                     break
                 elif two_of is not None:
+                    # noinspection PyTypeChecker
                     self._update(
                         Rank.Type.TWO_PAIRS,
                         max(face.value, two_of.value) * 16

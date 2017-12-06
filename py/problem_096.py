@@ -44,7 +44,7 @@ in the top left corner of the solution grid above.
 __author__ = 'Curtis Belmonte'
 
 import copy
-from typing import *
+from typing import Optional, Set
 
 from common.types import IntMatrix
 

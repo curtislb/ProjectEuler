@@ -22,7 +22,7 @@ MIN_A ≤ a ≤ MAX_A and MIN_B ≤ b ≤ MAX_B?
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Set
 
 
 # PARAMETERS ##################################################################

@@ -32,7 +32,7 @@ decrypt the message and find the sum of the ASCII values in the original text.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import List, Optional
 
 import common.alphabet as alpha
 import common.fileio as fio

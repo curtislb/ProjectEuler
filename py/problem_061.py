@@ -33,7 +33,7 @@ octagonal, is represented by a different number in the set.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import List, Optional, Sequence, Set
 
 import common.sequences as seqs
 
@@ -83,7 +83,7 @@ def find_cycle(p_strs: List[List[str]], found: List[str], k_used: Set[int])\
     return None
 
 
-def solve() -> int:
+def solve() -> Optional[int]:
     p_strs = [[] for _ in range(6)] # type: List[List[str]]
 
     for k in range(3, 9):
@@ -98,7 +98,7 @@ def solve() -> int:
             pk_max = P[k](n)
 
     n = 0
-    ans_list = None
+    ans_list = None # type: Optional[Sequence[str]]
     while ans_list is None and n < len(p_strs[5]):
         p_strs_copy = []
         for pk_strs in p_strs:
@@ -106,7 +106,10 @@ def solve() -> int:
         ans_list = find_cycle(p_strs_copy[:5][:], [p_strs[5][n]], set())
         n += 1
 
-    return sum(map(int, ans_list))
+    if ans_list is not None:
+        return sum(map(int, ans_list))
+
+    return None
 
 
 if __name__ == '__main__':

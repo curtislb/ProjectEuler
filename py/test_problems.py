@@ -13,7 +13,7 @@ import operator
 import sys
 import time
 import traceback
-from typing import *
+from typing import Any, Mapping
 
 ANSWER_FILE = '../input/answers.txt'
 

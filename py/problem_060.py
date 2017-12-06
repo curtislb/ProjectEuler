@@ -16,7 +16,7 @@ concatenate to produce another prime.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Iterator, Optional, Sequence, Set
 
 import common.digits as digs
 import common.primes as prime

@@ -22,7 +22,7 @@ TARGET_FRAC.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Optional
 
 from fractions import Fraction
 

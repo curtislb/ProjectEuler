@@ -19,7 +19,7 @@ primes?
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import List, Optional
 
 import common.primes as prime
 

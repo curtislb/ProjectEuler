@@ -21,7 +21,7 @@ the ratio n/φ(n) produces a minimum.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Optional
 
 import common.arrays as arrs
 import common.primes as prime

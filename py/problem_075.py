@@ -28,9 +28,9 @@ can exactly one integer sided right angle triangle be formed?
 
 __author__ = 'Curtis Belmonte'
 
-import collections
 import math
-from typing import *
+from collections import Counter
+from typing import Dict
 
 import common.divisors as divs
 
@@ -52,7 +52,7 @@ def triple_length(m: int, n: int) -> int:
 
 def solve() -> int:
     # count lengths for all valid Pythagorean triples
-    length_counts = collections.Counter() # type: Counter[int]
+    length_counts = Counter() # type: Dict[int, int]
     max_m = int(math.sqrt(MAX_LENGTH / 2))
     for n in range(1, max_m):
         for m in range(n + 1, max_m + 1):

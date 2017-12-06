@@ -14,7 +14,7 @@ are cube.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Dict, List, Sequence
 
 import common.digits as digs
 

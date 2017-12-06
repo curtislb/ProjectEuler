@@ -19,7 +19,7 @@ of D?
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import List, Optional
 
 import common.sequences as seqs
 

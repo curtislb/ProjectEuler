@@ -15,7 +15,7 @@ How many circular primes are there below LIMIT?
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Set
 
 import common.digits as digs
 import common.primes as prime

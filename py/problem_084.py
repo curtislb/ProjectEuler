@@ -78,9 +78,9 @@ find the six-digit modal string.
 
 __author__ = 'Curtis Belmonte'
 
-import collections
+from collections import Counter
 from fractions import Fraction
-from typing import *
+from typing import List
 
 import common.probability as prob
 from common.games import GameBoard
@@ -153,7 +153,7 @@ def solve() -> int:
         roll_probs.append(prob.dice_probability(roll, NUM_DICE, NUM_SIDES))
     
     # simulate many moves, keeping track of most popular spaces
-    counts = collections.Counter() # type: Counter[int]
+    counts = Counter() # type: Counter
     position = 0
     for _ in range(2 * 10**5):
         roll = prob.choose_weighted_random(roll_values, roll_probs)

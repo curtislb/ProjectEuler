@@ -17,7 +17,7 @@ so as to determine the shortest possible secret passcode of unknown length.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Dict, List, Set, Tuple
 
 import common.digits as digs
 import common.fileio as fio

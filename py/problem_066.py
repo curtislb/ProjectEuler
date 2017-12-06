@@ -31,7 +31,7 @@ value of x is obtained.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import Sequence
 
 import common.expansion as expan
 import common.sequences as seqs

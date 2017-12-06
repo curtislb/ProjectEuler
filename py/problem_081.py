@@ -20,7 +20,7 @@ matrix, from the left column to the right column.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import *
+from typing import List, Optional
 
 import common.arithmetic as arith
 import common.fileio as fio
