@@ -3,6 +3,7 @@
 cpp/Debug/
 py/__pycache__/
 py/.mypy_cache/
+venv/
 
 # File patterns
 .cproject

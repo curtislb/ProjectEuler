@@ -43,7 +43,7 @@ D = 500 # default: 500
 
 @memoized
 def count_divisors(n: int) -> int:
-    """Memoized wrapper for the common.count_divisors function."""
+    """Memoized wrapper for the count_divisors function."""
     return divs.count_divisors(n)
 
 

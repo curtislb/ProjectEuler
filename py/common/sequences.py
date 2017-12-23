@@ -149,10 +149,7 @@ def is_power(n: int, p: int) -> bool:
 
 def is_square(n: int) -> bool:
     """Determines if the natural number n is a perfect square."""
-    sqrt_n = math.sqrt(n)
-    lo_power = (int(sqrt_n))**2
-    hi_power = (int(math.ceil(sqrt_n)))**2
-    return lo_power == n or hi_power == n
+    return (int(math.sqrt(n)))**2 == n
 
 
 def is_triangular(n: int) -> bool:
