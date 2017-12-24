@@ -9,6 +9,7 @@ __author__ = 'Curtis Belmonte'
 
 import unittest
 
+import common.utility as util
 from common.utility import Graph, MinPQ
 
 
@@ -332,6 +333,23 @@ class TestMinPQ(unittest.TestCase):
             self.min_pq.pop_min()
         self.assertEqual(len(self.min_pq), 0)
         self.assertTrue(self.min_pq.is_empty())
+
+
+class TestUtility(unittest.TestCase):
+    def test_bisect_index(self):
+        self.assertEqual(util.bisect_index(lambda i: i > 0), 1)
+        self.assertEqual(util.bisect_index(lambda i: i > 0, 0, 1), 1)
+        self.assertEqual(util.bisect_index(lambda i: i > 0, 0, 2), 1)
+        self.assertEqual(util.bisect_index(lambda i: i > 0, 0, 100), 1)
+        self.assertEqual(util.bisect_index(lambda i: i > 5), 6)
+        self.assertEqual(util.bisect_index(lambda i: i > 5, 2), 6)
+        self.assertEqual(util.bisect_index(lambda i: i > 5, 3, 7), 6)
+        self.assertEqual(
+            util.bisect_index(lambda i: i < 4 or i > 20, 6), 21)
+        self.assertEqual(
+            util.bisect_index(lambda i: i < 4 or i > 20, 4, 34), 21)
+        self.assertEqual(
+            util.bisect_index(lambda i: i >= 78557, 12345, 82000), 78557)
 
 
 if __name__ == '__main__':

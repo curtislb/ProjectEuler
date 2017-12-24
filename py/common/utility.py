@@ -2,7 +2,7 @@
 
 """utility.py
 
-Various common utility classes and decorators.
+Various common utility functions, classes and decorators.
 """
 
 __author__ = 'Curtis Belmonte'
@@ -17,6 +17,7 @@ from typing import (
     Iterable,
     List,
     Mapping,
+    Optional,
     Sequence,
     Set,
     Tuple,
@@ -295,6 +296,35 @@ class MinPQ(object):
         raise KeyError('cannot pop from an empty MinPQ')
 
 
+def bisect_index(
+        check: Callable[[int], bool],
+        known_f: int = 0,
+        known_t: Optional[int] = None) -> int:
+
+    """Given a function that bisects indices >= known_f into False and True
+    regions, finds the first index for which it flips from False to True."""
+
+    # if only a False index is known, search for a True index
+    if known_t is None:
+        step_size = 1
+        i = known_f + 1
+        while not check(i):
+            # search forward with increasingly large step size
+            step_size *= 2
+            i += step_size
+        known_t = i
+
+    # binary search over indices to find first True index
+    while known_f < known_t - 1:
+        mid = (known_f + known_t) // 2
+        if not check(mid):
+            known_f = mid
+        else:
+            known_t = mid
+
+    return known_t
+
+
 def memoized(func: Callable) -> Callable:
     """Decorator that caches the result of calling func with a particular set
     of arguments and returns this result for subsequent calls to function with
@@ -312,6 +342,9 @@ def memoized(func: Callable) -> Callable:
 
 
 def simple_equality(cls: Type) -> Type:
+    """Decorator that defines a missing equality operation as the inverse of
+    one provided for a class."""
+
     # Check for existence of user-defined equality operations
     eq_attr = '__eq__'
     ne_attr = '__ne__'
