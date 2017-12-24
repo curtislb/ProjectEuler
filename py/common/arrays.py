@@ -36,33 +36,30 @@ def argmin(values: Sequence[Comparable]) -> int:
 
 
 def binary_search(
-        sorted_list: Sequence[Comparable],
-        item: Comparable,
-        _lo: int = 0,
-        _hi: Optional[int] = None) -> Optional[int]:
+        sorted_list: Sequence[Comparable], item: Comparable) -> Optional[int]:
 
     """Returns the index position of item in the sorted list sorted_list or
     None if item is not found in sorted_list."""
 
-    # if hi has not been initialized, set it to end of sorted_list
-    if _hi is None:
-        _hi = len(sorted_list)
+    # initialize search indices
+    lo = 0
+    hi = len(sorted_list)
 
-    # base case: no elements left to search
-    if _lo >= _hi:
-        return None
+    while lo < hi:
+        # check middle element in list
+        mid = (lo + hi) // 2
+        if item < sorted_list[mid]:
+            # item is in first half of list or not at all
+            hi = mid
+        elif item > sorted_list[mid]:
+            # item is in second half of list or not at all
+            lo = mid + 1
+        else:
+            # item found at middle position in list
+            return mid
 
-    # check the middle element in list, then recurse if necessary
-    mid = (_lo + _hi) // 2
-    if item < sorted_list[mid]:
-        # item must be in first half of list or not at all
-        return binary_search(sorted_list, item, _lo, mid)
-    elif item > sorted_list[mid]:
-        # item must be in second half of list or not at all
-        return binary_search(sorted_list, item, mid + 1, _hi)
-    else:
-        # item found at middle position in list
-        return mid
+    # item not found in list
+    return None
 
 
 def cumulative_partial_sum(
