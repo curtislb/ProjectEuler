@@ -38,7 +38,7 @@ MIN_SOLUTIONS = 10**6 # default: 10**6
 
 @memoized
 def is_square(n: int) -> bool:
-    """Memoized wrapper for the is_square function"""
+    """Memoized wrapper for the is_square function."""
     return seqs.is_square(n)
 
 
@@ -52,12 +52,12 @@ def solve() -> int:
         # look for Pythagorean triples (m, n, d) where m = x, n = (y + z)
         for n in range(2, 2 * m + 1):
             if is_square(m**2 + n**2):
-                # count choices for y <= z <= m where y + z = n
+                # count choices for z <= y <= m where y + z = n
                 if n > m + 1:
-                    # only count pairs y, z where y <= z <= m
+                    # only count pairs y, z where z <= y <= m
                     count += (2*m + 2 - n) // 2
                 else:
-                    # all pairs y, z already satisfy y <= z <= m
+                    # all pairs y, z already satisfy z <= y <= m
                     count += n // 2
     return m
 
