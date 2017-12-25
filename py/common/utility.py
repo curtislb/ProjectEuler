@@ -9,6 +9,7 @@ __author__ = 'Curtis Belmonte'
 
 import heapq
 import itertools
+import random
 from collections import deque
 from typing import (
     Any,
@@ -64,7 +65,13 @@ class Graph(object):
         if label not in self._adj:
             raise ValueError('no node {0} in graph'.format(label))
 
-    def add_edge(self, source: object, dest: object, weight: float = 1) -> None:
+    def add_edge(
+            self,
+            source: object,
+            dest: object,
+            weight: float = 1,
+            bidirectional: bool = False) -> None:
+
         """Adds edge (source, dest) with specified weight to the graph."""
 
         self._assert_node(source)
@@ -76,6 +83,9 @@ class Graph(object):
 
         self._adj[source][dest] = weight
         self._edge_count += 1
+        if bidirectional:
+            self._adj[dest][source] = weight
+            self._edge_count += 1
 
     def has_edge(self, source: object, dest: object) -> bool:
         """Determines if the graph contains an edge from source to dest."""
@@ -116,6 +126,16 @@ class Graph(object):
             raise ValueError('no such edge ({0}, {1})'.format(source, dest))
 
         return self._adj[source][dest]
+
+    def try_add_matrix_edge(
+            self, matrix: IntMatrix, node: object, row: int, col: int) -> None:
+
+        """Adds edge from node to (row, col) if a valid matrix index."""
+
+        n = len(matrix)
+        m = 0 if n == 0 else len(matrix[0])
+        if 0 <= row < n and 0 <= col < m:
+            self.add_edge(node, (row, col), matrix[row][col])
 
     def reverse(self) -> 'Graph':
         """Returns a copy of the graph with all edge directions reversed."""
@@ -214,7 +234,7 @@ class Graph(object):
         distance = {source: 0} # type: Dict[object, float]
         previous = {} # type: Dict[object, object]
 
-        # initialize node distances to positive inifnity
+        # initialize node distances to positive infinity
         pq = MinPQ()
         for node in self._adj:
             if node != source:
@@ -237,14 +257,52 @@ class Graph(object):
 
         return distance, previous
 
-    def try_add_matrix_edge(
-            self, matrix: IntMatrix, node: object, row: int, col: int) -> None:
+    def prim_mst(self) -> Iterable[Tuple[object, object]]:
+        """Runs Prim's minimum spanning tree algorithm for an undirected graph.
 
-        """Adds edge from node to (row, col) if a valid matrix index."""
+        Returns the edges in a minimum spanning tree for this graph if one
+        exists. Otherwise, returns the edges in a minimum spanning forest,
+        formed from minimum spanning trees in each component of the graph.
+        """
 
-        n = len(matrix)
-        if 0 <= row < n and 0 <= col < n:
-            self.add_edge(node, (row, col), matrix[row][col])
+        is_added = {} # type: Dict[object, bool]
+        distance = {} # type: Dict[object, float]
+        mst_edge = {} # type: Dict[object, object]
+
+        # start with no tree and infinite distance to all nodes
+        for node in self._adj:
+            is_added[node] = False
+            distance[node] = float('inf')
+
+        # run algorithm from each vertex in the graph
+        pq = MinPQ()
+        for source in self._adj:
+            # vertex already included in tree
+            if is_added[source]:
+                continue
+
+            # enqueue source vertex with distance 0
+            distance[source] = 0
+            pq.put(source, 0)
+
+            # repeatedly grow tree by picking adjacent edge with min weight
+            while not pq.is_empty():
+                node = pq.pop_min()
+                is_added[node] = True
+                for neighbor in self._adj[node]:
+                    # don't add edge if it was already rejected
+                    if is_added[neighbor]:
+                        continue
+
+                    # add edge if it gives best current distance to node
+                    if self._adj[node][neighbor] < distance[neighbor]:
+                        distance[neighbor] = self._adj[node][neighbor]
+                        mst_edge[neighbor] = node
+                        pq.put(neighbor, distance[neighbor])
+
+        # yield all edges (u, v) in tree
+        for edge in mst_edge.items():
+            yield edge
 
 
 class MinPQ(object):

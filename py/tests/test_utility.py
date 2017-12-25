@@ -4,6 +4,7 @@
 
 Unit test for the 'utility' common module.
 """
+from typing import Mapping, Optional, Set
 
 __author__ = 'Curtis Belmonte'
 
@@ -100,6 +101,33 @@ class TestGraph(unittest.TestCase):
         self.assertCountEqual(self.graph.neighbors(4), [5])
         self.assertCountEqual(self.graph.neighbors(5), [3, 4])
 
+    def test_try_add_matrix_edge(self) -> None:
+        matrix = [
+            [-83, 455, -86],
+            [618, -97, 436],
+            [723, -36, 231],
+            [824, -31, 292],
+        ]
+        source = 'helsinki'
+        bad_indices = ((-1, 0), (0, -1), (4, 0), (0, 3), (-3, -2), (5, 7))
+
+        self.graph.add_node(source)
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                self.graph.add_node((i, j))
+        for bad_index in bad_indices:
+            self.graph.add_node(bad_index)
+
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                self.assertFalse(self.graph.has_edge(source, (i, j)))
+                self.graph.try_add_matrix_edge(matrix, source, i, j)
+                self.assertTrue(self.graph.has_edge(source, (i, j)))
+
+        for i, j in bad_indices:
+            self.graph.try_add_matrix_edge(matrix, source, i, j)
+            self.assertFalse(self.graph.has_edge(source, (i, j)))
+
     def test_reverse(self) -> None:
         for i in range(4):
             self.graph.add_node(i)
@@ -144,7 +172,14 @@ class TestGraph(unittest.TestCase):
         self.assertCountEqual(postorder[2:4], [1, 2])
         self.assertEqual(postorder[4], 0)
 
-    def _verify_reverse_path(self, prev, source, node, dist=None, seen=None):
+    def _verify_reverse_path(
+            self,
+            prev: Mapping[object, object],
+            source: object,
+            node: object,
+            dist: Optional[float] = None,
+            seen: Optional[Set[object]] = None) -> None:
+
         """Tests if prev contains a reverse path from source to node.
 
         prev    Should map nodes to the previous node along a path from source
@@ -244,6 +279,29 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(dist['U'], 3)
         for node in prev:
             self._verify_reverse_path(prev, 'P', node, dist[node])
+
+    def test_prim_mst(self) -> None:
+        for label in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'):
+            self.graph.add_node(label)
+        self.graph.add_edge('A', 'B', 4, bidirectional=True)
+        self.graph.add_edge('A', 'H', 8, bidirectional=True)
+        self.graph.add_edge('B', 'C', 8, bidirectional=True)
+        self.graph.add_edge('B', 'H', 11, bidirectional=True)
+        self.graph.add_edge('C', 'D', 7, bidirectional=True)
+        self.graph.add_edge('C', 'F', 4, bidirectional=True)
+        self.graph.add_edge('C', 'I', 2, bidirectional=True)
+        self.graph.add_edge('D', 'E', 9, bidirectional=True)
+        self.graph.add_edge('D', 'F', 14, bidirectional=True)
+        self.graph.add_edge('E', 'F', 10, bidirectional=True)
+        self.graph.add_edge('F', 'G', 2, bidirectional=True)
+        self.graph.add_edge('G', 'H', 1, bidirectional=True)
+        self.graph.add_edge('G', 'I', 6, bidirectional=True)
+        self.graph.add_edge('H', 'I', 7, bidirectional=True)
+
+        mst_edges = list(self.graph.prim_mst())
+        self.assertEqual(len(mst_edges), 8)
+        self.assertEqual(
+            sum(self.graph.edge_weight(u, v) for (u, v) in mst_edges), 37)
 
 
 class TestMinPQ(unittest.TestCase):
