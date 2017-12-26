@@ -8,7 +8,36 @@ Functions for performing common arithmetic operations.
 __author__ = 'Curtis Belmonte'
 
 import math
-from typing import Optional, Tuple, Union
+import operator
+from typing import Callable, Iterable, List, Mapping, Optional, Tuple, Union
+
+
+# Mapping from string tokens of binary arithmetic operations to their functions
+BINARY_OPS = {
+    '+': operator.add,
+    '-': operator.sub,
+    '*': operator.mul,
+    '/': operator.truediv,
+    '^': operator.pow,
+} # type: Mapping[str, Callable[[float, float], float]]
+
+
+def eval_postfix(expr: str, is_space_sep: bool = True) -> float:
+    """Evaluates an arithmetic expression written in postfix notation.
+
+    If is_space_sep is False, whitespace between tokens is disallowed, and
+    each digit is treated as a separate operand in the expression.
+    """
+
+    stack = [] # type: List[Union[str, float]]
+    for token in (expr.split() if is_space_sep else expr):
+        if token in BINARY_OPS:
+            y = float(stack.pop())
+            x = float(stack.pop())
+            stack.append(BINARY_OPS[token](x, y))
+        else:
+            stack.append(token)
+    return float(stack.pop())
 
 
 def int_log(x: float, base: float = math.e) -> int:

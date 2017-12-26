@@ -14,6 +14,23 @@ import common.arithmetic as arith
 
 
 class TestArithmetic(unittest.TestCase):
+    def test_eval_postfix(self):
+        self.assertEqual(arith.eval_postfix('3 4 +'), 7)
+        self.assertEqual(arith.eval_postfix('34+', is_space_sep=False), 7)
+        self.assertEqual(arith.eval_postfix('3 4 5 * -'), -17)
+        self.assertEqual(arith.eval_postfix('345*-', is_space_sep=False), -17)
+        self.assertEqual(arith.eval_postfix('3 3 3 ^ ^'), 7625597484987)
+        self.assertEqual(arith.eval_postfix('10 3 ^'), 1000)
+        self.assertEqual(arith.eval_postfix('222^^', is_space_sep=False), 16)
+        self.assertEqual(arith.eval_postfix('10 20 /'), 0.5)
+        self.assertEqual(arith.eval_postfix('12/', is_space_sep=False), 0.5)
+        self.assertEqual(
+            arith.eval_postfix('15 7 1 1 + - / 3 * 2 1 1 + + -'), 5)
+        self.assertEqual(
+            arith.eval_postfix(
+                '2 2 ^ 5 7 2 + - * 17 2 3 ^ - 9 3 / 3 4 + 2  * 7 / + * - 95 +'),
+            34)
+
     def test_int_log(self) -> None:
         self.assertEqual(arith.int_log(1), 0)
         self.assertEqual(arith.int_log(2), 1)
