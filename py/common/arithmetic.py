@@ -9,7 +9,7 @@ __author__ = 'Curtis Belmonte'
 
 import math
 import operator
-from typing import Callable, Iterable, List, Mapping, Optional, Tuple, Union
+from typing import Callable, List, Mapping, Optional, Tuple, Union
 
 
 # Mapping from string tokens of binary arithmetic operations to their functions
