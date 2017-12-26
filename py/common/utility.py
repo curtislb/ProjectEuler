@@ -9,7 +9,6 @@ __author__ = 'Curtis Belmonte'
 
 import heapq
 import itertools
-import random
 from collections import deque
 from typing import (
     Any,
