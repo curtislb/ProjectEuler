@@ -31,7 +31,7 @@ def _compute_primes(n: int) -> None:
 
     # based on analysis of OEIS data set A006880 and empirical time tests
     estimate = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
-    increment = int(round(n / math.log(n)))
+    increment = n // math.log(n)
 
     # compute primes up to estimate, then step forward until n are found
     i = estimate
