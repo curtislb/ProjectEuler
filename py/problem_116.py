@@ -42,6 +42,7 @@ NOTE: This is related to Problem 117.
 __author__ = 'Curtis Belmonte'
 
 import common.combinatorics as comb
+import common.sequences as seqs
 
 
 # PARAMETERS ##################################################################
@@ -59,13 +60,8 @@ def solve() -> int:
     # count combinations over all possible tile lengths
     for tile in range(2, 5):
         for num_tiles in range(1, (ROW_LENGTH // tile) + 1):
-            # difference between row length and current tile count
-            tile_diff = (tile - 1) * num_tiles
-
-            # count combinations for current colored tile length and number
-            prod = 1
-            for i in range(0, num_tiles):
-                prod *= (ROW_LENGTH - tile_diff - i)
+            prod = seqs.arithmetic_product(
+                ROW_LENGTH - (tile - 1) * num_tiles, num_tiles, -1)
             count += prod // comb.factorial(num_tiles)
 
     return count
