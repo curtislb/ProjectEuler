@@ -28,7 +28,8 @@ def _compute_chain_length(
         terms: Optional[Dict[int, int]] = None) -> None:
 
     """Recursive helper function for compute_chain_lengths that updates lengths
-    with appropriate chain lengths starting from n."""
+    with appropriate chain lengths starting from n.
+    """
 
     if terms is None:
         terms = {}
@@ -79,13 +80,15 @@ def _compute_fibonacci(n: int) -> None:
 
 def arithmetic_product(a: int, n: int, d: int = 1) -> int:
     """Returns the product of the arithmetic sequence with first term a, number
-    of terms n, and difference between terms d."""
+    of terms n, and difference between terms d.
+    """
     return functools.reduce(operator.mul, range(a, a + n * d, d), 1)
 
 
 def arithmetic_series(a: int, n: int, d: int = 1) -> int:
     """Returns the sum of the arithmetic sequence with first term a, number of
-    terms n, and difference between terms d."""
+    terms n, and difference between terms d.
+    """
     return n * (2 * a + (n - 1) * d) // 2
 
 
@@ -139,7 +142,8 @@ def is_pentagonal(n: int) -> bool:
 def is_power(n: int, p: int) -> bool:
     """Determines if the natural number n is a perfect power with exponent p.
 
-    Specifically, returns True iff n = m**p for some natural number m."""
+    Specifically, returns True iff n = m**p for some natural number m.
+    """
 
     root_n = n**(1 / p)
     lo_power = (int(root_n))**p
@@ -174,5 +178,6 @@ def sum_of_squares(n: int) -> int:
 
 def triangular(n: int) -> int:
     """Returns the nth triangle number, or the sum of the natural numbers up to
-    and including n."""
+    and including n.
+    """
     return n * (n + 1) // 2

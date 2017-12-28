@@ -7,6 +7,8 @@ Constants and functions relating to the English alphabet.
 
 __author__ = 'Curtis Belmonte'
 
+from typing import Sequence
+
 
 # Mapping from natural numbers to their English word equivalents
 NUMBER_WORDS = {
@@ -48,3 +50,11 @@ def alpha_char_lower(index: int) -> str:
 def alpha_index_upper(letter: str) -> int:
     """Returns the alphabetic index of the uppercase character letter."""
     return ord(letter) - ord('A') + 1
+
+
+def letter_counts_upper(word: str) -> Sequence[int]:
+    """Returns a sequence with the count of each uppercase letter in word."""
+    letter_counts = [0] * 26
+    for letter in word:
+        letter_counts[alpha_index_upper(letter) - 1] += 1
+    return letter_counts
