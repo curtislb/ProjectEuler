@@ -29,15 +29,15 @@ def _compute_primes(n: int) -> None:
 
     # TODO: implement incremental sieve?
 
-    # based on analysis of OEIS data set A006880 and empirical time tests
-    estimate = 100 if n <= 25 else int(n * math.log(n) * 1.05 + n * 0.87)
-    increment = n // math.log(n)
+    # set estimate and increment values according to PNT
+    approx_gap = _estimate_prime_gap(n)
+    estimate = 100 if n <= 25 else int(n * approx_gap)
+    increment = int(approx_gap)
 
     # compute primes up to estimate, then step forward until n are found
-    i = estimate
     while len(_prime_sequence) < n:
-        _compute_primes_up_to(i)
-        i += increment
+        _compute_primes_up_to(estimate)
+        estimate += increment
 
 
 def _compute_primes_up_to(n: int) -> None:
@@ -67,6 +67,21 @@ def _compute_primes_up_to(n: int) -> None:
             _prime_sequence.append(rho)
             for j in range(rho**2 - prime_max - 1, sieve_size, rho):
                 sieve[j] = False
+
+
+def _estimate_prime_gap(n: int) -> float:
+    """Returns an estimate for the average gap between the first n primes.
+
+    This formula is based on a result derived from the Prime Number Theorem:
+    https://en.wikipedia.org/wiki/Prime_number_theorem
+    """
+    log_n = math.log(n)
+    log_log_n = math.log(log_n)
+    log_n_sqr = log_n**2
+    log_log_n_sqr = log_log_n**2
+    return (log_n + log_log_n - 1 + (log_log_n - 2)/log_n
+            - (log_log_n_sqr - 6 * log_log_n + 11)/(2 * log_n_sqr)
+            + math.exp(1)/log_n_sqr)
 
 
 def count_prime_factors(
