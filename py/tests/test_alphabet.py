@@ -23,6 +23,20 @@ class TestWords(unittest.TestCase):
         self.assertEqual(alpha.alpha_index_upper('Q'), 17)
         self.assertEqual(alpha.alpha_index_upper('Z'), 26)
 
+    def test_letter_counts_upper(self) -> None:
+        self.assertEqual(
+            alpha.letter_counts_upper('A'), [1] + ([0] * 25))
+        self.assertEqual(
+            alpha.letter_counts_upper('YXXZ'), ([0] * 23) + [2, 1, 1])
+        self.assertEqual(
+            alpha.letter_counts_upper('GOOGOLPLEX'),
+            [0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 2, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0,
+             0, 1, 0, 0])
+        self.assertEqual(
+            alpha.letter_counts_upper('AQUICKBROWNFOXJUMPSOVERTHELAZYDOG'),
+            [2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 2, 1, 1, 2, 1,
+             1, 1, 1, 1])
+
 
 if __name__ == '__main__':
     unittest.main()
