@@ -42,19 +42,19 @@ NUMBER_WORDS = {
 }
 
 
-def alpha_char_lower(index: int) -> str:
-    """Returns the letter of the alphabet corresponding to index."""
+def letter_char_lower(index: int) -> str:
+    """Returns the lowercase letter of the alphabet corresponding to index."""
     return chr(index + ord('a') - 1)
-
-
-def alpha_index_upper(letter: str) -> int:
-    """Returns the alphabetic index of the uppercase character letter."""
-    return ord(letter) - ord('A') + 1
 
 
 def letter_counts_upper(word: str) -> Sequence[int]:
     """Returns a sequence with the count of each uppercase letter in word."""
     letter_counts = [0] * 26
     for letter in word:
-        letter_counts[alpha_index_upper(letter) - 1] += 1
+        letter_counts[letter_index_upper(letter) - 1] += 1
     return letter_counts
+
+
+def letter_index_upper(letter: str) -> int:
+    """Returns the alphabetic index of the uppercase character letter."""
+    return ord(letter) - ord('A') + 1

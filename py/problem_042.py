@@ -41,7 +41,7 @@ def word_value(word: str) -> int:
     positions of each of its letters.
     """
     return (0 if word == '' else
-            word_value(word[:-1]) + alpha.alpha_index_upper(word[-1]))
+            word_value(word[:-1]) + alpha.letter_index_upper(word[-1]))
 
 
 def solve() -> int:

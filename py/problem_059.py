@@ -70,9 +70,9 @@ def solve() -> Optional[int]:
         for j in range(1, 27):
             for k in range(1, 27):
                 key = ''.join([
-                    alpha.alpha_char_lower(i),
-                    alpha.alpha_char_lower(j),
-                    alpha.alpha_char_lower(k),
+                    alpha.letter_char_lower(i),
+                    alpha.letter_char_lower(j),
+                    alpha.letter_char_lower(k),
                 ])
 
                 # decrypt message with key and check for target sequence

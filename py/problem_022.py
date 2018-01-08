@@ -35,7 +35,7 @@ INPUT_FILE = '../input/022.txt' # default: '../input/022.txt'
 
 def name_score(name: str, position: int) -> int:
     """Returns the score for name in position when sorted alphabetically."""
-    score = sum(map(alpha.alpha_index_upper, name))
+    score = sum(map(alpha.letter_index_upper, name))
     return position * score
 
 
