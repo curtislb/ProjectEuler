@@ -144,7 +144,7 @@ def totients_up_to(n: int) -> Sequence[int]:
 
     # calculate each totient using its prime factors
     totients = []
-    for i, factors in enumerate(prime_factors[2:]):
-        totients.append(totient(i + 2, factors))
+    for i in range(2, len(prime_factors)):
+        totients.append(totient(i, prime_factors[i]))
 
     return totients

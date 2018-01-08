@@ -51,7 +51,9 @@ def solve() -> Optional[int]:
         if p1**2 > MAX_N:
             break
 
-        for p2 in primes[i:]:
+        for j in range(i, len(primes)):
+            p2 = primes[j]
+
             # compute n as the product of two primes
             n = p1 * p2
             if n > MAX_N:

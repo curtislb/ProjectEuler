@@ -98,8 +98,8 @@ def solve() -> int:
     for fam in families:
         min_prime = fam[0]
         digit_count = digs.count_digits(min_prime)
-        for p in fam[1:]:
-            if digs.count_digits(p) != digit_count:
+        for i in range(1, len(fam)):
+            if digs.count_digits(fam[i]) != digit_count:
                 break
             min_primes.append(min_prime)
     
