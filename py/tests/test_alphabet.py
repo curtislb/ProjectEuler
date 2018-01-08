@@ -12,7 +12,7 @@ import unittest
 import common.alphabet as alpha
 
 
-class TestWords(unittest.TestCase):
+class TestAlphabet(unittest.TestCase):
     def test_alpha_char_lower(self) -> None:
         self.assertEqual(alpha.alpha_char_lower(1), 'a')
         self.assertEqual(alpha.alpha_char_lower(9), 'i')

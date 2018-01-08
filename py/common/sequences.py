@@ -13,6 +13,7 @@ import operator
 from typing import Callable, Dict, Iterable, Optional, Set
 
 import common.arithmetic as arith
+import common.arrays as arrs
 
 
 # Currently computed terms of the Fibonacci sequence (in sorted order)
@@ -78,6 +79,21 @@ def _compute_fibonacci(n: int) -> None:
         _fibonacci_sequence.append(f1)
 
 
+def _compute_fibonacci_up_to(n: int) -> None:
+    """Precomputes and stores the Fibonacci numbers up to n."""
+
+    # have the numbers up to n already been computed?
+    if n < _fibonacci_sequence[-1]:
+        return
+
+    # compute numbers iteratively from existing sequence
+    f0 = _fibonacci_sequence[-2]
+    f1 = _fibonacci_sequence[-1]
+    while f1 < n:
+        f0, f1 = f1, f0 + f1
+        _fibonacci_sequence.append(f1)
+
+
 def arithmetic_product(a: int, n: int, d: int = 1) -> int:
     """Returns the product of the arithmetic sequence with first term a, number
     of terms n, and difference between terms d.
@@ -125,6 +141,18 @@ def fibonacci(n: int) -> int:
 def hexagonal(n: int) -> int:
     """Returns the nth hexagonal number."""
     return n * (2 * n - 1)
+
+
+def is_fibonacci(n: int) -> bool:
+    """Determines if the natural number n is a Fibonacci number."""
+    if n < 2**52:
+        # use arithmetic test if within floating-point precision
+        term = 5 * n**2
+        return is_square(term + 4) or is_square(term - 4)
+    else:
+        # generate Fibonacci numbers <= n and search for n
+        _compute_fibonacci_up_to(n)
+        return arrs.binary_search(_fibonacci_sequence, n) is not None
 
 
 def is_hexagonal(n: int) -> bool:

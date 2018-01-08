@@ -87,6 +87,17 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(seqs.hexagonal(42), 3486)
         self.assertEqual(seqs.hexagonal(6438), 82889250)
 
+    def test_is_fibonacci(self) -> None:
+        fib_nums = {1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987}
+        for n in range(1, 1000):
+            self.assertEqual(seqs.is_fibonacci(n), n in fib_nums)
+        self.assertFalse(seqs.is_fibonacci(3416454622906706))
+        self.assertTrue(seqs.is_fibonacci(3416454622906707))
+        self.assertFalse(seqs.is_fibonacci(3416454622906708))
+        self.assertFalse(seqs.is_fibonacci(218922995834555169025))
+        self.assertTrue(seqs.is_fibonacci(218922995834555169026))
+        self.assertFalse(seqs.is_fibonacci(218922995834555169027))
+
     def test_is_hexagonal(self) -> None:
         hex_nums = {1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325}
         for n in range(1, 350):
