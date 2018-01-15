@@ -41,7 +41,20 @@ class TestDigits(unittest.TestCase):
         self.assertEqual(digs.count_digits(10), 2)
         self.assertEqual(digs.count_digits(1337), 4)
         self.assertEqual(digs.count_digits(63184285379), 11)
-        
+
+    def test_decimal_digits(self) -> None:
+        self.assertEqual(digs.decimal_digits(0, 0), 0)
+        self.assertEqual(digs.decimal_digits(1, 0), 1)
+        self.assertEqual(digs.decimal_digits(1, 1), 10)
+        self.assertEqual(digs.decimal_digits(-1, 1), -10)
+        self.assertEqual(digs.decimal_digits(1, 2), 100)
+        self.assertEqual(digs.decimal_digits(0.2, 2), 20)
+        self.assertEqual(digs.decimal_digits(-0.2, 2), -20)
+        self.assertEqual(digs.decimal_digits(0.1337, 3), 134)
+        self.assertEqual(digs.decimal_digits(0.1334, 3), 133)
+        self.assertEqual(digs.decimal_digits(0.6271361253, 6), 627136)
+        self.assertEqual(digs.decimal_digits(49.95804784, 5), 4995805)
+
     def test_digit_counts(self) -> None:
         self.assertEqual(digs.digit_counts(1), [0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
         self.assertEqual(digs.digit_counts(9), [0, 0, 0, 0, 0, 0, 0, 0, 0, 1])

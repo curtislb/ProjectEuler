@@ -27,6 +27,17 @@ def count_digits(n: int) -> int:
     return len(str(n))
 
 
+def decimal_digits(x: float, precision: int) -> int:
+    """Returns the digits of x rounded to precision decimal places as an int.
+
+    If x <= -1 or x >= 1, the resulting integer will contain the additional
+    high-order digits of x preceding the decimal point.
+
+    If x < 0, the resulting integer will be negative.
+    """
+    return int(round(x, precision) * 10**precision)
+
+
 def digit_counts(n: int) -> Sequence[int]:
     """Returns a sequence with the count of each decimal digit in the natural
     number n."""

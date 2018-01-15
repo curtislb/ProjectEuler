@@ -16,6 +16,7 @@ rounded to PRECISION decimal places.
 
 __author__ = 'Curtis Belmonte'
 
+import common.digits as digs
 import common.probability as prob
 
 
@@ -55,13 +56,13 @@ def solve() -> int:
     # calculate combinations of outcomes where P > C
     win_count = 0
     roll_count = max_roll + 1 - min_roll
-    for c in range(roll_count - 1):
-        for p in range(c + 1, roll_count):
-            win_count += c_rolls[c] * p_rolls[p]
+    for i in range(roll_count - 1):
+        for j in range(i + 1, roll_count):
+            win_count += c_rolls[i] * p_rolls[j]
 
     # format and return probability that P > C
     win_prob = win_count / (p_outcomes * c_outcomes)
-    return int(round(win_prob, PRECISION) * 10**PRECISION)
+    return digs.decimal_digits(win_prob, PRECISION)
 
 
 if __name__ == '__main__':

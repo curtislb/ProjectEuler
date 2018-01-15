@@ -18,6 +18,7 @@ __author__ = 'Curtis Belmonte'
 from fractions import Fraction
 
 import common.combinatorics as comb
+import common.digits as digs
 
 
 # PARAMETERS ##################################################################
@@ -29,6 +30,8 @@ NUM_COLORS = 7 # default: 7
 
 NUM_DRAWS = 20 # default: 20
 
+PRECISION = 9 # default: 9
+
 
 # SOLUTION ####################################################################
 
@@ -37,7 +40,7 @@ def solve() -> int:
     a = comb.choose(NUM_BALLS - (NUM_BALLS // NUM_COLORS), NUM_DRAWS)
     b = comb.choose(NUM_BALLS, NUM_DRAWS)
     expected_value = NUM_COLORS * (1 - Fraction(a, b))
-    return int('{0:.9f}'.format(float(expected_value)).replace('.', ''))
+    return digs.decimal_digits(expected_value, PRECISION)
 
 
 if __name__ == '__main__':
