@@ -61,7 +61,7 @@ def digit_results(a: int, b: int, c: int, d: int) -> Iterable[int]:
                         # filter out non-positive and non-integer values
                         if r > 0 and (isinstance(r, int) or
                                       isinstance(r, float) and r.is_integer()):
-                            results.add(r)
+                            results.add(int(r))
     return results
 
 

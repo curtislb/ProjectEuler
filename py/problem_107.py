@@ -66,7 +66,7 @@ def solve() -> int:
     mst_edges = graph.prim_mst()
     mst_weight = 0
     for u, v in mst_edges:
-        mst_weight += graph.edge_weight(u, v)
+        mst_weight += int(graph.edge_weight(u, v))
 
     # return amount saved by minimum spanning tree
     return total_weight - mst_weight
