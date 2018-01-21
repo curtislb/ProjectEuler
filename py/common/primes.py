@@ -139,22 +139,22 @@ def prime_factorization(n: int) -> Sequence[Sequence[int]]:
     Returns a list of base-exponent pairs containing each prime factor and
     its power in the prime factorization of n."""
 
-    i = 2
+    d = 2
     factorization = []
-    while i <= int(math.sqrt(n)):
+    while d <= int(math.sqrt(n)):
         # compute power of i in factorization
-        factor = [i, 0]
-        div, mod = divmod(n, i)
+        factor = [d, 0]
+        div, mod = divmod(n, d)
         while mod == 0:
             n = div
             factor[1] += 1
-            div, mod = divmod(n, i)
+            div, mod = divmod(n, d)
 
         # add factor to factorization if necessary
         if factor[1] > 0:
             factorization.append(factor)
 
-        i += 1
+        d += 1
 
     # no more prime factors above sqrt(n)
     if n > 1:

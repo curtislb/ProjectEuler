@@ -16,20 +16,13 @@ import common.primes as prime
 
 def count_divisors(n: int) -> int:
     """Returns the number of divisors of the natural number n."""
-
-    # compute product of one more than the powers of its prime factors
-    divisor_count = 1
-    factorization = prime.prime_factorization(n)
-    for _, power in factorization:
-        divisor_count *= power + 1
-
-    return divisor_count
+    return count_power_divisors(n, 1)
 
 
 def count_divisors_up_to(n: int) -> Sequence[int]:
     """Returns a sequence of divisor counts for integers 0 to n, inclusive."""
 
-    # set counts for 1..n to 1
+    # initialize counts for integers 0 to n
     divisor_counts = [1] * (n + 1)
     divisor_counts[0] = 0
 
@@ -39,6 +32,18 @@ def count_divisors_up_to(n: int) -> Sequence[int]:
             divisor_counts[j] += 1
 
     return divisor_counts
+
+
+def count_power_divisors(n: int, p: int) -> int:
+    """Returns the number of divisors of n^p, for natural numbers n and p."""
+
+    # compute product of (p*a + 1) for each prime factor power a of n
+    divisor_count = 1
+    factorization = prime.prime_factorization(n)
+    for _, power in factorization:
+        divisor_count *= (p * power) + 1
+
+    return divisor_count
 
 
 def gcd(m: int, n: int) -> int:
