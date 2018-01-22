@@ -8,14 +8,17 @@ Functions for operating on numerical vectors and matrices.
 __author__ = 'Curtis Belmonte'
 
 import copy
-from typing import Iterable, List, Optional, Sequence, Tuple
+from typing import Iterable, List, Optional, Sequence, Tuple, Union
 
-from common.types import Coord, IntMatrix, T, TMatrix
+from common.types import Coord, Matrix, T
 
 
-def _try_assign_zeros(matrix: IntMatrix) -> Sequence[Coord]:
-    """Returns a list of all unambiguous (row, col) assignments for zero values
-    in matrix, such that no row or column is repeated."""
+def _try_assign_zeros(matrix: Matrix[int]) -> Sequence[Coord]:
+    """Finds as many zeros in matrix as possible with distinct rows and columns.
+
+    The result is a sequence of all unambiguous (row, col) assignments for zero
+    values in matrix, such that no row or col value is repeated.
+    """
 
     # convert matrix to bipartite graph, with zeros indicating edges
     edge_matrix = copy.deepcopy(matrix)
@@ -27,17 +30,17 @@ def _try_assign_zeros(matrix: IntMatrix) -> Sequence[Coord]:
 
 
 def _try_bipartite_match(
-        edge_matrix: IntMatrix,
-        i: int,
+        edge_matrix: Matrix[int],
+        row: int,
         col_marked: List[bool],
         col_assignments: List[Optional[int]]) -> bool:
 
-    """Attempts to match the given row i to a column in edge_matrix.
+    """Attempts to match the given rowto a column in edge_matrix.
 
-    edge_matrix      A boolean matrix indicating edges between rows and columns
-    i                The given row to attempt to match with a free column
-    col_marked       List of marked, or visited, columns for this row
-    col_assignments  List of current row assignments for each column, if any
+    edge_matrix: A boolean matrix indicating edges between rows and columns
+    row: Index of the row to attempt to match with a free column
+    col_marked: List of marked, or visited, columns for this row
+    col_assignments: List of current row assignments for each column, if any
 
     Returns True if row was successfully matched, or False otherwise.
     """
@@ -46,7 +49,7 @@ def _try_bipartite_match(
     for j in range(len(edge_matrix[0])):
 
         # check if row can be matched with unmarked column
-        if edge_matrix[i][j] and not col_marked[j]:
+        if edge_matrix[row][j] and not col_marked[j]:
             col_marked[j] = True
 
             # check if column is unmatched or can be re-matched with new row
@@ -55,7 +58,7 @@ def _try_bipartite_match(
                     col_assignments[j],
                     col_marked,
                     col_assignments):
-                col_assignments[j] = i
+                col_assignments[j] = row
                 return True
 
     # couldn't match row with any column
@@ -81,9 +84,14 @@ def dot_product(u: Iterable[float], v: Iterable[float]) -> float:
     return sum(i * j for i, j in zip(u, v))
 
 
-def flatten_matrix(matrix: TMatrix, keep_indices: bool = False) -> Sequence[T]:
-    """Returns a list of the elements in matrix in row-major order. If
-    keep_indices is set to True, also returns the indices of each element."""
+def flatten_matrix(matrix: Matrix[T], keep_indices: bool = False)\
+        -> Union[Sequence[T], Sequence[Tuple[T, int, int]]]:
+
+    """Returns a sequence of the elements in matrix in row-major order.
+
+    If keep_indices is True, also includes the original indices of each element
+    in the resulting sequence, in the format (element, row, col).
+    """
 
     flat_matrix = []
     for i, row in enumerate(matrix):
@@ -96,11 +104,15 @@ def flatten_matrix(matrix: TMatrix, keep_indices: bool = False) -> Sequence[T]:
 
 def make_spiral(
         layers: int,
-        _matrix: Optional[IntMatrix] = None,
-        _depth: int = 0) -> IntMatrix:
+        _matrix: Optional[Matrix[int]] = None,
+        _depth: int = 0) -> Matrix[int]:
 
-    """Returns a spiral with the given number of layers formed by starting with
-    1 in the center and moving to the right in a clockwise direction."""
+    """Returns an integer spiral with the given number of layers.
+
+    The spiral is formed by starting with 1 in the center and moving to the
+    right in a clockwise direction, incrementing the value of each subsequent
+    space by 1.
+    """
 
     # compute the dimension of one side of the spiral
     side = layers * 2 - 1
@@ -140,7 +152,7 @@ def make_spiral(
     return make_spiral(layers - 1, _matrix, _depth + 1)
 
 
-def max_bipartite_matching(edge_matrix: IntMatrix) -> Sequence[Coord]:
+def max_bipartite_matching(edge_matrix: Matrix[int]) -> Sequence[Coord]:
     """Returns the list of edges in the maximum matching of a bipartite graph.
 
     The argument edge_matrix is a boolean matrix mapping vertices in partition
@@ -164,7 +176,7 @@ def max_bipartite_matching(edge_matrix: IntMatrix) -> Sequence[Coord]:
     return [(i, j) for j, i in enumerate(col_assignments) if i is not None]
 
 
-def max_triangle_path(triangle: IntMatrix) -> int:
+def max_triangle_path(triangle: Matrix[int]) -> int:
     """Returns the maximal sum of numbers from top to bottom in triangle."""
 
     num_rows = len(triangle)
@@ -186,7 +198,7 @@ def max_triangle_path(triangle: IntMatrix) -> int:
     return max(triangle[-1])
 
 
-def minimum_line_cover(matrix: IntMatrix) -> Sequence[Tuple[bool, int]]:
+def minimum_line_cover(matrix: Matrix[int]) -> Sequence[Tuple[bool, int]]:
     """Returns a list of the fewest lines needed to cover all zeros in matrix.
 
     Lines are given in the format (is_vertical, i), where is_vertical is a
@@ -244,7 +256,7 @@ def minimum_line_cover(matrix: IntMatrix) -> Sequence[Tuple[bool, int]]:
     return lines
 
 
-def optimal_assignment(cost_matrix: IntMatrix) -> Sequence[Coord]:
+def optimal_assignment(cost_matrix: Matrix[int]) -> Sequence[Coord]:
     """Assigns each row to a column of the square matrix cost_matrix so that
     the sum of the cost values in the assigned positions is minimized.
 

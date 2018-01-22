@@ -55,13 +55,6 @@ def int_sqrt(x: float) -> int:
     return int(round(math.sqrt(x)))
 
 
-def min_present(a: Optional[int], b: Optional[int]) -> Optional[int]:
-    """Returns the minimum of two optional integers, if present."""
-    return (a if b is None else
-            b if a is None else
-            min(a, b))
-
-
 def mod_multiply(n: int, m: int, mod: int) -> int:
     """Returns the the product of natural numbers n and m modulo mod."""
     return ((n % mod) * (m % mod)) % mod

@@ -122,7 +122,8 @@ class GameBoard(object):
     This class supports defining a set of types that are assigned to the spaces
     in the board. It also allows rules to be specified for each space type that
     give some probability of ending a turn on a different space than the one
-    which was landed on."""
+    which was landed on.
+    """
 
     @simple_equality
     class Space(object):
@@ -169,8 +170,11 @@ class GameBoard(object):
 
     @classmethod
     def _make_space_list(cls, space_type_map: SpaceTypeMap) -> SpaceList:
-        """Contructs an ordered sequence of board spaces from a map of space
-        types to their positions on the board."""
+        """Contructs an ordered sequence of board spaces from a space type map.
+
+        space_type_map: A mapping from each valid space type to a sequence of
+            its positions on the board
+        """
 
         # allocate the list of spaces
         num_spaces = sum(map(len, space_type_map.values()))
@@ -191,11 +195,11 @@ class GameBoard(object):
 
         """Constructs an ordered list of move probabilities from each space.
 
-        move_rules  Maps space types to the probability of ending up on a
-                    different space after landing on them. Each space type maps
-                    to another dict, mapping rules to probabilities.
+        move_rules: Maps space types to the probability of ending up on
+            different spaces after landing on them. Each space type maps to
+            another dict, mapping rules to probabilities
 
-        space_list  An ordered list of all spaces on the board.
+        space_list: An ordered list of all spaces on the board
         """
 
         move_probs = []
@@ -235,10 +239,10 @@ class GameBoard(object):
 
         """Returns the position that corresponds to a given rule.
 
-        rule        The rule specifying a space that a player could move to
-        position    The player's current position on the board
-        space_list  An ordered list of all spaces on the board
-        space_map   A dict mapping each space to its position on the board
+        rule: The rule specifying a space that a player could move to
+        position: The player's current position on the board
+        space_list: An ordered list of all spaces on the board
+        space_map: A dict mapping each space to its position on the board
         """
 
         # check if rule is tuple, indicating a particular space
@@ -263,9 +267,13 @@ class GameBoard(object):
             'rule {0} of type {1} is invalid'.format(rule, type(rule)))
 
     def move(self, start: int, spaces: int) -> int:
-        """Simulates moving the given number of spaces forward from position
-        start and returns the position that the player lands on, after
-        probabilistically applying any applicable move rules."""
+        """Simulates moving a player a given number of spaces on the board.
+
+        start: Index of the space on which the player starts before moving
+
+        spaces: Number of spaces forward on the board to move the player. If
+            spaces is negative, the player instead moves backward
+        """
 
         # find where player would end before applying move rules
         target = (start + spaces) % len(self._space_list)

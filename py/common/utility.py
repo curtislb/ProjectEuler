@@ -24,7 +24,7 @@ from typing import (
     Type,
 )
 
-from common.types import Comparable, IntMatrix
+from common.types import Comparable, Matrix
 
 
 class Graph(object):
@@ -107,12 +107,8 @@ class Graph(object):
         self._adj[source][dest] = weight
 
     def neighbors(self, label: object) -> Iterable[object]:
-        """Returns an iterable of the vertices adjacent to the vertex with
-        specified label in the graph.
-        """
-
+        """Returns all vertices adjacent to the vertex with given label."""
         self._assert_node(label)
-
         return self._adj[label].keys()
 
     def edge_weight(self, source: object, dest: object) -> float:
@@ -127,7 +123,7 @@ class Graph(object):
         return self._adj[source][dest]
 
     def try_add_matrix_edge(
-            self, matrix: IntMatrix, node: object, row: int, col: int) -> None:
+            self, matrix: Matrix[int], node: object, row: int, col: int) -> None:
 
         """Adds edge from node to (row, col) if a valid matrix index."""
 
@@ -323,8 +319,10 @@ class MinPQ(object):
         return not self._entry_map
 
     def put(self, value: object, priority: Comparable = 0) -> None:
-        """Inserts a value with priority into the queue, or updates the value's
-        priority if it is already contained in the priority queue.
+        """Inserts a value with priority into the queue
+
+        If the value is already contained in the priority queue, instead
+        updates the priority for this value.
         """
 
         if value in self._entry_map:
@@ -358,8 +356,18 @@ def bisect_index(
         known_f: int = 0,
         known_t: Optional[int] = None) -> int:
 
-    """Given a function that bisects indices >= known_f into False and True
-    regions, finds the first index for which it flips from False to True."""
+    """Finds the first index for which a function changes from False to True.
+
+    check: A boolean function over integers in the range [known_f, known_t], or
+        all integers >= known_f if known_t is None. In this range, there must
+        be some integer i such that check(j) == (j >= i) for all j in the range
+
+    known_f: An index for which check is known to return False. Determines the
+        lower bound of the search
+
+    known_t: An index for which check is known to return True. If known_t is
+        None, the search will be conducted forward from known_f without bound
+    """
 
     # if only a False index is known, search for a True index
     if known_t is None:
@@ -383,9 +391,12 @@ def bisect_index(
 
 
 def memoized(func: Callable) -> Callable:
-    """Decorator that caches the result of calling func with a particular set
-    of arguments and returns this result for subsequent calls to function with
-    the same arguments.
+    """Decorator that caches values returned by a function for future calls.
+
+    The first time func is called with a particular sequence of arguments, the
+    result is computed as normal. Any subsequent calls to func with the same
+    sequence of arguments will then return the same value without requiring it
+    to be recomputed.
     """
 
     memo = {} # type: Dict[Any, Any]
@@ -398,9 +409,26 @@ def memoized(func: Callable) -> Callable:
     return memo_func
 
 
+def min_present(a: Optional[Comparable], b: Optional[Comparable]) \
+        -> Optional[Comparable]:
+
+    """Returns the minimum of two optional values a and b.
+
+    The result is None if both a and b are None, the other integer if exactly
+    one of a and b is None, or the minimum of a and b if neither is None.
+    """
+
+    return (a if b is None else
+            b if a is None else
+            a if a <= b else b)
+
+
 def simple_equality(cls: Type) -> Type:
-    """Decorator that defines a missing equality operation as the inverse of
-    one provided for a class."""
+    """Decorator that fills in the missing equality operation for a class.
+
+    The missing equality operation (__eq__ or __ne__) is defined as the logical
+    inverse of whichever operation is defined for the decorated class cls.
+    """
 
     # Check for existence of user-defined equality operations
     eq_attr = '__eq__'

@@ -16,7 +16,8 @@ import common.divisors as divs
 def sqrt_decimal_expansion(n: int, precision: int) -> str:
     """Returns the square root of the natural number n to arbitrary precision.
 
-    Result is a string with precision digits following the decimal point."""
+    The result is a string with precision digits following the decimal point.
+    """
 
     # break n into two-digit chunks
     n_digits = []
@@ -68,8 +69,14 @@ def sqrt_decimal_expansion(n: int, precision: int) -> str:
 
 
 def sqrt_fraction_expansion(n: int) -> Tuple[int, Sequence[int]]:
-    """Returns the terms in the continued fraction expansion of the square root
-    of the non-square natural number n, in the format (a0, a1..ar)."""
+    """Finds terms of the continued fraction expansion of the square root of n.
+
+    In order for a continued fraction expansion to exist, n must be a natural
+    number that is not a perfect square.
+
+    The result is a tuple in the format (a0, a1..ar), where a0 is the first term
+    in the expansion and the sequence of terms a1..ar repeats indefinitely.
+    """
 
     # perform the first expansion step
     sqrt_n = math.sqrt(n)

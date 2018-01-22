@@ -102,8 +102,11 @@ def arithmetic_product(a: int, n: int, d: int = 1) -> int:
 
 
 def arithmetic_series(a: int, n: int, d: int = 1) -> int:
-    """Returns the sum of the arithmetic sequence with first term a, number of
-    terms n, and difference between terms d.
+    """Returns the sum of the arithmetic sequence with parameters a, n, and d.
+
+    a: The first term in the sequence
+    n: The total number of terms in the sequence
+    d: The difference between any two terms in the sequence
     """
     return n * (2 * a + (n - 1) * d) // 2
 
@@ -121,10 +124,10 @@ def compute_chain_lengths(
 
     """Populates lengths with chain lengths starting from each term in values.
 
-    lengths   the dict to be populated, mapping each term to its chain length
-    values    an iterable of all valid starting terms for a chain
-    step      for any term n, step(n) gives the next term in the chain
-    is_valid  is_valid(n) returns True iff n is a valid chain member
+    lengths: The dict to be populated, mapping each term to its chain length
+    values: An iterable of all valid starting terms for a chain
+    step: For any term n, step(n) gives the next term in the chain
+    is_valid: is_valid(n) should return True iff n is a valid chain member
     """
 
     invalid_set = set() # type: Set[int]
@@ -170,9 +173,8 @@ def is_pentagonal(n: int) -> bool:
 def is_power(n: int, p: int) -> bool:
     """Determines if the natural number n is a perfect power with exponent p.
 
-    Specifically, returns True iff n = m**p for some natural number m.
+    Specifically, returns True iff n = m^p for some natural number m.
     """
-
     root_n = n**(1 / p)
     lo_power = (int(root_n))**p
     hi_power = (int(math.ceil(root_n)))**p
@@ -205,7 +207,8 @@ def sum_of_squares(n: int) -> int:
 
 
 def triangular(n: int) -> int:
-    """Returns the nth triangle number, or the sum of the natural numbers up to
-    and including n.
+    """Returns the nth triangle number.
+
+    The resulting value is also the sum of the first n natural numbers.
     """
     return n * (n + 1) // 2

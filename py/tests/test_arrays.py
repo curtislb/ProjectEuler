@@ -75,14 +75,14 @@ class TestArrays(unittest.TestCase):
             {'r': 0, 'a': 1, 'n': 2, 'd': 3, 'o': 4, 'm': 5, 'z': 6})
 
     def test_inverse_index_map_nd(self) -> None:
-        self.assertEqual(arrs.inverse_index_map_nd(''), {})
-        self.assertEqual(arrs.inverse_index_map_nd('z'), {'z': [0]})
-        self.assertEqual(arrs.inverse_index_map_nd([1]), {1: [0]})
-        self.assertEqual(arrs.inverse_index_map_nd([3, 3]), {3: [0, 1]})
+        self.assertEqual(arrs.inverse_index_map_all(''), {})
+        self.assertEqual(arrs.inverse_index_map_all('z'), {'z': [0]})
+        self.assertEqual(arrs.inverse_index_map_all([1]), {1: [0]})
+        self.assertEqual(arrs.inverse_index_map_all([3, 3]), {3: [0, 1]})
         self.assertEqual(
-            arrs.inverse_index_map_nd('ABBA'), {'A': [0, 3], 'B': [1, 2]})
+            arrs.inverse_index_map_all('ABBA'), {'A': [0, 3], 'B': [1, 2]})
         self.assertEqual(
-            arrs.inverse_index_map_nd((1, 6, 1, 8, 0, 3, 3, 9, 8, 8)),
+            arrs.inverse_index_map_all((1, 6, 1, 8, 0, 3, 3, 9, 8, 8)),
             {0: [4], 1: [0, 2], 3: [5, 6], 6: [1], 8: [3, 8, 9], 9: [7]})
         
     def test_is_permutation(self) -> None:

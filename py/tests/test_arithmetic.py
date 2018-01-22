@@ -68,19 +68,6 @@ class TestArithmetic(unittest.TestCase):
         self.assertEqual(arith.int_sqrt(80166.213), 283)
         self.assertEqual(arith.int_sqrt(0.148), 0)
         self.assertEqual(arith.int_sqrt(0.541), 1)
-
-    def test_min_opt(self) -> None:
-        self.assertIsNone(arith.min_present(None, None))
-        self.assertEqual(arith.min_present(0, None), 0)
-        self.assertEqual(arith.min_present(None, 0), 0)
-        self.assertEqual(arith.min_present(4, None), 4)
-        self.assertEqual(arith.min_present(None, 3), 3)
-        self.assertEqual(arith.min_present(-7, None), -7)
-        self.assertEqual(arith.min_present(None, -8), -8)
-        self.assertEqual(arith.min_present(-2, -2), -2)
-        self.assertEqual(arith.min_present(90, 82), 82)
-        self.assertEqual(arith.min_present(0, 2**32), 0)
-        self.assertEqual(arith.min_present(-41466, -75153), -75153)
         
     def test_mod_mutliply(self) -> None:
         self.assertEqual(arith.mod_multiply(1, 1, 1), 0)

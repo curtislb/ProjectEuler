@@ -8,17 +8,21 @@ Functions for manipulating and operating on numerical digits.
 __author__ = 'Curtis Belmonte'
 
 import itertools
+import string
 from typing import Callable, Iterable, Optional, Sequence, Set, Union
 
 
 def concat_digits(digit_list: Iterable[Union[int, str]], base: int = 10) -> int:
-    """Returns the integer that results from concatenating digits in order."""
+    """Concatenates the digits in digit_list in order and returns the result.
+
+    If provided, base determines the numeric base in which the digits of
+    digit_list should be interpreted when deriving the resulting integer.
+    """
     return int(''.join(map(str, digit_list)), base)
 
 
 def concat_numbers(n: int, m: int) -> int:
-    """Returns the number that results from concatenating the natural numbers
-    n and m, in that order."""
+    """Concatenates two natural numbers n and m and returns the result."""
     return int('{0:d}{1:d}'.format(n, m))
 
 
@@ -28,7 +32,7 @@ def count_digits(n: int) -> int:
 
 
 def decimal_digits(x: float, precision: int) -> int:
-    """Returns the digits of x rounded to precision decimal places as an int.
+    """Forms an integer of the digits of x rounded to precision decimal places.
 
     If x <= -1 or x >= 1, the resulting integer will contain the additional
     high-order digits of x preceding the decimal point.
@@ -38,33 +42,40 @@ def decimal_digits(x: float, precision: int) -> int:
     return int(round(x, precision) * 10**precision)
 
 
-def digit_counts(n: int) -> Sequence[int]:
-    """Returns a sequence with the count of each decimal digit in the natural
-    number n."""
+def digit_counts(n: int, base: int = 10) -> Sequence[int]:
+    """Returns a sequence with the count of each digit of n in the given base.
 
-    counts = [0] * 10
+    The result is an integer sequence of length base, where each entry
+    represents the number of times each digit from 0 to base - 1 appears in the
+    given base representation of the natural number n.
+    """
+
+    counts = [0] * base
     while n != 0:
-        n, digit = divmod(n, 10)
+        n, digit = divmod(n, base)
         counts[digit] += 1
 
     return counts
 
 
-def digit_function_sum(n: int, func: Callable[[int], int]) -> int:
-    """Returns the sum of the results of applying function to each of the
-    digits of the natural number n."""
+def digit_function_sum(
+        n: int, func: Callable[[int], int], base: int = 10) -> int:
+
+    """Sums the result of func applied to each digit of n in the given base."""
 
     total = 0
     while n != 0:
-        n, digit = divmod(n, 10)
+        n, digit = divmod(n, base)
         total += func(digit)
 
     return total
 
 
 def digit_permutations(n: int) -> Set[int]:
-    """Returns all unique digit permutations of the natural number n,
-    excluding permutations with leading zeros."""
+    """Returns all unique digit permutations of the natural number n.
+
+    The resulting integer set excludes any permutations with leading zeros.
+    """
 
     perms = set()
     for perm_tuple in itertools.permutations(str(n)):
@@ -86,8 +97,7 @@ def digit_rotations(n: int) -> Set[int]:
 
 
 def digit_truncations_left(n: int) -> Set[int]:
-    """Returns all unique left-to-right digit truncations of the natural number
-    n."""
+    """Returns all left-to-right digit truncations of the natural number n."""
 
     truncations = set()
 
@@ -136,13 +146,15 @@ def get_digit(n: int, digit: int) -> int:
 def int_to_base(
         n: int,
         base: int,
-        numerals: Sequence[str] = '0123456789abcdefghijklmnopqrstuvwxyz')\
-        -> str:
+        numerals: Sequence[str] = '0123456789' + string.ascii_lowercase) -> str:
 
-    """Returns the string representation of the natural number n in the given
-    base using the given set of numerals.
+    """Forms a string representation of the natural number n in the given base.
 
-    Adapted from: http://stackoverflow.com/questions/2267362/"""
+    The sequence numerals defines the set of strings that are used to represent
+    each digit value from 0 to base - 1. Thus, len(numerals) must be >= base.
+
+    Adapted from: http://stackoverflow.com/questions/2267362/
+    """
 
     # base case: 0 is represented as numerals[0] in any base
     if n == 0:
@@ -158,7 +170,8 @@ def is_bouncy(n: int) -> bool:
 
     A number is bouncy iff its digits are in neither non-decreasing or
     non-increasing order. That is, they increase and then decrease, or decrease
-    and then increase."""
+    and then increase.
+    """
 
     n_digits = digits(n)
     max_index = len(n_digits) - 1
@@ -207,11 +220,11 @@ def is_palindrome(n: int, base: int = 10) -> bool:
 def make_palindrome(n: int, base: int = 10, odd_length: bool = False) -> int:
     """Returns a palindrome in the given base formed from the natural number n.
 
-    If the odd_length flag is set to True, the generated palindrome will have
-    an odd number of digits when written in the given base; otherwise, it will
-    have an even number of digits.
+    If odd_length is True, the generated palindrome will have an odd number of
+    digits in the given base; otherwise, it will have an even number of digits.
 
-    Adapted from: https://projecteuler.net/overview=036"""
+    Adapted from: https://projecteuler.net/overview=036
+    """
 
     # set beginning of palindrome to be the digits of n
     palindrome = n
@@ -233,18 +246,20 @@ def pandigital_string(first: int = 0, last: int = 9) -> str:
     return ''.join(map(str, range(first, last + 1)))
 
 
-def sum_digits(n: int) -> int:
-    """Returns the sum of the decimal digits of the natural number n."""
+def sum_digits(n: int, base: int = 10) -> int:
+    """Sums the digits of the natural number n in the given base."""
     digit_sum = 0
     while n != 0:
-        n, digit = divmod(n, 10)
+        n, digit = divmod(n, base)
         digit_sum += digit
     return digit_sum
 
 
 def sum_keep_digits(m: int, n: int, d: Optional[int] = None) -> int:
-    """Returns the last d decimal digits of the sum of m and n. If d is None,
-    returns the entire sum."""
+    """Returns the last d decimal digits of the sum of m and n.
+
+    If d is None, the result is the entire sum m + n.
+    """
     if d is None:
         return m + n
     else:

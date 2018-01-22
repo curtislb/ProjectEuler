@@ -43,12 +43,20 @@ NUMBER_WORDS = {
 
 
 def letter_char_lower(index: int) -> str:
-    """Returns the lowercase letter of the alphabet corresponding to index."""
+    """Returns the lowercase letter of the alphabet corresponding to index.
+
+    Letters are one-indexed, such that 1 -> 'a' and 26 -> 'z'.
+    """
     return chr(index + ord('a') - 1)
 
 
 def letter_counts_upper(word: str) -> Sequence[int]:
-    """Returns a sequence with the count of each uppercase letter in word."""
+    """Returns a sequence with the count of each uppercase letter in word.
+
+    The result is an integer sequence of length 26, where each entry represents
+    the number of times each letter (starting with 'A' and ending with 'Z')
+    appears in the string word, which may contain only these characters.
+    """
     letter_counts = [0] * 26
     for letter in word:
         letter_counts[letter_index_upper(letter) - 1] += 1
@@ -56,5 +64,8 @@ def letter_counts_upper(word: str) -> Sequence[int]:
 
 
 def letter_index_upper(letter: str) -> int:
-    """Returns the alphabetic index of the uppercase character letter."""
+    """Returns the alphabetic index of the uppercase character letter.
+
+    Letters are one-indexed, such that 'A' -> 1 and 'Z' -> 26.
+    """
     return ord(letter) - ord('A') + 1

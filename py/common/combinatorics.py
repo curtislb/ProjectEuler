@@ -62,7 +62,7 @@ def combination_sums(total: int, terms: Sequence[int]) -> int:
 
 
 def factorial(n: int) -> int:
-    """Returns the value of n! = n * (n - 1) * ... * 1."""
+    """Returns the value of n! = n * (n - 1) * (n - 2) * ... * 1."""
     _compute_factorial(n)
     return _factorial_sequence[n]
 

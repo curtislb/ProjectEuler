@@ -22,7 +22,7 @@ How many numbers below 10^MAX_DIGITS are not bouncy?
 
 __author__ = 'Curtis Belmonte'
 
-from common.types import IntMatrix
+from common.types import Matrix
 
 
 # PARAMETERS ##################################################################
@@ -34,7 +34,7 @@ MAX_DIGITS = 100 # default: 100
 # SOLUTION ####################################################################
 
 
-def next_digit_counts(counts: IntMatrix, num_digits: int) -> IntMatrix:
+def next_digit_counts(counts: Matrix[int], num_digits: int) -> Matrix[int]:
     """Returns the next iteration of the counts matrix with a digit prepended.
 
     counts      A 9x3 matrix with the number of increasing, decreasing, and
@@ -44,7 +44,7 @@ def next_digit_counts(counts: IntMatrix, num_digits: int) -> IntMatrix:
     num_digits  The length of numbers represented by the counts matrix.
     """
 
-    new_counts = [[0] * 3 for _ in range(9)] # type: IntMatrix
+    new_counts = [[0] * 3 for _ in range(9)] # type: Matrix[int]
 
     for x in range(9):
         # count cases where next digit is 0
@@ -73,7 +73,7 @@ def next_digit_counts(counts: IntMatrix, num_digits: int) -> IntMatrix:
 
 def solve() -> int:
     # iterate counts for each digit, keeping track of bouncy numbers
-    counts = [[0] * 3 for _ in range(9)] # type: IntMatrix
+    counts = [[0] * 3 for _ in range(9)] # type: Matrix[int]
     bouncy_count = 0
     for i in range(1, MAX_DIGITS):
         counts = next_digit_counts(counts, i)

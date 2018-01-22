@@ -18,7 +18,8 @@ from common.types import Real, T
 def choose_weighted_random(values: Sequence[T], probs: Sequence[Real]) -> T:
     """Returns a value at random from values, weighted by probs.
 
-    Note: The sum of values in probs must equal 1.
+    In order for a proper weighted selection to be made, the sum of the values
+    in probs must be equal to 1.
     """
 
     # generate a random float in [0, 1)

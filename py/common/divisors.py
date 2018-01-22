@@ -53,9 +53,9 @@ def gcd(m: int, n: int) -> int:
     return m
 
 
-def is_coprime_pair(n: int, m: int) -> int:
-    """Determines if the natural numbers n and m are relatively prime."""
-    return gcd(n, m) == 1
+def is_coprime_pair(m: int, n: int) -> int:
+    """Determines if the natural numbers m and n are relatively prime."""
+    return gcd(m, n) == 1
 
 
 def lcm(m: int, n: int) -> int:
@@ -112,7 +112,11 @@ def sum_proper_divisors(n: int) -> int:
 
 
 def totient(n: int, prime_factors: Optional[Iterable[int]] = None) -> int:
-    """Returns the number of integers between 0 and n relatively prime to n."""
+    """Returns the number of integers between 0 and n relatively prime to n.
+
+    If provided, prime_factors must be an ordered iterable of the prime factors
+    of n. If prime_factors is None, it will be calculated by this function.
+    """
 
     # determine prime factors of n if not provided
     if prime_factors is None:
@@ -130,7 +134,11 @@ def totient(n: int, prime_factors: Optional[Iterable[int]] = None) -> int:
 
 
 def totients_up_to(n: int) -> Sequence[int]:
-    """Returns the values of Euler's totient function for integers 2 to n."""
+    """Returns the values of Euler's totient function for the integers 2 to n.
+
+    The result is an integer sequence of length n - 2 where the ith entry is
+    the number of integers between 0 and i + 2 relatively prime to i + 2.
+    """
 
     # initialize sieve of Eratosthenes up to n
     sieve = [True] * (n + 1)

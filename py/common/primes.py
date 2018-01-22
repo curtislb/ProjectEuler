@@ -72,7 +72,7 @@ def _compute_primes_up_to(n: int) -> None:
 def _estimate_prime_gap(n: int) -> float:
     """Returns an estimate for the average gap between the first n primes.
 
-    This formula is based on a result derived from the Prime Number Theorem:
+    Formula is based on a result derived from the Prime Number Theorem:
     https://en.wikipedia.org/wiki/Prime_number_theorem
     """
     log_n = math.log(n)
@@ -88,8 +88,12 @@ def count_prime_factors(
         n: int,
         prime_nums: Optional[Sequence[int]] = None) -> int:
 
-    """Returns the number of distinct prime factors of the natural number n,
-    using the given precomputed list of primes."""
+    """Returns the number of distinct prime factors of the natural number n.
+
+    If provided, prime_nums must be an ordered sequence of prime numbers that
+    contains at least the prime factors of n. If prime_factors is None, it will
+    be calculated by this function.
+    """
 
     # generate list of primes up to n if none given
     if prime_nums is None:
@@ -137,7 +141,8 @@ def prime_factorization(n: int) -> Sequence[Sequence[int]]:
     """Computes the prime factorization of the natural number n.
     
     Returns a list of base-exponent pairs containing each prime factor and
-    its power in the prime factorization of n."""
+    its power in the prime factorization of n.
+    """
 
     d = 2
     factorization = []
@@ -176,7 +181,7 @@ def primes(n: int) -> Sequence[int]:
 
 
 def primes_up_to(n: int) -> Sequence[int]:
-    """Returns the prime numbers up to p in sorted order."""
+    """Returns a sequence of the prime numbers <= n in sorted order."""
 
     _compute_primes_up_to(n)
 

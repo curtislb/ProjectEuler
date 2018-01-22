@@ -22,8 +22,8 @@ __author__ = 'Curtis Belmonte'
 
 from typing import List, Optional
 
-import common.arithmetic as arith
 import common.fileio as fio
+import common.utility as util
 
 
 # PARAMETERS ##################################################################
@@ -47,7 +47,7 @@ def solve() -> Optional[int]:
         while j < 0:
             down_cost = matrix[i + 1][j] if i < -1 else None
             right_cost = matrix[i][j + 1] if j < -1 else None
-            matrix[i][j] += arith.min_present(down_cost, right_cost)
+            matrix[i][j] += util.min_present(down_cost, right_cost)
             i -= 1
             j += 1
 
@@ -58,7 +58,7 @@ def solve() -> Optional[int]:
         while i >= -n:
             down_cost = matrix[i + 1][j] if i < -1 else None
             right_cost = matrix[i][j + 1] if j < -1 else None
-            matrix[i][j] += arith.min_present(down_cost, right_cost)
+            matrix[i][j] += util.min_present(down_cost, right_cost)
             i -= 1
             j += 1
 

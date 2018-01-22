@@ -409,6 +409,22 @@ class TestUtility(unittest.TestCase):
         self.assertEqual(
             util.bisect_index(lambda i: i >= 78557, 12345, 82000), 78557)
 
+    def test_min_present(self) -> None:
+        self.assertIsNone(util.min_present(None, None))
+        self.assertEqual(util.min_present(0, None), 0)
+        self.assertEqual(util.min_present(None, 0), 0)
+        self.assertEqual(util.min_present(4, None), 4)
+        self.assertEqual(util.min_present(None, 3), 3)
+        self.assertEqual(util.min_present(-7, None), -7)
+        self.assertEqual(util.min_present(None, -8), -8)
+        self.assertEqual(util.min_present(-2, -2), -2)
+        self.assertEqual(util.min_present(90, 82), 82)
+        self.assertEqual(util.min_present(0, 2**32), 0)
+        self.assertEqual(util.min_present(-41466, -75153), -75153)
+        self.assertEqual(util.min_present('alpha', None), 'alpha')
+        self.assertEqual(util.min_present(None, 'beta'), 'beta')
+        self.assertEqual(util.min_present('alpha', 'beta'), 'alpha')
+
 
 if __name__ == '__main__':
     unittest.main()
