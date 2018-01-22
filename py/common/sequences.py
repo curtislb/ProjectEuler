@@ -28,8 +28,9 @@ def _compute_chain_length(
         invalid_set: Set[int],
         terms: Optional[Dict[int, int]] = None) -> None:
 
-    """Recursive helper function for compute_chain_lengths that updates lengths
-    with appropriate chain lengths starting from n.
+    """Recursive helper function for compute_chain_lengths.
+
+    Updates lengths with appropriate chain lengths starting from n.
     """
 
     if terms is None:
@@ -95,14 +96,17 @@ def _compute_fibonacci_up_to(n: int) -> None:
 
 
 def arithmetic_product(a: int, n: int, d: int = 1) -> int:
-    """Returns the product of the arithmetic sequence with first term a, number
-    of terms n, and difference between terms d.
+    """Returns the product of the arithmetic sequence with parameters a, n, d.
+
+    a: The first term in the sequence
+    n: The total number of terms in the sequence
+    d: The difference between any two terms in the sequence
     """
     return functools.reduce(operator.mul, range(a, a + n * d, d), 1)
 
 
 def arithmetic_series(a: int, n: int, d: int = 1) -> int:
-    """Returns the sum of the arithmetic sequence with parameters a, n, and d.
+    """Returns the sum of the arithmetic sequence with parameters a, n, d.
 
     a: The first term in the sequence
     n: The total number of terms in the sequence
