@@ -122,16 +122,6 @@ class Graph(object):
 
         return self._adj[source][dest]
 
-    def try_add_matrix_edge(
-            self, matrix: Matrix[int], node: object, row: int, col: int) -> None:
-
-        """Adds edge from node to (row, col) if a valid matrix index."""
-
-        n = len(matrix)
-        m = 0 if n == 0 else len(matrix[0])
-        if 0 <= row < n and 0 <= col < m:
-            self.add_edge(node, (row, col), matrix[row][col])
-
     def reverse(self) -> 'Graph':
         """Returns a copy of the graph with all edge directions reversed."""
 

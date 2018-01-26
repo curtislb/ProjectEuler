@@ -7,7 +7,7 @@ __author__ = 'Curtis Belmonte'
 
 from abc import ABCMeta, abstractmethod
 from fractions import Fraction
-from typing import Any, Generic, List, Optional, Sequence, Tuple, TypeVar, Union
+from typing import Any, Generic, List, Optional, Tuple, TypeVar, Union
 
 
 # Generic type variables
@@ -21,7 +21,7 @@ Real = Union[float, Fraction]
 Coord = Tuple[Optional[int], int]
 
 
-class Matrix(Sequence[List[T]], Generic[T]):
+class Matrix(List[List[T]], Generic[T]):
     """Type representing a two-dimensional matrix with mutable entries."""
     ...
 

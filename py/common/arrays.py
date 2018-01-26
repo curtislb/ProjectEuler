@@ -72,7 +72,7 @@ def cumulative_partial_sums(
     """Returns the partial cumulative sums of a sequence of numbers.
 
     For each term in nums, the term in the resulting sequence will be the sum
-    of up to the previous limit terms in num, including the current one.
+    of up to the previous limit terms in nums, including the current one.
     """
 
     sums = [] # type: List[float]
@@ -91,8 +91,13 @@ def cumulative_partial_sums(
 
 
 def cumulative_products(nums: Sequence[float]) -> Sequence[float]:
-    products = []
-    product = 1
+    """Returns the cumulative products of a sequence of numbers.
+
+    For each term in nums, the term in the resulting sequence will be the
+    product of the current term in nums and all of the prior ones.
+    """
+    products = [] # type: List[float]
+    product = 1 # type: float
     for num in nums:
         product *= num
         products.append(product)

@@ -26,7 +26,7 @@ billion years to check them all. There is an efficient algorithm to solve it.
 __author__ = 'Curtis Belmonte'
 
 import common.fileio as fio
-import common.matrices as mat
+import problem_018 as p018
 
 
 # PARAMETERS ##################################################################
@@ -39,8 +39,7 @@ INPUT_FILE = '../input/067.txt' # default: '../input/067.txt'
 
 
 def solve() -> int:
-    triangle = list(fio.ints_from_file(INPUT_FILE))
-    return mat.max_triangle_path(triangle)
+    return p018.max_triangle_path(list(fio.ints_from_file(INPUT_FILE)))
 
 
 if __name__ == '__main__':

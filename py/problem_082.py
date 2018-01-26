@@ -21,6 +21,7 @@ matrix, from the left column to the right column.
 __author__ = 'Curtis Belmonte'
 
 import common.fileio as fio
+from common.types import Matrix
 from common.utility import Graph
 
 
@@ -33,8 +34,23 @@ INPUT_FILE = '../input/082.txt' # default: '../input/082.txt'
 # SOLUTION ####################################################################
 
 
+def try_add_matrix_edge(
+        graph: Graph,
+        matrix: Matrix[int],
+        node: object,
+        row: int,
+        col: int) -> None:
+
+    """Adds edge from node to (row, col) if a valid matrix index."""
+
+    n = len(matrix)
+    m = 0 if n == 0 else len(matrix[0])
+    if 0 <= row < n and 0 <= col < m:
+        graph.add_edge(node, (row, col), matrix[row][col])
+
+
 def solve() -> int:
-    matrix = list(fio.ints_from_file(INPUT_FILE, sep=','))
+    matrix = list(fio.ints_from_file(INPUT_FILE, sep=',')) # type: Matrix[int]
     n = len(matrix)
     
     # create graph with virtual start and goal nodes
@@ -59,9 +75,9 @@ def solve() -> int:
     for i in range(n):
         for j in range(n):
             node = (i, j)
-            graph.try_add_matrix_edge(matrix, node, i - 1, j) # above
-            graph.try_add_matrix_edge(matrix, node, i + 1, j) # below
-            graph.try_add_matrix_edge(matrix, node, i, j + 1) # right
+            try_add_matrix_edge(graph, matrix, node, i - 1, j) # above
+            try_add_matrix_edge(graph, matrix, node, i + 1, j) # below
+            try_add_matrix_edge(graph, matrix, node, i, j + 1) # right
 
     # connect nodes in right column to virtual goal node
     for i in range(n):

@@ -148,45 +148,6 @@ class TestMatrices(unittest.TestCase):
                 [False, False, False, False, False, True]])),
             5)
 
-    def test_max_triangle_path(self) -> None:
-        self.assertEqual(mat.max_triangle_path([[0]]), 0)
-        self.assertEqual(mat.max_triangle_path([[1]]), 1)
-        self.assertEqual(mat.max_triangle_path([[2]]), 2)
-        self.assertEqual(mat.max_triangle_path([[-5]]), -5)
-        self.assertEqual(mat.max_triangle_path([[1], [2, 3]]), 4)
-        self.assertEqual(mat.max_triangle_path([[1], [2, -3]]), 3)
-        self.assertEqual(mat.max_triangle_path([[1], [3, 2]]), 4)
-        self.assertEqual(mat.max_triangle_path([[1], [0, 2]]), 3)
-        self.assertEqual(
-            mat.max_triangle_path([
-                [3],
-                [7, 4],
-                [2, 4, 6],
-                [8, 5, 9, 3]]),
-            23)
-        self.assertEqual(
-            mat.max_triangle_path([
-                [-5],
-                [-8, 69],
-                [44, 46, -83],
-                [7, 0, -47, 97],
-                [-81, -64, -43, 13, -25],
-                [21, 31, -30, 7, -28, 56]]),
-            109)
-        self.assertEqual(
-            mat.max_triangle_path([
-                [72],
-                [16, -188],
-                [-348, -886, 702],
-                [784, -522, 80, -453],
-                [26, -850, 232, 444, 664],
-                [-344, 80, -634, 0, -354, -736],
-                [750, 0, -213, 343, 233, -955, -141],
-                [349, -427, -492, -534, -450, -28, 498, -716],
-                [589, -75, -428, 826, -180, 210, -36, -807, -874],
-                [158, 509, 828, 45, -699, -33, 55, -242, -730, 634]]),
-            2403)
-
     def test_minimum_line_cover(self) -> None:
         self.assertEqual(len(mat.minimum_line_cover([[1]])), 0)
         self.assertEqual(len(mat.minimum_line_cover([[0]])), 1)

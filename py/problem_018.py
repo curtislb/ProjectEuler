@@ -25,8 +25,9 @@ clever method!
 
 __author__ = 'Curtis Belmonte'
 
+from typing import List
+
 import common.fileio as fio
-import common.matrices as mat
 
 
 # PARAMETERS ##################################################################
@@ -38,9 +39,34 @@ INPUT_FILE = '../input/018.txt' # default: '../input/018.txt'
 # SOLUTION ####################################################################
 
 
+def max_triangle_path(triangle: List[List[int]]) -> int:
+    """Alters triangle and returns the maximum path sum from top to bottom.
+
+    A path is valid iff it consists of a number from each row of the triangle
+    such that each number is adjacent to those in the rows above and below it.
+    """
+
+    num_rows = len(triangle)
+
+    # add maximum adjacent values from row above to each row
+    for i in range(1, num_rows):
+        for j in range(i + 1):
+            if j != 0 and j != i:
+                # two adjacent elements above; add maximal
+                triangle[i][j] += max(triangle[i-1][j-1], triangle[i-1][j])
+            elif j == 0:
+                # no adjacent element to left above; add right
+                triangle[i][j] += triangle[i - 1][j]
+            else:
+                # no adjacent element to right above; add left
+                triangle[i][j] += triangle[i - 1][j - 1]
+
+    # return maximal sum accumulated in last row of triangle
+    return max(triangle[-1])
+
+
 def solve() -> int:
-    triangle = list(fio.ints_from_file(INPUT_FILE))
-    return mat.max_triangle_path(triangle)
+    return max_triangle_path(list(fio.ints_from_file(INPUT_FILE)))
 
 
 if __name__ == '__main__':

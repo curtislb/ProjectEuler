@@ -152,7 +152,7 @@ def make_spiral(
     return make_spiral(layers - 1, _matrix, _depth + 1)
 
 
-def max_bipartite_matching(edge_matrix: Matrix[int]) -> Sequence[Coord]:
+def max_bipartite_matching(edge_matrix: Matrix[bool]) -> Sequence[Coord]:
     """Returns the list of edges in the maximum matching of a bipartite graph.
 
     The argument edge_matrix is a boolean matrix mapping vertices in partition

@@ -101,33 +101,6 @@ class TestGraph(unittest.TestCase):
         self.assertCountEqual(self.graph.neighbors(4), [5])
         self.assertCountEqual(self.graph.neighbors(5), [3, 4])
 
-    def test_try_add_matrix_edge(self) -> None:
-        matrix = [
-            [-83, 455, -86],
-            [618, -97, 436],
-            [723, -36, 231],
-            [824, -31, 292],
-        ]
-        source = 'helsinki'
-        bad_indices = ((-1, 0), (0, -1), (4, 0), (0, 3), (-3, -2), (5, 7))
-
-        self.graph.add_node(source)
-        for i in range(len(matrix)):
-            for j in range(len(matrix[0])):
-                self.graph.add_node((i, j))
-        for bad_index in bad_indices:
-            self.graph.add_node(bad_index)
-
-        for i in range(len(matrix)):
-            for j in range(len(matrix[0])):
-                self.assertFalse(self.graph.has_edge(source, (i, j)))
-                self.graph.try_add_matrix_edge(matrix, source, i, j)
-                self.assertTrue(self.graph.has_edge(source, (i, j)))
-
-        for i, j in bad_indices:
-            self.graph.try_add_matrix_edge(matrix, source, i, j)
-            self.assertFalse(self.graph.has_edge(source, (i, j)))
-
     def test_reverse(self) -> None:
         for i in range(4):
             self.graph.add_node(i)
