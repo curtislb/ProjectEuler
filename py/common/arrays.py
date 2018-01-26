@@ -65,7 +65,7 @@ def binary_search(
     return None
 
 
-def cumulative_partial_sum(
+def cumulative_partial_sums(
         nums: Sequence[float],
         limit: float = float('inf')) -> Sequence[float]:
 
@@ -88,6 +88,15 @@ def cumulative_partial_sum(
         sums.append(total)
 
     return sums
+
+
+def cumulative_products(nums: Sequence[float]) -> Sequence[float]:
+    products = []
+    product = 1
+    for num in nums:
+        product *= num
+        products.append(product)
+    return products
 
 
 def inverse_index_map(values: Sequence[T]) -> Mapping[T, int]:

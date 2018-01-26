@@ -10,7 +10,15 @@ __author__ = 'Curtis Belmonte'
 import functools
 import math
 import operator
-from typing import Callable, Dict, Iterable, Optional, Set
+from typing import (
+    Callable,
+    Dict,
+    Iterable,
+    Iterator,
+    Optional,
+    Sequence,
+    Set,
+)
 
 import common.arithmetic as arith
 import common.arrays as arrs
@@ -143,6 +151,44 @@ def fibonacci(n: int) -> int:
     """Returns the nth Fibonacci number, with F(0) = F(1) = 1."""
     _compute_fibonacci(n)
     return _fibonacci_sequence[n]
+
+
+def generate_products(factors: Sequence[int], cache_capacity: int = 1000)\
+        -> Iterator[int]:
+
+    """Yields all distinct products of powers of factors in increasing order.
+
+    Generates an infinite sequence of integers, starting with 1. If provided,
+    cache_capacity determines the maximum size of the internal list used for
+    caching previous products.
+
+    Adapted from: https://rosettacode.org/wiki/Hamming_numbers#Python
+    """
+
+    # initialize product, cache, and next multiples
+    product = 1
+    product_cache = [product]
+    indices = [0] * len(factors)
+    multiples = [x * product_cache[i] for x, i in zip(factors, indices)]
+    yield product
+
+    while True:
+        # poll next product and update list of next multiples
+        product = min(multiples)
+        product_cache.append(product)
+        for i, (m, d, j) in enumerate(zip(multiples, factors, indices)):
+            if m == product:
+                j += 1
+                indices[i] = j
+                multiples[i] = d * product_cache[j]
+
+        # trim the cache if it's over capacity
+        min_index = min(indices)
+        if min_index >= cache_capacity:
+            del product_cache[:min_index]
+            indices = [i - min_index for i in indices]
+
+        yield product
 
 
 def hexagonal(n: int) -> int:
