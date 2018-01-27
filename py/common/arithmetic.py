@@ -60,6 +60,32 @@ def mod_multiply(n: int, m: int, mod: int) -> int:
     return ((n % mod) * (m % mod)) % mod
 
 
+def mod_power(base: int, exponent: int, mod: int) -> int:
+    """Returns the value of base^exponent modulo mod.
+
+    The arguments base, exponent, and mod must all be natural numbers.
+    """
+
+    # set initial result to base % mod if exponent is odd
+    result = 1
+    sub_ans = base
+    n, m = divmod(exponent, 2)
+    if m == 1:
+        result = sub_ans % mod
+
+    # find result by decomposing into powers of two
+    while n > 0:
+        # compute 2^k % mod for each k up to log_2(exponent)
+        sub_ans = mod_multiply(sub_ans, sub_ans, mod)
+
+        # combine with result if exponent's kth binary digit is 1
+        n, m = divmod(n, 2)
+        if m == 1:
+            result = mod_multiply(result, sub_ans, mod)
+
+    return result
+
+
 def quadratic_roots(a: float, b: float, c: float)\
         -> Tuple[Union[float, complex], Union[float, complex]]:
     """Finds all roots of the equation a*x^2 + b*x + c = 0, where a != 0.

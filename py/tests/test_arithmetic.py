@@ -86,6 +86,21 @@ class TestArithmetic(unittest.TestCase):
             arith.mod_multiply(8177**4018, 9470**1990, 27**29),
             24247430663168320345760575144348378592065)
 
+    def test_mod_power(self) -> None:
+        self.assertEqual(arith.mod_power(1, 1, 1), 0)
+        self.assertEqual(arith.mod_power(1, 2, 1), 0)
+        self.assertEqual(arith.mod_power(2, 3, 4), 0)
+        self.assertEqual(arith.mod_power(2, 4, 3), 1)
+        self.assertEqual(arith.mod_power(3, 5, 7), 5)
+        self.assertEqual(arith.mod_power(5, 3, 13), 8)
+        self.assertEqual(arith.mod_power(13, 11, 7), 6)
+        self.assertEqual(arith.mod_power(2, 90, 13), 12)
+        self.assertEqual(arith.mod_power(7, 256, 13), 9)
+        self.assertEqual(arith.mod_power(5, 117, 19), 1)
+        self.assertEqual(arith.mod_power(4, 13, 497), 445)
+        self.assertEqual(arith.mod_power(2, 500500, 500500507), 339969113)
+        self.assertEqual(arith.mod_power(44192, 562280, 8479175), 7136176)
+
     def test_quadratic_roots(self) -> None:
         roots = sorted(arith.quadratic_roots(1, 0, -1))
         self.assertEqual(len(roots), 2)
