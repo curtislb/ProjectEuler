@@ -7,7 +7,7 @@ __author__ = 'Curtis Belmonte'
 
 from abc import ABCMeta, abstractmethod
 from fractions import Fraction
-from typing import Any, Generic, List, Optional, Tuple, TypeVar, Union
+from typing import Any, Tuple, TypeVar, Union
 
 
 # Generic type variables
@@ -18,12 +18,7 @@ T_co = TypeVar('T_co', covariant=True)
 Real = Union[float, Fraction]
 
 # Type representing a coordinate in a two-dimensional matrix
-Coord = Tuple[Optional[int], int]
-
-
-class Matrix(List[List[T]], Generic[T]):
-    """Type representing a two-dimensional matrix with mutable entries."""
-    ...
+Coord = Tuple[int, int]
 
 
 class _Comparable(metaclass=ABCMeta):

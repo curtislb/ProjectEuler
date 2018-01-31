@@ -14,6 +14,7 @@ __author__ = 'Curtis Belmonte'
 
 import heapq
 import math
+from typing import List
 
 import common.arithmetic as arith
 import common.primes as prime
@@ -32,7 +33,7 @@ MOD = 500500507 # default: 500500507
 
 def solve() -> int:
     # find all potential prime factors, and keep track of max
-    factors = prime.primes(POWER)
+    factors = list(prime.primes(POWER)) # type: List[int]
     max_factor = factors[-1]
     sqrt_max_factor = math.sqrt(max_factor)
 

@@ -6,7 +6,7 @@ Problem 48: Self powers
 
 The series, 1^1 + 2^2 + 3^3 + ... + 10^10 = 10405071317.
 
-Find the last D digits of the series, 1^1 + 2^2 + 3^3 + ... + MAX^MAX.
+Find the last DIGIT_COUNT digits of the series, 1^1 + 2^2 + 3^3 + ... + MAX^MAX.
 """
 
 __author__ = 'Curtis Belmonte'
@@ -17,7 +17,7 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-D = 10 # default: 10
+DIGIT_COUNT = 10 # default: 10
 
 MAX = 1000 # default: 1000
 
@@ -28,7 +28,7 @@ MAX = 1000 # default: 1000
 def solve() -> int:
     total = 0
     for n in range(1, MAX + 1):
-        total = digs.sum_keep_digits(total, n**n, D)
+        total = digs.sum_keep_digits(total, n**n, DIGIT_COUNT)
     return total
 
 

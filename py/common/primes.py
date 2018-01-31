@@ -75,6 +75,7 @@ def _estimate_prime_gap(n: int) -> float:
     Formula is based on a result derived from the Prime Number Theorem:
     https://en.wikipedia.org/wiki/Prime_number_theorem
     """
+
     log_n = math.log(n)
     log_log_n = math.log(log_n)
     log_n_sqr = log_n**2
@@ -195,3 +196,13 @@ def primes_up_to(n: int) -> Sequence[int]:
         i += 1
 
     return _prime_sequence[:i]
+
+
+def primorials(n: int) -> Sequence[int]:
+    """Returns the first n primorial numbers in sorted order.
+
+    The result is a sequence of n integers where each kth term is the product
+    of the first k prime numbers, for 1 <= k <= n.
+    """
+    _compute_primes(n)
+    return arrs.cumulative_products(_prime_sequence[:n])

@@ -20,8 +20,9 @@ matrix, from the left column to the right column.
 
 __author__ = 'Curtis Belmonte'
 
+from typing import List
+
 import common.fileio as fio
-from common.types import Matrix
 from common.utility import Graph
 
 
@@ -36,7 +37,7 @@ INPUT_FILE = '../input/082.txt' # default: '../input/082.txt'
 
 def try_add_matrix_edge(
         graph: Graph,
-        matrix: Matrix[int],
+        matrix: List[List[int]],
         node: object,
         row: int,
         col: int) -> None:
@@ -50,7 +51,8 @@ def try_add_matrix_edge(
 
 
 def solve() -> int:
-    matrix = list(fio.ints_from_file(INPUT_FILE, sep=',')) # type: Matrix[int]
+    matrix = list(
+        fio.ints_from_file(INPUT_FILE, sep=',')) # type: List[List[int]]
     n = len(matrix)
     
     # create graph with virtual start and goal nodes

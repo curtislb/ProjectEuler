@@ -9,7 +9,7 @@ __author__ = 'Curtis Belmonte'
 
 import itertools
 import string
-from typing import Callable, Iterable, Optional, Sequence, Set, Union
+from typing import Callable, Iterable, Sequence, Set, Union
 
 
 def concat_digits(digit_list: Iterable[Union[int, str]], base: int = 10) -> int:
@@ -18,6 +18,7 @@ def concat_digits(digit_list: Iterable[Union[int, str]], base: int = 10) -> int:
     If provided, base determines the numeric base in which the digits of
     digit_list should be interpreted when deriving the resulting integer.
     """
+
     return int(''.join(map(str, digit_list)), base)
 
 
@@ -39,6 +40,7 @@ def decimal_digits(x: float, precision: int) -> int:
 
     If x < 0, the resulting integer will be negative.
     """
+
     return int(round(x, precision) * 10**precision)
 
 
@@ -255,13 +257,7 @@ def sum_digits(n: int, base: int = 10) -> int:
     return digit_sum
 
 
-def sum_keep_digits(m: int, n: int, d: Optional[int] = None) -> int:
-    """Returns the last d decimal digits of the sum of m and n.
-
-    If d is None, the result is the entire sum m + n.
-    """
-    if d is None:
-        return m + n
-    else:
-        mod = 10**d
-        return ((m % mod) + (n % mod)) % mod
+def sum_keep_digits(m: int, n: int, digit_count: int) -> int:
+    """Returns the last d decimal digits of the sum of m and n."""
+    mod = 10**digit_count
+    return ((m % mod) + (n % mod)) % mod

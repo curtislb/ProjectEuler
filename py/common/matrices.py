@@ -8,12 +8,12 @@ Functions for operating on numerical vectors and matrices.
 __author__ = 'Curtis Belmonte'
 
 import copy
-from typing import Iterable, List, Optional, Sequence, Tuple, Union
+from typing import Iterable, List, Optional, Sequence, Tuple
 
-from common.types import Coord, Matrix, T
+from common.types import Coord, T
 
 
-def _try_assign_zeros(matrix: Matrix[int]) -> Sequence[Coord]:
+def _try_assign_zeros(matrix: List[List[int]]) -> Sequence[Coord]:
     """Finds as many zeros in matrix as possible with distinct rows and columns.
 
     The result is a sequence of all unambiguous (row, col) assignments for zero
@@ -21,21 +21,17 @@ def _try_assign_zeros(matrix: Matrix[int]) -> Sequence[Coord]:
     """
 
     # convert matrix to bipartite graph, with zeros indicating edges
-    edge_matrix = copy.deepcopy(matrix)
-    for i, row in enumerate(edge_matrix):
-        for j, value in enumerate(row):
-            edge_matrix[i][j] = (value == 0)
-
+    edge_matrix = [[value == 0 for value in row] for row in matrix]
     return max_bipartite_matching(edge_matrix)
 
 
 def _try_bipartite_match(
-        edge_matrix: Matrix[int],
+        edge_matrix: List[List[int]],
         row: int,
         col_marked: List[bool],
-        col_assignments: List[Optional[int]]) -> bool:
+        col_assignments: List[int]) -> bool:
 
-    """Attempts to match the given rowto a column in edge_matrix.
+    """Attempts to match the given row to a column in edge_matrix.
 
     edge_matrix: A boolean matrix indicating edges between rows and columns
     row: Index of the row to attempt to match with a free column
@@ -53,7 +49,7 @@ def _try_bipartite_match(
             col_marked[j] = True
 
             # check if column is unmatched or can be re-matched with new row
-            if col_assignments[j] is None or _try_bipartite_match(
+            if col_assignments[j] == -1 or _try_bipartite_match(
                     edge_matrix,
                     col_assignments[j],
                     col_marked,
@@ -84,28 +80,20 @@ def dot_product(u: Iterable[float], v: Iterable[float]) -> float:
     return sum(i * j for i, j in zip(u, v))
 
 
-def flatten_matrix(matrix: Matrix[T], keep_indices: bool = False)\
-        -> Union[Sequence[T], Sequence[Tuple[T, int, int]]]:
-
-    """Returns a sequence of the elements in matrix in row-major order.
-
-    If keep_indices is True, also includes the original indices of each element
-    in the resulting sequence, in the format (element, row, col).
-    """
-
-    flat_matrix = []
-    for i, row in enumerate(matrix):
-        for j, value in enumerate(row):
-            flat_val = (value, i, j) if keep_indices else value
-            flat_matrix.append(flat_val)
+def flatten_matrix(matrix: List[List[T]]) -> Sequence[T]:
+    """Returns a sequence of the elements in matrix in row-major order."""
+    flat_matrix = [] # type: List[T]
+    for row in matrix:
+        for value in row:
+            flat_matrix.append(value)
 
     return flat_matrix
 
 
 def make_spiral(
         layers: int,
-        _matrix: Optional[Matrix[int]] = None,
-        _depth: int = 0) -> Matrix[int]:
+        _matrix: Optional[List[List[int]]] = None,
+        _depth: int = 0) -> List[List[int]]:
 
     """Returns an integer spiral with the given number of layers.
 
@@ -152,7 +140,7 @@ def make_spiral(
     return make_spiral(layers - 1, _matrix, _depth + 1)
 
 
-def max_bipartite_matching(edge_matrix: Matrix[bool]) -> Sequence[Coord]:
+def max_bipartite_matching(edge_matrix: List[List[bool]]) -> Sequence[Coord]:
     """Returns the list of edges in the maximum matching of a bipartite graph.
 
     The argument edge_matrix is a boolean matrix mapping vertices in partition
@@ -167,16 +155,16 @@ def max_bipartite_matching(edge_matrix: Matrix[bool]) -> Sequence[Coord]:
     m = len(edge_matrix[0]) # number of columns
 
     # try to assign each row to a column
-    col_assignments = [None] * m # type: List[Optional[int]]
+    col_assignments = [-1] * m # type: List[int]
     for i in range(n):
         col_marked = [False] * m
         _try_bipartite_match(edge_matrix, i, col_marked, col_assignments)
 
     # convert to list of matched pairs and return
-    return [(i, j) for j, i in enumerate(col_assignments) if i is not None]
+    return [(i, j) for j, i in enumerate(col_assignments) if i != -1]
 
 
-def max_triangle_path(triangle: Matrix[int]) -> int:
+def max_triangle_path(triangle: List[List[int]]) -> int:
     """Returns the maximal sum of numbers from top to bottom in triangle."""
 
     num_rows = len(triangle)
@@ -198,7 +186,7 @@ def max_triangle_path(triangle: Matrix[int]) -> int:
     return max(triangle[-1])
 
 
-def minimum_line_cover(matrix: Matrix[int]) -> Sequence[Tuple[bool, int]]:
+def minimum_line_cover(matrix: List[List[int]]) -> Sequence[Tuple[bool, int]]:
     """Returns a list of the fewest lines needed to cover all zeros in matrix.
 
     Lines are given in the format (is_vertical, i), where is_vertical is a
@@ -256,7 +244,7 @@ def minimum_line_cover(matrix: Matrix[int]) -> Sequence[Tuple[bool, int]]:
     return lines
 
 
-def optimal_assignment(cost_matrix: Matrix[int]) -> Sequence[Coord]:
+def optimal_assignment(cost_matrix: List[List[int]]) -> Sequence[Coord]:
     """Assigns each row to a column of the square matrix cost_matrix so that
     the sum of the cost values in the assigned positions is minimized.
 
@@ -269,7 +257,7 @@ def optimal_assignment(cost_matrix: Matrix[int]) -> Sequence[Coord]:
     # Step 1: subtract the minimum element from each row
     n = len(cost_matrix)
     for i, row in enumerate(cost_matrix):
-        min_value = min(row) # type: Optional[int]
+        min_value = min(row)
         for j in range(n):
             cost_matrix[i][j] -= min_value
 

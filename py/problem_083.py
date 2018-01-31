@@ -21,9 +21,10 @@ down.
 
 __author__ = 'Curtis Belmonte'
 
+from typing import List
+
 import common.fileio as fio
 import problem_082 as p082
-from common.types import Matrix
 from common.utility import Graph
 
 
@@ -37,7 +38,8 @@ INPUT_FILE = '../input/083.txt' # default: '../input/083.txt'
 
 
 def solve() -> int:
-    matrix = list(fio.ints_from_file(INPUT_FILE, sep=',')) # type: Matrix[int]
+    matrix = list(
+        fio.ints_from_file(INPUT_FILE, sep=',')) # type: List[List[int]]
     n = len(matrix)
     
     # create graph with virtual start nodes

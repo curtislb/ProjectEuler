@@ -13,6 +13,7 @@ from collections import deque
 from typing import (
     Any,
     Callable,
+    Deque,
     Dict,
     Iterable,
     List,
@@ -24,7 +25,7 @@ from typing import (
     Type,
 )
 
-from common.types import Comparable, Matrix
+from common.types import Comparable
 
 
 class Graph(object):
@@ -190,7 +191,7 @@ class Graph(object):
         visited = {source} # type: Set[object]
 
         # queue of nodes to be visited in order
-        frontier = deque() # type: deque
+        frontier = deque() # type: Deque[object]
         frontier.append(source)
 
         # visit each node in FIFO order, adding its neighbors

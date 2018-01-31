@@ -37,9 +37,7 @@ INPUT_FILE = '../input/042.txt' # default: '../input/042.txt'
 
 @memoized
 def word_value(word: str) -> int:
-    """Returns the word value for word, computed as the sum of the alphabetical
-    positions of each of its letters.
-    """
+    """Returns the sum of the alphabetical positions of each letter in word."""
     return (0 if word == '' else
             word_value(word[:-1]) + alpha.letter_index_upper(word[-1]))
 

@@ -273,38 +273,32 @@ class TestDigits(unittest.TestCase):
             182)
 
     def test_sum_keep_digits(self) -> None:
-        self.assertEqual(digs.sum_keep_digits(1, 2), 3)
-        self.assertEqual(digs.sum_keep_digits(1, 2, d=1), 3)
-        self.assertEqual(digs.sum_keep_digits(1, 2, d=2), 3)
-        self.assertEqual(digs.sum_keep_digits(1, 2, d=100), 3)
-        self.assertEqual(digs.sum_keep_digits(7, 3), 10)
-        self.assertEqual(digs.sum_keep_digits(7, 3, d=1), 0)
-        self.assertEqual(digs.sum_keep_digits(7, 3, d=2), 10)
-        self.assertEqual(digs.sum_keep_digits(7, 3, d=3), 10)
-        self.assertEqual(digs.sum_keep_digits(80, 175), 255)
-        self.assertEqual(digs.sum_keep_digits(80, 175, d=1), 5)
-        self.assertEqual(digs.sum_keep_digits(80, 175, d=2), 55)
-        self.assertEqual(digs.sum_keep_digits(80, 175, d=3), 255)
-        self.assertEqual(digs.sum_keep_digits(80, 175, d=4), 255)
-        self.assertEqual(digs.sum_keep_digits(9008577767, 2942448238, d=1), 5)
-        self.assertEqual(digs.sum_keep_digits(9008577767, 2942448238, d=3), 5)
+        self.assertEqual(digs.sum_keep_digits(1, 2, 1), 3)
+        self.assertEqual(digs.sum_keep_digits(1, 2, 2), 3)
+        self.assertEqual(digs.sum_keep_digits(1, 2, 100), 3)
+        self.assertEqual(digs.sum_keep_digits(7, 3, 1), 0)
+        self.assertEqual(digs.sum_keep_digits(7, 3, 2), 10)
+        self.assertEqual(digs.sum_keep_digits(7, 3, 3), 10)
+        self.assertEqual(digs.sum_keep_digits(80, 175, 1), 5)
+        self.assertEqual(digs.sum_keep_digits(80, 175, 2), 55)
+        self.assertEqual(digs.sum_keep_digits(80, 175, 3), 255)
+        self.assertEqual(digs.sum_keep_digits(80, 175, 4), 255)
+        self.assertEqual(digs.sum_keep_digits(9008577767, 2942448238, 1), 5)
+        self.assertEqual(digs.sum_keep_digits(9008577767, 2942448238, 3), 5)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, d=6),
+            digs.sum_keep_digits(9008577767, 2942448238, 6),
             26005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, d=7),
+            digs.sum_keep_digits(9008577767, 2942448238, 7),
             1026005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, d=10),
+            digs.sum_keep_digits(9008577767, 2942448238, 10),
             1951026005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, d=11),
+            digs.sum_keep_digits(9008577767, 2942448238, 11),
             11951026005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, d=552),
-            11951026005)
-        self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238),
+            digs.sum_keep_digits(9008577767, 2942448238, 552),
             11951026005)
 
 

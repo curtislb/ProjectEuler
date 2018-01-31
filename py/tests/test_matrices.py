@@ -37,19 +37,24 @@ class TestMatrices(unittest.TestCase):
         
     def test_flatten_matrix(self) -> None:
         self.assertEqual(mat.flatten_matrix([[]]), [])
-        self.assertEqual(mat.flatten_matrix([[]], keep_indices=True), [])
         self.assertEqual(mat.flatten_matrix([[1]]), [1])
-        self.assertEqual(
-            mat.flatten_matrix([[1]], keep_indices=True),
-            [(1, 0, 0)])
         self.assertEqual(mat.flatten_matrix([[4, 3], [2, 1]]), [4, 3, 2, 1])
         self.assertEqual(
-            mat.flatten_matrix([['4', 3], [2, '1']], keep_indices=True),
-            [('4', 0, 0), (3, 0, 1), (2, 1, 0), ('1', 1, 1)])
+            mat.flatten_matrix([
+                ['a', 'b', 'c'],
+                ['x', 'y', 'z'],
+                ['n', 'm', 'l'],
+            ]),
+            ['a', 'b', 'c', 'x', 'y', 'z', 'n', 'm', 'l'])
         self.assertEqual(
-            mat.flatten_matrix([[1, 2], [3], [4, 5, 6]], keep_indices=True),
-            [(1, 0, 0), (2, 0, 1), (3, 1, 0), (4, 2, 0), (5, 2, 1), (6, 2, 2)])
-        
+            mat.flatten_matrix([
+                [9, 6, 3, 16],
+                [4, 15, 10, 5],
+                [14, 1,  8, 11],
+                [7, 12, 13, 2],
+            ]),
+            [9, 6, 3, 16, 4, 15, 10, 5, 14, 1, 8, 11, 7, 12, 13, 2])
+
     def test_make_spiral(self) -> None:
         self.assertEqual(mat.make_spiral(1), [[1]])
         self.assertEqual(

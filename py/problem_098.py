@@ -76,11 +76,9 @@ def try_map_digits(digits: Sequence[int], word: str)\
     return mapping
 
 
-def is_square_mapping(digit_mapping: Mapping[str, int], word: str) -> bool:
-    """Determines if the number formed by mapping letters in word to digits
-    according to digit_mapping is a valid square.
-    """
-    mapped_digits = [digit_mapping[letter] for letter in word]
+def is_square_mapping(digit_map: Mapping[str, int], word: str) -> bool:
+    """Checks if digit_map maps the letters in word into a perfect square."""
+    mapped_digits = [digit_map[letter] for letter in word]
     return (mapped_digits[0] != 0 and
             seqs.is_square(digs.concat_digits(mapped_digits)))
 

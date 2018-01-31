@@ -52,12 +52,14 @@ def find_min_denom(min_solutions: int) -> int:
     prime_count = int(math.ceil(math.log(2 * min_solutions - 1, 3)))
 
     # check products of primorials up to prime count
-    prime_list = prime.primes(prime_count)
-    primorials = arrs.cumulative_products(prime_list) # type: Sequence[int]
-    for n in seqs.generate_products(primorials):
+    primorial_list = prime.primorials(prime_count)
+    for n in seqs.generate_products(primorial_list):
         # find solution count in terms of divisors of n^2
         if (divs.count_power_divisors(n, 2) + 1) // 2 > min_solutions:
             return n
+
+    # should never reach this statement
+    return 0
 
 
 def solve() -> int:

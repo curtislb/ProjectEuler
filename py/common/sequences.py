@@ -110,6 +110,7 @@ def arithmetic_product(a: int, n: int, d: int = 1) -> int:
     n: The total number of terms in the sequence
     d: The difference between any two terms in the sequence
     """
+
     return functools.reduce(operator.mul, range(a, a + n * d, d), 1)
 
 
@@ -120,6 +121,7 @@ def arithmetic_series(a: int, n: int, d: int = 1) -> int:
     n: The total number of terms in the sequence
     d: The difference between any two terms in the sequence
     """
+
     return n * (2 * a + (n - 1) * d) // 2
 
 
@@ -192,7 +194,7 @@ def generate_products(factors: Sequence[int], cache_capacity: int = 1000)\
 
 
 def hexagonal(n: int) -> int:
-    """Returns the nth hexagonal number."""
+    """Returns the nth hexagonal number, starting with 1."""
     return n * (2 * n - 1)
 
 
@@ -225,6 +227,7 @@ def is_power(n: int, p: int) -> bool:
 
     Specifically, returns True iff n = m^p for some natural number m.
     """
+
     root_n = n**(1 / p)
     lo_power = (int(root_n))**p
     hi_power = (int(math.ceil(root_n)))**p
@@ -247,7 +250,7 @@ def next_multiple(n: int, min_val: int) -> int:
 
 
 def pentagonal(n: int) -> int:
-    """Returns the nth pentagonal number."""
+    """Returns the nth pentagonal number, starting with 1."""
     return n * (3 * n - 1) // 2
 
 
@@ -257,8 +260,9 @@ def sum_of_squares(n: int) -> int:
 
 
 def triangular(n: int) -> int:
-    """Returns the nth triangle number.
+    """Returns the nth triangle number, starting with 1.
 
     The resulting value is also the sum of the first n natural numbers.
     """
+
     return n * (n + 1) // 2

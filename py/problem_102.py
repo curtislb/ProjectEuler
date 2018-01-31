@@ -40,11 +40,11 @@ QUERY_POINT = (0, 0) # default: (0, 0)
 
 
 def vector_sub(u: Sequence[int], v: Sequence[int]) -> Sequence[int]:
-    """Returns the difference (u - v) of vectors u and v of equal length."""
-    return [i - j for i, j in zip(u, v)]
+    """Returns the difference (u - v) of equal-length vectors u and v."""
+    return [u[i] - v[i] for i in range(len(u))]
 
 
-def same_side(
+def on_same_side(
         p1: Sequence[int],
         p2: Sequence[int],
         a: Sequence[int],
@@ -71,9 +71,9 @@ def solve() -> int:
             c = (next(tokens), next(tokens), 0)
 
             # check if query point on correct side of all segments
-            if (same_side(point, a, b, c)
-                    and same_side(point, b, c, a)
-                    and same_side(point, c, a, b)):
+            if (on_same_side(point, a, b, c)
+                    and on_same_side(point, b, c, a)
+                    and on_same_side(point, c, a, b)):
                 count += 1
 
     return count

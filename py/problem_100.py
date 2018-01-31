@@ -35,21 +35,22 @@ MIN_DISCS = 10**12 # default: 10**12
 
 @memoized
 def b(n: int) -> int:
-    """Returns the nth natural number solution for b in the Diophantine
-    equation 2b*(b-1) = a*(a-1).
-    """
+    """Returns the nth natural number solution for b in 2b*(b-1) = a*(a-1)."""
     return (1 if n == 1 else
             3 if n == 2 else
             6 * b(n - 1) - b(n - 2) - 2)
 
 
-def total_discs(blue_discs: int) -> Optional[float]:
-    """Returns the number of discs in total for a valid arrangement with the
-    given number of blue discs.
+def total_discs(blue_discs: int) -> Optional[int]:
+    """Returns the total discs in a valid arrangement with given blue discs.
+
+    If no valid arrangement is possible with the given number of blue discs,
+    instead returns None.
     """
+
     root = arith.quadratic_roots(1, -1, -2 * blue_discs * (blue_discs - 1))[1]
     if isinstance(root, float):
-        return root
+        return int(root)
     else:
         return None
 

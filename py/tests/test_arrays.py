@@ -52,11 +52,12 @@ class TestArrays(unittest.TestCase):
         self.assertIsNone(arrs.binary_search(seq2, 23))
         
     def test_cumulative_partial_sums(self) -> None:
-        self.assertEqual(arrs.cumulative_partial_sums([1]), [1])
-        self.assertEqual(arrs.cumulative_partial_sums([1, 2, 3]), [1, 3, 6])
+        self.assertEqual(arrs.cumulative_partial_sums([1], 1), [1])
         self.assertEqual(arrs.cumulative_partial_sums([1, 2, 3], 1), [1, 2, 3])
         self.assertEqual(arrs.cumulative_partial_sums([1, 2, 3], 2), [1, 3, 5])
-        self.assertEqual(arrs.cumulative_partial_sums([-1, 2, -3]), [-1, 1, -2])
+        self.assertEqual(arrs.cumulative_partial_sums([1, 2, 3], 3), [1, 3, 6])
+        self.assertEqual(
+            arrs.cumulative_partial_sums([-1, 2, -3], 3), [-1, 1, -2])
         self.assertEqual(
             arrs.cumulative_partial_sums(
                 [9, -7, -1, 18, 25, -6, 14, -20, 0, 4, -18, 12, -3, 11, 6, -5],

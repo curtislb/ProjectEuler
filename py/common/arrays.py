@@ -8,7 +8,7 @@ Functions for operating on lists and related sequences.
 __author__ = 'Curtis Belmonte'
 
 from collections import defaultdict, deque
-from typing import Dict, Iterable, List, Mapping, Optional, Sequence
+from typing import Deque, Dict, Iterable, List, Mapping, Optional, Sequence
 
 from common.types import Comparable, T
 
@@ -65,19 +65,16 @@ def binary_search(
     return None
 
 
-def cumulative_partial_sums(
-        nums: Sequence[float],
-        limit: float = float('inf')) -> Sequence[float]:
-
-    """Returns the partial cumulative sums of a sequence of numbers.
+def cumulative_partial_sums(nums: Sequence[int], limit: int) -> Sequence[int]:
+    """Returns the partial cumulative sums of a sequence of integers.
 
     For each term in nums, the term in the resulting sequence will be the sum
     of up to the previous limit terms in nums, including the current one.
     """
 
-    sums = [] # type: List[float]
-    terms = deque() # type: deque
-    total = 0 # type: float
+    sums = [] # type: List[int]
+    terms = deque() # type: Deque[int]
+    total = 0
     for i, num in enumerate(nums):
         total += num
         terms.append(num)
@@ -90,14 +87,15 @@ def cumulative_partial_sums(
     return sums
 
 
-def cumulative_products(nums: Sequence[float]) -> Sequence[float]:
-    """Returns the cumulative products of a sequence of numbers.
+def cumulative_products(nums: Sequence[int]) -> Sequence[int]:
+    """Returns the cumulative products of a sequence of integers.
 
     For each term in nums, the term in the resulting sequence will be the
     product of the current term in nums and all of the prior ones.
     """
-    products = [] # type: List[float]
-    product = 1 # type: float
+
+    products = [] # type: List[int]
+    product = 1
     for num in nums:
         product *= num
         products.append(product)

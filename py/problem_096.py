@@ -44,9 +44,7 @@ in the top left corner of the solution grid above.
 __author__ = 'Curtis Belmonte'
 
 import copy
-from typing import Optional, Set
-
-from common.types import Matrix
+from typing import List, Optional, Set
 
 
 # PARAMETERS ##################################################################
@@ -58,10 +56,8 @@ INPUT_FILE = '../input/096.txt' # default: '../input/096.txt'
 # SOLUTION ####################################################################
 
 
-def get_valid_digits(grid: Matrix[int], i: int, j: int) -> Set[int]:
-    """Returns a set of all digits that could be placed in cell (i, j) based on
-    the current configuration of grid.
-    """
+def get_valid_digits(grid: List[List[int]], i: int, j: int) -> Set[int]:
+    """Finds all of the digits that could be placed in cell (i, j) of grid."""
 
     digits = set(range(1, 10))
 
@@ -87,7 +83,7 @@ def get_valid_digits(grid: Matrix[int], i: int, j: int) -> Set[int]:
     return digits
 
 
-def solve_puzzle(grid: Matrix[int]) -> Optional[Matrix[int]]:
+def solve_puzzle(grid: List[List[int]]) -> Optional[List[List[int]]]:
     """Solves the puzzle represented by grid and returns the solution grid."""
 
     # deterministically fill in puzzle grid as much as possible
