@@ -155,11 +155,11 @@ class TestGraph(unittest.TestCase):
 
         """Tests if prev contains a reverse path from source to node.
 
-        prev    Should map nodes to the previous node along a path from source
-        source  The node that should be reached by following the reverse path
-        node    The node which should have a reverse path in prev to source
-        dist    If not None, the expected total cost of the path
-        seen    If not None, the set of nodes already seen along the path
+        prev: Should map nodes to the previous node along a path from source
+        source: The node that should be reached by following the reverse path
+        node: The node which should have a reverse path in prev to source
+        dist: If not None, the expected total cost of the path
+        seen: If not None, the set of nodes already seen along the path
 
         This method fails if following nodes in prev starting from node does
         not lead to source along an existing path in self.graph.reverse(), or

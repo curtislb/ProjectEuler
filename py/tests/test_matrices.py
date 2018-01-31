@@ -95,37 +95,28 @@ class TestMatrices(unittest.TestCase):
                 [68, 39, 18,  5,  4,  3, 12, 29, 54],
                 [67, 38, 17, 16, 15, 14, 13, 30, 55],
                 [66, 37, 36, 35, 34, 33, 32, 31, 56],
-                [65, 64, 63, 62, 61, 60, 59, 58, 57]
+                [65, 64, 63, 62, 61, 60, 59, 58, 57],
             ])
 
     def test_max_bipartite_matching(self) -> None:
         self.assertEqual(len(mat.max_bipartite_matching([[False]])), 0)
         self.assertCountEqual(mat.max_bipartite_matching([[True]]), [(0, 0)])
         self.assertCountEqual(
-            mat.max_bipartite_matching([
-                [True, False],
-                [False, True]]),
+            mat.max_bipartite_matching([[True, False], [False, True]]),
             [(0, 0), (1, 1)])
         self.assertEqual(
-            len(mat.max_bipartite_matching([
-                [False, False],
-                [True,  True]])),
-            1)
+            len(mat.max_bipartite_matching([[False, False], [True,  True]])), 1)
         self.assertEqual(
-            len(mat.max_bipartite_matching([
-                [False, True],
-                [False, True]])),
-            1)
+            len(mat.max_bipartite_matching([[False, True], [False, True]])), 1)
         self.assertCountEqual(
-            mat.max_bipartite_matching([
-                [False, True],
-                [True,  True]]),
+            mat.max_bipartite_matching([[False, True], [True,  True]]),
             [(0, 1), (1, 0)])
         self.assertCountEqual(
             mat.max_bipartite_matching([
                 [True,  False, False],
                 [False, False, True],
-                [False, True,  False]]),
+                [False, True,  False],
+            ]),
             [(0, 0), (1, 2), (2, 1)])
         self.assertEqual(
             len(mat.max_bipartite_matching([
@@ -133,7 +124,8 @@ class TestMatrices(unittest.TestCase):
                 [False, False, True, False, False],
                 [False, True,  True, True,  False],
                 [False, False, True, False, False],
-                [False, True,  True, False, True]])),
+                [False, True,  True, False, True],
+            ])),
             4)
         self.assertCountEqual(
             mat.max_bipartite_matching([
@@ -141,7 +133,8 @@ class TestMatrices(unittest.TestCase):
                 [True,  False, True,  False, False],
                 [False, True,  False, True,  False],
                 [False, False, True,  False, True],
-                [False, True,  False, False, True]]),
+                [False, True,  False, False, True],
+            ]),
             [(0, 0), (1, 2), (2, 3), (3, 4), (4, 1)])
         self.assertEqual(
             len(mat.max_bipartite_matching([
@@ -150,7 +143,8 @@ class TestMatrices(unittest.TestCase):
                 [False, False, True,  False, False, False],
                 [False, False, True,  True,  False, False],
                 [False, False, False, False, False, False],
-                [False, False, False, False, False, True]])),
+                [False, False, False, False, False, True],
+            ])),
             5)
 
     def test_minimum_line_cover(self) -> None:
@@ -178,14 +172,16 @@ class TestMatrices(unittest.TestCase):
             mat.minimum_line_cover([
                 [1, 2, 0],
                 [3, 4, 0],
-                [0, 0, 0]]),
+                [0, 0, 0],
+            ]),
             [(False, 2), (True, 2)])
         self.assertEqual(
             len(mat.minimum_line_cover([
                 [0, 0, 0],
                 [9, 2, 0],
                 [4, 0, 6],
-                [0, 3, 1]])),
+                [0, 3, 1],
+            ])),
             3)
         self.assertEqual(
             len(mat.minimum_line_cover([
@@ -193,7 +189,8 @@ class TestMatrices(unittest.TestCase):
                 [7, 6, 4, 0],
                 [0, 5, 3, 5],
                 [4, 3, 0, 0],
-                [0, 0, 0, 0]])),
+                [0, 0, 0, 0],
+            ])),
             4)
         self.assertEqual(
             len(mat.minimum_line_cover([
@@ -201,15 +198,17 @@ class TestMatrices(unittest.TestCase):
                 [7, 6, 4, 0, 1],
                 [0, 5, 3, 5, 7],
                 [4, 3, 0, 0, 2],
-                [0, 0, 0, 0, 0]])),
+                [0, 0, 0, 0, 0],
+            ])),
             4)
         self.assertEqual(
             len(mat.minimum_line_cover([
-                [0, 4, 2, 2, 3, 9],
+                [0, 4, 2, 2, 3,  9],
                 [7, 6, 4, 0, 1, -1],
-                [0, 5, 3, 5, 7, 8],
+                [0, 5, 3, 5, 7,  8],
                 [4, 3, 0, 0, 2, 11],
-                [0, 0, 0, 0, 0, 0]])),
+                [0, 0, 0, 0, 0,  0],
+            ])),
             4)
         self.assertEqual(
             len(mat.minimum_line_cover([
@@ -217,7 +216,8 @@ class TestMatrices(unittest.TestCase):
                 [7, 5, 4, 0, 0],
                 [0, 4, 3, 5, 6],
                 [4, 2, 0, 0, 1],
-                [1, 0, 1, 1, 0]])),
+                [1, 0, 1, 1, 0],
+            ])),
             5)
         self.assertEqual(
             len(mat.minimum_line_cover([
@@ -225,7 +225,8 @@ class TestMatrices(unittest.TestCase):
                 [1, 1, 0, 1, 1],
                 [1, 0, 0, 0, 1],
                 [1, 1, 0, 1, 1],
-                [1, 0, 0, 1, 0]])),
+                [1, 0, 0, 1, 0]
+            ])),
             4)
         self.assertCountEqual(
             mat.minimum_line_cover([
@@ -233,7 +234,8 @@ class TestMatrices(unittest.TestCase):
                 [0, 1, 0, 1, 1],
                 [1, 1, 0, 1, 0],
                 [1, 1, 0, 1, 1],
-                [1, 1, 0, 1, 0]]),
+                [1, 1, 0, 1, 0],
+            ]),
             [(True, 0), (True, 2), (True, 4)])
         self.assertEqual(
             len(mat.minimum_line_cover([
@@ -244,7 +246,8 @@ class TestMatrices(unittest.TestCase):
                 [2, 2, 4, 6, 2, 7, 1, 2, 5, 4],
                 [3, 1, 4, 3, 2, 0, 6, 5, 5, 1],
                 [2, 3, 6, 4, 0, 1, 6, 2, 2, 2],
-                [1, 3, 1, 0, 0, 0, 1, 5, 1, 2]])),
+                [1, 3, 1, 0, 0, 0, 1, 5, 1, 2],
+            ])),
             6)
         
     def test_optimal_assignment(self) -> None:
@@ -264,7 +267,8 @@ class TestMatrices(unittest.TestCase):
             mat.optimal_assignment([
                 [1, 6, 4],
                 [8, 7, 9],
-                [9, 0, 5]]),
+                [9, 0, 5],
+            ]),
             [(0, 0), (1, 2), (2, 1)])
         self.assertCountEqual(
             mat.optimal_assignment([
@@ -272,7 +276,8 @@ class TestMatrices(unittest.TestCase):
                 [78, 45, 67, 43, 12],
                 [85, 84, 43, 45, 36],
                 [37, 60, 52, 54, 67],
-                [48, 86, 23, 58, 99]]),
+                [48, 86, 23, 58, 99],
+            ]),
             [(0, 4), (1, 1), (2, 3), (3, 0), (4, 2)])
         self.assertCountEqual(
             mat.optimal_assignment([
@@ -285,7 +290,8 @@ class TestMatrices(unittest.TestCase):
                 [619, 297, 193, 182, 706, 558, 621, 393, 883, 922],
                 [594, 192, 770, 523,  87, 295, 367, 744, 146, 700],
                 [491, 386, 719,  14, 360, 673, 579, 413, 546, 427],
-                [730, 392, 968, 587, 177, 291, 743,  63, 329, 717]]),
+                [730, 392, 968, 587, 177, 291, 743,  63, 329, 717],
+            ]),
             [(0, 6), (1, 9), (2, 8), (3, 1), (4, 3), (5, 5), (6, 2), (7, 4),
              (8, 0), (9, 7)])
 

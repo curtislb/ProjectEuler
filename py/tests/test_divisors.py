@@ -82,8 +82,7 @@ class TestDivisors(unittest.TestCase):
         self.assertEqual(divs.lcm_all((8, 9, 7)), 504)
         self.assertEqual(divs.lcm_all([4, 7, 2, 5, 3]), 420)
         self.assertEqual(
-            divs.lcm_all([540330, 424130, 465962, 357896]),
-            4871660667720)
+            divs.lcm_all([540330, 424130, 465962, 357896]), 4871660667720)
         
     def test_radical(self) -> None:
         rads = [1, 2, 3, 2, 5, 6, 7, 2, 3, 10, 11, 6, 13, 14, 15, 2, 17, 6, 19]
@@ -124,8 +123,7 @@ class TestDivisors(unittest.TestCase):
         self.assertEqual(divs.totient(876), 288)
         self.assertEqual(divs.totient(58758), 16776)
         self.assertEqual(
-            divs.totient(58758, prime_factors=[2, 3, 7, 1399]),
-            16776)
+            divs.totient(58758, prime_factors=[2, 3, 7, 1399]), 16776)
         self.assertEqual(
             divs.totient(19614162799, prime_factors=[7, 11, 31, 24097]),
             14790124800)

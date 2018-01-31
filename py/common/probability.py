@@ -37,11 +37,9 @@ def choose_weighted_random(values: Sequence[T], probs: Sequence[Real]) -> T:
 
 def dice_probability(x: int, n: int, s: int) -> Fraction:
     """Returns the probability of rolling a value of x with n s-sided dice."""
-
     total = 0
     sign = 1
     for k in range((x - n) // s + 1):
         total += sign * comb.choose(n, k) * comb.choose(x - s * k - 1, n - 1)
-        sign *= -1
-
+        sign = -sign
     return Fraction(total, s**n)

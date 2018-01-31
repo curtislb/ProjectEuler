@@ -233,14 +233,12 @@ class TestDigits(unittest.TestCase):
         self.assertEqual(digs.make_palindrome(0o31, base=8), 0o3113)
         self.assertEqual(digs.make_palindrome(25, odd_length=True), 252)
         self.assertEqual(
-            digs.make_palindrome(0o31, base=8, odd_length=True),
-            0o313)
+            digs.make_palindrome(0o31, base=8, odd_length=True), 0o313)
         self.assertEqual(digs.make_palindrome(1347), 13477431)
         self.assertEqual(digs.make_palindrome(0x543, base=16), 0x543345)
         self.assertEqual(digs.make_palindrome(1347, odd_length=True), 1347431)
         self.assertEqual(
-            digs.make_palindrome(0x543, base=16, odd_length=True),
-            0x54345)
+            digs.make_palindrome(0x543, base=16, odd_length=True), 0x54345)
         
     def test_pandigital_string(self) -> None:
         self.assertEqual(digs.pandigital_string(), '0123456789')
@@ -269,8 +267,7 @@ class TestDigits(unittest.TestCase):
         self.assertEqual(digs.sum_digits(0xdeadbeef, 16), 104)
         self.assertEqual(digs.sum_digits(609278806205509), 67)
         self.assertEqual(
-            digs.sum_digits(9987223242228759440094102307791387034898),
-            182)
+            digs.sum_digits(9987223242228759440094102307791387034898), 182)
 
     def test_sum_keep_digits(self) -> None:
         self.assertEqual(digs.sum_keep_digits(1, 2, 1), 3)
@@ -286,20 +283,15 @@ class TestDigits(unittest.TestCase):
         self.assertEqual(digs.sum_keep_digits(9008577767, 2942448238, 1), 5)
         self.assertEqual(digs.sum_keep_digits(9008577767, 2942448238, 3), 5)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, 6),
-            26005)
+            digs.sum_keep_digits(9008577767, 2942448238, 6), 26005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, 7),
-            1026005)
+            digs.sum_keep_digits(9008577767, 2942448238, 7), 1026005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, 10),
-            1951026005)
+            digs.sum_keep_digits(9008577767, 2942448238, 10), 1951026005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, 11),
-            11951026005)
+            digs.sum_keep_digits(9008577767, 2942448238, 11), 11951026005)
         self.assertEqual(
-            digs.sum_keep_digits(9008577767, 2942448238, 552),
-            11951026005)
+            digs.sum_keep_digits(9008577767, 2942448238, 552), 11951026005)
 
 
 if __name__ == '__main__':

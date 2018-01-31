@@ -39,11 +39,9 @@ class TestExpansion(unittest.TestCase):
         self.assertEqual(expan.sqrt_fraction_expansion(11), (3, [3, 6]))
         self.assertEqual(expan.sqrt_fraction_expansion(12), (3, [2, 6]))
         self.assertEqual(
-            expan.sqrt_fraction_expansion(13),
-            (3, [1, 1, 1, 1, 6]))
+            expan.sqrt_fraction_expansion(13), (3, [1, 1, 1, 1, 6]))
         self.assertEqual(
-            expan.sqrt_fraction_expansion(23),
-            (4, [1, 3, 1, 8]))
+            expan.sqrt_fraction_expansion(23), (4, [1, 3, 1, 8]))
         self.assertEqual(
             expan.sqrt_fraction_expansion(688),
             (26, [4, 2, 1, 5, 7, 3, 7, 5, 1, 2, 4, 52]))

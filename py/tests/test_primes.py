@@ -7,6 +7,7 @@ Unit test for the 'primes' common module.
 
 __author__ = 'Curtis Belmonte'
 
+import itertools
 import unittest
 
 import common.primes as prime
@@ -28,8 +29,7 @@ class TestPrimes(unittest.TestCase):
         self.assertEqual(prime.count_prime_factors(12, [2, 3]), 2)
         self.assertEqual(prime.count_prime_factors(12, [2, 3, 5, 7, 11]), 2)
         self.assertEqual(
-            prime.count_prime_factors(30, [2, 3, 5, 7, 11, 13, 17, 19, 23]),
-            3)
+            prime.count_prime_factors(30, [2, 3, 5, 7, 11, 13, 17, 19, 23]), 3)
         self.assertEqual(prime.count_prime_factors(360), 3)
         self.assertEqual(prime.count_prime_factors(1327), 1)
         self.assertEqual(prime.count_prime_factors(4200), 4)
@@ -82,16 +82,16 @@ class TestPrimes(unittest.TestCase):
         p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
                   59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113]
         for i in range(1, len(p_nums) + 1):
-            self.assertCountEqual(prime.primes(i), p_nums[:i])
+            self.assertEqual(prime.primes(i), p_nums[:i])
         self.assertEqual(prime.primes(168)[-1], 997)
 
     def test_primes_up_to(self) -> None:
         p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
                   59, 61, 67, 71, 73, 79, 83, 89, 97]
         for n in range(2, 100):
-            self.assertCountEqual(
+            self.assertEqual(
                 prime.primes_up_to(n),
-                filter(lambda x: x <= n, p_nums))
+                list(itertools.takewhile(lambda x: x <= n, p_nums)))
         self.assertEqual(len(prime.primes_up_to(1000)), 168)
 
 

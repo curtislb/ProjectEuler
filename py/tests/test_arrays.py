@@ -75,7 +75,7 @@ class TestArrays(unittest.TestCase):
             arrs.inverse_index_map('randomz'),
             {'r': 0, 'a': 1, 'n': 2, 'd': 3, 'o': 4, 'm': 5, 'z': 6})
 
-    def test_inverse_index_map_nd(self) -> None:
+    def test_inverse_index_map_all(self) -> None:
         self.assertEqual(arrs.inverse_index_map_all(''), {})
         self.assertEqual(arrs.inverse_index_map_all('z'), {'z': [0]})
         self.assertEqual(arrs.inverse_index_map_all([1]), {1: [0]})
