@@ -57,25 +57,40 @@ class TestDigits(unittest.TestCase):
 
     def test_digit_counts(self) -> None:
         self.assertEqual(digs.digit_counts(1), [0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
+        self.assertEqual(digs.digit_counts(1, base=2), [0, 1])
+        self.assertEqual(digs.digit_counts(2), [0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
+        self.assertEqual(digs.digit_counts(2, base=2), [1, 1])
         self.assertEqual(digs.digit_counts(9), [0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        self.assertEqual(digs.digit_counts(9, base=3), [2, 1, 0])
         self.assertEqual(digs.digit_counts(10), [1, 1, 0, 0, 0, 0, 0, 0, 0, 0])
+        self.assertEqual(digs.digit_counts(10, base=3), [1, 2, 0])
         self.assertEqual(digs.digit_counts(99), [0, 0, 0, 0, 0, 0, 0, 0, 0, 2])
         self.assertEqual(digs.digit_counts(1234567890), [1] * 10)
+        self.assertEqual(digs.digit_counts(0o12345670, base=8), [1] * 8)
+        self.assertEqual(
+            digs.digit_counts(0x123456789abcdef0, base=16), [1] * 16)
         self.assertEqual(
             digs.digit_counts(490473284389948786968728452),
             [1, 0, 3, 2, 5, 1, 2, 3, 6, 4])
+        self.assertEqual(
+            digs.digit_counts(0x320c09cc4c2c4af7fb3c41293fed746ee8931, base=16),
+            [2, 2, 3, 4, 4, 0, 1, 2, 1, 3, 1, 1, 6, 1, 3, 3])
 
     def test_digit_function_sum(self) -> None:
         self.assertEqual(digs.digit_function_sum(0, lambda x: x), 0)
         self.assertEqual(digs.digit_function_sum(1, lambda x: x), 1)
         self.assertEqual(digs.digit_function_sum(123, lambda x: x), 6)
+        self.assertEqual(digs.digit_function_sum(0o123, lambda x: x, base=8), 6)
+        self.assertEqual(digs.digit_function_sum(0x23, lambda x: x, base=16), 5)
         self.assertEqual(digs.digit_function_sum(123, lambda x: x + 1), 9)
+        self.assertEqual(digs.digit_function_sum(0o231, lambda x: x + 1, 8), 9)
         self.assertEqual(digs.digit_function_sum(123, lambda x: x**2), 14)
         self.assertEqual(
             digs.digit_function_sum(
-                7948531,
-                lambda x: -x if x % 2 == 1 else x),
+                7948531, lambda x: -x if x % 2 == 1 else x),
             -13)
+        self.assertEqual(
+            digs.digit_function_sum(0b101101001101, lambda x: x ^ 1, base=2), 5)
 
     def test_digit_permutations(self) -> None:
         self.assertCountEqual(digs.digit_permutations(1), [1])
@@ -84,8 +99,7 @@ class TestDigits(unittest.TestCase):
         self.assertCountEqual(digs.digit_permutations(11), [11])
         self.assertCountEqual(digs.digit_permutations(12), [12, 21])
         self.assertCountEqual(
-            digs.digit_permutations(123),
-            [123, 132, 213, 231, 312, 321])
+            digs.digit_permutations(123), [123, 132, 213, 231, 312, 321])
         self.assertCountEqual(
             digs.digit_permutations(1337),
             [1337, 1373, 1733, 3137, 3173, 3317, 3371, 3713, 3731, 7133, 7313,
@@ -110,8 +124,7 @@ class TestDigits(unittest.TestCase):
         self.assertCountEqual(digs.digit_truncations_left(1002), [1002, 2])
         self.assertCountEqual(digs.digit_truncations_left(123), [123, 23, 3])
         self.assertCountEqual(
-            digs.digit_truncations_left(600316),
-            [600316, 316, 16, 6])
+            digs.digit_truncations_left(600316), [600316, 316, 16, 6])
 
     def test_digit_truncations_right(self) -> None:
         self.assertCountEqual(digs.digit_truncations_right(1), [1])
@@ -120,20 +133,25 @@ class TestDigits(unittest.TestCase):
         self.assertCountEqual(digs.digit_truncations_right(12), [12, 1])
         self.assertCountEqual(digs.digit_truncations_right(123), [123, 12, 1])
         self.assertCountEqual(
-            digs.digit_truncations_right(1002),
-            [1002, 100, 10, 1])
+            digs.digit_truncations_right(1002), [1002, 100, 10, 1])
         self.assertCountEqual(
             digs.digit_truncations_right(600316),
             [600316, 60031, 6003, 600, 60, 6])
 
     def test_digits(self) -> None:
         self.assertEqual(digs.digits(1), [1])
+        self.assertEqual(digs.digits(1, base=2), [1])
         self.assertEqual(digs.digits(2), [2])
+        self.assertEqual(digs.digits(2, base=2), [1, 0])
         self.assertEqual(digs.digits(123), [1, 2, 3])
+        self.assertEqual(digs.digits(0o123, base=8), [1, 2, 3])
         self.assertEqual(digs.digits(1337), [1, 3, 3, 7])
         self.assertEqual(
             digs.digits(698873214754301820),
             [6, 9, 8, 8, 7, 3, 2, 1, 4, 7, 5, 4, 3, 0, 1, 8, 2, 0])
+        self.assertEqual(
+            digs.digits(0o277000627755406722, base=8),
+            [2, 7, 7, 0, 0, 0, 6, 2, 7, 7, 5, 5, 4, 0, 6, 7, 2, 2])
         
     def test_get_digit(self) -> None:
         self.assertEqual(digs.get_digit(1, 1), 1)
@@ -185,17 +203,27 @@ class TestDigits(unittest.TestCase):
         self.assertTrue(digs.is_palindrome(1))
         self.assertTrue(digs.is_palindrome(11))
         self.assertTrue(digs.is_palindrome(22))
+        self.assertTrue(digs.is_palindrome(0o22, base=8))
+        self.assertFalse(digs.is_palindrome(23, base=23))
+        self.assertTrue(digs.is_palindrome(24, base=23))
         self.assertFalse(digs.is_palindrome(10))
+        self.assertFalse(digs.is_palindrome(0b10, base=2))
         self.assertTrue(digs.is_palindrome(101))
         self.assertFalse(digs.is_palindrome(1212))
         self.assertTrue(digs.is_palindrome(2332))
         self.assertTrue(digs.is_palindrome(72427))
+        self.assertTrue(digs.is_palindrome(0o72427, base=8))
         self.assertTrue(digs.is_palindrome(724427))
+        self.assertTrue(digs.is_palindrome(0x724427, base=16))
         self.assertTrue(digs.is_palindrome(722444227))
+        self.assertTrue(digs.is_palindrome(0b100111001, base=2))
         self.assertFalse(digs.is_palindrome(513513))
+        self.assertFalse(digs.is_palindrome(0o513513, base=8))
         self.assertFalse(digs.is_palindrome(551133))
+        self.assertFalse(digs.is_palindrome(0x551133, base=16))
         self.assertFalse(digs.is_palindrome(5133150))
-        
+        self.assertFalse(digs.is_palindrome(5133150, 23))
+
     def test_make_palindrome(self) -> None:
         self.assertEqual(digs.make_palindrome(1), 11)
         self.assertEqual(digs.make_palindrome(1, base=2), 0b11)
@@ -230,10 +258,15 @@ class TestDigits(unittest.TestCase):
     def test_sum_digits(self) -> None:
         self.assertEqual(digs.sum_digits(1), 1)
         self.assertEqual(digs.sum_digits(2), 2)
+        self.assertEqual(digs.sum_digits(0o2, 8), 2)
         self.assertEqual(digs.sum_digits(10), 1)
+        self.assertEqual(digs.sum_digits(0b10, 2), 1)
         self.assertEqual(digs.sum_digits(13), 4)
+        self.assertEqual(digs.sum_digits(13, 12), 2)
         self.assertEqual(digs.sum_digits(209), 11)
         self.assertEqual(digs.sum_digits(1337), 14)
+        self.assertEqual(digs.sum_digits(0o1337, 8), 14)
+        self.assertEqual(digs.sum_digits(0xdeadbeef, 16), 104)
         self.assertEqual(digs.sum_digits(609278806205509), 67)
         self.assertEqual(
             digs.sum_digits(9987223242228759440094102307791387034898),
