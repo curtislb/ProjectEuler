@@ -26,7 +26,7 @@ def _try_assign_zeros(matrix: List[List[int]]) -> Sequence[Coord]:
 
 
 def _try_bipartite_match(
-        edge_matrix: List[List[int]],
+        edge_matrix: List[List[bool]],
         row: int,
         col_marked: List[bool],
         col_assignments: List[int]) -> bool:

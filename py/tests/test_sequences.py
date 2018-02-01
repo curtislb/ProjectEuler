@@ -7,8 +7,9 @@ Unit test for the 'sequences' common module.
 
 __author__ = 'Curtis Belmonte'
 
+import itertools
 import unittest
-from typing import Dict
+from typing import Dict, List, Sequence
 
 import common.sequences as seqs
 
@@ -79,6 +80,39 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(
             seqs.fibonacci(273),
             818706854228831001753880637535093596811413714795418360007)
+
+    def test_generate_products(self) -> None:
+        def list_products(nums: Sequence[int], i: int, j: int) -> List[int]:
+            """Returns a list of the i to jth (exclusive) products of nums."""
+            return list(itertools.islice(seqs.generate_products(nums), i, j))
+
+        self.assertEqual(
+            list_products([2], 0, 14),
+            [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192])
+        self.assertEqual(list_products([2], 42, 43), [4398046511104])
+        self.assertEqual(
+            list_products([2, 3], 0, 18),
+            [1, 2, 3, 4, 6, 8, 9, 12, 16, 18, 24, 27, 32, 36, 48, 54, 64, 72])
+        self.assertEqual(
+            list_products([3, 2], 31, 41),
+            [432, 486, 512, 576, 648, 729, 768, 864, 972, 1024])
+        self.assertEqual(
+            list_products([2, 3, 5], 0, 18),
+            [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24, 25, 27, 30])
+        self.assertEqual(list_products([5, 2, 3], 1690, 1691), [2125764000])
+        self.assertEqual(
+            list_products([3, 11], 0, 15),
+            [1, 3, 9, 11, 27, 33, 81, 99, 121, 243, 297, 363, 729, 891, 1089])
+        self.assertEqual(
+            list_products([2310, 30030, 2, 6, 30, 210, 510510], 0, 29),
+            [1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 36, 48, 60, 64, 72, 96, 120,
+             128, 144, 180, 192, 210, 216, 240, 256, 288, 360, 384, 420])
+        self.assertEqual(
+            list_products([2, 6, 30, 210, 2310, 30030, 510510], 420, 427),
+            [5292000, 5308416, 5322240, 5336100, 5405400, 5443200, 5529600])
+        self.assertEqual(
+            list_products([2, 3, 5, 8, 13, 21, 34, 55, 89], 161, 174),
+            [729, 750, 756, 768, 780, 800, 801, 810, 816, 819, 825, 832, 840])
 
     def test_hexagonal(self) -> None:
         hex_nums = [0, 1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325]
