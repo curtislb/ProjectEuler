@@ -164,28 +164,6 @@ def max_bipartite_matching(edge_matrix: List[List[bool]]) -> Sequence[Coord]:
     return [(i, j) for j, i in enumerate(col_assignments) if i != -1]
 
 
-def max_triangle_path(triangle: List[List[int]]) -> int:
-    """Returns the maximal sum of numbers from top to bottom in triangle."""
-
-    num_rows = len(triangle)
-
-    # add maximum adjacent values from row above to each row
-    for i in range(1, num_rows):
-        for j in range(i + 1):
-            if j != 0 and j != i:
-                # two adjacent elements above; add maximal
-                triangle[i][j] += max(triangle[i-1][j-1], triangle[i-1][j])
-            elif j == 0:
-                # no adjacent element to left above; add right
-                triangle[i][j] += triangle[i - 1][j]
-            else:
-                # no adjacent element to right above; add left
-                triangle[i][j] += triangle[i - 1][j - 1]
-
-    # return maximal sum accumulated in last row of triangle
-    return max(triangle[-1])
-
-
 def minimum_line_cover(matrix: List[List[int]]) -> Sequence[Tuple[bool, int]]:
     """Returns a list of the fewest lines needed to cover all zeros in matrix.
 

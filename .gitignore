@@ -1,11 +1,13 @@
 # Specific directories
-.idea/
-cpp/Debug/
-py/__pycache__/
-py/.mypy_cache/
-venv/
+/.idea/
+/cpp/Debug/
+/py/__pycache__/
+/py/.mypy_cache/
+/py/htmlcov/
+/venv/
 
 # File patterns
+.coverage
 .cproject
 .project
 *.a

@@ -63,6 +63,23 @@ class TestArrays(unittest.TestCase):
                 [9, -7, -1, 18, 25, -6, 14, -20, 0, 4, -18, 12, -3, 11, 6, -5],
                 8),
             [9, 2, 1, 19, 44, 38, 52, 32, 23, 34, 17, 11, -17, 0, -8, 7])
+
+    def test_cumulative_products(self) -> None:
+        self.assertEqual(arrs.cumulative_products([1]), [1])
+        self.assertEqual(arrs.cumulative_products([1, 1]), [1, 1])
+        self.assertEqual(arrs.cumulative_products([1, 2]), [1, 2])
+        self.assertEqual(arrs.cumulative_products([2, 1]), [2, 2])
+        self.assertEqual(arrs.cumulative_products([1, 2, 3]), [1, 2, 6])
+        self.assertEqual(arrs.cumulative_products([3, 2, 1]), [3, 6, 6])
+        self.assertEqual(arrs.cumulative_products([-1, 2, -3]), [-1, -2, 6])
+        self.assertEqual(
+            arrs.cumulative_products([2, 3, 5, 7, 11, 13, 17]),
+            [2, 6, 30, 210, 2310, 30030, 510510])
+        self.assertEqual(
+            arrs.cumulative_products(
+                [9, -7, -1, 18, 25, -6, 14, -20, 1, 4, -18, 12, -3, 11]),
+            [9, -63, 63, 1134, 28350, -170100, -2381400, 47628000, 47628000,
+             190512000, -3429216000, -41150592000, 123451776000, 1357969536000])
         
     def test_inverse_index_map(self) -> None:
         self.assertEqual(arrs.inverse_index_map([]), {})
