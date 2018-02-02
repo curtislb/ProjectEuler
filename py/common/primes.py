@@ -20,24 +20,26 @@ _prime_sequence = [2]
 
 def _compute_primes(n: int) -> None:
     """Precomputes and stores at least the first n prime numbers."""
-    
-    prime_count = len(_prime_sequence)
 
     # have the first n primes already been computed?
-    if n < prime_count:
+    if n < len(_prime_sequence):
         return
 
     # TODO: implement incremental sieve?
 
-    # set estimate and increment values according to PNT
-    approx_gap = _estimate_prime_gap(n)
-    estimate = 100 if n <= 25 else int(n * approx_gap)
-    increment = int(approx_gap)
+    if n <= 25:
+        _compute_primes_up_to(97)
+    else:
+        # set estimate and increment values according to PNT
+        approx_gap = _estimate_prime_gap(n)
+        estimate = int(n * approx_gap)
+        increment = int(approx_gap)
 
-    # compute primes up to estimate, then step forward until n are found
-    while len(_prime_sequence) < n:
+        # get primes up to estimate, then step forward until n are found
         _compute_primes_up_to(estimate)
-        estimate += increment
+        while len(_prime_sequence) < n:
+            estimate += increment
+            _compute_primes_up_to(estimate)
 
 
 def _compute_primes_up_to(n: int) -> None:
@@ -83,6 +85,12 @@ def _estimate_prime_gap(n: int) -> float:
     return (log_n + log_log_n - 1 + (log_log_n - 2)/log_n
             - (log_log_n_sqr - 6 * log_log_n + 11)/(2 * log_n_sqr)
             + math.exp(1)/log_n_sqr)
+
+
+def _reset_prime_cache() -> None:
+    """Resets the currently cached list of prime numbers."""
+    global _prime_sequence
+    _prime_sequence = [2]
 
 
 def count_prime_factors(

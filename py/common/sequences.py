@@ -33,42 +33,39 @@ def _compute_chain_length(
         n: int,
         step: Callable[[int], int],
         is_valid: Callable[[int], bool],
-        invalid_set: Set[int],
-        terms: Optional[Dict[int, int]] = None) -> None:
+        invalid_set: Set[int]) -> None:
 
-    """Recursive helper function for compute_chain_lengths.
+    """Single-chain helper function for compute_chain_lengths.
 
-    Updates lengths with appropriate chain lengths starting from n.
+    Updates lengths and invalid_set based on the sequence starting from n.
     """
 
-    if terms is None:
-        terms = {}
+    # initialize map of terms to their positions in sequence
+    terms = {} # type: Dict[int, int]
 
-    # if chain is invalid, mark all terms accordingly
-    if not is_valid(n) or n in invalid_set or n in lengths:
-        for n in terms:
-            invalid_set.add(n)
-
-    # if completed chain, set length for all terms in it and invalidate others
-    elif n in terms:
-        index = terms[n]
-        length = len(terms) - index
-        for n, i in terms.items():
-            if i < index:
+    while True:
+        # if chain is invalid, mark all terms accordingly
+        if not is_valid(n) or n in invalid_set or n in lengths:
+            for n in terms:
                 invalid_set.add(n)
-            else:
-                lengths[n] = length
+            return
 
-    # otherwise, continue building the current chain
-    else:
-        terms[n] = len(terms)
-        _compute_chain_length(
-            lengths,
-            step(n),
-            step,
-            is_valid,
-            invalid_set,
-            terms)
+        # if completed chain, set length for all terms in it
+        elif n in terms:
+            index = terms[n]
+            length = len(terms) - index
+            for n, i in terms.items():
+                invalid_set.add(n)
+                if i >= index:
+                    lengths[n] = length
+            return
+
+        # otherwise, continue building the current chain
+        else:
+            terms[n] = len(terms)
+
+        # advance to next number in chain
+        n = step(n)
 
 
 def _compute_fibonacci(n: int) -> None:
@@ -101,6 +98,12 @@ def _compute_fibonacci_up_to(n: int) -> None:
     while f1 < n:
         f0, f1 = f1, f0 + f1
         _fibonacci_sequence.append(f1)
+
+
+def _reset_fibonacci_cache() -> None:
+    """Resets the currently cached list of Fibonacci numbers."""
+    global _fibonacci_sequence
+    _fibonacci_sequence = [1, 1]
 
 
 def arithmetic_product(a: int, n: int, d: int = 1) -> int:

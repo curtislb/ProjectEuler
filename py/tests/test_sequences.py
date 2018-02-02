@@ -15,6 +15,9 @@ import common.sequences as seqs
 
 
 class TestSequences(unittest.TestCase):
+    def setUp(self):
+        seqs._reset_fibonacci_cache()
+
     def test_arithmetic_product(self) -> None:
         self.assertEqual(seqs.arithmetic_product(3, 1), 3)
         self.assertEqual(seqs.arithmetic_product(3, 1, 1), 3)
@@ -128,9 +131,9 @@ class TestSequences(unittest.TestCase):
         self.assertFalse(seqs.is_fibonacci(3416454622906706))
         self.assertTrue(seqs.is_fibonacci(3416454622906707))
         self.assertFalse(seqs.is_fibonacci(3416454622906708))
-        self.assertFalse(seqs.is_fibonacci(218922995834555169025))
-        self.assertTrue(seqs.is_fibonacci(218922995834555169026))
         self.assertFalse(seqs.is_fibonacci(218922995834555169027))
+        self.assertTrue(seqs.is_fibonacci(218922995834555169026))
+        self.assertFalse(seqs.is_fibonacci(218922995834555169025))
 
     def test_is_hexagonal(self) -> None:
         hex_nums = {1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325}

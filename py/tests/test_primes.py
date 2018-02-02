@@ -14,6 +14,9 @@ import common.primes as prime
 
 
 class TestPrimes(unittest.TestCase):
+    def setUp(self):
+        prime._reset_prime_cache()
+
     def test_count_prime_factors(self) -> None:
         self.assertEqual(prime.count_prime_factors(1), 0)
         self.assertEqual(prime.count_prime_factors(1, []), 0)
@@ -81,7 +84,7 @@ class TestPrimes(unittest.TestCase):
     def test_primes(self) -> None:
         p_nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
                   59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113]
-        for i in range(1, len(p_nums) + 1):
+        for i in range(2, len(p_nums) + 1):
             self.assertEqual(prime.primes(i), p_nums[:i])
         self.assertEqual(prime.primes(168)[-1], 997)
 
@@ -93,6 +96,15 @@ class TestPrimes(unittest.TestCase):
                 prime.primes_up_to(n),
                 list(itertools.takewhile(lambda x: x <= n, p_nums)))
         self.assertEqual(len(prime.primes_up_to(1000)), 168)
+        self.assertEqual(sum(prime.primes_up_to(337)), 10191)
+        self.assertEqual(sum(prime.primes_up_to(1000)), 76127)
+
+    def test_primorials(self) -> None:
+        nums = [2, 6, 30, 210, 2310, 30030, 510510, 9699690, 223092870,
+                6469693230, 200560490130, 7420738134810, 304250263527210,
+                13082761331670030, 614889782588491410, 32589158477190044730]
+        for i in range(1, len(nums) + 1):
+            self.assertEqual(prime.primorials(i), nums[:i])
 
 
 if __name__ == '__main__':
