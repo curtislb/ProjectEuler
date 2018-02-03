@@ -15,6 +15,9 @@ import time
 import traceback
 from typing import Any, List, Mapping, Tuple
 
+import common.primes as prime
+import common.sequences as seqs
+
 # The file from which problem answers will be read
 ANSWER_FILE = '../input/answers.txt'
 
@@ -32,6 +35,12 @@ def answers_from_file(answer_file: str) -> Mapping[str, int]:
             solution = int(tokens[1])
             answers[prob_num] = solution
     return answers
+
+
+def reset_caches() -> None:
+    """Clears the value list caches of all common modules."""
+    prime._reset_prime_cache()
+    seqs._reset_fibonacci_cache()
 
 
 def main(args: Any) -> None:
@@ -73,6 +82,7 @@ def main(args: Any) -> None:
 
         # run and time the problem solution
         try:
+            reset_caches()
             start = time.time()
             answer = modu.solve() # type: ignore
             total_time = time.time() - start

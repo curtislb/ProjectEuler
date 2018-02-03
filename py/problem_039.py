@@ -15,7 +15,7 @@ For which value of p ≤ MAX_PERIMETER, is the number of solutions maximised?
 __author__ = 'Curtis Belmonte'
 
 from collections import Counter
-from typing import Counter as CounterT, Set
+from typing import Set
 
 import common.arithmetic as arith
 from common.utility import memoized
@@ -47,7 +47,7 @@ def solve() -> int:
         n_square = n * n
     
     # search for triplets of perfect squares that satisfy a^2 + b^2 = c^2
-    counts = Counter() # type: CounterT[int]
+    counts = Counter() # type: Counter
     for a_square in squares:
         for b_square in squares:
             c_square = a_square + b_square
