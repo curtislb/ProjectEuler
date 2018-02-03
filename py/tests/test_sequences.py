@@ -15,7 +15,7 @@ import common.sequences as seqs
 
 
 class TestSequences(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         seqs._reset_fibonacci_cache()
 
     def test_arithmetic_product(self) -> None:

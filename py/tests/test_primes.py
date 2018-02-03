@@ -14,7 +14,7 @@ import common.primes as prime
 
 
 class TestPrimes(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         prime._reset_prime_cache()
 
     def test_count_prime_factors(self) -> None:

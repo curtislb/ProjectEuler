@@ -13,6 +13,9 @@ import common.combinatorics as comb
 
 
 class TestCombinatorics(unittest.TestCase):
+    def setUp(self) -> None:
+        comb._reset_factorial_cache()
+
     def test_choose(self) -> None:
         self.assertEqual(comb.choose(0, 0), 1)
         self.assertEqual(comb.choose(1, 0), 1)

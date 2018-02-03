@@ -32,6 +32,12 @@ def _compute_factorial(n: int) -> None:
         _factorial_sequence.append(product)
 
 
+def _reset_factorial_cache() -> None:
+    """Resets the currently cached list of factorial terms."""
+    global _factorial_sequence
+    _factorial_sequence = [1, 1]
+
+
 def choose(n: int, k: int) -> int:
     """Returns the number of ways to choose k objects from a group of n."""
     return permute(n, k) // factorial(k)

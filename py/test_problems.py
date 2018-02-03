@@ -15,6 +15,7 @@ import time
 import traceback
 from typing import Any, List, Mapping, Tuple
 
+import common.combinatorics as comb
 import common.primes as prime
 import common.sequences as seqs
 
@@ -39,6 +40,7 @@ def answers_from_file(answer_file: str) -> Mapping[str, int]:
 
 def reset_caches() -> None:
     """Clears the value list caches of all common modules."""
+    comb._reset_factorial_cache()
     prime._reset_prime_cache()
     seqs._reset_fibonacci_cache()
 
