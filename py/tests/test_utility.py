@@ -11,7 +11,7 @@ __author__ = 'Curtis Belmonte'
 import unittest
 
 import common.utility as util
-from common.utility import Graph, MinPQ
+from common.utility import Graph, MinPQ, memoized, simple_equality
 
 
 class TestGraph(unittest.TestCase):
@@ -57,6 +57,9 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(self.graph.num_edges(), 1)
         self.assertTrue(self.graph.has_edge(0, 1))
         self.assertFalse(self.graph.has_edge(1, 0))
+
+        with self.assertRaises(ValueError):
+            self.graph.add_edge(0, 1)
 
         self.graph.update_edge(0, 1, 2)
         with self.assertRaises(ValueError):
@@ -144,6 +147,10 @@ class TestGraph(unittest.TestCase):
         self.assertCountEqual(postorder[:2], [3, 4])
         self.assertCountEqual(postorder[2:4], [1, 2])
         self.assertEqual(postorder[4], 0)
+
+        self.graph.add_edge(3, 0)
+        with self.assertRaises(RuntimeError):
+            self.graph.postorder()
 
     def _verify_reverse_path(
             self,
@@ -382,6 +389,18 @@ class TestUtility(unittest.TestCase):
         self.assertEqual(
             util.bisect_index(lambda i: i >= 78557, 12345, 82000), 78557)
 
+    def test_memoized(self) -> None:
+        @memoized
+        def fib(n: int):
+            if n < 2:
+                return n
+            return fib(n - 1) + fib(n - 2)
+
+        self.assertEqual(fib(1), 1)
+        self.assertEqual(fib(10), 55)
+        self.assertEqual(fib(20), 6765)
+        self.assertEqual(fib(100), 354224848179261915075)
+
     def test_min_present(self) -> None:
         self.assertIsNone(util.min_present(None, None))
         self.assertEqual(util.min_present(0, None), 0)
@@ -397,6 +416,47 @@ class TestUtility(unittest.TestCase):
         self.assertEqual(util.min_present('alpha', None), 'alpha')
         self.assertEqual(util.min_present(None, 'beta'), 'beta')
         self.assertEqual(util.min_present('alpha', 'beta'), 'alpha')
+
+    def test_simple_equality(self) -> None:
+        with self.assertRaises(ValueError):
+            @simple_equality
+            class NoEqualOps(object):
+                pass
+
+        with self.assertRaises(ValueError):
+            @simple_equality
+            class BothEqualOps(object):
+                def __eq__(self, other: object) -> bool:
+                    return False
+
+                def __ne__(self, other: object) -> bool:
+                    return True
+
+        @simple_equality
+        class EqualOp(object):
+            def __eq__(self, other: object) -> bool:
+                return isinstance(other, int)
+
+        eq_object = EqualOp()
+        self.assertTrue(eq_object == 0)
+        self.assertFalse(eq_object == '0')
+        self.assertFalse(eq_object == eq_object)
+        self.assertFalse(eq_object != 0)
+        self.assertTrue(eq_object != '0')
+        self.assertTrue(eq_object != eq_object)
+
+        @simple_equality
+        class NotEqualOp(object):
+            def __ne__(self, other: object) -> bool:
+                return isinstance(other, int)
+
+        ne_object = NotEqualOp()
+        self.assertFalse(ne_object == 0)
+        self.assertTrue(ne_object == '0')
+        self.assertTrue(ne_object == ne_object)
+        self.assertTrue(ne_object != 0)
+        self.assertFalse(ne_object != '0')
+        self.assertFalse(ne_object != ne_object)
 
 
 if __name__ == '__main__':

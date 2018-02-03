@@ -408,9 +408,12 @@ def min_present(a: Optional[Comparable], b: Optional[Comparable]) \
     one of a and b is None, or the minimum of a and b if neither is None.
     """
 
-    return (a if b is None else
-            b if a is None else
-            a if a <= b else b)
+    if b is None:
+        return a
+    elif a is None:
+        return b
+    else:
+        return a if a <= b else b
 
 
 def simple_equality(cls: Type) -> Type:
