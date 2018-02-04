@@ -76,6 +76,10 @@ def factorial(n: int) -> int:
 def permute(n: int, k: int) -> int:
     """Returns the number of permutations of k objects from a group of n."""
 
+    # no possible permutations if k > n
+    if n < k:
+        return 0
+
     # if faster, compute n! and (n - k)! and return their quotient
     fact_count = len(_factorial_sequence)
     if n - fact_count <= k:

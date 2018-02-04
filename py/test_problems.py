@@ -38,6 +38,7 @@ def answers_from_file(answer_file: str) -> Mapping[str, int]:
     return answers
 
 
+# noinspection PyProtectedMember
 def reset_caches() -> None:
     """Clears the value list caches of all common modules."""
     comb._reset_factorial_cache()
