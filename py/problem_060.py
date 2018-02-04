@@ -86,7 +86,9 @@ def solve() -> int:
     # divide primes into those with remainders 1 and 2 mod 3
     one_primes = [3]
     two_primes = [3]
-    for p in prime.primes_up_to(10000)[2:]:
+    prime_list = prime.primes_up_to(10000)
+    for i in range(2, len(prime_list)):
+        p = prime_list[i]
         if p % 3 == 1:
             one_primes.append(p)
         else:
