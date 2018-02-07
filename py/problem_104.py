@@ -20,6 +20,8 @@ the last D digits are 1 to D pandigital, find k.
 
 __author__ = 'Curtis Belmonte'
 
+import itertools
+
 import common.arrays as arrs
 import common.digits as digs
 import common.sequences as seqs
@@ -47,12 +49,12 @@ def is_end_pandigital(n: int) -> bool:
 
 def solve() -> int:
     k = 2750 # TODO: less arbitrary lower bound?
-    fib_num = seqs.fibonacci(k)
-    while not is_end_pandigital(fib_num):
+    for fib_num in itertools.islice(seqs.generate_fibonacci(), k, None):
         k += 1
-        fib_num = seqs.fibonacci(k)
+        if is_end_pandigital(fib_num):
+            break
 
-    return k + 1
+    return k
 
 
 if __name__ == '__main__':

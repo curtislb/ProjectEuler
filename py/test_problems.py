@@ -43,7 +43,6 @@ def reset_caches() -> None:
     """Clears the value list caches of all common modules."""
     comb._reset_factorial_cache()
     prime._reset_prime_cache()
-    seqs._reset_fibonacci_cache()
 
 
 def main(args: Any) -> None:

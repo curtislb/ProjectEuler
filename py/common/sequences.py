@@ -8,6 +8,7 @@ Functions for producing and operating on numerical sequences.
 __author__ = 'Curtis Belmonte'
 
 import functools
+import itertools
 import math
 import operator
 from typing import (
@@ -15,17 +16,11 @@ from typing import (
     Dict,
     Iterable,
     Iterator,
-    Optional,
     Sequence,
     Set,
 )
 
 import common.arithmetic as arith
-import common.arrays as arrs
-
-
-# Currently computed terms of the Fibonacci sequence (in sorted order)
-_fibonacci_sequence = [1, 1]
 
 
 def _compute_chain_length(
@@ -66,44 +61,6 @@ def _compute_chain_length(
 
         # advance to next number in chain
         n = step(n)
-
-
-def _compute_fibonacci(n: int) -> None:
-    """Precomputes and stores the Fibonacci numbers up to F(n)."""
-
-    fib_count = len(_fibonacci_sequence)
-
-    # have the numbers up to F(n) already been computed?
-    if n < fib_count:
-        return
-
-    # compute numbers iteratively from existing sequence
-    f0 = _fibonacci_sequence[-2]
-    f1 = _fibonacci_sequence[-1]
-    for i in range(fib_count, n + 1):
-        f0, f1 = f1, f0 + f1
-        _fibonacci_sequence.append(f1)
-
-
-def _compute_fibonacci_up_to(n: int) -> None:
-    """Precomputes and stores the Fibonacci numbers up to n."""
-
-    # have the numbers up to n already been computed?
-    if n < _fibonacci_sequence[-1]:
-        return
-
-    # compute numbers iteratively from existing sequence
-    f0 = _fibonacci_sequence[-2]
-    f1 = _fibonacci_sequence[-1]
-    while f1 < n:
-        f0, f1 = f1, f0 + f1
-        _fibonacci_sequence.append(f1)
-
-
-def _reset_fibonacci_cache() -> None:
-    """Resets the currently cached list of Fibonacci numbers."""
-    global _fibonacci_sequence
-    _fibonacci_sequence = [1, 1]
 
 
 def arithmetic_product(a: int, n: int, d: int = 1) -> int:
@@ -154,8 +111,16 @@ def compute_chain_lengths(
 
 def fibonacci(n: int) -> int:
     """Returns the nth Fibonacci number, with F(0) = F(1) = 1."""
-    _compute_fibonacci(n)
-    return _fibonacci_sequence[n]
+    return next(itertools.islice(generate_fibonacci(), n, n + 1))
+
+
+def generate_fibonacci() -> Iterator[int]:
+    """Yields each number in the Fibonacci sequence, beginning with 1, 1."""
+    fib_prev = 0
+    fib_curr = 1
+    while True:
+        yield fib_curr
+        fib_prev, fib_curr = fib_curr, fib_prev + fib_curr
 
 
 def generate_products(factors: Sequence[int], cache_capacity: int = 1000)\
@@ -208,9 +173,10 @@ def is_fibonacci(n: int) -> bool:
         term = 5 * n**2
         return is_square(term + 4) or is_square(term - 4)
     else:
-        # generate Fibonacci numbers <= n and search for n
-        _compute_fibonacci_up_to(n)
-        return arrs.binary_search(_fibonacci_sequence, n) is not None
+        # generate Fibonacci numbers until n is found or exceeded
+        for fib_num in generate_fibonacci():
+            if fib_num >= n:
+                return fib_num == n
 
 
 def is_hexagonal(n: int) -> bool:

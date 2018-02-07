@@ -15,9 +15,6 @@ import common.sequences as seqs
 
 
 class TestSequences(unittest.TestCase):
-    def setUp(self) -> None:
-        seqs._reset_fibonacci_cache()
-
     def test_arithmetic_product(self) -> None:
         self.assertEqual(seqs.arithmetic_product(3, 1), 3)
         self.assertEqual(seqs.arithmetic_product(3, 1, 1), 3)
@@ -83,6 +80,21 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(
             seqs.fibonacci(273),
             818706854228831001753880637535093596811413714795418360007)
+
+    def test_generate_fibonacci(self) -> None:
+        def list_fibonacci(i: int, j: int) -> List[int]:
+            """Returns a list of the i to jth (exclusive) Fibonacci numbers."""
+            return list(itertools.islice(seqs.generate_fibonacci(), i, j))
+
+        self.assertEqual(list_fibonacci(0, 1), [1])
+        self.assertEqual(list_fibonacci(0, 2), [1, 1])
+        self.assertEqual(list_fibonacci(0, 9), [1, 1, 2, 3, 5, 8, 13, 21, 34])
+        self.assertEqual(list_fibonacci(2, 6), [2, 3, 5, 8])
+        self.assertEqual(list_fibonacci(12, 15), [233, 377, 610])
+        self.assertEqual(list_fibonacci(36, 38), [24157817, 39088169])
+        self.assertEqual(
+            list_fibonacci(273, 274),
+            [818706854228831001753880637535093596811413714795418360007])
 
     def test_generate_products(self) -> None:
         def list_products(nums: Sequence[int], i: int, j: int) -> List[int]:
