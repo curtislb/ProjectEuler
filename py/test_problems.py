@@ -7,17 +7,16 @@ Module for testing the correctness and runtime of problem solutions.
 
 __author__ = 'Curtis Belmonte'
 
-import argparse
 import importlib
 import operator
 import sys
 import time
 import traceback
+from argparse import ArgumentParser
 from typing import Any, List, Mapping, Tuple
 
 import common.combinatorics as comb
 import common.primes as prime
-import common.sequences as seqs
 
 # The file from which problem answers will be read
 ANSWER_FILE = '../input/answers.txt'
@@ -139,7 +138,7 @@ def main(args: Any) -> None:
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = ArgumentParser()
     parser.add_argument(
         '-l', '--list-slow',
         action='store_true',

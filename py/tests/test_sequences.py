@@ -96,6 +96,25 @@ class TestSequences(unittest.TestCase):
             list_fibonacci(273, 274),
             [818706854228831001753880637535093596811413714795418360007])
 
+    def test_generate_pascal_triangle(self) -> None:
+        def list_pascal_rows(i: int, j: int) -> List[Sequence[int]]:
+            """Returns a list of the i to jth (exclusive) Pascal rows."""
+            return list(itertools.islice(seqs.generate_pascal_triangle(), i, j))
+
+        self.assertEqual(list_pascal_rows(0, 1), [[1]])
+        self.assertEqual(list_pascal_rows(0, 2), [[1], [1, 1]])
+        self.assertEqual(list_pascal_rows(0, 3), [[1], [1, 1], [1, 2, 1]])
+        self.assertEqual(
+            list_pascal_rows(3, 5), [[1, 3, 3, 1], [1, 4, 6, 4, 1]])
+        self.assertEqual(
+            list_pascal_rows(4, 7),
+            [[1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1], [1, 6, 15, 20, 15, 6, 1]])
+        self.assertEqual(
+            list_pascal_rows(9, 10), [[1, 9, 36, 84, 126, 126, 84, 36, 9, 1]])
+        self.assertEqual(
+            list_pascal_rows(12, 13),
+            [[1, 12, 66, 220, 495, 792, 924, 792, 495, 220, 66, 12, 1]])
+
     def test_generate_products(self) -> None:
         def list_products(nums: Sequence[int], i: int, j: int) -> List[int]:
             """Returns a list of the i to jth (exclusive) products of nums."""

@@ -123,6 +123,26 @@ def generate_fibonacci() -> Iterator[int]:
         fib_prev, fib_curr = fib_curr, fib_prev + fib_curr
 
 
+def generate_pascal_triangle() -> Iterator[Sequence[int]]:
+    """Yields each row of Pascal's triangle in order, beginning with [1]."""
+
+    # initialize and yield first row
+    row = [1]
+    yield row
+
+    while True:
+        # construct next row from previous by adding adjacent entries
+        row_len = len(row)
+        new_row = [0] * (row_len + 1)
+        for i in range(row_len):
+            new_row[i] += row[i]
+            new_row[i + 1] += row[i]
+
+        # yield the new row
+        row = new_row
+        yield row
+
+
 def generate_products(factors: Sequence[int], cache_capacity: int = 1000)\
         -> Iterator[int]:
 
