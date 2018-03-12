@@ -15,14 +15,16 @@ import common.fileio as fio
 
 class TestFileio(unittest.TestCase):
     def setUp(self) -> None:
-        self.temp_file = NamedTemporaryFile()
+        self.temp_file = NamedTemporaryFile(mode='w+')
 
     def tearDown(self) -> None:
         self.temp_file.close()
 
     def write_to_file(self, output: str) -> None:
-        with open(self.temp_file.name, 'w') as output_file:
-            output_file.write(output)
+        self.temp_file.file.seek(0)
+        self.temp_file.file.truncate()
+        self.temp_file.file.write(output)
+        self.temp_file.file.flush()
 
     def test_ints_from_file(self) -> None:
         self.write_to_file('0\n')
