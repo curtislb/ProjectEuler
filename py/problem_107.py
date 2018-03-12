@@ -21,7 +21,7 @@ still ensure that all points on the network remain connected. The network which
 achieves the maximum saving has a weight of 93, representing a saving of 243 −
 93 = 150 from the original network.
 
-Using INPUT_FILE, a text file containing a network given in matrix form, find
+Using FILE_NAME, a text file containing a network given in matrix form, find
 the maximum saving which can be achieved by removing redundant edges whilst
 ensuring that the network remains connected.
 """
@@ -35,7 +35,7 @@ from common.utility import Graph
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/107.txt' # default: '../input/107.txt'
+FILE_NAME = '../input/107.txt' # default: '../input/107.txt'
 
 
 # SOLUTION ####################################################################
@@ -43,7 +43,7 @@ INPUT_FILE = '../input/107.txt' # default: '../input/107.txt'
 
 def solve() -> int:
     # initialize network graph from file
-    matrix = fio.ints_from_file(INPUT_FILE, sep=',')
+    matrix = fio.ints_from_file(FILE_NAME, sep=',')
     graph = Graph()
     total_weight = 0
     for i, row in enumerate(matrix):

@@ -45,3 +45,7 @@ class TestExpansion(unittest.TestCase):
         self.assertEqual(
             expan.sqrt_fraction_expansion(688),
             (26, [4, 2, 1, 5, 7, 3, 7, 5, 1, 2, 4, 52]))
+
+
+if __name__ == '__main__':
+    unittest.main()

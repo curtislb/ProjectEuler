@@ -4,7 +4,7 @@
 
 Problem 22: Names scores
 
-Using INPUT_FILE, a large text file containing many first names, begin by
+Using FILE_NAME, a large text file containing many first names, begin by
 sorting it into alphabetical order. Then working out the alphabetical value for
 each name, multiply this value by its alphabetical position in the list to
 obtain a name score.
@@ -27,7 +27,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/022.txt' # default: '../input/022.txt'
+FILE_NAME = '../input/022.txt' # default: '../input/022.txt'
 
 
 # SOLUTION ####################################################################
@@ -40,8 +40,8 @@ def name_score(name: str, position: int) -> int:
 
 
 def solve() -> int:
-    # heap sort names from input file
-    names = fio.strings_from_file(INPUT_FILE)
+    # rearrange names from input file into heap order
+    names = list(fio.strings_from_file(FILE_NAME))
     heapq.heapify(names)
     
     # sum up the name scores for all names in alphabetical order

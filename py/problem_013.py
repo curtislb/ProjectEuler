@@ -5,7 +5,7 @@
 Problem 13: Large sum
 
 Work out the first D digits of the sum of the numbers contained in the file
-INPUT_FILE (all of which have the same number of digits).
+FILE_NAME (all of which have the same number of digits).
 """
 
 __author__ = 'Curtis Belmonte'
@@ -16,7 +16,7 @@ __author__ = 'Curtis Belmonte'
 
 D = 10 # default: 10
 
-INPUT_FILE = '../input/013.txt' # default: '../input/013.txt'
+FILE_NAME = '../input/013.txt' # default: '../input/013.txt'
 
 
 # SOLUTION ####################################################################
@@ -24,8 +24,8 @@ INPUT_FILE = '../input/013.txt' # default: '../input/013.txt'
 
 def solve() -> int:
     total = 0
-    with open(INPUT_FILE) as f:
-        for line in f:
+    with open(FILE_NAME) as input_file:
+        for line in input_file:
             total += int(line.rstrip())
     return int(str(total)[:D])
 

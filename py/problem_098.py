@@ -11,7 +11,7 @@ number: 9216 = 96^2. We shall call CARE (and RACE) a square anagram word pair
 and specify further that leading zeroes are not permitted, neither may a
 different letter have the same digital value as another letter.
 
-Using INPUT_FILE, a text file containing nearly two-thousand common English
+Using FILE_NAME, a text file containing nearly two-thousand common English
 words, find all the square anagram word pairs (a palindromic word is NOT
 considered to be an anagram of itself).
 
@@ -35,7 +35,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/098.txt' # default: '../input/098.txt'
+FILE_NAME = '../input/098.txt' # default: '../input/098.txt'
 
 
 # SOLUTION ####################################################################
@@ -120,7 +120,7 @@ def max_anagramic_square(word1: str, word2: str) -> int:
 def solve() -> int:
     # parse words from input file into anagramic groups
     counts_to_words = defaultdict(list) # type: Dict[Sequence[int], List[str]]
-    for word in fio.strings_from_file(INPUT_FILE):
+    for word in fio.strings_from_file(FILE_NAME):
         letter_counts = tuple(alpha.letter_counts_upper(word))
         counts_to_words[letter_counts].append(word)
 

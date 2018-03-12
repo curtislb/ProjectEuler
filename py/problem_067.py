@@ -15,7 +15,7 @@ the row below, the maximum total from top to bottom is 23.
 That is, 3 + 7 + 4 + 9 = 23.
 
 Find the maximum total from top to bottom of the triangle contained in the file
-INPUT_FILE.
+FILE_NAME.
 
 NOTE: This is a much more difficult version of Problem 18. It is not possible
 to try every route to solve this problem, as there are 2^99 altogether! If you
@@ -32,14 +32,14 @@ import problem_018 as p018
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/067.txt' # default: '../input/067.txt'
+FILE_NAME = '../input/067.txt' # default: '../input/067.txt'
 
 
 # SOLUTION ####################################################################
 
 
 def solve() -> int:
-    return p018.max_triangle_path(list(fio.ints_from_file(INPUT_FILE)))
+    return p018.max_triangle_path(list(fio.ints_from_file(FILE_NAME)))
 
 
 if __name__ == '__main__':

@@ -25,7 +25,7 @@ message. The balance for this method is using a sufficiently long password key
 for security, but short enough to be memorable.
 
 Your task has been made easy, as the encryption key consists of three lower
-case characters. Using INPUT_FILE, a file containing the encrypted ASCII codes,
+case characters. Using FILE_NAME, a file containing the encrypted ASCII codes,
 and the knowledge that the plain text must contain common English words,
 decrypt the message and find the sum of the ASCII values in the original text.
 """
@@ -41,7 +41,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/059.txt' # default: '../input/059.txt'
+FILE_NAME = '../input/059.txt' # default: '../input/059.txt'
 
 
 # SOLUTION ####################################################################
@@ -62,7 +62,7 @@ def solve() -> Optional[int]:
     target_seq = ' the '
 
     # create the encrypted message from the file
-    byte_vals = next(fio.ints_from_file(INPUT_FILE, sep=','))
+    byte_vals = next(fio.ints_from_file(FILE_NAME, sep=','))
     encrypted = ''.join(map(chr, byte_vals))
 
     # try each possible key and look for target sequence in message

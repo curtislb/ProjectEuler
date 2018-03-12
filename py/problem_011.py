@@ -31,7 +31,7 @@ with parentheses.
 The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 
 What is the greatest product of N adjacent numbers in the same direction (up,
-down, left, right, or diagonally) in the grid contained in the file INPUT_FILE?
+down, left, right, or diagonally) in the grid contained in the file FILE_NAME?
 """
 
 __author__ = 'Curtis Belmonte'
@@ -43,7 +43,7 @@ import common.fileio as fio
 
 N = 4 # default: 4
 
-INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
+FILE_NAME = '../input/011.txt' # default: '../input/011.txt'
 
 
 # SOLUTION ####################################################################
@@ -51,7 +51,7 @@ INPUT_FILE = '../input/011.txt' # default: '../input/011.txt'
 
 def solve() -> int:
     # read the matrix from the input file
-    matrix = list(fio.ints_from_file(INPUT_FILE))
+    matrix = list(fio.ints_from_file(FILE_NAME))
     num_rows = len(matrix)
     num_cols = len(matrix[0])
 

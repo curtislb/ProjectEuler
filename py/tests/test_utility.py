@@ -15,7 +15,7 @@ from common.utility import Graph, MinPQ, memoized, simple_equality
 
 
 class TestGraph(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.graph = Graph()
 
     def test_nodes(self) -> None:
@@ -285,7 +285,7 @@ class TestGraph(unittest.TestCase):
 
 
 class TestMinPQ(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.min_pq = MinPQ()
 
     def test_empty(self) -> None:

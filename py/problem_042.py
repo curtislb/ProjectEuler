@@ -14,7 +14,7 @@ alphabetical position and adding these values we form a word value. For
 example, the word value for SKY is 19 + 11 + 25 = 55 = t(10). If the word value
 is a triangle number then we shall call the word a triangle word.
 
-Using INPUT_FILE, a text file containing many common English words, how many
+Using FILE_NAME, a text file containing many common English words, how many
 are triangle words?
 """
 
@@ -29,7 +29,7 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/042.txt' # default: '../input/042.txt'
+FILE_NAME = '../input/042.txt' # default: '../input/042.txt'
 
 
 # SOLUTION ####################################################################
@@ -45,7 +45,7 @@ def word_value(word: str) -> int:
 def solve() -> int:
     # compute word values for all words in the input file
     word_values = [word_value(word) for word in
-                   fio.strings_from_file(INPUT_FILE)]
+                   fio.strings_from_file(FILE_NAME)]
     max_word_value = max(word_values)
     
     # compute triangle numbers up to maximum word value

@@ -16,7 +16,7 @@ Consider the following two triangles:
 It can be verified that triangle ABC contains the origin, whereas triangle XYZ
 does not.
 
-Using INPUT_FILE, a text file containing the co-ordinates of one thousand
+Using FILE_NAME, a text file containing the co-ordinates of one thousand
 "random" triangles, find the number of triangles for which the interior
 contains the point QUERY_POINT.
 """
@@ -31,7 +31,7 @@ import common.matrices as mat
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/102.txt' # default: '../input/102.txt'
+FILE_NAME = '../input/102.txt' # default: '../input/102.txt'
 
 QUERY_POINT = (0, 0) # default: (0, 0)
 
@@ -62,8 +62,8 @@ def solve() -> int:
     count = 0
     point = QUERY_POINT + (0,)
 
-    with open(INPUT_FILE) as f:
-        for line in f:
+    with open(FILE_NAME) as input_file:
+        for line in input_file:
             # parse triangle vertex coordinates from line
             tokens = map(int, line.strip().split(','))
             a = (next(tokens), next(tokens), 0)

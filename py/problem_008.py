@@ -28,7 +28,7 @@ product are 9 × 9 × 8 × 9 = 5832.
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450
 
-Find the N adjacent digits in the number contained in the file INPUT_FILE that
+Find the N adjacent digits in the number contained in the file FILE_NAME that
 have the greatest product. What is the value of this product?
 """
 
@@ -40,16 +40,16 @@ __author__ = 'Curtis Belmonte'
 
 N = 13 # default: 13
 
-INPUT_FILE = '../input/008.txt' # default: '../input/008.txt'
+FILE_NAME = '../input/008.txt' # default: '../input/008.txt'
 
 
 # SOLUTION ####################################################################
 
 
 def solve() -> int:
-    with open(INPUT_FILE) as f:
+    with open(FILE_NAME) as input_file:
         # read number from input file
-        num_str = ''.join(line.rstrip() for line in f)
+        num_str = ''.join(line.rstrip() for line in input_file)
         
         num_zeros = 0 # number of zeros in the current product
         product = 1 # current product of N digits (ignoring zeros)

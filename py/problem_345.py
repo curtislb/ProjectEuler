@@ -14,7 +14,7 @@ Sum of the matrix below equals 3315 ( = 863 + 383 + 343 + 959 + 767):
      627  343  773 (959) 943
     (767) 473  103  699  303
 
-Find the Matrix Sum of the matrix contained in the file INPUT_FILE.
+Find the Matrix Sum of the matrix contained in the file FILE_NAME.
 """
 
 __author__ = 'Curtis Belmonte'
@@ -28,7 +28,7 @@ import common.matrices as mat
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/345.txt' # default: '../input/345.txt'
+FILE_NAME = '../input/345.txt' # default: '../input/345.txt'
 
 
 # SOLUTION ####################################################################
@@ -36,7 +36,7 @@ INPUT_FILE = '../input/345.txt' # default: '../input/345.txt'
 
 def solve() -> int:
     # read matrix from input file
-    matrix = list(fio.ints_from_file(INPUT_FILE))
+    matrix = list(fio.ints_from_file(FILE_NAME))
 
     # build cost matrix by subtracting each entry from max entry
     cost_matrix = copy.deepcopy(matrix)

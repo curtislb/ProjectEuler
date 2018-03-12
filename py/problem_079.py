@@ -9,7 +9,7 @@ random characters from a passcode. For example, if the passcode was 531278,
 they may ask for the 2nd, 3rd, and 5th characters; the expected reply would be:
 317.
 
-The text file INPUT_FILE contains a set of successful login attempts.
+The text file FILE_NAME contains a set of successful login attempts.
 
 Given that the three characters are always asked for in order, analyse the file
 so as to determine the shortest possible secret passcode of unknown length.
@@ -26,7 +26,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/079.txt' # default: '../input/079.txt'
+FILE_NAME = '../input/079.txt' # default: '../input/079.txt'
 
 
 # SOLUTION ####################################################################
@@ -35,7 +35,7 @@ INPUT_FILE = '../input/079.txt' # default: '../input/079.txt'
 def solve() -> int:
     # keep track of all digits preceding other digits
     pre_digits = {} # type: Dict[int, Set[int]]
-    attempts = fio.ints_from_file(INPUT_FILE)
+    attempts = fio.ints_from_file(FILE_NAME)
     for attempt in attempts:
         digits = digs.digits(attempt[0])
         for i, digit in enumerate(digits):

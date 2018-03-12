@@ -28,8 +28,8 @@ SLOW_GROUP_SECS = [1, 10, 60]
 def answers_from_file(answer_file: str) -> Mapping[str, int]:
     """Loads problem answers from a file and returns them as a dictionary."""
     answers = {}
-    with open(answer_file) as f:
-        for line in f:
+    with open(answer_file) as input_file:
+        for line in input_file:
             tokens = line.rstrip().split()
             prob_num = tokens[0]
             solution = int(tokens[1])

@@ -23,7 +23,7 @@ However, according to the rules only XIIIIII and XVI are valid, and the last
 example is considered to be the most efficient, as it uses the least number of
 numerals.
 
-The text file INPUT_FILE contains numbers written in valid, but not necessarily
+The text file FILE_NAME contains numbers written in valid, but not necessarily
 minimal, Roman numerals.
 
 Find the number of characters saved by writing each of these in their minimal
@@ -39,7 +39,7 @@ __author__ = 'Curtis Belmonte'
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/089.txt' # default: '../input/089.txt'
+FILE_NAME = '../input/089.txt' # default: '../input/089.txt'
 
 
 # SOLUTION ####################################################################
@@ -139,8 +139,8 @@ def int_to_numeral(n: int) -> str:
 
 def solve() -> int:
     chars_saved = 0
-    with open(INPUT_FILE) as f:
-        for line in f:
+    with open(FILE_NAME) as input_file:
+        for line in input_file:
             numeral = line.rstrip()
             orig_len = len(numeral)
             mini_numeral = int_to_numeral(numeral_to_int(numeral))

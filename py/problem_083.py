@@ -14,7 +14,7 @@ and is equal to 2297.
      537   699   497  (121)  956
      805   732   524   (37) (331)
 
-Find the minimal path sum in INPUT_FILE, a text file containing a square
+Find the minimal path sum in FILE_NAME, a text file containing a square
 matrix, from the top left to the bottom right by moving left, right, up, and
 down.
 """
@@ -31,7 +31,7 @@ from common.utility import Graph
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/083.txt' # default: '../input/083.txt'
+FILE_NAME = '../input/083.txt' # default: '../input/083.txt'
 
 
 # SOLUTION ####################################################################
@@ -39,7 +39,7 @@ INPUT_FILE = '../input/083.txt' # default: '../input/083.txt'
 
 def solve() -> int:
     matrix = list(
-        fio.ints_from_file(INPUT_FILE, sep=',')) # type: List[List[int]]
+        fio.ints_from_file(FILE_NAME, sep=',')) # type: List[List[int]]
     n = len(matrix)
     
     # create graph with virtual start nodes

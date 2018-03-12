@@ -48,7 +48,7 @@ Consider the following five hands dealt to two players:
                 Full House          Full House
              with Three Fours    with Three Threes
 
-The file, INPUT_FILE, contains random hands dealt to two players. Each line of
+The file, FILE_NAME, contains random hands dealt to two players. Each line of
 the file contains ten cards (separated by a single space): the first five are
 Player 1's cards and the last five are Player 2's cards. You can assume that
 all hands are valid (no invalid characters or repeated cards), each player's
@@ -68,7 +68,7 @@ from common.games import Card
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/054.txt' # default: '../input/054.txt
+FILE_NAME = '../input/054.txt' # default: '../input/054.txt
 
 
 # SOLUTION ####################################################################
@@ -186,8 +186,8 @@ class Rank(object):
 def solve() -> int:
     # read (and sort) all hands from input file
     hands = []
-    with open(INPUT_FILE) as f:
-        for line in f:
+    with open(FILE_NAME) as input_file:
+        for line in input_file:
             cards = [Card(s) for s in line.split()]
             hands.append((sorted(cards[:5]), sorted(cards[5:])))
     

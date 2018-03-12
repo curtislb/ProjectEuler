@@ -10,7 +10,7 @@ as any calculator would confirm that 2^11 = 2048 < 3^7 = 2187.
 However, confirming that 632382^518061 > 519432^525806 would be much more
 difficult, as both numbers contain over three million digits.
 
-Using INPUT_FILE, a text file containing lines with a base/exponent pair on
+Using FILE_NAME, a text file containing lines with a base/exponent pair on
 each line, determine which line number has the greatest numerical value.
 """
 
@@ -24,7 +24,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/099.txt' # default: '../input/099.txt'
+FILE_NAME = '../input/099.txt' # default: '../input/099.txt'
 
 
 # SOLUTION ####################################################################
@@ -33,7 +33,7 @@ INPUT_FILE = '../input/099.txt' # default: '../input/099.txt'
 def solve() -> int:
     max_line = None
     max_value = -float('inf')
-    base_exp_pairs = fio.ints_from_file(INPUT_FILE, sep=',')
+    base_exp_pairs = fio.ints_from_file(FILE_NAME, sep=',')
 
     # compare exponent * log(base) for all pairs
     for i, pair in enumerate(base_exp_pairs):

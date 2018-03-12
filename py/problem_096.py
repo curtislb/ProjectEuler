@@ -33,7 +33,7 @@ complexity of the search determines the difficulty of the puzzle; the example
 above is considered easy because it can be solved by straight forward direct
 deduction.
 
-The text file, INPUT_FILE, contains different Su Doku puzzles ranging in
+The text file, FILE_NAME, contains different Su Doku puzzles ranging in
 difficulty, but all with unique solutions.
 
 By solving all puzzles find the sum of the 3-digit numbers found in the top
@@ -50,7 +50,7 @@ from typing import List, Optional, Set
 # PARAMETERS ##################################################################
 
 
-INPUT_FILE = '../input/096.txt' # default: '../input/096.txt'
+FILE_NAME = '../input/096.txt' # default: '../input/096.txt'
 
 
 # SOLUTION ####################################################################
@@ -134,11 +134,11 @@ def solve_puzzle(grid: List[List[int]]) -> Optional[List[List[int]]]:
 def solve() -> int:
     # read intial puzzle grids from input file
     grids = []
-    with open(INPUT_FILE) as f:
-        while f.readline():
+    with open(FILE_NAME) as input_file:
+        while input_file.readline():
             grid = []
             for i in range(9):
-                line = f.readline().strip()
+                line = input_file.readline().strip()
                 row = [int(c) for c in line]
                 grid.append(row)
 
