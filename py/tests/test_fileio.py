@@ -7,6 +7,7 @@ Unit test for the 'fileio' common module.
 
 __author__ = 'Curtis Belmonte'
 
+import os
 import unittest
 from tempfile import NamedTemporaryFile
 
@@ -15,16 +16,16 @@ import common.fileio as fio
 
 class TestFileio(unittest.TestCase):
     def setUp(self) -> None:
-        self.temp_file = NamedTemporaryFile(mode='w+')
-
-    def tearDown(self) -> None:
+        self.temp_file = NamedTemporaryFile(delete=False)
         self.temp_file.close()
 
+    def tearDown(self) -> None:
+        os.remove(self.temp_file.name)
+
     def write_to_file(self, output: str) -> None:
-        self.temp_file.file.seek(0)
-        self.temp_file.file.truncate()
-        self.temp_file.file.write(output)
-        self.temp_file.file.flush()
+        with open(self.temp_file.name, 'w') as output_file:
+            output_file.write(output)
+            output_file.flush()
 
     def test_ints_from_file(self) -> None:
         self.write_to_file('0\n')
@@ -45,7 +46,7 @@ class TestFileio(unittest.TestCase):
             list(fio.ints_from_file(self.temp_file.name)),
             [[11, 12, 13], [21, 22], [31, 32, 33, 34]])
 
-        self.write_to_file('3.14\n127.0.0.1\n0.2.1')
+        self.write_to_file('3.14\n127.0.0.1\n0.2.1\n')
         self.assertEqual(
             list(fio.ints_from_file(self.temp_file.name, sep='.')),
             [[3, 14], [127, 0, 0, 1], [0, 2, 1]])
