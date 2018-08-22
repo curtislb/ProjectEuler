@@ -77,15 +77,12 @@ function test_problem(answers::Dict{String, Int}, prob_str::String)
         include("Problem$(prob_str).jl")
     end || return false
 
-    try_or_fail(prob_str, "failed with error", show_error = true) do
+    try_or_fail(prob_str, "solution failed with an error", show_error = true) do
         solve_expr = Meta.parse("Problem$(prob_str).solve()")
         (answer, time_sec) = @timed eval(solve_expr)
-        try_or_fail(prob_str, "answer was incorrect", show_error = true) do
-            correct = answers[prob_str]
-            @assert (answer == correct) "expected $correct, but got $answer"
-            Printf.@printf "PASSED (%6.3f s)\n" time_sec
-            return true
-        end || return false
+        correct = answers[prob_str]
+        @assert (answer == correct) "expected $correct, but got $answer"
+        Printf.@printf "PASSED (%6.3f s)\n" time_sec
     end || return false
 
     return true
