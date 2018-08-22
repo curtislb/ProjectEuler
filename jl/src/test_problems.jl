@@ -17,6 +17,7 @@ function main()
     println("Solutions passed $(pass_count)/$(length(prob_strs)) tests")
 end
 
+"Parses script arguments from the command line and returns them as a `Dict`."
 function parse_arguments()
     settings = ArgParse.ArgParseSettings()
     ArgParse.@add_arg_table settings begin
@@ -32,6 +33,7 @@ function parse_arguments()
     return ArgParse.parse_args(settings)
 end
 
+"Reads problem numbers and answers from `stdin` and returns them as a `Dict`."
 function load_answers()
     answers = Dict{String, Int}()
     for line in eachline()
@@ -41,6 +43,7 @@ function load_answers()
     return answers
 end
 
+"Returns a list of strings representing the problem numbers to be tested."
 function select_problems(
     answers::Dict{String, Int},
     prob_nums::Array{Int, 1},
@@ -64,6 +67,7 @@ function select_problems(
     return sort(prob_strs)
 end
 
+"Tests a specific problem. Returns `true` on success or `false` on failure."
 function test_problem(answers::Dict{String, Int}, prob_str::String)
     if !haskey(answers, prob_str)
         println(stderr, "Problem $prob_str: no answer in input file")
@@ -88,6 +92,7 @@ function test_problem(answers::Dict{String, Int}, prob_str::String)
     return true
 end
 
+"Runs `f` or prints an error. Returns `true` on success or `false` on failure."
 function try_or_fail(
     f::Function,
     prob_str::String,
@@ -109,6 +114,7 @@ function try_or_fail(
     end
 end
 
+"Prints a stack trace to `stderr` in a human-readable format."
 function print_trace(trace::StackTraces.StackTrace)
     for (index, frame) in Iterators.enumerate(trace)
         println(stderr, " [$index] $frame")
