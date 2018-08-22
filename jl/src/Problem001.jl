@@ -12,15 +12,15 @@ module Problem001
 
 include("Sequences.jl")
 
-function solve(; m::Int = 3, n::Int = 5, limit::Int = 1000)
+function solve(; m::Integer = 3, n::Integer = 5, limit::Integer = 1000)
     m_sum = sum_divisible_by(m, limit)
     n_sum = sum_divisible_by(n, limit)
     lcm_sum = sum_divisible_by(lcm(m, n), limit)
-    m_sum + n_sum - lcm_sum
+    return m_sum + n_sum - lcm_sum
 end
 
 """
-    sum_divisible_by(n, limit)
+    sum_divisible_by(n::Integer, limit::Integer)
 
 Returns the sum of natural numbers below `limit` that are divisible by `n`.
 
@@ -40,8 +40,8 @@ julia> sum_divisible_by(5, 5)
 0
 ```
 """
-function sum_divisible_by(n::Int, limit::Int)
-    Sequences.arithmetic_series(n, (limit - 1) ÷ n, n)
+function sum_divisible_by(n::Integer, limit::Integer)
+    return Sequences.arithmetic_series(n, (limit - 1) ÷ n, n)
 end
 
 end

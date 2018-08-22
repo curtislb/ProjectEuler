@@ -6,7 +6,7 @@ Provides functions for producing and operating on numerical sequences.
 module Sequences
 
 """
-    arithmetic_series(a, n, d = 1)
+    arithmetic_series(a::Integer, n::Integer, d::Integer = 1)
 
 Returns the sum of the arithmetic sequence with parameters `a`, `n`, `d`.
 
@@ -30,6 +30,8 @@ julia> arithmetic_series(3, 5, 4)
 55
 ```
 """
-arithmetic_series(a::Int, n::Int, d::Int = 1) = n * (2a + (n - 1)d) ÷ 2
+function arithmetic_series(a::Integer, n::Integer, d::Integer = 1)
+    return n * (2a + (n - 1)d) ÷ 2
+end
 
 end
