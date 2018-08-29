@@ -87,7 +87,7 @@ function test_problem(answers::Dict{String, Int}, prob_str::String)
         (answer, time_sec) = @timed eval(solve_expr)
         correct = answers[prob_str]
         @assert (answer == correct) "expected $correct, but got $answer"
-        Printf.@printf "PASSED (%6.3f s)\n" time_sec
+        Printf.@printf "PASSED (%6.2f s)\n" time_sec
     end || return false
 
     return true

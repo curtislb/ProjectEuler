@@ -1,7 +1,7 @@
 #!/usr/bin/env julia
 
 """
-Problem 1: Multiples of 3 and 5
+# Problem 1: Multiples of 3 and 5
 
 If we list all the natural numbers below 10 that are multiples of 3 or 5, we
 get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -24,11 +24,11 @@ end
 
 Returns the sum of natural numbers below `limit` that are divisible by `n`.
 
-# Preconditions
+## Preconditions
 - `n > 0`
 - `limit > 0`
 
-# Examples
+## Examples
 ```jldoctest
 julia> sum_divisible_by(3, 10)
 18
