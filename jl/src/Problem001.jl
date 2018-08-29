@@ -12,6 +12,11 @@ module Problem001
 
 include("Sequences.jl")
 
+"""
+    solve(; m::Integer = 3, n::Integer = 5, limit::Integer = 1000)
+
+Returns the solution for [`Problem001`](@ref) with the given parameters.
+"""
 function solve(; m::Integer = 3, n::Integer = 5, limit::Integer = 1000)
     m_sum = sum_divisible_by(m, limit)
     n_sum = sum_divisible_by(n, limit)

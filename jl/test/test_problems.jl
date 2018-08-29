@@ -1,7 +1,6 @@
 #!/usr/bin/env julia
 
 import ArgParse
-import Base.Filesystem
 import Printf
 
 function main()
@@ -79,7 +78,7 @@ function test_problem(answers::Dict{String, Int}, prob_str::String)
     flush(stdout)
 
     try_or_fail(prob_str, "no file found for this problem") do
-        include(Filesystem.joinpath("..", "src", "Problem$(prob_str).jl"))
+        include(joinpath("..", "src", "Problem$(prob_str).jl"))
     end || return false
 
     try_or_fail(prob_str, "solution failed with an error", show_error = true) do
