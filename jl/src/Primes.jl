@@ -35,35 +35,35 @@ julia> prime_factorization(BigInt(600))
 ```
 """
 function prime_factorization(n::Integer)
-  n_type = typeof(n)
+    n_type = typeof(n)
 
-  # populate array with (factor, power) pairs
-  factor = 2 * oneunit(n_type)
-  factorization = Array{Tuple{n_type, n_type}, 1}()
-  while factor <= floor(n_type, sqrt(n))
-    # compute power of factor in factorization
-    power = zero(n_type)
-    (d, r) = divrem(n, factor)
-    while r == 0
-      n = d
-      power += 1
-      (d, r) = divrem(n, factor)
+    # populate array with (factor, power) pairs
+    factor = 2 * oneunit(n_type)
+    factorization = Array{Tuple{n_type, n_type}, 1}()
+    while factor <= floor(n_type, sqrt(n))
+        # compute power of factor in factorization
+        power = zero(n_type)
+        (d, r) = divrem(n, factor)
+        while r == 0
+            n = d
+            power += 1
+            (d, r) = divrem(n, factor)
+        end
+
+        # add (factor, power) pair to factorization
+        if power > zero(n_type)
+            push!(factorization, (factor, power))
+        end
+
+        factor += 1
     end
 
-    # add (factor, power) pair to factorization
-    if power > zero(n_type)
-      push!(factorization, (factor, power))
+    # append remaining prime factor if necessary
+    if n > 1
+        push!(factorization, (n, 1))
     end
 
-    factor += 1
-  end
-
-  # append remaining prime factor if necessary
-  if n > 1
-    push!(factorization, (n, 1))
-  end
-
-  return factorization
+    return factorization
 end
 
 end
