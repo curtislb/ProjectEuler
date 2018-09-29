@@ -1,7 +1,8 @@
 #!/usr/bin/env julia
 
-import ArgParse
-import Printf
+using ArgParse
+using Base.Iterators
+using Printf
 
 function main()
     args = parse_arguments()
@@ -19,8 +20,8 @@ end
 
 "Parses script arguments from the command line and returns them as a `Dict`."
 function parse_arguments()
-    settings = ArgParse.ArgParseSettings()
-    ArgParse.@add_arg_table settings begin
+    settings = ArgParseSettings()
+    @add_arg_table settings begin
         "-s", "--skip"
             help = "test all *except* the following problems"
             action = :store_true
@@ -30,7 +31,7 @@ function parse_arguments()
             nargs = '*'
             metavar = "prob_num"
     end
-    return ArgParse.parse_args(settings)
+    return parse_args(settings)
 end
 
 "Reads problem numbers and answers from `stdin` and returns them as a `Dict`."
@@ -61,7 +62,7 @@ function select_problems(
         end
     else
         prob_strs = map(prob_nums) do prob_num
-            Printf.@sprintf "%03d" prob_num
+            @sprintf "%03d" prob_num
         end
     end
     return sort(prob_strs)
@@ -86,7 +87,7 @@ function test_problem(answers::Dict{String, Int}, prob_str::String)
         (answer, time_sec) = @timed eval(solve_expr)
         correct = answers[prob_str]
         @assert (answer == correct) "expected $correct, but got $answer"
-        Printf.@printf "PASSED (%6.2f s)\n" time_sec
+        @printf "PASSED (%6.2f s)\n" time_sec
     end || return false
 
     return true
@@ -116,7 +117,7 @@ end
 
 "Prints a stack trace to `stderr` in a human-readable format."
 function print_trace(trace::StackTraces.StackTrace)
-    for (index, frame) in Iterators.enumerate(trace)
+    for (index, frame) in enumerate(trace)
         println(stderr, " [$index] $frame")
     end
 end

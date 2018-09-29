@@ -5,6 +5,8 @@ Provides utilities for producing and operating on numerical sequences.
 """
 module Sequences
 
+using Base.Iterators
+
 """
     Fibonacci()
     Fibonacci(int_t::Type{<:Integer})
@@ -126,7 +128,7 @@ function fibonacci(n::Integer, int_type::Type{<:Integer} = Int)
         return oneunit(n)
     end
 
-    for (i, fib_num) in Iterators.enumerate(Fibonacci(int_type))
+    for (i, fib_num) in enumerate(Fibonacci(int_type))
         if i == n
             return fib_num
         end
