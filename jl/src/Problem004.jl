@@ -18,6 +18,9 @@ include("Digits.jl")
     solve(; d::Integer = 3)
 
 Returns the solution for [`Problem004`](@ref) with the given parameters.
+
+## Preconditions
+- `d > 0`
 """
 function solve(; d::Integer = 3)
     # calculate max and min d-digit numbers

@@ -15,6 +15,8 @@ module Problem002
 
 include("Sequences.jl")
 
+using Base.Iterators
+
 """
     solve(; limit::Integer = 4_000_000)
 
@@ -22,7 +24,7 @@ Returns the solution for [`Problem002`](@ref) with the given parameters.
 """
 function solve(; limit::Integer = 4_000_000)
     total = 0
-    for (i, n) in Iterators.enumerate(Sequences.Fibonacci())
+    for (i, n) in enumerate(Sequences.Fibonacci())
         # don't consider terms above limit
         if n > limit
             break

@@ -1,20 +1,19 @@
 #!/usr/bin/env julia
 
 """
-Provides utilities for producing and operating on numerical sequences.
+Utilities for producing and operating on numerical sequences.
 """
 module Sequences
 
 using Base.Iterators
 
 """
-    Fibonacci()
-    Fibonacci(int_t::Type{<:Integer})
+    Fibonacci([T::Type{<:Integer}])
 
 Iterable object that returns subsequent terms of the Fibonacci sequence.
 
 ## Fields
-- `int_t`: The integer type of each term in the sequence. Defaults to `Int`
+- `T`: The integer type of each term in the sequence. Defaults to `Int`
 
 ## Examples
 ```julia-repl
@@ -53,13 +52,13 @@ julia> for (i, n) in Iterators.enumerate(Fibonacci())
 See also: [`fibonacci`](@ref)
 """
 struct Fibonacci
-    int_t::Type{<:Integer}
+    T::Type{<:Integer}
 end
 Fibonacci() = Fibonacci(Int)
 
 function Base.iterate(
     iter::Fibonacci,
-    state::Tuple{Integer, Integer} = (zero(iter.int_t), oneunit(iter.int_t))
+    state::Tuple{Integer, Integer} = (zero(iter.T), oneunit(iter.T))
 )
     fib_old, fib_new = state
     fib_old, fib_new = fib_new, (fib_old + fib_new)
@@ -96,14 +95,14 @@ function arithmetic_series(a::Integer, n::Integer, d::Integer = 1)
 end
 
 """
-    fibonacci(n::Integer, int_type::Type{<:Integer} = Int)
+    fibonacci([T::Type{<:Integer}], n::Integer)
 
 Computes the specified term `F(n)` of the Fibonacci sequence, defined by the
 relation `F(m) = F(m - 1) + F(m - 2)` with `F(0) = F(1) = 1`.
 
 ## Arguments
+- `T`: The integer type of each term in the sequence. Defaults to `typeof(n)`
 - `n`: Specifies the term `F(n)` in the Fibonacci sequence to return
-- `int_type`: The integer type of each term in the sequence
 
 ## Preconditions
 - `n ≥ 0`
@@ -116,19 +115,22 @@ julia> fibonacci(0)
 julia> fibonacci(4)
 5
 
-julia> fibonacci(5, UInt8)
+julia> fibonacci(UInt8, 5)
 0x08
 ```
 
 See also: [`Fibonacci`](@ref)
 """
-function fibonacci(n::Integer, int_type::Type{<:Integer} = Int)
+function fibonacci(n::Integer)
+    return fibonacci(typeof(n), n)
+end
+function fibonacci(T::Type{<:Integer}, n::Integer)
     # Fibonacci iterates from F(1), so handle F(0) ourselves
     if n == 0
-        return oneunit(n)
+        return oneunit(T)
     end
 
-    for (i, fib_num) in enumerate(Fibonacci(int_type))
+    for (i, fib_num) in enumerate(Fibonacci(T))
         if i == n
             return fib_num
         end

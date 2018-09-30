@@ -64,7 +64,7 @@ using Test
         @test Sequences.fibonacci(13) == 377
         @test Sequences.fibonacci(37) == 39088169
         @test (
-            Sequences.fibonacci(200, BigInt)
+            Sequences.fibonacci(BigInt, 200)
                 == parse(BigInt, "453973694165307953197296969697410619233826")
         )
     end

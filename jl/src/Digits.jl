@@ -1,7 +1,7 @@
 #!/usr/bin/env julia
 
 """
-Provides functions for manipulating and operating on numerical digits.
+Methods for manipulating and operating on numerical digits.
 """
 module Digits
 
@@ -12,7 +12,7 @@ Determines if the natural number `n` is a palindrome (reads the same forwards
 and backwards) when written in base `base`.
 
 ## Preconditions
-- `n ≥ 0`
+- `n > 0`
 - `base ≥ 2`
 
 ## Examples

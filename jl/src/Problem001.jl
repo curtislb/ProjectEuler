@@ -16,6 +16,11 @@ include("Sequences.jl")
     solve(; m::Integer = 3, n::Integer = 5, limit::Integer = 1000)
 
 Returns the solution for [`Problem001`](@ref) with the given parameters.
+
+## Preconditions
+- `m > 0`
+- `n > 0`
+- `limit > 0`
 """
 function solve(; m::Integer = 3, n::Integer = 5, limit::Integer = 1000)
     m_sum = sum_divisible_by(m, limit)

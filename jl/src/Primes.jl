@@ -1,7 +1,7 @@
 #!/usr/bin/env julia
 
 """
-Provides functions for finding and identifying prime numbers.
+Methods for finding and identifying prime numbers.
 """
 module Primes
 

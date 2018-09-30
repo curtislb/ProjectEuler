@@ -15,6 +15,9 @@ include("Primes.jl")
     solve(; n::Integer = 600851475143)
 
 Returns the solution for [`Problem003`](@ref) with the given parameters.
+
+## Preconditions
+- `n ≥ 2`
 """
 function solve(; n::Integer = 600851475143)
     return last(Primes.prime_factorization(n))[1]
