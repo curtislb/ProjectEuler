@@ -1,5 +1,8 @@
 #!/usr/bin/env julia
 
+"""
+Tests for the [`Primes`](@ref) common module.
+"""
 module TestPrimes
 
 include(joinpath("..", "src", "Primes.jl"))

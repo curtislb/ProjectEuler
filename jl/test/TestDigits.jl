@@ -1,5 +1,8 @@
 #!/usr/bin/env julia
 
+"""
+Tests for the [`Digits`](@ref) common module.
+"""
 module TestDigits
 
 include(joinpath("..", "src", "Digits.jl"))

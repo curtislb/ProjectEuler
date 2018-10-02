@@ -1,5 +1,8 @@
 #!/usr/bin/env julia
 
+"""
+Tests for the [`Sequences`](@ref) common module.
+"""
 module TestSequences
 
 include(joinpath("..", "src", "Sequences.jl"))
