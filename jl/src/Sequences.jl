@@ -5,8 +5,6 @@ Utilities for producing and operating on numerical sequences.
 """
 module Sequences
 
-using Base.Iterators
-
 """
     Fibonacci([T::Type{<:Integer}])
 
@@ -139,5 +137,55 @@ function fibonacci(T::Type{<:Integer}, n::Integer)
     # Fibonacci iterator should never terminate
     throw(ErrorException("iteration terminated unexpectedly"))
 end
+
+"""
+    sum_of_squares(n::Integer)
+
+Computes the sum of the squares of the first `n` natural numbers.
+
+## Preconditions
+- `n ≥ 0`
+
+## Examples
+```jldoctest
+julia> sum_of_squares(1)
+1
+
+julia> sum_of_squares(0x02)
+0x05
+
+julia> sum_of_squares(4)
+30
+```
+"""
+function sum_of_squares(n::Integer)
+    T = typeof(n)
+    cube_term = convert(T, 2) * n^3
+    square_term = convert(T, 3) * n^2
+    return (cube_term + square_term + n) ÷ convert(T, 6)
+end
+
+"""
+    triangular(n::Integer)
+
+Computes the `n`th triangular number `T(n)`, with `T(1) = 1`. The resulting
+value is also the sum of the first `n` natural numbers.
+
+## Preconditions
+- `n ≥ 0`
+
+## Examples
+```jldoctest
+julia> triangular(1)
+1
+
+julia> triangular(0x03)
+0x06
+
+julia> triangular(4)
+10
+```
+"""
+triangular(n::Integer) = n * (n + oneunit(n)) ÷ convert(typeof(n), 2)
 
 end

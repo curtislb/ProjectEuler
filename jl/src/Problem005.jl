@@ -20,7 +20,7 @@ Returns the solution for [`Problem005`](@ref) with the given parameters.
 - `max_num > 0`
 """
 function solve(; max_num::Integer = 20)
-    return lcm((1:max_num)...)
+    return lcm((oneunit(max_num):max_num)...)
 end
 
 end

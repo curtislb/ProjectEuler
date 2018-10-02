@@ -15,8 +15,6 @@ module Problem002
 
 include("Sequences.jl")
 
-using Base.Iterators
-
 """
     solve(; limit::Integer = 4_000_000)
 
