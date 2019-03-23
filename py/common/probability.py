@@ -12,7 +12,7 @@ from fractions import Fraction
 from typing import Sequence
 
 import common.combinatorics as comb
-from common.types import Real, T
+from common.utility import Real, T
 
 
 def choose_weighted_random(values: Sequence[T], probs: Sequence[Real]) -> T:

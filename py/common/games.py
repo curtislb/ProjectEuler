@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 import common.arrays as arrs
 import common.probability as prob
-from common.types import Real
+from common.utility import Real
 from common.utility import simple_equality
 
 
