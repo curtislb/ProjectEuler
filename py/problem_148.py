@@ -32,9 +32,9 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-PRIME = 7 # default: 7
+PRIME = 7  # default: 7
 
-ROW_COUNT = 10**9 # default: 10**9
+ROW_COUNT = 10**9  # default: 10**9
 
 
 # SOLUTION ####################################################################

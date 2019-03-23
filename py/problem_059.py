@@ -41,7 +41,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/059.txt' # default: '../input/059.txt'
+FILE_NAME = '../input/059.txt'  # default: '../input/059.txt'
 
 
 # SOLUTION ####################################################################
@@ -49,7 +49,7 @@ FILE_NAME = '../input/059.txt' # default: '../input/059.txt'
 
 def decrypt_message(message: str, key: str) -> str:
     """Returns the result of XOR decrypting message with the given key."""
-    decrypted = [] # type: List[str]
+    decrypted: List[str] = []
     key_len = len(key)
     for i, byte in enumerate(message):
         decrypted_char = chr(ord(byte) ^ ord(key[i % key_len]))

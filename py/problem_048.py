@@ -17,9 +17,9 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-DIGIT_COUNT = 10 # default: 10
+DIGIT_COUNT = 10  # default: 10
 
-MAX = 1000 # default: 1000
+MAX = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################

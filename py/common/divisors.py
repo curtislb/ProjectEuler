@@ -66,7 +66,7 @@ def lcm(m: int, n: int) -> int:
 def lcm_all(nums: Iterable[int]) -> int:
     """Returns the least common multiple of all natural numbers in nums."""
 
-    max_powers = {} # type: Dict[int, int]
+    max_powers: Dict[int, int] = {}
     for num in nums:
         # compute powers of unique prime factors of the current number
         factorization = prime.prime_factorization(num)
@@ -145,7 +145,7 @@ def totients_up_to(n: int) -> Sequence[int]:
     sieve[0] = False
     sieve[1] = False
 
-    prime_factors = [[] for _ in range(n + 1)] # type: List[List[int]]
+    prime_factors: List[List[int]] = [[] for _ in range(n + 1)]
 
     # run sieve algorithm, keeping track of prime factors
     for curr_num in range(2, n + 1):

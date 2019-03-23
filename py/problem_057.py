@@ -34,7 +34,7 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-NUM_EXPANSIONS = 1000 # default: 1000
+NUM_EXPANSIONS = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################

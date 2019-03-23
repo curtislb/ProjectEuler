@@ -29,7 +29,7 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-MAX_DIGIT = 9 # default: 9
+MAX_DIGIT = 9  # default: 9
 
 
 # SOLUTION ####################################################################
@@ -53,7 +53,7 @@ def min_multiplicand(digit_count: int) -> int:
 
 def solve() -> int:
     # determine possible numbers of digits for multiplicands a and b, a <= b
-    candidates = [] # type: List[Tuple[int, int]]
+    candidates: List[Tuple[int, int]] = []
     for a_digits in range(1, MAX_DIGIT + 1):
         for b_digits in range(a_digits, MAX_DIGIT + 1):
             # compute min and max products of a and b
@@ -71,7 +71,7 @@ def solve() -> int:
     
     # search for products that are 1 to n pandigital with their multiplicands
     total = 0
-    products = set() # type: Set[int]
+    products: Set[int] = set()
     for a_digits, b_digits in candidates:
         # compute min and max values of a and b
         min_a = min_multiplicand(a_digits)

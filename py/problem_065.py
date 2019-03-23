@@ -51,7 +51,7 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-NUM_CONVERGENT = 100 # default: 100
+NUM_CONVERGENT = 100  # default: 100
 
 
 # SOLUTION ####################################################################

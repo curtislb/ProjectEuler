@@ -24,7 +24,7 @@ import common.primes as prime
 # PARAMETERS ##################################################################
 
 
-MAX_COUNT = 11 # default: 11
+MAX_COUNT = 11  # default: 11
 
 
 # SOLUTION ####################################################################

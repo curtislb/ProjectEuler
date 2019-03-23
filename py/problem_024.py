@@ -22,9 +22,9 @@ import common.combinatorics as comb
 # PARAMETERS ##################################################################
 
 
-N = 1000000 # default: 1000000
+N = 1000000  # default: 1000000
 
-DIGITS = list(range(10)) # default: list(range(10))
+DIGITS = list(range(10))  # default: list(range(10))
 
 
 # SOLUTION ####################################################################

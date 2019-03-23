@@ -30,7 +30,7 @@ def choose_weighted_random(values: Sequence[T], probs: Sequence[Real]) -> T:
     cum_prob = probs[0]
     while x > cum_prob:
         i += 1
-        cum_prob += probs[i] # type: ignore
+        cum_prob += probs[i]  # type: ignore
 
     return values[i]
 

@@ -68,7 +68,7 @@ from common.games import Card
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/054.txt' # default: '../input/054.txt
+FILE_NAME = '../input/054.txt'  # default: '../input/054.txt
 
 
 # SOLUTION ####################################################################
@@ -76,7 +76,7 @@ FILE_NAME = '../input/054.txt' # default: '../input/054.txt
 
 def count_faces(cards: Sequence[Card]) -> Mapping[Card.Face, int]:
     """Returns a dictionary of occurrences of each face value in cards."""
-    counts = {} # type: Dict[Card.Face, int]
+    counts: Dict[Card.Face, int] = {}
     for card in cards:
         if card.face not in counts:
             counts[card.face] = 1
@@ -133,9 +133,9 @@ class Rank(object):
               and Card.Face(hand[3].face.value + 1) == hand[4].face):
             self._update(Rank.Type.STRAIGHT, hand[4].face.value)
             
-        counts = count_faces(hand) # type: Mapping[Card.Face, int]
-        two_of = None # type: Optional[Card.Face]
-        three_of = None # type: Optional[Card.Face]
+        counts: Mapping[Card.Face, int] = count_faces(hand)
+        two_of: Optional[Card.Face] = None
+        three_of: Optional[Card.Face] = None
         
         # check for pairs, three-of-a-kind, and four-of-a-kind card groups
         for face in counts.keys():

@@ -26,7 +26,7 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-ROW_LENGTH = 50 # default: 50
+ROW_LENGTH = 50  # default: 50
 
 
 # SOLUTION ####################################################################

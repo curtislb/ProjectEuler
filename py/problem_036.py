@@ -21,11 +21,11 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-LIMIT = 1000000 # default: 1000000
+LIMIT = 1000000  # default: 1000000
 
-BASE_A = 10 # default: 10
+BASE_A = 10  # default: 10
 
-BASE_B = 2 # default: 2
+BASE_B = 2  # default: 2
 
 
 # SOLUTION ####################################################################

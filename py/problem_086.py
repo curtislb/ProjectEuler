@@ -30,7 +30,7 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-MIN_SOLUTIONS = 10**6 # default: 10**6
+MIN_SOLUTIONS = 10**6  # default: 10**6
 
 
 # SOLUTION ####################################################################

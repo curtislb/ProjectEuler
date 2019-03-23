@@ -33,7 +33,7 @@ import common.primes as prime
 # PARAMETERS ##################################################################
 
 
-MIN_FRACTION = 0.1 # default: 0.1
+MIN_FRACTION = 0.1  # default: 0.1
 
 
 # SOLUTION ####################################################################

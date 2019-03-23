@@ -29,15 +29,15 @@ import common.utility as util
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/081.txt' # default: '../input/081.txt'
+FILE_NAME = '../input/081.txt'  # default: '../input/081.txt'
 
 
 # SOLUTION ####################################################################
 
 def solve() -> Optional[int]:
-    matrix = list(
+    matrix: List[List[Optional[int]]] = list(
         fio.ints_from_file(
-            FILE_NAME, sep=',')) # type: List[List[Optional[int]]]
+            FILE_NAME, sep=','))
     n = len(matrix[0])
     
     # dynamically update costs along diagonals from bottom-right to middle

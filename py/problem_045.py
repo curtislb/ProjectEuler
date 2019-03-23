@@ -25,7 +25,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-LOWER_LIMIT = 40755 # default: 40755
+LOWER_LIMIT = 40755  # default: 40755
 
 
 # SOLUTION ####################################################################

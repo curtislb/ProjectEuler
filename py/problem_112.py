@@ -32,7 +32,7 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-BOUNCY_PERCENTAGE = 99 # default: 99
+BOUNCY_PERCENTAGE = 99  # default: 99
 
 
 # SOLUTION ####################################################################
@@ -40,8 +40,8 @@ BOUNCY_PERCENTAGE = 99 # default: 99
 
 def solve() -> int:
     n = 1
-    adjusted_count = 0 # 100 * (bouncy numbers)
-    adjusted_total = BOUNCY_PERCENTAGE # BOUNCY_PERCENTAGE * (total numbers)
+    adjusted_count = 0  # 100 * (bouncy numbers)
+    adjusted_total = BOUNCY_PERCENTAGE  # BOUNCY_PERCENTAGE * (total numbers)
 
     # find first number for which ratio is exactly BOUNCY_PERCENTAGE%
     while adjusted_count != adjusted_total:

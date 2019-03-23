@@ -60,7 +60,7 @@ def main(args: Any) -> None:
     
     # initialize lists of slow solutions if enabled
     if args.list_slow:
-        slow_lists = [[], [], []] # type: List[List[Tuple[str, float]]]
+        slow_lists: List[List[Tuple[str, float]]] = [[], [], []]
 
     pass_count = 0    
     for problem_num in problem_nums:

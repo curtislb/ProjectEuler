@@ -24,7 +24,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/099.txt' # default: '../input/099.txt'
+FILE_NAME = '../input/099.txt'  # default: '../input/099.txt'
 
 
 # SOLUTION ####################################################################

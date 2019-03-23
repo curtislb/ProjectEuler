@@ -33,7 +33,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/018.txt' # default: '../input/018.txt'
+FILE_NAME = '../input/018.txt'  # default: '../input/018.txt'
 
 
 # SOLUTION ####################################################################

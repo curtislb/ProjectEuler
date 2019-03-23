@@ -46,7 +46,7 @@ DAYS_IN_YEAR = 365
 # Number of days in each month
 MONTH_DAY_COUNTS = {
   Month.JANUARY: 31,
-  Month.FEBRUARY: 28, # (non-leap year)
+  Month.FEBRUARY: 28,  # (non-leap year)
   Month.MARCH: 31,
   Month.APRIL: 30,
   Month.MAY: 31,

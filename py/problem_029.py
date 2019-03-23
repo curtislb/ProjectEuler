@@ -28,13 +28,13 @@ from typing import Set
 # PARAMETERS ##################################################################
 
 
-MIN_A = 2 # default: 2
+MIN_A = 2  # default: 2
 
-MAX_A = 100 # default: 100
+MAX_A = 100  # default: 100
 
-MIN_B = 2 # default: 2
+MIN_B = 2  # default: 2
 
-MAX_B = 100 # default: 100
+MAX_B = 100  # default: 100
 
 
 # SOLUTION ####################################################################
@@ -42,7 +42,7 @@ MAX_B = 100 # default: 100
 
 def solve() -> int:
     # try all combinations of a^b
-    terms = set() # type: Set[int]
+    terms: Set[int] = set()
     term_count = 0
     for a in range(MIN_A, MAX_A + 1):
         for b in range(MIN_B, MAX_B + 1):

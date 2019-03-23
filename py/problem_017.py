@@ -25,7 +25,7 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-MAX_NUMBER = 1000 # default: 1000
+MAX_NUMBER = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################

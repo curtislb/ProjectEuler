@@ -29,7 +29,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-FACTOR = 2 # default: 2
+FACTOR = 2  # default: 2
 
 
 # SOLUTION ####################################################################

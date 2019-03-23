@@ -23,15 +23,15 @@ import common.probability as prob
 # PARAMETERS ##################################################################
 
 
-P_NUM_DICE = 9 # default: 9
+P_NUM_DICE = 9  # default: 9
 
-P_NUM_SIDES = 4 # default: 4
+P_NUM_SIDES = 4  # default: 4
 
-C_NUM_DICE = 6 # default: 6
+C_NUM_DICE = 6  # default: 6
 
-C_NUM_SIDES = 6 # default: 6
+C_NUM_SIDES = 6  # default: 6
 
-PRECISION = 7 # default: 7
+PRECISION = 7  # default: 7
 
 
 # SOLUTION ####################################################################

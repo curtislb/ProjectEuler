@@ -41,7 +41,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-NUM_ROWS = 51 # default: 51
+NUM_ROWS = 51  # default: 51
 
 
 # SOLUTION ####################################################################

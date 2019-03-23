@@ -32,13 +32,13 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-LIMIT = 1000000 # default: 1000000
+LIMIT = 1000000  # default: 1000000
 
 
 # SOLUTION ####################################################################
 
 
-collatz_lengths = {} # type: Dict[int, int]
+collatz_lengths: Dict[int, int] = {}
 
 
 def collatz_length(n: int) -> int:

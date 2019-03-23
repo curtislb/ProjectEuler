@@ -15,6 +15,7 @@ from fractions import Fraction
 from typing import (
     Any,
     Callable,
+    Deque,
     Dict,
     Iterable,
     List,
@@ -64,7 +65,7 @@ class Graph(object):
     """Class representing a directed graph with weighted edges."""
 
     def __init__(self) -> None:
-        self._adj = {} # type: Dict[object, Dict[object, float]]
+        self._adj: Dict[object, Dict[object, float]] = {}
         self._node_count = 0
         self._edge_count = 0
 
@@ -174,10 +175,10 @@ class Graph(object):
     def postorder(self) -> Sequence[object]:
         """Returns a postorder traversal of all nodes in the graph."""
 
-        post = [] # type: List[object]
+        post: List[object] = []
 
         # run DFS from each unvisited node in the graph
-        visited = set() # type: Set[object]
+        visited: Set[object] = set()
         for node in self._adj:
             if node not in visited:
                 self._postorder_dfs(node, set(), visited, post)
@@ -218,12 +219,12 @@ class Graph(object):
 
         self._assert_node(source)
 
-        distance = {source: 0} # type: Dict[object, float]
-        previous = {} # type: Dict[object, object]
-        visited = {source} # type: Set[object]
+        distance: Dict[object, float] = {source: 0}
+        previous: Dict[object, object] = {}
+        visited: Set[object] = {source}
 
         # queue of nodes to be visited in order
-        frontier = deque() # type: deque
+        frontier: Deque[object] = deque()
         frontier.append(source)
 
         # visit each node in FIFO order, adding its neighbors
@@ -249,8 +250,8 @@ class Graph(object):
 
         self._assert_node(source)
 
-        distance = {source: 0} # type: Dict[object, float]
-        previous = {} # type: Dict[object, object]
+        distance: Dict[object, float] = {source: 0}
+        previous: Dict[object, object] = {}
 
         # initialize node distances to positive infinity
         pq = MinPQ()
@@ -283,9 +284,9 @@ class Graph(object):
         formed from minimum spanning trees in each component of the graph.
         """
 
-        is_added = {} # type: Dict[object, bool]
-        distance = {} # type: Dict[object, float]
-        mst_edge = {} # type: Dict[object, object]
+        is_added: Dict[object, bool] = {}
+        distance: Dict[object, float] = {}
+        mst_edge: Dict[object, object] = {}
 
         # start with no tree and infinite distance to all nodes
         for node in self._adj:
@@ -330,8 +331,8 @@ class MinPQ(object):
     """
 
     def __init__(self) -> None:
-        self._heap = [] # type: List[List[object]]
-        self._entry_map = {} # type: Dict[object, List[object]]
+        self._heap: List[List[object]] = []
+        self._entry_map: Dict[object, List[object]] = {}
         self._counter = itertools.count()
 
     def __len__(self) -> int:
@@ -422,7 +423,7 @@ def memoized(func: Callable) -> Callable:
     to be recomputed.
     """
 
-    memo = {} # type: Dict[Any, Any]
+    memo: Dict[Any, Any] = {}
 
     def memo_func(*args: Any) -> Any:
         if args not in memo:

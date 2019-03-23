@@ -40,9 +40,9 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-MAX_START = 10**6 # default: 10**6
+MAX_START = 10**6  # default: 10**6
 
-TARGET_LEN = 60 # default: 60
+TARGET_LEN = 60  # default: 60
 
 
 # SOLUTION ####################################################################

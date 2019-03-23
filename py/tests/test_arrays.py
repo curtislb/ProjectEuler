@@ -105,10 +105,10 @@ class TestArrays(unittest.TestCase):
         
     def test_is_permutation(self) -> None:
         for cmp in (False, True):
-            empty_str_iter = iter([]) # type: Iterator[str]
-            empty_int_iter = iter(()) # type: Iterator[int]
-            empty_int_list = [] # type: List[int]
-            empty_int_tupl = () # type: Sequence[int]
+            empty_str_iter: Iterator[str] = iter([])
+            empty_int_iter: Iterator[int] = iter(())
+            empty_int_list: List[int] = []
+            empty_int_tupl: Sequence[int] = ()
             self.assertTrue(arrs.is_permutation([], set(), cmp))
             self.assertTrue(arrs.is_permutation('', empty_str_iter, cmp))
             self.assertTrue(arrs.is_permutation(empty_int_iter, range(0), cmp))

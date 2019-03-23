@@ -31,9 +31,9 @@ import common.matrices as mat
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/102.txt' # default: '../input/102.txt'
+FILE_NAME = '../input/102.txt'  # default: '../input/102.txt'
 
-QUERY_POINT = (0, 0) # default: (0, 0)
+QUERY_POINT = (0, 0)  # default: (0, 0)
 
 
 # SOLUTION ####################################################################

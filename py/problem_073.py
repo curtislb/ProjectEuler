@@ -29,11 +29,11 @@ import common.divisors as divs
 # PARAMETERS ##################################################################
 
 
-MIN_FRAC = Fraction(1, 3) # default: Fraction(1, 3)
+MIN_FRAC = Fraction(1, 3)  # default: Fraction(1, 3)
 
-MAX_FRAC = Fraction(1, 2) # default: Fraction(1, 2)
+MAX_FRAC = Fraction(1, 2)  # default: Fraction(1, 2)
 
-MAX_D = 12000 # default: 12000
+MAX_D = 12000  # default: 12000
 
 
 # SOLUTION ####################################################################

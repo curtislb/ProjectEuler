@@ -26,7 +26,7 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-NUM_PRIMES = 5 # default: 5
+NUM_PRIMES = 5  # default: 5
 
 
 # SOLUTION ####################################################################
@@ -51,7 +51,7 @@ def find_prime_sets(
         return set((p,) for p in primes)
 
     # find prime sets with size one greater than previous
-    prime_sets = set() # type: Set[Sequence[int]]
+    prime_sets: Set[Sequence[int]] = set()
     for p in primes:
         for prev_set in prev_prime_sets:
             # don't duplicate primes in a set
@@ -103,7 +103,7 @@ def solve() -> int:
 
     # find minimum sum of prime sets
     prime_sets = list(one_prime_sets) + list(two_prime_sets)
-    prime_set_sums = map(sum, prime_sets) # type: Iterator[int]
+    prime_set_sums: Iterator[int] = map(sum, prime_sets)
     return min(prime_set_sums)
 
 

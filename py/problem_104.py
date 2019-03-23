@@ -30,7 +30,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-D = 9 # default: 9
+D = 9  # default: 9
 
 
 # SOLUTION ####################################################################
@@ -48,7 +48,7 @@ def is_end_pandigital(n: int) -> bool:
 
 
 def solve() -> int:
-    k = 2750 # TODO: less arbitrary lower bound?
+    k = 2750  # TODO: less arbitrary lower bound?
     for fib_num in itertools.islice(seqs.generate_fibonacci(), k, None):
         k += 1
         if is_end_pandigital(fib_num):

@@ -24,9 +24,7 @@ that you solve this one first.
 __author__ = 'Curtis Belmonte'
 
 import math
-from typing import Sequence
 
-import common.arrays as arrs
 import common.divisors as divs
 import common.primes as prime
 import common.sequences as seqs
@@ -35,7 +33,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-MIN_SOLUTIONS = 1000 # default: 1000
+MIN_SOLUTIONS = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################

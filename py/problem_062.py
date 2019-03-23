@@ -22,13 +22,13 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-NUM_PERMS = 5 # default: 5
+NUM_PERMS = 5  # default: 5
 
 
 # SOLUTION ####################################################################
 
 
-cube_digits = {} # type: Dict[Sequence[int], List[int]]
+cube_digits: Dict[Sequence[int], List[int]] = {}
 
 
 def solve() -> int:

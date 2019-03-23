@@ -24,13 +24,13 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-NUM_BALLS = 70 # default: 70
+NUM_BALLS = 70  # default: 70
 
-NUM_COLORS = 7 # default: 7
+NUM_COLORS = 7  # default: 7
 
-NUM_DRAWS = 20 # default: 20
+NUM_DRAWS = 20  # default: 20
 
-PRECISION = 9 # default: 9
+PRECISION = 9  # default: 9
 
 
 # SOLUTION ####################################################################

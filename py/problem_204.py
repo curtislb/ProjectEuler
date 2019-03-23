@@ -24,9 +24,9 @@ import common.primes as prime
 # PARAMETERS ##################################################################
 
 
-TYPE = 100 # default: 100
+TYPE = 100  # default: 100
 
-MAX_NUMBER = 10**9 # default: 10**9
+MAX_NUMBER = 10**9  # default: 10**9
 
 
 # SOLUTION ####################################################################

@@ -23,7 +23,7 @@ import common.arithmetic as arith
 # PARAMETERS ##################################################################
 
 
-NUM_DIGITS = 10 # default: 10
+NUM_DIGITS = 10  # default: 10
 
 
 # SOLUTION ####################################################################

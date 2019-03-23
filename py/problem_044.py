@@ -37,7 +37,7 @@ def solve() -> Optional[int]:
     # generate pentagonal numbers up to threshold
     # TODO: remove need for arbitrary threshold
     pentagonal_count = 3000
-    pentagonal_list = [] # type: List[int]
+    pentagonal_list: List[int] = []
     for n in range(pentagonal_count):
         pentagonal_list.append(seqs.pentagonal(n))
         

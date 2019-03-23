@@ -50,7 +50,7 @@ from typing import List, Optional, Set
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/096.txt' # default: '../input/096.txt'
+FILE_NAME = '../input/096.txt'  # default: '../input/096.txt'
 
 
 # SOLUTION ####################################################################

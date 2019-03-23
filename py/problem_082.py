@@ -29,7 +29,7 @@ from common.utility import Graph
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/082.txt' # default: '../input/082.txt'
+FILE_NAME = '../input/082.txt'  # default: '../input/082.txt'
 
 
 # SOLUTION ####################################################################
@@ -51,8 +51,8 @@ def try_add_matrix_edge(
 
 
 def solve() -> int:
-    matrix = list(
-        fio.ints_from_file(FILE_NAME, sep=',')) # type: List[List[int]]
+    matrix: List[List[int]] = list(
+        fio.ints_from_file(FILE_NAME, sep=','))
     n = len(matrix)
     
     # create graph with virtual start and goal nodes
@@ -77,9 +77,9 @@ def solve() -> int:
     for i in range(n):
         for j in range(n):
             node = (i, j)
-            try_add_matrix_edge(graph, matrix, node, i - 1, j) # above
-            try_add_matrix_edge(graph, matrix, node, i + 1, j) # below
-            try_add_matrix_edge(graph, matrix, node, i, j + 1) # right
+            try_add_matrix_edge(graph, matrix, node, i - 1, j)  # above
+            try_add_matrix_edge(graph, matrix, node, i + 1, j)  # below
+            try_add_matrix_edge(graph, matrix, node, i, j + 1)  # right
 
     # connect nodes in right column to virtual goal node
     for i in range(n):

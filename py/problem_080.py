@@ -24,9 +24,9 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-NUM_COUNT = 100 # default: 100
+NUM_COUNT = 100  # default: 100
 
-DIGIT_COUNT = 100 # default: 100
+DIGIT_COUNT = 100  # default: 100
 
 
 # SOLUTION ####################################################################

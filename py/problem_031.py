@@ -24,7 +24,7 @@ import common.combinatorics as comb
 # PARAMETERS ##################################################################
 
 
-AMOUNT = 200 # default: 200
+AMOUNT = 200  # default: 200
 
 COINS = [1, 2, 5, 10, 20, 50, 100, 200]
 # default: [1, 2, 5, 10, 20, 50, 100, 200]

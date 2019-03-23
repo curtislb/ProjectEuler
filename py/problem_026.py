@@ -32,7 +32,7 @@ from typing import Dict
 # PARAMETERS ##################################################################
 
 
-LIMIT = 1000 # default: 1000
+LIMIT = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################
@@ -44,7 +44,7 @@ def reciprocal_cycle_length(n: int) -> int:
     """
     
     # perform long division for 1/n
-    remainders = {} # type: Dict[int, int]
+    remainders: Dict[int, int] = {}
     dividend = 1
     digit_count = 0
     while dividend != 0:

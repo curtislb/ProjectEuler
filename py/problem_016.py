@@ -17,9 +17,9 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-BASE = 2 # default: 2
+BASE = 2  # default: 2
 
-EXPONENT = 1000 # default: 1000
+EXPONENT = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################

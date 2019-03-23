@@ -15,7 +15,7 @@ For which value of p ≤ MAX_PERIMETER, is the number of solutions maximised?
 __author__ = 'Curtis Belmonte'
 
 from collections import Counter
-from typing import Set
+from typing import Counter as CounterT, Set
 
 import common.arithmetic as arith
 from common.utility import memoized
@@ -23,7 +23,7 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-MAX_PERIMETER = 1000 # default: 1000
+MAX_PERIMETER = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################
@@ -37,7 +37,7 @@ def int_sqrt(num: int) -> int:
 
 def solve() -> int:
     # precompute perfect squares up to half the max perimeter squared
-    squares = set() # type: Set[int]
+    squares: Set[int] = set()
     n = 0
     n_square = n * n
     max_square = (MAX_PERIMETER // 2)**2
@@ -47,7 +47,7 @@ def solve() -> int:
         n_square = n * n
     
     # search for triplets of perfect squares that satisfy a^2 + b^2 = c^2
-    counts = Counter() # type: Counter
+    counts: CounterT[int] = Counter()
     for a_square in squares:
         for b_square in squares:
             c_square = a_square + b_square

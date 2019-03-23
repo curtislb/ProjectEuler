@@ -82,7 +82,7 @@ def dot_product(u: Iterable[float], v: Iterable[float]) -> float:
 
 def flatten_matrix(matrix: List[List[T]]) -> Sequence[T]:
     """Returns a sequence of the elements in matrix in row-major order."""
-    flat_matrix = [] # type: List[T]
+    flat_matrix: List[T] = []
     for row in matrix:
         for value in row:
             flat_matrix.append(value)
@@ -151,11 +151,11 @@ def max_bipartite_matching(edge_matrix: List[List[bool]]) -> Sequence[Coord]:
     Edges are returned in the format (u, v), with u and v defined as above.
     """
 
-    n = len(edge_matrix)    # number of rows
-    m = len(edge_matrix[0]) # number of columns
+    n = len(edge_matrix)  # number of rows
+    m = len(edge_matrix[0])  # number of columns
 
     # try to assign each row to a column
-    col_assignments = [-1] * m # type: List[int]
+    col_assignments: List[int] = [-1] * m
     for i in range(n):
         col_marked = [False] * m
         _try_bipartite_match(edge_matrix, i, col_marked, col_assignments)
@@ -182,7 +182,7 @@ def minimum_line_cover(matrix: List[List[int]]) -> Sequence[Tuple[bool, int]]:
         return [(False, i) for i in range(n)]
 
     # convert to row assignment array
-    row_assignments = [None] * n # type: List[Optional[int]]
+    row_assignments: List[Optional[int]] = [None] * n
     for i, j in assignments:
         row_assignments[i] = j
 

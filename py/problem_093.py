@@ -106,7 +106,7 @@ def natural_prefix_len(values: Iterable[int]) -> int:
 
 
 def solve() -> Optional[int]:
-    best_digits = None # type: Optional[Tuple[int, int, int, int]]
+    best_digits: Optional[Tuple[int, int, int, int]] = None
     max_count = 0
 
     # check all digit combinations 0 <= a < b < c < d <= 9

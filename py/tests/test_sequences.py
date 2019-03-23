@@ -45,7 +45,7 @@ class TestSequences(unittest.TestCase):
         self.assertEqual(seqs.collatz_step(2048), 1024)
 
     def test_compute_chain_lengths(self) -> None:
-        lengths = {} # type: Dict[int, int]
+        lengths: Dict[int, int] = {}
         values = [0] + list(range(3, 9))
 
         def step(x: int) -> int:

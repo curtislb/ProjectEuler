@@ -24,7 +24,7 @@ import common.primes as prime
 # PARAMETERS ##################################################################
 
 
-LIMIT = 1000000 # default: 1000000
+LIMIT = 1000000  # default: 1000000
 
 
 # SOLUTION ####################################################################
@@ -33,7 +33,7 @@ LIMIT = 1000000 # default: 1000000
 def solve() -> int:
     # search for circular primes from 2 to LIMIT - 1
     count = 0
-    tested_rotations = set() # type: Set[int]
+    tested_rotations: Set[int] = set()
     for n in range(2, LIMIT):
         # check if the digit rotations of n have already been seen
         if n not in tested_rotations:

@@ -30,9 +30,9 @@ import common.combinatorics as comb
 # PARAMETERS ##################################################################
 
 
-MAX_N = 100 # default: 100
+MAX_N = 100  # default: 100
 
-MIN_VALUE = 1000000 # default: 1000000
+MIN_VALUE = 1000000  # default: 1000000
 
 
 # SOLUTION ####################################################################

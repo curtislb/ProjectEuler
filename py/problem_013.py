@@ -14,9 +14,9 @@ __author__ = 'Curtis Belmonte'
 # PARAMETERS ##################################################################
 
 
-D = 10 # default: 10
+D = 10  # default: 10
 
-FILE_NAME = '../input/013.txt' # default: '../input/013.txt'
+FILE_NAME = '../input/013.txt'  # default: '../input/013.txt'
 
 
 # SOLUTION ####################################################################

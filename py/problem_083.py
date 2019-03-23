@@ -31,15 +31,15 @@ from common.utility import Graph
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/083.txt' # default: '../input/083.txt'
+FILE_NAME = '../input/083.txt'  # default: '../input/083.txt'
 
 
 # SOLUTION ####################################################################
 
 
 def solve() -> int:
-    matrix = list(
-        fio.ints_from_file(FILE_NAME, sep=',')) # type: List[List[int]]
+    matrix: List[List[int]] = list(
+        fio.ints_from_file(FILE_NAME, sep=','))
     n = len(matrix)
     
     # create graph with virtual start nodes
@@ -59,10 +59,10 @@ def solve() -> int:
     for i in range(n):
         for j in range(n):
             node = (i, j)
-            p082.try_add_matrix_edge(graph, matrix, node, i - 1, j) # above
-            p082.try_add_matrix_edge(graph, matrix, node, i + 1, j) # below
-            p082.try_add_matrix_edge(graph, matrix, node, i, j - 1) # left
-            p082.try_add_matrix_edge(graph, matrix, node, i, j + 1) # right
+            p082.try_add_matrix_edge(graph, matrix, node, i - 1, j)  # above
+            p082.try_add_matrix_edge(graph, matrix, node, i + 1, j)  # below
+            p082.try_add_matrix_edge(graph, matrix, node, i, j - 1)  # left
+            p082.try_add_matrix_edge(graph, matrix, node, i, j + 1)  # right
 
     distance, _ = graph.dijkstra(start_node)
     goal_node = (n - 1, n - 1)

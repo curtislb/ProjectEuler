@@ -41,9 +41,9 @@ import common.fileio as fio
 
 # PARAMETERS ##################################################################
 
-N = 4 # default: 4
+N = 4  # default: 4
 
-FILE_NAME = '../input/011.txt' # default: '../input/011.txt'
+FILE_NAME = '../input/011.txt'  # default: '../input/011.txt'
 
 
 # SOLUTION ####################################################################

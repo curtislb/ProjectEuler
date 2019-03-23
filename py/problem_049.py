@@ -44,7 +44,7 @@ def solve() -> Optional[int]:
     # test all permutation groups in primes
     while len(primes) > 2:
         first = None
-        perms = [] # type: List[int]
+        perms: List[int] = []
         
         # find all permutations of first prime in primes
         for p in primes:

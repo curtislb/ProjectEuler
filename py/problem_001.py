@@ -19,11 +19,11 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-M = 3 # default: 3
+M = 3  # default: 3
 
-N = 5 # default: 5
+N = 5  # default: 5
 
-LIMIT = 1000 # default: 1000
+LIMIT = 1000  # default: 1000
 
 
 # SOLUTION ####################################################################

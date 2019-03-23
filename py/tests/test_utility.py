@@ -419,11 +419,13 @@ class TestUtility(unittest.TestCase):
 
     def test_simple_equality(self) -> None:
         with self.assertRaises(ValueError):
+            # noinspection PyUnusedLocal
             @simple_equality
             class NoEqualOps(object):
                 pass
 
         with self.assertRaises(ValueError):
+            # noinspection PyUnusedLocal
             @simple_equality
             class BothEqualOps(object):
                 def __eq__(self, other: object) -> bool:

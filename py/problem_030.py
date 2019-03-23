@@ -27,7 +27,7 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-EXPONENT = 5 # default: 5
+EXPONENT = 5  # default: 5
 
 
 # SOLUTION ####################################################################

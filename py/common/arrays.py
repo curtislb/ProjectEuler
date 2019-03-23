@@ -8,7 +8,7 @@ Functions for operating on lists and related sequences.
 __author__ = 'Curtis Belmonte'
 
 from collections import defaultdict, deque
-from typing import Dict, Iterable, List, Mapping, Optional, Sequence
+from typing import Deque, Dict, Iterable, List, Mapping, Optional, Sequence
 
 from common.utility import Comparable, T
 
@@ -72,8 +72,8 @@ def cumulative_partial_sums(nums: Sequence[int], limit: int) -> Sequence[int]:
     of up to the previous limit terms in nums, including the current one.
     """
 
-    sums = [] # type: List[int]
-    terms = deque() # type: deque
+    sums: List[int] = []
+    terms: Deque[int] = deque()
     total = 0
     for i, num in enumerate(nums):
         total += num
@@ -94,7 +94,7 @@ def cumulative_products(nums: Sequence[int]) -> Sequence[int]:
     product of the current term in nums and all of the prior ones.
     """
 
-    products = [] # type: List[int]
+    products: List[int] = []
     product = 1
     for num in nums:
         product *= num
@@ -109,7 +109,7 @@ def inverse_index_map(values: Sequence[T]) -> Mapping[T, int]:
     inverse_index_map_all.
     """
 
-    inverse_map = {} # type: Dict[T, int]
+    inverse_map: Dict[T, int] = {}
     for i, value in enumerate(values):
         inverse_map[value] = i
 
@@ -119,7 +119,7 @@ def inverse_index_map(values: Sequence[T]) -> Mapping[T, int]:
 def inverse_index_map_all(values: Sequence[T]) -> Mapping[T, Sequence[int]]:
     """Returns a map from each item in values to a sequence of its indices."""
 
-    inverse_map = defaultdict(list) # type: Dict[T, List[int]]
+    inverse_map: Dict[T, List[int]] = defaultdict(list)
     for i, value in enumerate(values):
         inverse_map[value].append(i)
 
@@ -140,8 +140,8 @@ def is_permutation(
     """
 
     # convert iterables to lists if necessary
-    list_a = iter_a if isinstance(iter_a, list) else list(iter_a) # type: List
-    list_b = iter_b if isinstance(iter_b, list) else list(iter_b) # type: List
+    list_a: List = iter_a if isinstance(iter_a, list) else list(iter_a)
+    list_b: List = iter_b if isinstance(iter_b, list) else list(iter_b)
 
     # if lengths of a and b are different, they cannot be permutations
     if len(list_a) != len(list_b):

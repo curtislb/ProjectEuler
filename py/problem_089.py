@@ -39,7 +39,7 @@ __author__ = 'Curtis Belmonte'
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/089.txt' # default: '../input/089.txt'
+FILE_NAME = '../input/089.txt'  # default: '../input/089.txt'
 
 
 # SOLUTION ####################################################################

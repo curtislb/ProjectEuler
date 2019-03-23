@@ -26,7 +26,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/079.txt' # default: '../input/079.txt'
+FILE_NAME = '../input/079.txt'  # default: '../input/079.txt'
 
 
 # SOLUTION ####################################################################
@@ -34,7 +34,7 @@ FILE_NAME = '../input/079.txt' # default: '../input/079.txt'
 
 def solve() -> int:
     # keep track of all digits preceding other digits
-    pre_digits = {} # type: Dict[int, Set[int]]
+    pre_digits: Dict[int, Set[int]] = {}
     attempts = fio.ints_from_file(FILE_NAME)
     for attempt in attempts:
         digits = digs.digits(attempt[0])
@@ -48,7 +48,7 @@ def solve() -> int:
                 pre_digits[digit].add(digits[j])
 
     # sort digits by how many other digits precede them
-    ordering = list(pre_digits.items()) # type: List[Tuple[int, Set[int]]]
+    ordering: List[Tuple[int, Set[int]]] = list(pre_digits.items())
     ordering.sort(key=(lambda x: len(x[1])))
     digits = [order[0] for order in ordering]
 

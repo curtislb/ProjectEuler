@@ -29,7 +29,7 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/042.txt' # default: '../input/042.txt'
+FILE_NAME = '../input/042.txt'  # default: '../input/042.txt'
 
 
 # SOLUTION ####################################################################

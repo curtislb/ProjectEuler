@@ -28,7 +28,7 @@ import common.matrices as mat
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/345.txt' # default: '../input/345.txt'
+FILE_NAME = '../input/345.txt'  # default: '../input/345.txt'
 
 
 # SOLUTION ####################################################################

@@ -38,9 +38,9 @@ __author__ = 'Curtis Belmonte'
 # PARAMETERS ##################################################################
 
 
-N = 13 # default: 13
+N = 13  # default: 13
 
-FILE_NAME = '../input/008.txt' # default: '../input/008.txt'
+FILE_NAME = '../input/008.txt'  # default: '../input/008.txt'
 
 
 # SOLUTION ####################################################################
@@ -51,9 +51,9 @@ def solve() -> int:
         # read number from input file
         num_str = ''.join(line.rstrip() for line in input_file)
         
-        num_zeros = 0 # number of zeros in the current product
-        product = 1 # current product of N digits (ignoring zeros)
-        max_product = 0 # largest product of N digits
+        num_zeros = 0  # number of zeros in the current product
+        product = 1  # current product of N digits (ignoring zeros)
+        max_product = 0  # largest product of N digits
     
         # compute product of initial N digits
         i = 0

@@ -84,7 +84,7 @@ def find_cycle(p_strs: List[List[str]], found: List[str], k_used: Set[int])\
 
 
 def solve() -> Optional[int]:
-    p_strs = [[] for _ in range(6)] # type: List[List[str]]
+    p_strs: List[List[str]] = [[] for _ in range(6)]
 
     for k in range(3, 9):
         n = 1
@@ -98,7 +98,7 @@ def solve() -> Optional[int]:
             pk_max = P[k](n)
 
     n = 0
-    ans_list = None # type: Optional[Sequence[str]]
+    ans_list: Optional[Sequence[str]] = None
     while ans_list is None and n < len(p_strs[5]):
         p_strs_copy = []
         for pk_strs in p_strs:

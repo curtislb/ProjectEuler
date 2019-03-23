@@ -30,7 +30,7 @@ __author__ = 'Curtis Belmonte'
 
 import math
 from collections import Counter
-from typing import Dict
+from typing import Counter as CounterT, Dict
 
 import common.divisors as divs
 
@@ -38,7 +38,7 @@ import common.divisors as divs
 # PARAMETERS ##################################################################
 
 
-MAX_LENGTH = 1500000 # default: 1500000
+MAX_LENGTH = 1500000  # default: 1500000
 
 
 # SOLUTION ####################################################################
@@ -52,7 +52,7 @@ def triple_length(m: int, n: int) -> int:
 
 def solve() -> int:
     # count lengths for all valid Pythagorean triples
-    length_counts = Counter() # type: Dict[int, int]
+    length_counts: CounterT[int] = Counter()
     max_m = int(math.sqrt(MAX_LENGTH / 2))
     for n in range(1, max_m):
         for m in range(n + 1, max_m + 1):

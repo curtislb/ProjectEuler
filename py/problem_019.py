@@ -28,9 +28,9 @@ from common.calendar import Day, Month
 
 # PARAMETERS ##################################################################
 
-DAY_OF_WEEK = Day.SUNDAY # default: Day.SUNDAY
+DAY_OF_WEEK = Day.SUNDAY  # default: Day.SUNDAY
 
-END_YEAR = 2001 # default: 2001
+END_YEAR = 2001  # default: 2001
 
 # SOLUTION ####################################################################
 

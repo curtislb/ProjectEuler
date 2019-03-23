@@ -36,7 +36,7 @@ def _compute_chain_length(
     """
 
     # initialize map of terms to their positions in sequence
-    terms = {} # type: Dict[int, int]
+    terms: Dict[int, int] = {}
 
     while True:
         # if chain is invalid, mark all terms accordingly
@@ -104,7 +104,7 @@ def compute_chain_lengths(
     is_valid: is_valid(n) should return True iff n is a valid chain member
     """
 
-    invalid_set = set() # type: Set[int]
+    invalid_set: Set[int] = set()
     for n in values:
         _compute_chain_length(lengths, n, step, is_valid, invalid_set)
 

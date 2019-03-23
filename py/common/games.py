@@ -178,7 +178,7 @@ class GameBoard(object):
 
         # allocate the list of spaces
         num_spaces = sum(map(len, space_type_map.values()))
-        space_list = [None] * num_spaces # type: List
+        space_list: List = [None] * num_spaces
 
         # create spaces and assign them to their board positions
         for space_type, indices in space_type_map.items():
@@ -212,14 +212,14 @@ class GameBoard(object):
                 continue
 
             # convert rules to positions and assign probabilities to them
-            space_probs = defaultdict(int) # type: Dict
+            space_probs: Dict = defaultdict(int)
             rule_probs = move_rules[space.type]
             total_prob = 0
             for rule, p in rule_probs.items():
                 rule_dest = cls._get_rule_dest(
                     rule, position, space_list, space_map)
                 space_probs[rule_dest] += p
-                total_prob += p # type: ignore
+                total_prob += p  # type: ignore
 
             # player ends on this space with remaining probability
             if total_prob < 1:

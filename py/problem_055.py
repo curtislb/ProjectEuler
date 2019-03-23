@@ -37,9 +37,9 @@ import common.digits as digs
 # PARAMETERS ##################################################################
 
 
-LIMIT = 10000 # default: 1000
+LIMIT = 10000  # default: 1000
 
-MAX_ITER = 50 # default: 50
+MAX_ITER = 50  # default: 50
 
 
 # SOLUTION ####################################################################

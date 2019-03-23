@@ -39,7 +39,7 @@ FAMILY_SIZE = 8
 
 
 def solve() -> int:
-    families = set() # type: Set[Sequence[int]]
+    families: Set[Sequence[int]] = set()
     
     # test 5-digit numbers
     for i in range(1, 5):

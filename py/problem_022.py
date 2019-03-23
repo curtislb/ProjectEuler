@@ -27,7 +27,7 @@ import common.fileio as fio
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/022.txt' # default: '../input/022.txt'
+FILE_NAME = '../input/022.txt'  # default: '../input/022.txt'
 
 
 # SOLUTION ####################################################################

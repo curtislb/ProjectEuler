@@ -37,11 +37,11 @@ from common.utility import memoized
 # PARAMETERS ##################################################################
 
 
-A_LIMIT = 1000 # default: 1000
+A_LIMIT = 1000  # default: 1000
 
-B_LIMIT = 1000 # default: 1000
+B_LIMIT = 1000  # default: 1000
 
-START_N = 0 # default: 0
+START_N = 0  # default: 0
 
 
 # SOLUTION ####################################################################

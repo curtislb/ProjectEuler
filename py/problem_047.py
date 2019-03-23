@@ -27,9 +27,9 @@ import common.primes as prime
 # PARAMETERS ##################################################################
 
 
-CONSEC = 4 # default: 4
+CONSEC = 4  # default: 4
 
-FACTORS = 4 # default: 4
+FACTORS = 4  # default: 4
 
 
 # SOLUTION ####################################################################

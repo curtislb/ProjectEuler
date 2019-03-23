@@ -13,13 +13,13 @@ from typing import Callable, List, Mapping, Tuple, Union
 
 
 # Mapping from string tokens of binary arithmetic operations to their functions
-BINARY_OPS = {
+BINARY_OPS: Mapping[str, Callable[[float, float], float]] = {
     '+': operator.add,
     '-': operator.sub,
     '*': operator.mul,
     '/': operator.truediv,
     '^': operator.pow,
-} # type: Mapping[str, Callable[[float, float], float]]
+}
 
 
 def eval_postfix(expr: str, is_space_sep: bool = True) -> float:
@@ -29,7 +29,7 @@ def eval_postfix(expr: str, is_space_sep: bool = True) -> float:
     each digit is treated as a separate operand in the expression.
     """
 
-    stack = [] # type: List[Union[str, float]]
+    stack: List[Union[str, float]] = []
     for token in (expr.split() if is_space_sep else expr):
         if token in BINARY_OPS:
             y = float(stack.pop())

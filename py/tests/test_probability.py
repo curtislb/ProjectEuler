@@ -10,17 +10,18 @@ __author__ = 'Curtis Belmonte'
 import unittest
 from collections import Counter
 from fractions import Fraction
+from typing import Counter as CounterT
 
 import common.probability as prob
 
 
-class MyTestCase(unittest.TestCase):
+class TestProbability(unittest.TestCase):
     def test_choose_weighted_random(self) -> None:
         self.assertEqual(prob.choose_weighted_random([42], [1]), 42)
 
         values = ['foo', 'bar']
         probs = [Fraction(2, 3), Fraction(1, 3)]
-        counts = Counter() # type: Counter
+        counts: CounterT[str] = Counter()
         trials = 10000
         for _ in range(trials):
             counts[prob.choose_weighted_random(values, probs)] += 1

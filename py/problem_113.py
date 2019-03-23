@@ -28,7 +28,7 @@ from typing import List
 # PARAMETERS ##################################################################
 
 
-MAX_DIGITS = 100 # default: 100
+MAX_DIGITS = 100  # default: 100
 
 
 # SOLUTION ####################################################################
@@ -37,18 +37,18 @@ MAX_DIGITS = 100 # default: 100
 def next_digit_counts(counts: List[List[int]], num_digits: int) -> List[List[int]]:
     """Returns the next iteration of the counts matrix with a digit prepended.
 
-    counts      A 9x3 matrix with the number of increasing, decreasing, and
-                bouncy numbers (in that order) that begin with each digit from
-                1 to 9 and consist of num_digits digits.
+    counts: A 9x3 matrix with the number of increasing, decreasing, and bouncy
+        numbers (in that order) that begin with each digit from 1 to 9 and
+        consist of num_digits digits
 
-    num_digits  The length of numbers represented by the counts matrix.
+    num_digits: The length of numbers represented by the counts matrix
     """
 
-    new_counts = [[0] * 3 for _ in range(9)] # type: List[List[int]]
+    new_counts: List[List[int]] = [[0] * 3 for _ in range(9)]
 
     for x in range(9):
         # count cases where next digit is 0
-        new_counts[x][1] += 1 # case x0+
+        new_counts[x][1] += 1  # case x0+
         for i in range(num_digits - 1):
             # case x0+[1-9]0*
             new_counts[x][2] += 9 * 10**i
@@ -73,7 +73,7 @@ def next_digit_counts(counts: List[List[int]], num_digits: int) -> List[List[int
 
 def solve() -> int:
     # iterate counts for each digit, keeping track of bouncy numbers
-    counts = [[0] * 3 for _ in range(9)] # type: List[List[int]]
+    counts: List[List[int]] = [[0] * 3 for _ in range(9)]
     bouncy_count = 0
     for i in range(1, MAX_DIGITS):
         counts = next_digit_counts(counts, i)

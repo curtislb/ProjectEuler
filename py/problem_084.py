@@ -80,7 +80,7 @@ __author__ = 'Curtis Belmonte'
 
 from collections import Counter
 from fractions import Fraction
-from typing import List
+from typing import Counter as CounterT, List
 
 import common.probability as prob
 from common.games import GameBoard
@@ -89,16 +89,16 @@ from common.utility import Real
 # PARAMETERS ##################################################################
 
 
-NUM_DICE = 2 # default: 2
+NUM_DICE = 2  # default: 2
 
-NUM_SIDES = 4 # default: 4
+NUM_SIDES = 4  # default: 4
 
 
 # SOLUTION ####################################################################
 
 
 # A mapping from each space type to board positions of this type
-space_type_map = {
+space_type_map: GameBoard.SpaceTypeMap = {
     'GO': [0],
     'A': [1, 3],
     'CC': [2, 17, 33],
@@ -116,10 +116,10 @@ space_type_map = {
     'G2J': [30],
     'G': [31, 32, 34],
     'H': [37, 39],
-} # type: GameBoard.SpaceTypeMap
+}
 
 # All special move rules for different space types
-move_rules = {
+move_rules: GameBoard.MoveRules = {
     'G2J': {
         ('JAIL', 1): 1,
     },
@@ -138,7 +138,7 @@ move_rules = {
         'U': Fraction(1, 16),
         -3: Fraction(1, 16),
     },
-} # type: GameBoard.MoveRules
+}
 
 
 def solve() -> int:
@@ -146,14 +146,14 @@ def solve() -> int:
     board = GameBoard(space_type_map, move_rules)
 
     # precompute possible roll values and their probabilities
-    roll_values = [] # type: List[int]
-    roll_probs = [] # type: List[Real]
+    roll_values: List[int] = []
+    roll_probs: List[Real] = []
     for roll in range(NUM_DICE, NUM_DICE * NUM_SIDES + 1):
         roll_values.append(roll)
         roll_probs.append(prob.dice_probability(roll, NUM_DICE, NUM_SIDES))
     
     # simulate many moves, keeping track of most popular spaces
-    counts = Counter() # type: Counter
+    counts: CounterT[int] = Counter()
     position = 0
     for _ in range(2 * 10**5):
         roll = prob.choose_weighted_random(roll_values, roll_probs)

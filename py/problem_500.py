@@ -23,9 +23,9 @@ import common.primes as prime
 # PARAMETERS ##################################################################
 
 
-POWER = 500500 # default: 500500
+POWER = 500500  # default: 500500
 
-MOD = 500500507 # default: 500500507
+MOD = 500500507  # default: 500500507
 
 
 # SOLUTION ####################################################################
@@ -33,7 +33,7 @@ MOD = 500500507 # default: 500500507
 
 def solve() -> int:
     # find all potential prime factors, and keep track of max
-    factors = list(prime.primes(POWER)) # type: List[int]
+    factors: List[int] = list(prime.primes(POWER))
     max_factor = factors[-1]
     sqrt_max_factor = math.sqrt(max_factor)
 

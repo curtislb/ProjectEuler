@@ -35,7 +35,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/098.txt' # default: '../input/098.txt'
+FILE_NAME = '../input/098.txt'  # default: '../input/098.txt'
 
 
 # SOLUTION ####################################################################
@@ -59,7 +59,7 @@ def try_map_digits(digits: Sequence[int], word: str)\
     If no such mapping exists for digits and words, instead returns None.
     """
 
-    mapping = {} # type: Dict[str, int]
+    mapping: Dict[str, int] = {}
     is_used = [False] * 10
     for i, letter in enumerate(word):
         if letter not in mapping:
@@ -119,7 +119,7 @@ def max_anagramic_square(word1: str, word2: str) -> int:
 
 def solve() -> int:
     # parse words from input file into anagramic groups
-    counts_to_words = defaultdict(list) # type: Dict[Sequence[int], List[str]]
+    counts_to_words: Dict[Sequence[int], List[str]] = defaultdict(list)
     for word in fio.strings_from_file(FILE_NAME):
         letter_counts = tuple(alpha.letter_counts_upper(word))
         counts_to_words[letter_counts].append(word)

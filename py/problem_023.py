@@ -33,7 +33,7 @@ import common.divisors as divs
 # PARAMETERS ##################################################################
 
 
-LIMIT = 28123 # default: 28123
+LIMIT = 28123  # default: 28123
 
 
 # SOLUTION ####################################################################
@@ -41,7 +41,7 @@ LIMIT = 28123 # default: 28123
 
 def solve() -> int:
     total = 0
-    abundant_nums = set() # type: Set[int]
+    abundant_nums: Set[int] = set()
     for n in range(1, min(LIMIT, 28123)):
         # check if n is the sum of any abundant number pairs seen so far
         is_abundant_sum = False

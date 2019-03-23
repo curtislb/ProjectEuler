@@ -32,7 +32,7 @@ import problem_018 as p018
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/067.txt' # default: '../input/067.txt'
+FILE_NAME = '../input/067.txt'  # default: '../input/067.txt'
 
 
 # SOLUTION ####################################################################

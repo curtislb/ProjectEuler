@@ -34,7 +34,7 @@ import common.sequences as seqs
 # PARAMETERS ##################################################################
 
 
-MAX_ELEMENT = 10**6 # default: 10**6
+MAX_ELEMENT = 10**6  # default: 10**6
 
 
 # SOLUTION ####################################################################
@@ -45,7 +45,7 @@ def solve() -> int:
     divisor_sums = [0 if n < 2 else divs.sum_proper_divisors(n)
                     for n in range(MAX_ELEMENT + 1)]
 
-    chain_lengths = {} # type: Dict[int, int]
+    chain_lengths: Dict[int, int] = {}
     values = range(2, MAX_ELEMENT + 1)
 
     def step(n: int) -> int:

@@ -35,7 +35,7 @@ from common.utility import Graph
 # PARAMETERS ##################################################################
 
 
-FILE_NAME = '../input/107.txt' # default: '../input/107.txt'
+FILE_NAME = '../input/107.txt'  # default: '../input/107.txt'
 
 
 # SOLUTION ####################################################################

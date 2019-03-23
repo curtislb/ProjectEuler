@@ -30,9 +30,9 @@ from fractions import Fraction
 # PARAMETERS ##################################################################
 
 
-MAX_DENOM = 10**6 # default: 10**6
+MAX_DENOM = 10**6  # default: 10**6
 
-TARGET_FRAC = Fraction(3, 7) # default: Fraction(3, 7)
+TARGET_FRAC = Fraction(3, 7)  # default: Fraction(3, 7)
 
 
 # SOLUTION ####################################################################
