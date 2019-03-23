@@ -35,7 +35,7 @@ function solve(; d::Integer = 3)
             product = n * m
 
             # stop checking products with n when we drop below max_product
-            if max_product >= product
+            if max_product ≥ product
                 break
             end
 

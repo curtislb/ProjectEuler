@@ -139,6 +139,27 @@ function fibonacci(T::Type{<:Integer}, n::Integer)
 end
 
 """
+    next_multiple(n::T, min_val::T) where T <: Integer
+
+TODO: Function description goes here
+
+## Arguments
+- TODO: Arguments go here
+
+## Preconditions
+- TODO: Preconditions go here
+
+## Examples
+```jldoctest
+julia> next_multiple()
+
+```
+"""
+function next_multiple(n::T, min_val::T) where T <: Integer
+    return min_val + (n - min_val % n) % n
+end
+
+"""
     sum_of_squares(n::Integer)
 
 Computes the sum of the squares of the first `n` natural numbers.
