@@ -84,7 +84,7 @@ from typing import Counter as CounterT, List
 
 import common.probability as prob
 from common.games import GameBoard
-from common.utility import Real
+from common.typex import Real
 
 # PARAMETERS ##################################################################
 

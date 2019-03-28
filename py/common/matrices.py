@@ -10,7 +10,7 @@ __author__ = 'Curtis Belmonte'
 import copy
 from typing import Iterable, List, Optional, Sequence, Tuple
 
-from common.utility import Coord, T
+from common.typex import Coord, T
 
 
 def _try_assign_zeros(matrix: List[List[int]]) -> Sequence[Coord]:

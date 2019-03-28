@@ -10,7 +10,7 @@ __author__ = 'Curtis Belmonte'
 from collections import defaultdict, deque
 from typing import Deque, Dict, Iterable, List, Mapping, Optional, Sequence
 
-from common.utility import Comparable, T
+from common.typex import Comparable, T
 
 
 def argmax(values: Sequence[Comparable]) -> int:

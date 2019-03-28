@@ -197,6 +197,7 @@ def is_fibonacci(n: int) -> bool:
         for fib_num in generate_fibonacci():
             if fib_num >= n:
                 return fib_num == n
+    return False
 
 
 def is_hexagonal(n: int) -> bool:
