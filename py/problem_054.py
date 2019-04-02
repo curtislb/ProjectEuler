@@ -90,6 +90,7 @@ class Rank(object):
     
     class Type(Enum):
         """Enum representing different types of poker hand ranks."""
+        NONE = -1
         HIGH_CARD = 0
         ONE_PAIR = 1
         TWO_PAIRS = 2
@@ -103,7 +104,7 @@ class Rank(object):
     
     def __init__(self, hand: Sequence[Card]) -> None:
         # initialize type and value with dummy values
-        self.type = None
+        self.type = self.Type.NONE
         self.value = -1
         
         # check for flush or straight hand

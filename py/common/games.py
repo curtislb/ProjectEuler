@@ -10,7 +10,7 @@ __author__ = 'Curtis Belmonte'
 from collections import defaultdict
 from enum import Enum
 from functools import total_ordering
-from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, List, Mapping, Sequence, Tuple, Union
 
 import common.arrays as arrs
 import common.probability as prob
@@ -129,6 +129,10 @@ class GameBoard(object):
     class Space(object):
         """Class representing a space on the board, with a type and number."""
 
+        @classmethod
+        def none(cls):
+            return cls('', 0)
+
         def __init__(self, space_type: str, number: int) -> None:
             self.type = space_type
             self.number = number
@@ -155,8 +159,8 @@ class GameBoard(object):
     MoveRule = Union[Tuple[str, int], str, int]
 
     # Other custom type aliases
-    SpaceList = Sequence[Optional[Space]]
-    SpaceMap = Mapping[Optional[Space], int]
+    SpaceList = Sequence[Space]
+    SpaceMap = Mapping[Space, int]
     SpaceTypeMap = Mapping[str, Sequence[int]]
     MoveProbs = Sequence[Mapping[int, Real]]
     MoveRules = Mapping[str, Mapping[MoveRule, Real]]
@@ -178,7 +182,7 @@ class GameBoard(object):
 
         # allocate the list of spaces
         num_spaces = sum(map(len, space_type_map.values()))
-        space_list: List = [None] * num_spaces
+        space_list = [cls.Space.none() for _ in range(num_spaces)]
 
         # create spaces and assign them to their board positions
         for space_type, indices in space_type_map.items():
@@ -202,7 +206,7 @@ class GameBoard(object):
         space_list: An ordered list of all spaces on the board
         """
 
-        move_probs = []
+        move_probs: List[Dict[int, Real]] = []
         space_map = arrs.inverse_index_map(space_list)
 
         for position, space in enumerate(space_list):
@@ -212,14 +216,14 @@ class GameBoard(object):
                 continue
 
             # convert rules to positions and assign probabilities to them
-            space_probs: Dict = defaultdict(int)
+            space_probs: Dict[int, Real] = defaultdict(int)
             rule_probs = move_rules[space.type]
-            total_prob = 0
+            total_prob: Real = 0
             for rule, p in rule_probs.items():
                 rule_dest = cls._get_rule_dest(
                     rule, position, space_list, space_map)
                 space_probs[rule_dest] += p
-                total_prob += p  # type: ignore
+                total_prob += p
 
             # player ends on this space with remaining probability
             if total_prob < 1:

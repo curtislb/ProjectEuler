@@ -31,7 +31,7 @@ value of x is obtained.
 
 __author__ = 'Curtis Belmonte'
 
-from typing import Sequence
+from typing import Optional, Sequence
 
 import common.expansion as expan
 import common.sequences as seqs
@@ -62,11 +62,12 @@ def partial_numerator(n: int, a0: int, block: Sequence[int]) -> int:
 
     # compute answer using recurrence relation
     period = len(block)
-    return (block[(n - 1) % period] * partial_numerator(n - 1, a0, block)
-            + partial_numerator(n - 2, a0, block))
+    part_num_1 = partial_numerator(n - 1, a0, block)
+    part_num_2 = partial_numerator(n - 2, a0, block)
+    return block[(n - 1) % period] * part_num_1 + part_num_2
 
 
-def solve() -> int:
+def solve() -> Optional[int]:
     best_d = None
     best_x = -float('inf')
 

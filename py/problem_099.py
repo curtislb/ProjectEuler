@@ -17,6 +17,7 @@ each line, determine which line number has the greatest numerical value.
 __author__ = 'Curtis Belmonte'
 
 import math
+from typing import Optional
 
 import common.fileio as fio
 
@@ -30,7 +31,7 @@ FILE_NAME = '../input/099.txt'  # default: '../input/099.txt'
 # SOLUTION ####################################################################
 
 
-def solve() -> int:
+def solve() -> Optional[int]:
     max_line = None
     max_value = -float('inf')
     base_exp_pairs = fio.ints_from_file(FILE_NAME, sep=',')
@@ -43,7 +44,7 @@ def solve() -> int:
             max_line = i
             max_value = value
 
-    return max_line + 1
+    return None if max_line is None else max_line + 1
 
 
 if __name__ == '__main__':

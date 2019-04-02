@@ -59,8 +59,9 @@ def main(args: Any) -> None:
         problem_nums = ['{0:03d}'.format(num) for num in args.problem_nums]
     
     # initialize lists of slow solutions if enabled
-    if args.list_slow:
-        slow_lists: List[List[Tuple[str, float]]] = [[], [], []]
+    slow_lists: List[List[Tuple[str, float]]] = (
+        [[], [], []] if args.list_slow else []
+    )
 
     pass_count = 0    
     for problem_num in problem_nums:
@@ -74,8 +75,8 @@ def main(args: Any) -> None:
 
         # import the problem module and ensure its solve function exists
         module_name = 'problem_' + problem_num
-        modu = importlib.import_module(module_name)
-        if not hasattr(modu, 'solve'):
+        problem = importlib.import_module(module_name)
+        if not hasattr(problem, 'solve'):
             print('FAILED')
             sys.stderr.write(
                 'Problem {0}: No solve function defined\n'.format(problem_num))
@@ -85,7 +86,7 @@ def main(args: Any) -> None:
         try:
             reset_caches()
             start = time.time()
-            answer = modu.solve() # type: ignore
+            answer = problem.solve()  # type: ignore
             total_time = time.time() - start
         except Exception as e:
             print('FAILED')

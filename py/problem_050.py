@@ -19,7 +19,7 @@ primes?
 
 __author__ = 'Curtis Belmonte'
 
-from typing import List, Optional
+from typing import List
 
 import common.primes as prime
 
@@ -39,7 +39,7 @@ def solve() -> int:
     num_primes = len(primes)
     
     # create matrix with primes along diagonal
-    dyna_sums: List[Optional[List[int]]] = [None] * num_primes
+    dyna_sums: List[List[int]] = [[] for _ in range(num_primes)]
     for i in range(num_primes):
         dyna_sums[i] = [0] * num_primes
         dyna_sums[i][i] = primes[i]

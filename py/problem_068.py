@@ -44,6 +44,7 @@ form 16- and 17-digit strings. What is the maximum 16-digit string for a
 __author__ = 'Curtis Belmonte'
 
 import itertools
+from typing import Optional
 
 
 # PARAMETERS ##################################################################
@@ -55,7 +56,7 @@ import itertools
 # SOLUTION ####################################################################
 
 
-def solve() -> int:
+def solve() -> Optional[int]:
     best_int = None
 
     # check permutations with 6-10 on outer ring and 1-5 in inner ring

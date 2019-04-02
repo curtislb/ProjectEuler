@@ -26,7 +26,7 @@ class TestProbability(unittest.TestCase):
         for _ in range(trials):
             counts[prob.choose_weighted_random(values, probs)] += 1
         for i, value in enumerate(values):
-            self.assertAlmostEqual(counts[value] / trials, probs[i], 1)
+            self.assertAlmostEqual(counts[value] / trials, float(probs[i]), 1)
 
     def test_dice_probability(self) -> None:
         self.assertEqual(prob.dice_probability(1, 1, 1), 1)

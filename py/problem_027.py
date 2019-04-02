@@ -30,6 +30,8 @@ starting with n = START_N.
 
 __author__ = 'Curtis Belmonte'
 
+from typing import Optional
+
 import common.primes as prime
 from common.utility import memoized
 
@@ -53,7 +55,7 @@ def is_prime(n: int) -> bool:
     return prime.is_prime(n)
 
 
-def solve() -> int:
+def solve() -> Optional[int]:
     # search for best a and b from -MAX + 1 to MAX - 1
     best_product = None
     best_streak = -1

@@ -25,6 +25,8 @@ from typing import (
     Type,
 )
 
+from common.typex import Comparable
+
 
 class Graph(object):
     """Class representing a directed graph with weighted edges."""

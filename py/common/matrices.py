@@ -206,9 +206,12 @@ def minimum_line_cover(matrix: List[List[int]]) -> Sequence[Tuple[bool, int]]:
         # mark all unmarked rows with assigned zeros in marked columns
         new_marked_rows = []
         for i in range(n):
-            if not row_marked[i] and col_marked[row_assignments[i]]:
-                row_marked[i] = True
-                new_marked_rows.append(i)
+            if not row_marked[i]:
+                assignment = row_assignments[i]
+                assert assignment is not None
+                if col_marked[assignment]:
+                    row_marked[i] = True
+                    new_marked_rows.append(i)
 
     # cover all unmarked rows and marked columns
     lines = []
@@ -235,16 +238,16 @@ def optimal_assignment(cost_matrix: List[List[int]]) -> Sequence[Coord]:
     # Step 1: subtract the minimum element from each row
     n = len(cost_matrix)
     for i, row in enumerate(cost_matrix):
-        min_value = min(row)
+        min_element = min(row)
         for j in range(n):
-            cost_matrix[i][j] -= min_value
+            cost_matrix[i][j] -= min_element
 
     # Step 2: subtract the minimum element from each column
     for j in range(n):
         col = [cost_matrix[i][j] for i in range(n)]
-        min_value = min(col)
+        min_element = min(col)
         for i in range(n):
-            cost_matrix[i][j] -= min_value
+            cost_matrix[i][j] -= min_element
 
     # Step 3: cover zeros with minimum number of lines
     lines = minimum_line_cover(cost_matrix)
@@ -261,23 +264,25 @@ def optimal_assignment(cost_matrix: List[List[int]]) -> Sequence[Coord]:
                 covered_rows.add(index)
 
         # search for min uncovered value
-        min_value = None
+        min_uncovered = None
         for i, row in enumerate(cost_matrix):
             if i in covered_rows:
                 continue
             for j, value in enumerate(row):
                 if j in covered_cols:
                     continue
-                if min_value is None or value < min_value:
-                    min_value = value
+                if min_uncovered is None or value < min_uncovered:
+                    min_uncovered = value
+
+        assert min_uncovered is not None
 
         # subtract and add min value to matrix entries as needed
         for i in range(n):
             for j in range(n):
                 if i not in covered_rows and j not in covered_cols:
-                    cost_matrix[i][j] -= min_value
+                    cost_matrix[i][j] -= min_uncovered
                 elif i in covered_rows and j in covered_cols:
-                    cost_matrix[i][j] += min_value
+                    cost_matrix[i][j] += min_uncovered
 
         # repeat steps 3-4 until n lines are needed to cover zeros
         lines = minimum_line_cover(cost_matrix)

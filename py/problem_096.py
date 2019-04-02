@@ -119,6 +119,7 @@ def solve_puzzle(grid: List[List[int]]) -> Optional[List[List[int]]]:
         return grid
     else:
         # try each valid digit for cell with fewest possible
+        assert best_cell is not None
         i, j = best_cell
         for digit in best_digits:
             grid_copy = copy.deepcopy(grid)

@@ -102,6 +102,8 @@ def solve() -> int:
         two_prime_sets = find_prime_sets(two_primes, two_prime_sets)
 
     # find minimum sum of prime sets
+    assert one_prime_sets is not None
+    assert two_prime_sets is not None
     prime_sets = list(one_prime_sets) + list(two_prime_sets)
     prime_set_sums: Iterator[int] = map(sum, prime_sets)
     return min(prime_set_sums)
