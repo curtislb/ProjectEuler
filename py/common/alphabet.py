@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
-"""alphabet.py
+"""Common library for working with the English alphabet.
 
-Constants and functions relating to the English alphabet.
+This module provides constants and functions related to the English alphabet.
+Examples include counting the occurrences of letters in a word and converting
+between letters and their alphabetic indices.
 """
 
-__author__ = 'Curtis Belmonte'
-
-from typing import Sequence
+from typing import Mapping, Sequence
 
 
-# Mapping from natural numbers to their English word equivalents
-NUMBER_WORDS = {
+#: Mapping from positive integers to their English word equivalents.
+NUMBER_WORDS: Mapping[int, str] = {
     1: 'one',
     2: 'two',
     3: 'three',
@@ -43,22 +43,27 @@ NUMBER_WORDS = {
 
 
 def letter_char_lower(index: int) -> str:
-    """Returns the lowercase letter of the alphabet corresponding to index.
+    """Gives the lowercase letter of the alphabet corresponding to ``index``.
 
-    Letters are one-indexed, such that 1 -> 'a' and 26 -> 'z'.
+    Args:
+        index: An alphabetic index, from 1 to 26.
+
+    Returns:
+        A lowercase letter, from 'a' to 'z'.
     """
-
     return chr(index + ord('a') - 1)
 
 
 def letter_counts_upper(word: str) -> Sequence[int]:
-    """Returns a sequence with the count of each uppercase letter in word.
+    """Counts the occurrence of each uppercase letter in ``word``.
 
-    The result is an integer sequence of length 26, where each entry represents
-    the number of times each letter (starting with 'A' and ending with 'Z')
-    appears in the string word, which may contain only these characters.
+    Args:
+        word: A string consisting of uppercase letters from 'A' to 'Z'.
+
+    Returns:
+        An integer sequence of length 26, whose entries represent the count of
+        each letter (from 'A' to 'Z', in order) in ``word``.
     """
-
     letter_counts = [0] * 26
     for letter in word:
         letter_counts[letter_index_upper(letter) - 1] += 1
@@ -66,9 +71,12 @@ def letter_counts_upper(word: str) -> Sequence[int]:
 
 
 def letter_index_upper(letter: str) -> int:
-    """Returns the alphabetic index of the uppercase character letter.
+    """Gives the alphabetic index corresponding to an uppercase letter.
 
-    Letters are one-indexed, such that 'A' -> 1 and 'Z' -> 26.
+    Args:
+        letter: An uppercase letter, from 'A' to 'Z'.
+
+    Returns:
+        An alphabetic index, from 1 to 26.
     """
-
     return ord(letter) - ord('A') + 1

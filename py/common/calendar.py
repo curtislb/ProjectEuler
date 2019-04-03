@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 
-"""calendar.py
+"""Common library for working with calendar dates.
 
-Constants and functions for working with calendar dates.
+This module provides constants and functions related to calendar dates and
+associated units of time, such as days, months, and years. Examples include
+enums and counts for the days of the week and months of the year, the number of
+days in each month, and a test for whether a given year is a leap year.
 """
 
-__author__ = 'Curtis Belmonte'
-
 from enum import Enum
+from typing import Mapping
 
 
 class Day(Enum):
-    """Enum representing days of the week."""
+    """Enum representing days of the week, from Sunday to Saturday."""
+
     SUNDAY = 0
     MONDAY = 1
     TUESDAY = 2
@@ -20,9 +23,13 @@ class Day(Enum):
     FRIDAY = 5
     SATURDAY = 6
 
+    def __repr__(self) -> str:
+        return self.name
+
 
 class Month(Enum):
-    """Enum representing months of the year."""
+    """Enum representing months of the year, from January to December."""
+
     JANUARY = 0
     FEBRUARY = 1
     MARCH = 2
@@ -36,15 +43,18 @@ class Month(Enum):
     NOVEMBER = 10
     DECEMBER = 11
 
+    def __repr__(self) -> str:
+        return self.name
 
-# Number of days in a week
+
+#: Number of days in a week.
 DAYS_IN_WEEK = 7
 
-# Number of days in a calendar year
+#: Number of days in a calendar year.
 DAYS_IN_YEAR = 365
 
-# Number of days in each month
-MONTH_DAY_COUNTS = {
+#: Number of days in each month.
+MONTH_DAY_COUNTS: Mapping[Month, int] = {
   Month.JANUARY: 31,
   Month.FEBRUARY: 28,  # (non-leap year)
   Month.MARCH: 31,
@@ -59,12 +69,20 @@ MONTH_DAY_COUNTS = {
   Month.DECEMBER: 31,
 }
 
-# Number of months in a calendar year
+#: Number of months in a calendar year.
 MONTHS_IN_YEAR = 12
 
 
 def is_leap_year(year: int) -> bool:
-    """Determines if year (given in years A.D.) is a leap year."""
+    """Checks if a given year is, was, or will be a leap year.
+
+    Args:
+        year: An integer representing a common-era year, e.g. 1984 CE.
+
+    Returns:
+        ``True`` if ``year`` is a leap year, meaning it contains one additional
+        day in February, for a total of 366 days. Returns ``False`` otherwise.
+    """
     if year % 100 != 0:
         # year is not a century; it is a leap year if divisible by 4
         return year % 4 == 0

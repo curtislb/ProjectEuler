@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 
-"""arithmetic.py
+"""Common library for performing arithmetic operations.
 
-Functions for performing common arithmetic operations.
+This module provides functions for performing common arithmetic operations.
+Examples include evaluating a postfix expression, finding the modular product
+of two numbers, and finding the roots of a quadratic polynomial.
 """
-
-__author__ = 'Curtis Belmonte'
 
 import math
 import operator
 from typing import Callable, List, Mapping, Tuple, Union
 
 
-# Mapping from string tokens of binary arithmetic operations to their functions
+#: Mapping from string tokens of binary arithmetic operations to functions.
 BINARY_OPS: Mapping[str, Callable[[float, float], float]] = {
     '+': operator.add,
     '-': operator.sub,
@@ -25,10 +25,19 @@ BINARY_OPS: Mapping[str, Callable[[float, float], float]] = {
 def eval_postfix(expr: str, is_space_sep: bool = True) -> float:
     """Evaluates an arithmetic expression written in postfix notation.
 
-    If is_space_sep is False, whitespace between tokens is disallowed, and
-    each digit is treated as a separate operand in the expression.
-    """
+    Args:
+        expr: A string consisting of digits (0-9), operators (``+ - * / ^``),
+            and/or spaces (iff ``is_space_sep`` is ``True``).
+        is_space_sep: If ``True``, expects operators and operands to be
+            space-separated in ``expr``. If ``False``, ``expr`` cannot contain
+            spaces, and each digit is treated as a separate operand.
 
+    Returns:
+        The number that results from evaluating the expression.
+
+    Raises:
+        IndexError: Can occur if ``expr`` is not a valid postfix expression.
+    """
     stack: List[Union[str, float]] = []
     for token in (expr.split() if is_space_sep else expr):
         if token in BINARY_OPS:
@@ -41,29 +50,67 @@ def eval_postfix(expr: str, is_space_sep: bool = True) -> float:
 
 
 def int_log(x: float, base: float = math.e) -> int:
-    """Returns the rounded integer logarithm of x for the given base."""
+    """Finds the nearest integer to ``log(x, base)``.
+
+    Args:
+        x: The number whose logarithm will be found.
+        base: The numeric base of the logarithm.
+
+    Returns:
+        The result of rounding ``log(x, base)`` to the nearest integer.
+    """
     return int(round(math.log(float(x), float(base))))
 
 
 def int_pow(x: float, exponent: float) -> int:
-    """Returns the rounded integer power of x to the exponent power."""
+    """Finds the nearest integer to ``pow(x, exponent)``.
+
+    Args:
+        x: The number whose power will be found.
+        exponent: The number to which ``x`` will be raised.
+
+    Returns:
+        The result of rounding ``pow(x, exponent)`` to the nearest integer.
+    """
     return int(round(x**exponent))
 
 
 def int_sqrt(x: float) -> int:
-    """Returns the rounded integer square root of the number x."""
+    """Finds the nearest integer to the square root of ``x``.
+
+    Args:
+        x: The number whose square root will be found.
+
+    Returns:
+        The result of rounding ``sqrt(x)`` to the nearest integer.
+    """
     return int(round(math.sqrt(x)))
 
 
 def mod_multiply(n: int, m: int, mod: int) -> int:
-    """Returns the the product of natural numbers n and m modulo mod."""
+    """Finds the the modular product of two non-negative integers.
+
+    Args:
+        n: The first non-negative integer multiplicand.
+        m: The second non-negative integer multiplicand.
+        mod: The positive integer modulus for the calculation.
+
+    Returns:
+        The result of multiplying ``n`` by ``m``, modulo ``mod``.
+    """
     return ((n % mod) * (m % mod)) % mod
 
 
 def mod_power(base: int, exponent: int, mod: int) -> int:
-    """Returns the value of base^exponent modulo mod.
+    """Finds the the modular power of ``base`` raised to ``exponent``.
 
-    The arguments base, exponent, and mod must all be natural numbers.
+    Args:
+        base: The non-negative integer to be raised to a power.
+        exponent: The non-negative integer power to be applied.
+        mod: The positive integer modulus for the calculation.
+
+    Returns:
+        The result of raising ``base`` to ``exponent``, modulo ``mod``.
     """
 
     # set initial result to base % mod if exponent is odd
@@ -86,14 +133,22 @@ def mod_power(base: int, exponent: int, mod: int) -> int:
     return result
 
 
-def quadratic_roots(a: float, b: float, c: float)\
-        -> Tuple[Union[float, complex], Union[float, complex]]:
-    """Finds all roots of the equation a*x^2 + b*x + c = 0, where a != 0.
+def quadratic_roots(
+    a: float,
+    b: float,
+    c: float,
+) -> Tuple[Union[float, complex], Union[float, complex]]:
+    """Finds all roots of the quadratic polynomial ``ax^2 + bx + c = 0``.
 
-    Returns a tuple (x0, x1), where x0 and x1 are solutions for x in the above
-    equation and x0 <= x1, assuming a natural ordering. Both x0 and x1 may
-    contain an imaginary part if no real solution exists."""
+    Args:
+        a: The coefficient of ``x^2`` in the polynomial. Must be non-zero.
+        b: The coefficient of ``x`` in the polynomial.
+        c: The constant addend term in the polynomial.
 
+    Returns:
+        A tuple ``(x0, x1)``, where ``x0`` and ``x1`` are solutions for ``x``
+        in ``ax^2 + bx + c = 0`` and ``x0 <= x1``, assuming a natural ordering.
+    """
     axis = -b
     delta = (b**2 - 4 * a * c)**0.5
     denom = 2 * a

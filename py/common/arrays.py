@@ -1,20 +1,29 @@
 #!/usr/bin/env python3
 
-"""arrays.py
+"""Common library for working with one-dimensional arrays.
 
-Functions for operating on lists and related sequences.
+This module provides functions for operating on lists and other array-like
+collections. Examples include finding the argmin/argmax of a sequence,
+calculating the cumulative sums of a list of numbers, and checking if two
+sequences are permutations of one another.
 """
 
-__author__ = 'Curtis Belmonte'
-
-from collections import defaultdict, deque
+import collections
 from typing import Deque, Dict, Iterable, List, Mapping, Optional, Sequence
 
 from common.typex import Comparable, T
 
 
 def argmax(values: Sequence[Comparable]) -> int:
-    """Finds the first index of the maximum value in values."""
+    """Finds the index of the maximum value in a sequence.
+
+    Args:
+        values: A sequence of values that can be compared to one another.
+
+    Returns:
+        The index (from 0 to ``len(values) - 1``) of the first element in
+        ``values`` that is greater than or equal to all others.
+    """
     max_index = 0
     max_value = values[0]
     for i, value in enumerate(values):
@@ -25,7 +34,15 @@ def argmax(values: Sequence[Comparable]) -> int:
 
 
 def argmin(values: Sequence[Comparable]) -> int:
-    """Finds the first index of the minimum value in values."""
+    """Finds the index of the minimum value in a sequence.
+
+    Args:
+        values: A sequence of values that can be compared to one another.
+
+    Returns:
+        The index (from 0 to ``len(values) - 1``) of the first element in
+        ``values`` that is less than or equal to all others.
+    """
     min_index = 0
     min_value = values[0]
     for i, value in enumerate(values):
@@ -36,12 +53,19 @@ def argmin(values: Sequence[Comparable]) -> int:
 
 
 def binary_search(
-        sorted_list: Sequence[Comparable], item: Comparable) -> Optional[int]:
+    sorted_list: Sequence[Comparable],
+    item: Comparable,
+) -> Optional[int]:
+    """Searches for the position of an element in a sorted sequence.
 
-    """Searches for the position of item in the ordered sequence sorted_list.
+    Args:
+        sorted_list: A sorted sequence of comparable values.
+        item: The element to search for in ``sorted_list``.
 
-    If sorted_list contains item, returns an index 0 <= i < len(sorted_list)
-    such that sorted_list[i] == item. Otherwise, returns None.
+    Returns:
+        An index from 0 to ``len(sorted_list) - 1`` representing the position
+        of ``item`` in ``sorted_list``, if present. If ``item`` is not present
+        in ``sorted_list``, returns ``None`` instead.
     """
 
     # initialize search indices
@@ -50,7 +74,7 @@ def binary_search(
 
     while lo < hi:
         # check middle element in list
-        mid = (lo + hi) // 2
+        mid = lo + (hi - lo) // 2
         if item < sorted_list[mid]:
             # item is in first half of list or not at all
             hi = mid
@@ -66,16 +90,23 @@ def binary_search(
 
 
 def cumulative_partial_sums(nums: Sequence[int], limit: int) -> Sequence[int]:
-    """Returns the partial cumulative sums of a sequence of integers.
+    """Finds the partial cumulative sums of a sequence of integers.
 
-    For each term in nums, the term in the resulting sequence will be the sum
-    of up to the previous limit terms in nums, including the current one.
+    Args:
+        nums: An arbitrary integer sequence.
+        limit: The maximum number of terms to include in each partial sum.
+
+    Returns:
+        An integer sequence with length ``len(nums)``, where each term is the
+        sum of up to the previous ``limit`` terms in ``nums``, including the
+        term at the current index.
     """
 
     sums: List[int] = []
-    terms: Deque[int] = deque()
+    terms: Deque[int] = collections.deque()
+
     total = 0
-    for i, num in enumerate(nums):
+    for num in nums:
         total += num
         terms.append(num)
 
@@ -88,12 +119,15 @@ def cumulative_partial_sums(nums: Sequence[int], limit: int) -> Sequence[int]:
 
 
 def cumulative_products(nums: Sequence[int]) -> Sequence[int]:
-    """Returns the cumulative products of a sequence of integers.
+    """Finds the cumulative products of a sequence of integers.
 
-    For each term in nums, the term in the resulting sequence will be the
-    product of the current term in nums and all of the prior ones.
+    Args:
+        nums: An arbitrary integer sequence.
+
+    Returns:
+        An integer sequence with length ``len(nums)``, where each term is the
+        product of the current and all previous terms in ``nums``.
     """
-
     products: List[int] = []
     product = 1
     for num in nums:
@@ -103,40 +137,60 @@ def cumulative_products(nums: Sequence[int]) -> Sequence[int]:
 
 
 def inverse_index_map(values: Sequence[T]) -> Mapping[T, int]:
-    """Returns a map from each item in values to its unique index.
+    """Creates a map from each unique item in a sequence to its index.
 
-    Items in values must be distinct. If values may contain duplicates, use
-    inverse_index_map_all.
+    Args:
+        values: A sequence of distinct values.
+
+    Returns:
+        A mapping from each item in ``values`` to its index in the sequence.
+
+    See Also:
+        :func:`inverse_index_map_all`, if ``values`` may contain duplicates.
     """
-
     inverse_map: Dict[T, int] = {}
     for i, value in enumerate(values):
         inverse_map[value] = i
-
     return inverse_map
 
 
 def inverse_index_map_all(values: Sequence[T]) -> Mapping[T, Sequence[int]]:
-    """Returns a map from each item in values to a sequence of its indices."""
+    """Creates a map from each distinct item in a sequence to its indices.
 
-    inverse_map: Dict[T, List[int]] = defaultdict(list)
+    Args:
+        values: A sequence of distinct values.
+
+    Returns:
+        A mapping from each distinct item in ``values`` to a sequence of all
+        indices in ``values`` at which it appears.
+
+    See Also:
+        :func:`inverse_index_map`, if ``values`` contains no duplicates.
+    """
+    inverse_map: Dict[T, List[int]] = collections.defaultdict(list)
     for i, value in enumerate(values):
         inverse_map[value].append(i)
-
     return inverse_map
 
 
 def is_permutation(
-        iter_a: Iterable[T],
-        iter_b: Iterable[T],
-        compare_counts: bool = False) -> bool:
+    iter_a: Iterable[T],
+    iter_b: Iterable[T],
+    compare_counts: bool = False
+) -> bool:
+    """Checks if two iterables are permutations of one another.
 
-    """Checks if iterables iter_a and iter_b are permutations of each other.
+    Args:
+        iter_a: The first iterable to be compared.
+        iter_b: The second iterable to be compared.
+        compare_counts: If ``iter_a`` and ``iter_b`` have the same length, this
+            flag determines how they will be compared. If ``True``, the counts
+            of items in the two iterables will be compared. If ``False``,
+            sorted copies of the iterables will be compared.
 
-    If iter_a and iter_b have the same length, then the compare_counts flag
-    determines how the two will be compared. If compare_counts is True, this
-    function will compare counts of items in the two iterables. Otherwise, this
-    function will compare sorted copies of the iterables.
+    Returns:
+        ``True`` if ``iter_a`` is a permutation of ``iter_b`` (and vice-versa),
+        or ``False`` otherwise.
     """
 
     # convert iterables to lists if necessary
