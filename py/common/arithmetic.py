@@ -34,9 +34,6 @@ def eval_postfix(expr: str, is_space_sep: bool = True) -> float:
 
     Returns:
         The number that results from evaluating the expression.
-
-    Raises:
-        IndexError: Can occur if ``expr`` is not a valid postfix expression.
     """
     stack: List[Union[str, float]] = []
     for token in (expr.split() if is_space_sep else expr):

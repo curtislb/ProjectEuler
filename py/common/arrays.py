@@ -176,7 +176,7 @@ def inverse_index_map_all(values: Sequence[T]) -> Mapping[T, Sequence[int]]:
 def is_permutation(
     iter_a: Iterable[T],
     iter_b: Iterable[T],
-    compare_counts: bool = False
+    compare_counts: bool = False,
 ) -> bool:
     """Checks if two iterables are permutations of one another.
 

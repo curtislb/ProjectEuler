@@ -120,7 +120,7 @@ def solve() -> Optional[int]:
                         max_count = count
                         best_digits = (a, b, c, d)
 
-    return None if best_digits is None else digs.concat_digits(best_digits)
+    return None if best_digits is None else digs.join_digits(best_digits)
 
 
 if __name__ == '__main__':

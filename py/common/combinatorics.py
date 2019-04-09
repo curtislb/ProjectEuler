@@ -25,7 +25,7 @@ def _compute_factorial(n: int) -> None:
             ``0 <= m <= n`` will return the precomputed value in ``O(1)`` time.
 
     Warnings:
-        Do not call this function directly. Instead, use :func:`factorial`.
+        Do not call this function directly. Use :func:`factorial` instead.
     """
 
     fact_count = len(_factorial_sequence)

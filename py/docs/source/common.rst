@@ -9,3 +9,4 @@ Common Libraries
    common/arrays
    common/calendar
    common/combinatorics
+   common/digits

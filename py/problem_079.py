@@ -37,7 +37,7 @@ def solve() -> int:
     pre_digits: Dict[int, Set[int]] = {}
     attempts = fio.ints_from_file(FILE_NAME)
     for attempt in attempts:
-        digits = digs.digits(attempt[0])
+        digits = digs.get_digits(attempt[0])
         for i, digit in enumerate(digits):
             # add digit to dict if we haven't seen it before
             if digit not in pre_digits:
@@ -52,7 +52,7 @@ def solve() -> int:
     ordering.sort(key=(lambda x: len(x[1])))
     digits = [order[0] for order in ordering]
 
-    return digs.concat_digits(digits)
+    return digs.join_digits(digits)
 
 
 if __name__ == '__main__':

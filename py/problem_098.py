@@ -80,7 +80,7 @@ def is_square_mapping(digit_map: Mapping[str, int], word: str) -> bool:
     """Checks if digit_map maps the letters in word into a perfect square."""
     mapped_digits = [digit_map[letter] for letter in word]
     return (mapped_digits[0] != 0 and
-            seqs.is_square(digs.concat_digits(mapped_digits)))
+            seqs.is_square(digs.join_digits(mapped_digits)))
 
 
 def max_anagramic_square(word1: str, word2: str) -> int:
@@ -99,7 +99,7 @@ def max_anagramic_square(word1: str, word2: str) -> int:
     lower_root = int(math.ceil(math.sqrt(10**(word_len - 1))))
     for root in range(upper_root, lower_root - 1, -1):
         square = root**2
-        square_digits = digs.digits(square)
+        square_digits = digs.get_digits(square)
 
         # try mapping square digits directly to word1
         digit_mapping = try_map_digits(square_digits, word1)
