@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-"""divisors.py
+"""Common library for finding and working with integer divisors.
 
-Functions for determining and operating on the divisors of natural numbers.
+This module provides function for determining and operating on the divisors (or
+factors) of positive integers. Examples include counting the divisors of a
+number, checking if two numbers are relatively prime, and finding the lowest
+common multiple of two or more numbers.
 """
-
-__author__ = 'Curtis Belmonte'
 
 import functools
 import operator
@@ -15,12 +16,40 @@ import common.primes as prime
 
 
 def count_divisors(n: int) -> int:
-    """Returns the number of divisors of the natural number n."""
+    """Counts the positive integer divisors of a number.
+
+    Args:
+        n: A positive integer value.
+
+    Returns:
+        The number of positive integers that evenly divide ``n``.
+
+    See Also:
+        :func:`count_divisors_up_to`
+            For counting the divisors of all numbers up to and including a
+            number.
+        :func:`count_power_divisors`
+            For counting the divisors of the power of a number.
+    """
     return count_power_divisors(n, 1)
 
 
 def count_divisors_up_to(n: int) -> Sequence[int]:
-    """Returns a sequence of divisor counts for integers 0 to n, inclusive."""
+    """Finds the divisor counts of the first ``n`` non-negative integers.
+
+    Args:
+        n: A non-negative integer value.
+
+    Returns:
+        An integer sequence of length ``n + 1``, where the value at each index
+        ``m`` is the number of positive integers that evenly divide ``m``.
+
+    See Also:
+        :func:`count_divisors`
+            For counting the divisors of a single number.
+        :func:`count_power_divisors`
+            For counting the divisors of the power of a single number.
+    """
 
     # initialize counts for integers 0 to n
     divisor_counts = [1] * (n + 1)
@@ -35,7 +64,22 @@ def count_divisors_up_to(n: int) -> Sequence[int]:
 
 
 def count_power_divisors(n: int, p: int) -> int:
-    """Returns the number of divisors of n^p, for natural numbers n and p."""
+    """Counts the positive integer divisors of a number raised to a power.
+
+    Args:
+        n: A positive integer value.
+        p: The non-negative integer power to which ``n`` will be raised.
+
+    Returns:
+        The number of positive integers that evenly divide ``n^p``.
+
+    See Also:
+        :func:`count_divisors`
+            For counting the divisors of any number.
+        :func:`count_divisors_up_to`
+            For counting the divisors of all numbers up to and including a
+            number.
+    """
 
     # compute product of (p*a + 1) for each prime factor power a of n
     divisor_count = 1
@@ -47,24 +91,66 @@ def count_power_divisors(n: int, p: int) -> int:
 
 
 def gcd(m: int, n: int) -> int:
-    """Returns the greatest common divisor of the natural numbers m and n."""
+    """Finds the greatest common divisor of two numbers.
+
+    Args:
+        m: A positive integer value.
+        n: A second positive integer value.
+
+    Returns:
+        The greatest positive integer that evenly divides both ``m`` and ``n``.
+    """
     while n != 0:
         m, n = n, m % n
     return m
 
 
 def is_coprime_pair(m: int, n: int) -> int:
-    """Determines if the natural numbers m and n are relatively prime."""
+    """Checks if two numbers are relatively prime.
+
+    Args:
+        m: A positive integer value.
+        n: A second positive integer value.
+
+    Returns:
+        ``True`` if ``m`` and ``n`` share no positive integer divisors other
+        than 1, or ``False`` otherwise.
+    """
     return gcd(m, n) == 1
 
 
 def lcm(m: int, n: int) -> int:
-    """Returns the least common multiple of the natural numbers m and n."""
+    """Returns the least common multiple of two numbers.
+
+    Args:
+        m: A positive integer value.
+        n: A second positive integer value
+
+    Returns:
+        The lowest positive integer that can be evenly divided by both ``m``
+        and ``n``.
+
+    See Also:
+        :func:`lcm_all`
+            For finding the least common multiple of three or more numbers.
+    """
     return m * n // gcd(m, n)
 
 
 def lcm_all(nums: Iterable[int]) -> int:
-    """Returns the least common multiple of all natural numbers in nums."""
+    """Returns the least common multiple of a collection of numbers.
+
+    Args:
+        nums: An iterable sequence of positive integers.
+
+    Returns:
+        The lowest positive integer that can be evenly divided by all numbers
+        in ``nums``.
+
+    See Also:
+        :func:`lcm`
+            For finding the least common multiple of exactly two numbers.
+    """
 
     max_powers: Dict[int, int] = {}
     for num in nums:
@@ -83,7 +169,14 @@ def lcm_all(nums: Iterable[int]) -> int:
 
 
 def radical(n: int) -> int:
-    """Returns the product of the distinct prime factors of n."""
+    """Finds the product of the distinct prime factors of a number.
+
+    Args:
+        n: A positive integer value.
+
+    Returns:
+        The product of all distinct prime numbers that evenly divide ``n``.
+    """
 
     # find the distinct prime factors of n
     factors = [factor for (factor, _) in prime.prime_factorization(n)]
@@ -93,7 +186,19 @@ def radical(n: int) -> int:
 
 
 def sum_divisors(n: int) -> int:
-    """Returns the sum of the divisors of the natural number n."""
+    """Finds the sum of the positive integer divisors of a number.
+
+    Args:
+        n: A positive integer value.
+
+    Returns:
+        The sum that results from adding all of the positive integer values
+        that evenly divide ``n``.
+
+    See Also:
+        :func:`sum_proper_divisors`
+            For summing only the proper divisors of a number.
+    """
 
     factorization = prime.prime_factorization(n)
 
@@ -107,21 +212,42 @@ def sum_divisors(n: int) -> int:
 
 
 def sum_proper_divisors(n: int) -> int:
-    """Returns the sum of the proper divisors of the natural number n."""
+    """Finds the sum of the proper divisors of a number.
+
+    Args:
+        n: A positive integer value.
+
+    Returns:
+        The sum that results from adding all positive integer values less than
+        ``n`` that evenly divide ``n``.
+    """
     return sum_divisors(n) - n
 
 
 def totient(n: int, prime_factors: Optional[Iterable[int]] = None) -> int:
-    """Returns the number of integers between 0 and n relatively prime to n.
+    """Counts the relatively prime positive integers below a number.
 
-    If provided, prime_factors must be an ordered iterable of the prime factors
-    of n. If prime_factors is None, it will be calculated by this function.
+    Args:
+        n: A positive integer value.
+        prime_factors: If provided, must be an ordered iterable of the prime
+            factors of ``n``. If ``None``, the prime factors of ``n`` will be
+            calculated by this function (at a cost to performance).
+
+    Returns:
+        The number of integers from 1 to ``n``, inclusive, which are relatively
+        prime to ``n``.
+
+    See Also:
+        :func:`totients_up_to`
+            For finding the totients of all numbers from 2 up to and including
+            a number.
     """
 
     # determine prime factors of n if not provided
     if prime_factors is None:
-        prime_factors = [factor for (factor, _)
-                         in prime.prime_factorization(n)]
+        prime_factors = [
+            factor for (factor, _) in prime.prime_factorization(n)
+        ]
 
     # calculate totient using Euler's product formula
     numer = n
@@ -134,10 +260,19 @@ def totient(n: int, prime_factors: Optional[Iterable[int]] = None) -> int:
 
 
 def totients_up_to(n: int) -> Sequence[int]:
-    """Returns the values of Euler's totient function for the integers 2 to n.
+    """Calculates Euler's totient function for the integers from 2 to ``n``.
 
-    The result is an integer sequence of length n - 2 where the ith entry is
-    the number of integers between 0 and i + 2 relatively prime to i + 2.
+    Args:
+        n: A positive integer value greater than or equal to 2.
+
+    Returns:
+        An integer sequence of length ``n - 1`` where the value at each index
+        ``m`` is the number of integers from 1 to ``m + 2`` that are relatively
+        prime to ``m + 2``.
+
+    See Also:
+        :func:`totient`
+            For finding the totient of a single number.
     """
 
     # initialize sieve of Eratosthenes up to n

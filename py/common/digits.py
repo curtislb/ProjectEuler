@@ -187,8 +187,8 @@ def get_digit(n: int, position: int) -> int:
 
     Returns:
         Returns a non-negative integer representing the digit at ``position``
-        in ``n``, ordered from most significant (``position == 1``) to least
-        significant (``position == count_digits(n)``).
+        in ``n``, ordered from most significant (``position = 1``) to least
+        significant (``position = count_digits(n)``).
     """
     return int(str(n)[position - 1])
 

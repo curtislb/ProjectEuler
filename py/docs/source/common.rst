@@ -10,3 +10,4 @@ Common Libraries
    common/calendar
    common/combinatorics
    common/digits
+   common/divisors

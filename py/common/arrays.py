@@ -146,7 +146,8 @@ def inverse_index_map(values: Sequence[T]) -> Mapping[T, int]:
         A mapping from each item in ``values`` to its index in the sequence.
 
     See Also:
-        :func:`inverse_index_map_all`, if ``values`` may contain duplicates.
+        :func:`inverse_index_map_all`
+            For when ``values`` may contain duplicates.
     """
     inverse_map: Dict[T, int] = {}
     for i, value in enumerate(values):
@@ -165,7 +166,8 @@ def inverse_index_map_all(values: Sequence[T]) -> Mapping[T, Sequence[int]]:
         indices in ``values`` at which it appears.
 
     See Also:
-        :func:`inverse_index_map`, if ``values`` contains no duplicates.
+        :func:`inverse_index_map`
+            For when ``values`` contains no duplicates.
     """
     inverse_map: Dict[T, List[int]] = collections.defaultdict(list)
     for i, value in enumerate(values):

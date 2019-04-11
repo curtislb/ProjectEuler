@@ -68,8 +68,8 @@ def choose(n: int, k: int) -> int:
         equivalently, the binomial coefficient ``n C k``.
 
     See Also:
-        :func:`permute`, for when the order in which objects are chosen
-        matters.
+        :func:`permute`
+            For when the order in which objects are chosen matters.
     """
     return permute(n, k) // factorial(k)
 
@@ -132,8 +132,8 @@ def permute(n: int, k: int) -> int:
         from a group of size ``n``, assuming all ``n`` objects are unique.
 
     See Also:
-        :func:`choose`, for when the order in which objects are chosen doesn't
-        matter.
+        :func:`choose`
+            For when the order in which objects are chosen doesn't matter.
     """
 
     # no possible permutations if k > n
