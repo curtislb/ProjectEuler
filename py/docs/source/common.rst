@@ -11,3 +11,4 @@ Common Libraries
    common/combinatorics
    common/digits
    common/divisors
+   common/expansion

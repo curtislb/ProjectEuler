@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-"""expansion.py
+"""Common library for producing expanded representations of real numbers.
 
-Functions for producing expanded representations of real numbers.
+This module provides functions for expanding (possibly irrational) numbers to
+arbitrary precision. This can mean finding additional digits after the decimal
+point or terms in the continued fraction expansion of a number.
 """
-
-__author__ = 'Curtis Belmonte'
 
 import math
 from typing import Sequence, Tuple
@@ -14,9 +14,15 @@ import common.divisors as divs
 
 
 def sqrt_decimal_expansion(n: int, precision: int) -> str:
-    """Returns the square root of the natural number n to arbitrary precision.
+    """Finds the square root of a number to arbitrary decimal precision.
 
-    The result is a string with precision digits following the decimal point.
+    Args:
+        n: A positive integer value.
+        precision: The desired number of digits following the decimal point.
+
+    Returns:
+        A string representation of ``sqrt(n)`` in base 10 that includes the
+        first ``precision`` digits after the decimal point.
     """
 
     # break n into two-digit chunks
@@ -69,13 +75,22 @@ def sqrt_decimal_expansion(n: int, precision: int) -> str:
 
 
 def sqrt_fraction_expansion(n: int) -> Tuple[int, Sequence[int]]:
-    """Finds terms of the continued fraction expansion of the square root of n.
+    """Finds terms in the continued fraction expansion of a square root.
 
-    In order for a continued fraction expansion to exist, n must be a natural
-    number that is not a perfect square.
+    Args:
+        n: A positive integer that is not a perfect square.
 
-    The result is a tuple in the format (a0, a1..ar), where a0 is the first term
-    in the expansion and the sequence of terms a1..ar repeats indefinitely.
+    Returns:
+        A tuple of the form ``(a0, [a1, a2, ..., ar])``, where ``a0`` is the
+        first term in the continued fraction expansion of ``sqrt(n)`` and the
+        sequence of terms from ``a1`` to ``ar`` repeats indefinitely in the
+        expansion. That is::
+
+            sqrt(n) = a0 + 1/(a1 + 1/(a2 + ... 1/(ar + 1/(a1 + 1/(a2 + ...)))))
+
+    Warnings:
+        If ``n`` is a perfect square, no continued fraction expansion exists
+        for ``sqrt(n)``, and the behavior of this function is undefined.
     """
 
     # perform the first expansion step
