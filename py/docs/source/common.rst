@@ -13,3 +13,4 @@ Common Libraries
    common/divisors
    common/expansion
    common/fileio
+   common/games
