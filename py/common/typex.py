@@ -11,6 +11,7 @@ from abc import ABCMeta, abstractmethod
 from fractions import Fraction
 from typing import (
     Any,
+    List,
     Tuple,
     TypeVar,
     Union,
@@ -22,6 +23,9 @@ T_co = TypeVar('T_co', covariant=True)
 
 # Type representing a coordinate in a two-dimensional matrix
 Coord = Tuple[int, int]
+
+# Type representing a two-dimensional matrix
+Matrix = List[List[T]]
 
 # Type representing a real (as opposed to complex) number
 Real = Union[float, Fraction]

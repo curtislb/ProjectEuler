@@ -1,44 +1,56 @@
 #!/usr/bin/env python3
 
-"""matrices.py
+"""Common library for working with numerical vectors and matrices.
 
-Functions for operating on numerical vectors and matrices.
+This module provides functions for operating one-dimensional sequences
+(vectors) and two-dimensional collections (matrices) of numbers. Examples
+include calculating dot and cross products and finding the optimal assignment
+in a cost matrix.
 """
-
-__author__ = 'Curtis Belmonte'
 
 import copy
 from typing import Iterable, List, Optional, Sequence, Tuple
 
-from common.typex import Coord, T
+from common.typex import Coord, Matrix, T
 
 
-def _try_assign_zeros(matrix: List[List[int]]) -> Sequence[Coord]:
-    """Finds as many zeros in matrix as possible with distinct rows and columns.
+def _try_assign_zeros(matrix: Matrix[int]) -> Sequence[Coord]:
+    """Finds the most zeros possible in distinct rows and columns of a matrix.
 
-    The result is a sequence of all unambiguous (row, col) assignments for zero
-    values in matrix, such that no row or col value is repeated.
+    Args:
+        matrix: A two-dimensional integer matrix.
+
+    Returns:
+        A sequence of integer tuples, each representing the row and column of a
+        zero value in ``matrix``, no two of which share the same row or column.
     """
-
     # convert matrix to bipartite graph, with zeros indicating edges
     edge_matrix = [[value == 0 for value in row] for row in matrix]
     return max_bipartite_matching(edge_matrix)
 
-
 def _try_bipartite_match(
-        edge_matrix: List[List[bool]],
-        row: int,
-        col_marked: List[bool],
-        col_assignments: List[int]) -> bool:
+    edge_matrix: Matrix[bool],
+    row: int,
+    col_marked: List[bool],
+    col_assignments: List[int],
+) -> bool:
+    """Tries to assign a free column to a matrix row, reassigning as necessary.
 
-    """Attempts to match the given row to a column in edge_matrix.
+    Args:
+        edge_matrix: A boolean matrix indicating edges between rows and
+            columns. In order for column ``j`` to be assigned to row ``i``,
+            ``edge_matrix[i][j]`` must be ``True``.
+        row: Index of the row to be assigned a free column.
+        col_marked: Aist of columns pending assignment in the current recursive
+            call stack.
+        col_assignments: An integer list of length ``len(edge_matrix[0])``,
+            where the value at each index ``i`` is the index of the column
+            assigned to row ``i``, or -1 if row ``i`` has no assigned column.
 
-    edge_matrix: A boolean matrix indicating edges between rows and columns
-    row: Index of the row to attempt to match with a free column
-    col_marked: List of marked, or visited, columns for this row
-    col_assignments: List of current row assignments for each column, if any
-
-    Returns True if row was successfully matched, or False otherwise.
+    Returns:
+        ``True`` if ``row`` was successfully assigned a free column, possibly
+        by reassigning columns to other rows in ``col_assignments``, or
+        ``False`` otherwise.
     """
 
     # try to match row to each column
@@ -49,11 +61,15 @@ def _try_bipartite_match(
             col_marked[j] = True
 
             # check if column is unmatched or can be re-matched with new row
-            if col_assignments[j] == -1 or _try_bipartite_match(
+            if (
+                col_assignments[j] == -1 or
+                _try_bipartite_match(
                     edge_matrix,
                     col_assignments[j],
                     col_marked,
-                    col_assignments):
+                    col_assignments,
+                )
+            ):
                 col_assignments[j] = row
                 return True
 
@@ -62,10 +78,19 @@ def _try_bipartite_match(
 
 
 def cross_product_3d(
-        p1: Sequence[float],
-        p2: Sequence[float]) -> Tuple[float, float, float]:
+    p1: Sequence[float],
+    p2: Sequence[float],
+) -> Tuple[float, float, float]:
+    """Returns the cross product of two 3-dimensional points.
 
-    """Returns the cross product p1 x p2 of 3-dimensional points p1 and p2."""
+    Args:
+        p1: A sequence of length 3, representing the coordinates of a 3D point.
+        p2: A second sequence of length 3, representing another 3D point.
+
+    Returns:
+        A tuple of three numbers, representing the cross product ``p1 x p2`` of
+        the two original points.
+    """
 
     # compute determinant of cross product matrix
     prod_i = (p1[1] * p2[2]) - (p1[2] * p2[1])
@@ -80,26 +105,46 @@ def dot_product(u: Iterable[float], v: Iterable[float]) -> float:
     return sum(i * j for i, j in zip(u, v))
 
 
-def flatten_matrix(matrix: List[List[T]]) -> Sequence[T]:
-    """Returns a sequence of the elements in matrix in row-major order."""
+def flatten_matrix(matrix: Matrix[T]) -> Sequence[T]:
+    """Builds a sequence from the elements of a matrix, in row-major order.
+
+    Args:
+        matrix: A two-dimensional matrix of values.
+
+    Returns:
+        A one-dimensional sequence of values taken from ``matrix``.
+        Specifically, if ``matrix`` has ``n`` rows and ``m`` columns, the
+        resulting sequence will have the form::
+
+            [
+                matrix[0][0], matrix[0][1], ..., matrix[0][m - 1],
+                matrix[1][0], matrix[1][1], ..., matrix[1][m - 1],
+                ...,
+                matrix[n - 1][0], matrix[n - 1][1], ..., matrix[n - 1][m - 1]
+            ]
+    """
     flat_matrix: List[T] = []
     for row in matrix:
         for value in row:
             flat_matrix.append(value)
-
     return flat_matrix
 
 
 def make_spiral(
-        layers: int,
-        _matrix: Optional[List[List[int]]] = None,
-        _depth: int = 0) -> List[List[int]]:
+    layers: int,
+    _matrix: Optional[Matrix[int]] = None,
+    _depth: int = 0
+) -> Matrix[int]:
+    """Constructs an integer spiral with a given number of layers.
 
-    """Returns an integer spiral with the given number of layers.
+    Args:
+        layers: A positive integer number of layers.
 
-    The spiral is formed by starting with 1 in the center and moving to the
-    right in a clockwise direction, incrementing the value of each subsequent
-    space by 1.
+    Returns:
+        A spiral matrix formed by starting with 1 in the center and moving to
+        the right in a clockwise direction, incrementing the value of each
+        subsequent space by 1. The resulting matrix will have
+        ``layers * 2 - 1`` rows and columns.
     """
 
     # compute the dimension of one side of the spiral
@@ -140,15 +185,19 @@ def make_spiral(
     return make_spiral(layers - 1, _matrix, _depth + 1)
 
 
-def max_bipartite_matching(edge_matrix: List[List[bool]]) -> Sequence[Coord]:
-    """Returns the list of edges in the maximum matching of a bipartite graph.
+def max_bipartite_matching(edge_matrix: Matrix[bool]) -> Sequence[Coord]:
+    """Finds the edges in the maximum matching of a bipartite graph.
 
-    The argument edge_matrix is a boolean matrix mapping vertices in partition
-    V to those in partition U, such that edge_matrix[u][v] = True iff there
-    exists an edge between u and v, where u is the index of a vertex in U and v
-    is the index of a vertex in V.
+    Args:
+        edge_matrix: A boolean matrix mapping vertices in partition ``V`` to
+        those in partition ``U``. ``edge_matrix[u][v]`` must be ``True`` if and
+        only if there is an edge between ``u`` and ``v``, where ``u`` is the
+        index of a vertex in ``U`` and ``v`` is the index of a vertex in ``V``.
 
-    Edges are returned in the format (u, v), with u and v defined as above.
+    Returns:
+        A sequence of matrix coordinates in the maximum matching of the
+        bipartite graph ``U + V``. Each coordinate is of the form ``(u, v)``,
+        with ``u`` and ``v`` defined as above.
     """
 
     n = len(edge_matrix)  # number of rows
@@ -164,7 +213,7 @@ def max_bipartite_matching(edge_matrix: List[List[bool]]) -> Sequence[Coord]:
     return [(i, j) for j, i in enumerate(col_assignments) if i != -1]
 
 
-def minimum_line_cover(matrix: List[List[int]]) -> Sequence[Tuple[bool, int]]:
+def minimum_line_cover(matrix: Matrix[int]) -> Sequence[Tuple[bool, int]]:
     """Returns a list of the fewest lines needed to cover all zeros in matrix.
 
     Lines are given in the format (is_vertical, i), where is_vertical is a
@@ -225,7 +274,7 @@ def minimum_line_cover(matrix: List[List[int]]) -> Sequence[Tuple[bool, int]]:
     return lines
 
 
-def optimal_assignment(cost_matrix: List[List[int]]) -> Sequence[Coord]:
+def optimal_assignment(cost_matrix: Matrix[int]) -> Sequence[Coord]:
     """Assigns each row to a column of the square matrix cost_matrix so that
     the sum of the cost values in the assigned positions is minimized.
 

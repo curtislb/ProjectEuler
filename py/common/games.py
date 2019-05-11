@@ -341,7 +341,7 @@ class GameBoard(object):
         rule: MoveRule,
         position: int,
         space_list: SpaceList,
-        space_map: SpaceMap
+        space_map: SpaceMap,
     ) -> int:
         """Determines where a player should move after applying a move rule.
 

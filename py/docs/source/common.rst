@@ -14,3 +14,4 @@ Common Libraries
    common/expansion
    common/fileio
    common/games
+   common/matrices
